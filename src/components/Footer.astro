@@ -1,9 +1,11 @@
 ---
+// Подвал намеренно короткий: телефоны, почта и мессенджеры уже стоят
+// в блоке контактов прямо над ним — на каждой странице. Дублировать
+// их ещё раз значит удлинять страницу без пользы.
 import { defaultLocale, type Locale } from '../i18n/config';
 import { useUI } from '../i18n/ui';
 import { getSettings } from '../lib/content';
 import { href } from '../lib/url';
-import MessengerLinks from './MessengerLinks.astro';
 
 interface Props {
   locale?: Locale;
@@ -43,37 +45,23 @@ const year = new Date().getFullYear();
       </nav>
 
       <div class="site-footer__col">
-        <h2 class="site-footer__heading">{t.phone}</h2>
+        <h2 class="site-footer__heading">{t.offices}</h2>
         <ul class="site-footer__list">
           {
-            settings.phones.map((phone) => (
+            settings.offices.map((office) => (
               <li>
-                <a class="site-footer__link" href={`tel:${phone.tel}`}>
-                  {phone.display}
-                </a>
-                <span class="site-footer__note">{phone.label}</span>
+                <span class="site-footer__city">{office.city}</span>
+                <span class="site-footer__note">{office.address}</span>
               </li>
             ))
           }
-          <li>
-            <a class="site-footer__link" href={`mailto:${settings.email}`}>
-              {settings.email}
-            </a>
-          </li>
         </ul>
-      </div>
-
-      <div class="site-footer__col">
-        <h2 class="site-footer__heading">{t.messengers}</h2>
-        <MessengerLinks locale={locale} variant="outline" />
       </div>
     </div>
 
     <div class="site-footer__bottom">
       <p>© {year} {settings.company.name}. {t.copyright}.</p>
-      <ul class="site-footer__offices">
-        {settings.offices.map((office) => <li>{office.city}</li>)}
-      </ul>
+      <a class="site-footer__link" href={`mailto:${settings.email}`}>{settings.email}</a>
     </div>
   </div>
 </footer>
@@ -83,17 +71,19 @@ const year = new Date().getFullYear();
     margin-top: auto;
     background: var(--ink);
     color: var(--on-dark-muted);
-    padding-block: var(--space-8) var(--space-6);
+    /* тонкая линия отделяет подвал от тёмного блока контактов над ним */
+    border-top: 1px solid rgba(241, 236, 227, 0.12);
+    padding-block: var(--space-7) var(--space-5);
     font-size: var(--text-sm);
   }
 
   .site-footer__grid {
     display: grid;
-    gap: var(--space-7) var(--space-6);
+    gap: var(--space-6);
   }
 
   .site-footer__tagline {
-    margin-top: var(--space-4);
+    margin-top: var(--space-3);
     max-width: 22rem;
     color: var(--on-dark-muted);
   }
@@ -147,6 +137,11 @@ const year = new Date().getFullYear();
     color: var(--on-dark);
   }
 
+  .site-footer__city {
+    display: block;
+    color: var(--on-dark);
+  }
+
   .site-footer__note {
     display: block;
     font-size: var(--text-xs);
@@ -154,7 +149,7 @@ const year = new Date().getFullYear();
   }
 
   .site-footer__bottom {
-    margin-top: var(--space-8);
+    margin-top: var(--space-7);
     padding-top: var(--space-5);
     border-top: 1px solid rgba(241, 236, 227, 0.12);
     display: flex;
@@ -164,23 +159,9 @@ const year = new Date().getFullYear();
     font-size: var(--text-xs);
   }
 
-  .site-footer__offices {
-    display: flex;
-    gap: var(--space-4);
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
   @media (min-width: 40rem) {
     .site-footer__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 62rem) {
-    .site-footer__grid {
-      grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+      grid-template-columns: 1.6fr 1fr 1fr;
       gap: var(--space-6);
     }
   }

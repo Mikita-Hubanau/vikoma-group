@@ -47,12 +47,10 @@ const isCurrent = (path: string) => href(path, locale).replace(/\/+$/, '') === c
 </header>
 
 <style>
+  /* На телефоне шапка обычная и уезжает вверх при прокрутке:
+     закреплённая в две строки съедала бы четверть экрана. */
   .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: color-mix(in srgb, var(--paper) 92%, transparent);
-    backdrop-filter: saturate(180%) blur(10px);
+    background: var(--paper);
     border-bottom: 1px solid var(--line);
   }
 
@@ -141,6 +139,16 @@ const isCurrent = (path: string) => href(path, locale).replace(/\/+$/, '') === c
 
   /* ── Начиная с планшета всё выстраивается в одну строку ──── */
   @media (min-width: 62rem) {
+    /* В одну строку шапка занимает мало места — можно закрепить,
+       чтобы кнопка «Обсудить проект» всегда была под рукой. */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: color-mix(in srgb, var(--paper) 92%, transparent);
+      backdrop-filter: saturate(180%) blur(10px);
+    }
+
     .site-header__inner {
       grid-template-columns: auto 1fr auto;
       padding-block: var(--space-4);

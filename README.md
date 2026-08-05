@@ -1,43 +1,46 @@
-# Astro Starter Kit: Minimal
+# Vikoma Group — сайт-визитка
+
+Статический сайт на Astro. Все страницы собираются заранее в обычный HTML,
+поэтому сайт быстро открывается и его можно положить на любой хостинг —
+достаточно скопировать папку с файлами.
+
+## Где что лежит
+
+```
+site.config.mjs              ← домен сайта. Меняется только здесь
+
+src/content/ru/              ← ВСЕ ТЕКСТЫ САЙТА
+  settings.json                общие: телефоны, почта, мессенджеры, офисы, реквизиты
+  pages/home.json              главная
+  pages/services.json          шапка страницы «Услуги»
+  pages/industries.json        шапка страницы «Отрасли»
+  pages/about.json             «О компании»
+  pages/contacts.json          «Контакты»
+  services/*.md                услуги — по файлу на каждую
+  industries/*.md              отрасли — по файлу на каждую
+
+src/pages/                   ← адреса страниц (index, uslugi, otrasli, ...)
+src/components/              ← блоки: шапка, подвал, контакты
+src/layouts/                 ← общая обёртка страниц
+src/styles/global.css        ← цвета, шрифты, отступы — весь внешний вид
+src/i18n/                    ← надписи интерфейса и список языков
+```
+
+Тексты отделены от вёрстки специально: их правит человек, вёрстку — разработчик.
+Позже вместо ручной правки файлов подключится CMS — панель с полями в браузере.
+
+## Языки
+
+Сейчас сайт только на русском. Структура заложена под второй язык:
+тексты лежат в папке `ru/`, рядом появится `it/`. Ссылки внутри сайта
+собираются через `src/lib/url.ts`, поэтому префикс `/it/` добавится сам.
+
+## Как запустить у себя
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install       # один раз — скачать всё необходимое
+npm run dev       # запустить сайт локально: http://localhost:4321
+npm run build     # собрать готовые файлы в папку dist/
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Нужен Node.js версии 22 или новее.
