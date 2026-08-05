@@ -1,0 +1,74 @@
+---
+// Общая «обёртка» всех страниц: голова документа, шапка, подвал.
+// Каждая страница передаёт сюда свой заголовок и описание для поисковиков.
+import '@fontsource-variable/inter';
+import '@fontsource-variable/source-serif-4';
+import '../styles/global.css';
+
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { defaultLocale, htmlLang, type Locale } from '../i18n/config';
+import { getSettings } from '../lib/content';
+import { asset } from '../lib/url';
+
+interface Props {
+  /** Заголовок вкладки и результата в поиске */
+  title: string;
+  /** Описание для поисковиков и превью в мессенджерах */
+  description: string;
+  /** Картинка превью, если для страницы задана своя */
+  ogImage?: string;
+  locale?: Locale;
+}
+
+const { title, description, ogImage, locale = defaultLocale } = Astro.props;
+
+const settings = await getSettings(locale);
+
+// Полный адрес текущей страницы — нужен поисковикам и соцсетям
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
+const ogImageUrl = ogImage
+  ? new URL(ogImage, Astro.site ?? Astro.url).toString()
+  : undefined;
+---
+
+<!doctype html>
+<html lang={htmlLang[locale]}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Превью при отправке ссылки в мессенджер или соцсеть -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={settings.company.name} />
+    <meta property="og:locale" content={htmlLang[locale].replace('-', '_')} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+
+    <meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
+
+    <link rel="icon" href={asset('/favicon.svg')} type="image/svg+xml" />
+    <link rel="sitemap" href={asset('/sitemap-index.xml')} />
+
+    <meta name="theme-color" content="#101820" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Перейти к содержимому</a>
+    <Header locale={locale} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>

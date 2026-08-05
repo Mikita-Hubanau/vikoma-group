@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+import { defaultLocale } from '../i18n/config';
+import { getLocalizedEntry } from '../lib/content';
+import { href } from '../lib/url';
+
+const locale = defaultLocale;
+const { data: page } = await getLocalizedEntry('homePage', 'pages/home', locale);
+---
+
+<BaseLayout title={page.seo.title} description={page.seo.description} locale={locale}>
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero__title">{page.hero.title}</h1>
+      <p class="hero__lead">{page.hero.lead}</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href={href(page.hero.cta.href, locale)}>
+          {page.hero.cta.label}
+        </a>
+        <a class="btn btn--ghost" href={href('/uslugi/', locale)}>Что мы делаем</a>
+      </div>
+    </div>
+  </section>
+
+  <ContactBlock locale={locale} />
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: clamp(3.5rem, 2rem + 8vw, 9rem) clamp(3rem, 2rem + 6vw, 7rem);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hero__title {
+    max-width: 18ch;
+  }
+
+  .hero__lead {
+    margin-top: var(--space-6);
+    max-width: var(--measure);
+    font-size: var(--text-md);
+    line-height: 1.6;
+    color: var(--body);
+  }
+
+  .hero__actions {
+    margin-top: var(--space-7);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+</style>

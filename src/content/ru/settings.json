@@ -1,0 +1,56 @@
+{
+  "company": {
+    "name": "Vikoma Group",
+    "tagline": "Итальянский бизнес на белорусском рынке"
+  },
+  "phones": [
+    {
+      "label": "Беларусь",
+      "display": "+375 29 000-00-00",
+      "tel": "+375290000000"
+    },
+    {
+      "label": "Италия",
+      "display": "+39 000 000 0000",
+      "tel": "+390000000000"
+    }
+  ],
+  "email": "info@vikoma.by",
+  "messengers": [
+    {
+      "type": "telegram",
+      "label": "Telegram",
+      "href": "https://t.me/vikoma"
+    },
+    {
+      "type": "whatsapp",
+      "label": "WhatsApp",
+      "href": "https://wa.me/375290000000"
+    },
+    {
+      "type": "viber",
+      "label": "Viber",
+      "href": "viber://chat?number=%2B375290000000"
+    }
+  ],
+  "offices": [
+    {
+      "city": "Минск",
+      "address": "Адрес уточняется",
+      "note": "Беларусь"
+    },
+    {
+      "city": "Милан",
+      "address": "Адрес уточняется",
+      "note": "Италия"
+    }
+  ],
+  "legal": [
+    { "label": "Полное наименование", "value": "ООО «Викома Групп»" },
+    { "label": "УНП", "value": "000000000" },
+    { "label": "Юридический адрес", "value": "Уточняется" },
+    { "label": "Расчётный счёт", "value": "BY00 XXXX 0000 0000 0000 0000 0000" },
+    { "label": "Банк", "value": "Уточняется" },
+    { "label": "БИК", "value": "Уточняется" }
+  ]
+}

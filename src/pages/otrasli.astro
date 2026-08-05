@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+import { defaultLocale } from '../i18n/config';
+import { getLocalizedEntry } from '../lib/content';
+
+const locale = defaultLocale;
+const { data: page } = await getLocalizedEntry('industriesPage', 'pages/industries', locale);
+---
+
+<BaseLayout title={page.seo.title} description={page.seo.description} locale={locale}>
+  <PageHeader title={page.title} lead={page.lead} />
+
+  <section class="section">
+    <div class="container">
+      <p class="stub">Раздел собирается на следующем этапе.</p>
+    </div>
+  </section>
+
+  <ContactBlock locale={locale} />
+</BaseLayout>
+
+<style>
+  .stub {
+    color: var(--muted);
+    font-size: var(--text-sm);
+  }
+</style>

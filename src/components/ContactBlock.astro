@@ -1,0 +1,105 @@
+---
+// Финальный блок с контактами. Стоит в конце каждой страницы —
+// чтобы желание написать не упиралось в поиск способа связи.
+import { defaultLocale, type Locale } from '../i18n/config';
+import { useUI } from '../i18n/ui';
+import { getSettings } from '../lib/content';
+import MessengerLinks from './MessengerLinks.astro';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = defaultLocale } = Astro.props;
+const t = useUI(locale);
+const settings = await getSettings(locale);
+---
+
+<section class="section section--dark contact-block">
+  <div class="container contact-block__inner">
+    <div class="contact-block__text">
+      <p class="eyebrow">{t.writeUs}</p>
+      <h2>{t.contactTitle}</h2>
+      <p class="lead">{t.contactLead}</p>
+    </div>
+
+    <div class="contact-block__actions">
+      <MessengerLinks locale={locale} variant="outline" />
+
+      <ul class="contact-block__direct">
+        {
+          settings.phones.map((phone) => (
+            <li>
+              <a class="contact-block__value" href={`tel:${phone.tel}`}>
+                {phone.display}
+              </a>
+              <span class="contact-block__label">{phone.label}</span>
+            </li>
+          ))
+        }
+        <li>
+          <a class="contact-block__value" href={`mailto:${settings.email}`}>
+            {settings.email}
+          </a>
+          <span class="contact-block__label">{t.email}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-block__inner {
+    display: grid;
+    gap: var(--space-7);
+  }
+
+  .contact-block__actions {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .contact-block__direct {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .contact-block__value {
+    display: inline-block;
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    color: var(--on-dark);
+    line-height: 1.2;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--transition);
+  }
+
+  .contact-block__value:hover {
+    border-bottom-color: var(--on-dark);
+  }
+
+  .contact-block__label {
+    display: block;
+    margin-top: var(--space-1);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--on-dark-muted);
+  }
+
+  @media (min-width: 52rem) {
+    .contact-block__inner {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+      align-items: start;
+    }
+
+    .contact-block__direct {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-5);
+    }
+  }
+</style>

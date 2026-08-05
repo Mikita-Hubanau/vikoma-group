@@ -1,0 +1,31 @@
+---
+// Шапка внутренней страницы: заголовок и вводный абзац.
+interface Props {
+  title: string;
+  lead?: string;
+}
+
+const { title, lead } = Astro.props;
+---
+
+<section class="page-header">
+  <div class="container">
+    <h1>{title}</h1>
+    {lead && <p class="lead page-header__lead">{lead}</p>}
+  </div>
+</section>
+
+<style>
+  .page-header {
+    padding-block: clamp(2.75rem, 1.8rem + 5vw, 6rem) clamp(2rem, 1.5rem + 3vw, 3.5rem);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .page-header h1 {
+    max-width: 16ch;
+  }
+
+  .page-header__lead {
+    margin-top: var(--space-5);
+  }
+</style>
