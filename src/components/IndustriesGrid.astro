@@ -1,0 +1,96 @@
+---
+// Плитка отраслей.
+// На телефоне — лента с «подглядыванием» следующей карточки: сразу видно,
+// что список листается вбок. Прокрутка липкая, останавливается на карточке.
+// На компьютере — обычная сетка.
+import type { Locale } from '../i18n/config';
+import IndustryCard from './IndustryCard.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  locale: Locale;
+  items: CollectionEntry<'industries'>[];
+  /** На главной — лента, на странице «Отрасли» — всегда сетка */
+  layout?: 'scroller' | 'grid';
+}
+
+const { locale, items, layout = 'scroller' } = Astro.props;
+---
+
+<ul class:list={['industries', `industries--${layout}`, 'stagger']}>
+  {
+    items.map((item) => (
+      <li class="industries__item">
+        <IndustryCard
+          locale={locale}
+          title={item.data.title}
+          summary={item.data.summary}
+          image={item.data.image}
+          imageHint={item.data.imageHint}
+        />
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .industries {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* ── Лента на телефоне ───────────────────────────────────── */
+  .industries--scroller {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 76%;
+    gap: var(--space-5);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    /* лента идёт от края до края экрана, а не внутри колонки */
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    padding-bottom: var(--space-2);
+    /* без этого браузер «прилипает» к краю экрана и срезает
+       левое поле первой карточки */
+    scroll-padding-inline: var(--gutter);
+  }
+
+  .industries--scroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  .industries--scroller .industries__item {
+    scroll-snap-align: start;
+  }
+
+  /* ── Сетка ───────────────────────────────────────────────── */
+  .industries--grid {
+    display: grid;
+    gap: var(--space-6) var(--space-5);
+  }
+
+  @media (min-width: 40rem) {
+    .industries--grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 56rem) {
+    .industries--scroller {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-7) var(--space-5);
+      overflow: visible;
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+
+    .industries--grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-7) var(--space-5);
+    }
+  }
+</style>

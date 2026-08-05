@@ -15,15 +15,15 @@ const t = useUI(locale);
 const settings = await getSettings(locale);
 ---
 
-<section class="section section--dark contact-block">
+<section class="section section--dark grain contact-block">
   <div class="container contact-block__inner">
-    <div class="contact-block__text">
+    <div class="contact-block__text reveal">
       <p class="eyebrow">{t.writeUs}</p>
       <h2>{t.contactTitle}</h2>
       <p class="lead">{t.contactLead}</p>
     </div>
 
-    <div class="contact-block__actions">
+    <div class="contact-block__actions reveal">
       <MessengerLinks locale={locale} variant="outline" />
 
       <ul class="contact-block__direct">

@@ -6,6 +6,7 @@ import { defaultLocale, type Locale } from '../i18n/config';
 import { useUI } from '../i18n/ui';
 import { getSettings } from '../lib/content';
 import { href } from '../lib/url';
+import { navOrder, type RouteKey } from '../i18n/routes';
 
 interface Props {
   locale?: Locale;
@@ -21,22 +22,24 @@ const year = new Date().getFullYear();
   <div class="container">
     <div class="site-footer__grid">
       <div class="site-footer__brand">
-        <a class="logo" href={href('/', locale)}>
+        <a class="logo" href={href('home', locale)}>
           <span class="logo__name">Vikoma</span>
           <span class="logo__sub">Group</span>
         </a>
         <p class="site-footer__tagline">{settings.company.tagline}</p>
       </div>
 
-      <nav class="site-footer__col" aria-label="Разделы сайта">
-        <h2 class="site-footer__heading">Разделы</h2>
+      <nav class="site-footer__col" aria-label={t.sections}>
+        <h2 class="site-footer__heading">{t.sections}</h2>
         <ul class="site-footer__list">
-          <li><a class="site-footer__link" href={href('/', locale)}>{t.home}</a></li>
+          <li>
+            <a class="site-footer__link" href={href('home', locale)}>{t.nav.home}</a>
+          </li>
           {
-            t.nav.map((item) => (
+            navOrder.map((key: RouteKey) => (
               <li>
-                <a class="site-footer__link" href={href(item.path, locale)}>
-                  {item.label}
+                <a class="site-footer__link" href={href(key, locale)}>
+                  {t.nav[key]}
                 </a>
               </li>
             ))
@@ -69,7 +72,7 @@ const year = new Date().getFullYear();
 <style>
   .site-footer {
     margin-top: auto;
-    background: var(--ink);
+    background: var(--ink-deep);
     color: var(--on-dark-muted);
     /* тонкая линия отделяет подвал от тёмного блока контактов над ним */
     border-top: 1px solid rgba(241, 236, 227, 0.12);

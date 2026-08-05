@@ -1,0 +1,109 @@
+---
+// «Что мы делаем» — три направления.
+// Не карточки в рамках, а ячейки, разделённые тонкими линиями:
+// так спокойнее и больше похоже на европейский корпоративный стиль.
+import SectionHead from './SectionHead.astro';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  cards: { title: string; text: string }[];
+}
+
+const { eyebrow, title, cards } = Astro.props;
+---
+
+<section class="section">
+  <div class="container">
+    <SectionHead eyebrow={eyebrow} title={title} />
+
+    <ul class="cards stagger">
+      {
+        cards.map((card, i) => (
+          <li class="card">
+            <span class="card__num">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="card__title">{card.title}</h3>
+            <p class="card__text">{card.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .cards {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .card {
+    position: relative;
+    padding-block: var(--space-6);
+    border-bottom: 1px solid var(--line);
+    transition: background-color 300ms var(--ease-out);
+  }
+
+  /* акцентная линия, прочерчивающаяся сверху при наведении */
+  .card::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 420ms var(--ease-out);
+  }
+
+  .card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .card__num {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: var(--text-sm);
+    color: var(--line-strong);
+    letter-spacing: 0.08em;
+    margin-bottom: var(--space-4);
+    transition: color 300ms var(--ease-out);
+  }
+
+  .card:hover .card__num {
+    color: var(--accent);
+  }
+
+  .card__title {
+    margin-bottom: var(--space-3);
+  }
+
+  .card__text {
+    color: var(--body);
+    max-width: 34ch;
+  }
+
+  @media (min-width: 48rem) {
+    .cards {
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: var(--space-6);
+    }
+
+    .card {
+      padding-block: var(--space-6) var(--space-8);
+    }
+
+    /* вертикальные линии ровно посередине промежутка между колонками */
+    .card + .card {
+      padding-left: calc(var(--space-6) / 2);
+      margin-left: calc(var(--space-6) / -2);
+      border-left: 1px solid var(--line);
+    }
+  }
+</style>

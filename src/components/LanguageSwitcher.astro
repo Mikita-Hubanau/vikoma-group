@@ -1,0 +1,61 @@
+---
+// Переключатель языков.
+// Пока включён только русский — блок не выводится вовсе.
+// Как только в src/i18n/config.ts появится 'it' или 'en',
+// переключатель включится сам.
+import { enabledLocales, localeName, type Locale } from '../i18n/config';
+import { useUI } from '../i18n/ui';
+import { href } from '../lib/url';
+import type { RouteKey } from '../i18n/routes';
+
+interface Props {
+  locale: Locale;
+  /** Какая страница открыта — чтобы переключение вело на неё же */
+  page: RouteKey;
+}
+
+const { locale, page } = Astro.props;
+const t = useUI(locale);
+---
+
+{
+  enabledLocales.length > 1 && (
+    <nav class="lang" aria-label={t.language}>
+      {enabledLocales.map((code) => (
+        <a
+          class="lang__item"
+          href={href(page, code)}
+          hreflang={code}
+          aria-current={code === locale ? 'true' : undefined}
+        >
+          {localeName[code]}
+        </a>
+      ))}
+    </nav>
+  )
+}
+
+<style>
+  .lang {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    letter-spacing: 0.06em;
+  }
+
+  .lang__item {
+    padding: 0.4em 0.5em;
+    color: var(--muted);
+    transition: color var(--transition);
+  }
+
+  .lang__item:hover {
+    color: var(--ink);
+  }
+
+  .lang__item[aria-current='true'] {
+    color: var(--ink);
+    font-weight: 600;
+  }
+</style>

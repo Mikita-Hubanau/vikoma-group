@@ -1,23 +1,22 @@
 ---
 import { defaultLocale, type Locale } from '../i18n/config';
 import { useUI } from '../i18n/ui';
+import { navOrder, type RouteKey } from '../i18n/routes';
 import { href } from '../lib/url';
+import LanguageSwitcher from './LanguageSwitcher.astro';
 
 interface Props {
   locale?: Locale;
+  page?: RouteKey;
 }
 
-const { locale = defaultLocale } = Astro.props;
+const { locale = defaultLocale, page = 'home' } = Astro.props;
 const t = useUI(locale);
-
-// Какая страница открыта сейчас — чтобы подсветить пункт меню
-const current = Astro.url.pathname.replace(/\/+$/, '') || '/';
-const isCurrent = (path: string) => href(path, locale).replace(/\/+$/, '') === current;
 ---
 
 <header class="site-header">
   <div class="container site-header__inner">
-    <a class="logo" href={href('/', locale)} aria-label={t.home}>
+    <a class="logo" href={href('home', locale)} aria-label={t.nav.home}>
       <span class="logo__name">Vikoma</span>
       <span class="logo__sub">Group</span>
     </a>
@@ -25,14 +24,14 @@ const isCurrent = (path: string) => href(path, locale).replace(/\/+$/, '') === c
     <nav class="nav" aria-label="Основная навигация">
       <ul class="nav__list">
         {
-          t.nav.map((item) => (
+          navOrder.map((key: RouteKey) => (
             <li>
               <a
                 class="nav__link"
-                href={href(item.path, locale)}
-                aria-current={isCurrent(item.path) ? 'page' : undefined}
+                href={href(key, locale)}
+                aria-current={key === page ? 'page' : undefined}
               >
-                {item.label}
+                {t.nav[key]}
               </a>
             </li>
           ))
@@ -40,9 +39,12 @@ const isCurrent = (path: string) => href(path, locale).replace(/\/+$/, '') === c
       </ul>
     </nav>
 
-    <a class="btn btn--primary site-header__cta" href={href('/kontakty/', locale)}>
-      {t.discussProject}
-    </a>
+    <div class="site-header__right">
+      <LanguageSwitcher locale={locale} page={page} />
+      <a class="btn btn--primary site-header__cta" href={href('contacts', locale)}>
+        {t.discussProject}
+      </a>
+    </div>
   </div>
 </header>
 
@@ -62,6 +64,13 @@ const isCurrent = (path: string) => href(path, locale).replace(/\/+$/, '') === c
     padding-block: var(--space-3);
   }
 
+  .site-header__right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    justify-self: end;
+  }
+
   /* ── Логотип ─────────────────────────────────────────────── */
   .logo {
     display: inline-flex;
@@ -76,6 +85,11 @@ const isCurrent = (path: string) => href(path, locale).replace(/\/+$/, '') === c
     font-weight: 500;
     letter-spacing: -0.015em;
     color: var(--ink);
+    transition: color var(--transition);
+  }
+
+  .logo:hover .logo__name {
+    color: var(--accent);
   }
 
   .logo__sub {
@@ -112,26 +126,43 @@ const isCurrent = (path: string) => href(path, locale).replace(/\/+$/, '') === c
   }
 
   .nav__link {
+    position: relative;
     display: block;
     font-size: var(--text-sm);
     color: var(--body);
     padding-block: var(--space-2);
-    border-bottom: 1px solid transparent;
-    transition: color var(--transition), border-color var(--transition);
+    transition: color var(--transition);
+  }
+
+  /* подчёркивание выезжает из-под пункта при наведении */
+  .nav__link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 260ms var(--ease-out);
   }
 
   .nav__link:hover {
     color: var(--ink);
   }
 
+  .nav__link:hover::after,
+  .nav__link[aria-current='page']::after {
+    transform: scaleX(1);
+  }
+
   .nav__link[aria-current='page'] {
     color: var(--ink);
-    border-bottom-color: var(--accent);
   }
 
   /* ── Кнопка в шапке ──────────────────────────────────────── */
   .site-header__cta {
-    justify-self: end;
     padding: 0.6em 1.1em;
     font-size: var(--text-xs);
     min-height: 38px;

@@ -1,0 +1,128 @@
+---
+// Цифры компании. Числа «набегают» от нуля, когда блок появляется на экране.
+// Считает сам браузер — никакого JavaScript.
+interface Props {
+  eyebrow: string;
+  items: { value: number; suffix?: string; label: string }[];
+}
+
+const { eyebrow, items } = Astro.props;
+---
+
+<section class="section section--tight stats">
+  <div class="container">
+    <p class="eyebrow reveal">{eyebrow}</p>
+
+    <ul class="stats__list stagger">
+      {
+        items.map((item) => (
+          <li class="stat">
+            <span class="stat__value">
+              {/* настоящее значение — для поисковиков и озвучки экрана */}
+              <span class="visually-hidden">
+                {item.value}
+                {item.suffix ?? ''}
+              </span>
+              <span class="stat__num" style={`--target: ${item.value}`} aria-hidden="true" />
+              {item.suffix && (
+                <span class="stat__suffix" aria-hidden="true">
+                  {item.suffix}
+                </span>
+              )}
+            </span>
+            <span class="stat__label">{item.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  /* Регистрируем переменную как целое число — иначе браузер
+     не сможет плавно менять её от нуля до нужного значения. */
+  @property --n {
+    syntax: '<integer>';
+    initial-value: 0;
+    inherits: false;
+  }
+
+  .stats__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-6);
+    border-top: 1px solid var(--line);
+    padding-top: var(--space-6);
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .stat__value {
+    display: flex;
+    align-items: baseline;
+    font-family: var(--font-serif);
+    font-size: var(--text-huge);
+    font-weight: 400;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+  }
+
+  /* Число выводится счётчиком: так его можно анимировать. */
+  .stat__num {
+    --n: var(--target);
+    counter-reset: num var(--n);
+  }
+
+  .stat__num::after {
+    content: counter(num);
+  }
+
+  .stat__suffix {
+    color: var(--accent);
+  }
+
+  .stat__label {
+    font-size: var(--text-sm);
+    color: var(--muted);
+    max-width: 18ch;
+  }
+
+  @keyframes count-up {
+    from {
+      --n: 0;
+    }
+    to {
+      --n: var(--target);
+    }
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .stat__num {
+        animation: count-up linear both;
+        animation-timeline: view();
+        animation-range: entry 15% cover 45%;
+      }
+    }
+  }
+
+  @media (min-width: 40rem) {
+    .stats__list {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-7) var(--space-5);
+    }
+  }
+
+  @media (min-width: 62rem) {
+    .stats__list {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

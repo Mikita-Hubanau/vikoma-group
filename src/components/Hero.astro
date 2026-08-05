@@ -1,0 +1,264 @@
+---
+// Первый экран главной страницы.
+// Заголовок появляется построчно, рядом прочерчивается дуга между
+// двумя точками — это визуальный образ того, чем занимается компания:
+// связывает две стороны. Флагов и карт намеренно нет.
+import type { Locale } from '../i18n/config';
+import type { RouteKey } from '../i18n/routes';
+import { useUI } from '../i18n/ui';
+import { href } from '../lib/url';
+
+interface Props {
+  locale: Locale;
+  eyebrow: string;
+  titleLines: string[];
+  lead: string;
+  cta: { label: string; page: RouteKey };
+  points: { from: string; to: string };
+}
+
+const { locale, eyebrow, titleLines, lead, cta, points } = Astro.props;
+const t = useUI(locale);
+---
+
+<section class="hero">
+  <div class="container hero__inner">
+    <div class="hero__text">
+      <p class="eyebrow enter" style="--delay: 80ms">{eyebrow}</p>
+
+      <h1 class="hero__title">
+        {
+          titleLines.map((line, i) => (
+            <span class="hero__line enter" style={`--delay: ${180 + i * 110}ms`}>
+              {line}
+            </span>
+          ))
+        }
+      </h1>
+
+      <p
+        class="hero__lead enter"
+        style={`--delay: ${240 + titleLines.length * 110}ms`}
+      >
+        {lead}
+      </p>
+
+      <div
+        class="hero__actions enter"
+        style={`--delay: ${340 + titleLines.length * 110}ms`}
+      >
+        <a class="btn btn--primary" href={href(cta.page, locale)}>{cta.label}</a>
+        <a class="btn btn--ghost" href={href('services', locale)}>{t.allServices}</a>
+      </div>
+    </div>
+
+    <div class="hero__figure enter" style="--delay: 420ms">
+      <svg
+        class="arc"
+        viewBox="0 0 420 300"
+        role="img"
+        aria-label={`${points.from} — ${points.to}`}
+      >
+        <!-- дуга, которая прочерчивается при загрузке -->
+        <path
+          class="arc__path"
+          pathLength="1"
+          d="M62 232 C 132 122, 246 62, 358 80"
+          fill="none"
+        />
+
+        <!-- точка, бегущая по дуге -->
+        <circle class="arc__pulse" cx="0" cy="0" r="3.5" />
+
+        <g class="arc__node arc__node--a">
+          <circle class="arc__ring" cx="62" cy="232" r="13" />
+          <circle class="arc__dot" cx="62" cy="232" r="4.5" />
+        </g>
+
+        <g class="arc__node arc__node--b">
+          <circle class="arc__ring" cx="358" cy="80" r="13" />
+          <circle class="arc__dot" cx="358" cy="80" r="4.5" />
+        </g>
+
+        <text class="arc__label" x="62" y="268">{points.from}</text>
+        <text class="arc__label" x="358" y="46" text-anchor="end">{points.to}</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: clamp(3rem, 1.8rem + 7vw, 8rem) clamp(3rem, 2rem + 6vw, 7rem);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+
+  .hero__inner {
+    display: grid;
+    gap: var(--space-8);
+    align-items: center;
+  }
+
+  .hero__title {
+    /* строки заголовка — отдельные блоки, чтобы появляться по очереди */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero__line {
+    display: block;
+  }
+
+  .hero__lead {
+    margin-top: var(--space-6);
+    max-width: var(--measure);
+    font-size: var(--text-md);
+    line-height: 1.6;
+    color: var(--body);
+  }
+
+  .hero__actions {
+    margin-top: var(--space-7);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  /* ── Дуга ────────────────────────────────────────────────── */
+  .hero__figure {
+    max-width: 26rem;
+  }
+
+  .arc {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .arc__path {
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+  }
+
+  .arc__dot {
+    fill: var(--accent);
+  }
+
+  .arc__ring {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1;
+    opacity: 0.3;
+  }
+
+  .arc__pulse {
+    fill: var(--ink);
+    opacity: 0;
+  }
+
+  .arc__label {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    fill: var(--muted);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* линия прочерчивается от Милана к Минску */
+    .arc__path {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: arc-draw 1700ms var(--ease-out) 500ms forwards;
+    }
+
+    /* точки проявляются после того, как линия до них дошла */
+    .arc__node {
+      opacity: 0;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: node-in 600ms var(--ease-out) forwards;
+    }
+
+    .arc__node--a {
+      animation-delay: 560ms;
+    }
+
+    .arc__node--b {
+      animation-delay: 1900ms;
+    }
+
+    .arc__label {
+      opacity: 0;
+      animation: label-in 700ms var(--ease-out) forwards;
+    }
+
+    .arc__label:first-of-type {
+      animation-delay: 700ms;
+    }
+
+    .arc__label:last-of-type {
+      animation-delay: 2050ms;
+    }
+
+    /* и уже потом по маршруту начинает ходить точка */
+    .arc__pulse {
+      offset-path: path('M62 232 C 132 122, 246 62, 358 80');
+      animation: pulse-travel 4.5s cubic-bezier(0.45, 0, 0.55, 1) 2600ms infinite;
+    }
+  }
+
+  @keyframes arc-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes node-in {
+    from {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes label-in {
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes pulse-travel {
+    0% {
+      offset-distance: 0%;
+      opacity: 0;
+    }
+    12% {
+      opacity: 1;
+    }
+    85% {
+      opacity: 1;
+    }
+    100% {
+      offset-distance: 100%;
+      opacity: 0;
+    }
+  }
+
+  @media (min-width: 56rem) {
+    .hero__inner {
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: var(--space-9);
+    }
+
+    .hero__figure {
+      max-width: none;
+    }
+  }
+</style>

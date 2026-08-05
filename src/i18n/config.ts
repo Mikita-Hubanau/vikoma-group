@@ -1,16 +1,34 @@
-// Список языков сайта.
-// Сейчас один. Чтобы добавить итальянский:
-//   1) допишите 'it' сюда и в astro.config.mjs
-//   2) создайте папку src/content/it/ с такими же файлами
-//   3) создайте папку src/pages/it/ со страницами
-export const locales = ['ru'] as const;
+// ─────────────────────────────────────────────────────────────
+//  ЯЗЫКИ САЙТА
+// ─────────────────────────────────────────────────────────────
+
+/** Все языки, под которые готов сайт. */
+export const locales = ['ru', 'it', 'en'] as const;
 
 export type Locale = (typeof locales)[number];
 
-/** Основной язык. Он показывается без префикса в адресе: vikoma.by/uslugi/ */
+/**
+ * Языки, которые сейчас реально показываются посетителям.
+ *
+ * Итальянский и английский включатся, когда будут готовы переводы:
+ * достаточно дописать их сюда и положить тексты в src/content/it/
+ * и src/content/en/. Переключатель языков в шапке появится сам.
+ */
+export const enabledLocales: Locale[] = ['ru'];
+
+/** Основной язык. Показывается без префикса: vikoma.by/uslugi/ */
 export const defaultLocale: Locale = 'ru';
 
 /** Значение для атрибута <html lang="..."> */
 export const htmlLang: Record<Locale, string> = {
   ru: 'ru-RU',
+  it: 'it-IT',
+  en: 'en',
+};
+
+/** Как язык называется в переключателе. */
+export const localeName: Record<Locale, string> = {
+  ru: 'Рус',
+  it: 'Ita',
+  en: 'Eng',
 };

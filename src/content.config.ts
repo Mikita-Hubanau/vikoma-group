@@ -14,10 +14,14 @@ const seo = z.object({
   ogImage: z.string().optional(),
 });
 
-/** Кнопка-ссылка. */
+/**
+ * Кнопка-ссылка.
+ * page — название страницы, а не адрес: адреса разные на разных языках
+ * и заданы в src/i18n/routes.ts.
+ */
 const cta = z.object({
   label: z.string(),
-  href: z.string(),
+  page: z.enum(['home', 'services', 'industries', 'about', 'contacts']),
 });
 
 // ── Общие настройки: контакты, офисы, реквизиты ───────────────
@@ -70,9 +74,13 @@ const homePage = defineCollection({
   schema: z.object({
     seo,
     hero: z.object({
-      title: z.string(),
+      eyebrow: z.string(),
+      /** Заголовок разбит на строки — так задаются переносы в вёрстке */
+      titleLines: z.array(z.string()),
       lead: z.string(),
       cta,
+      /** Подписи у двух точек на дуге */
+      points: z.object({ from: z.string(), to: z.string() }),
     }),
     whatWeDo: z.object({
       eyebrow: z.string(),
@@ -89,6 +97,11 @@ const homePage = defineCollection({
       title: z.string(),
       cta,
     }),
+    /** Короткая фраза-заявление между блоками. */
+    statement: z.object({
+      text: z.string(),
+      note: z.string().optional(),
+    }),
     howWeWork: z.object({
       eyebrow: z.string(),
       title: z.string(),
@@ -100,9 +113,13 @@ const homePage = defineCollection({
       ),
     }),
     stats: z.object({
+      eyebrow: z.string(),
       items: z.array(
         z.object({
-          value: z.string(),
+          /** Число, которое «набегает» при прокрутке: 8, 60, 2, 5 */
+          value: z.number(),
+          /** Приписка после числа, если нужна: «+» */
+          suffix: z.string().optional(),
           label: z.string(),
         }),
       ),

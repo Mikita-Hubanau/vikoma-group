@@ -1,0 +1,131 @@
+---
+// Карточка отрасли. Пока фотографий нет — на их месте заглушка
+// с подсказкой, какой снимок сюда нужен (поле imageHint в файле отрасли).
+import type { Locale } from '../i18n/config';
+import { useUI } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  summary: string;
+  image?: string;
+  imageHint?: string;
+}
+
+const { locale, title, summary, image, imageHint } = Astro.props;
+const t = useUI(locale);
+---
+
+<article class="industry">
+  <div class="industry__media">
+    {
+      image ? (
+        <img src={image} alt={title} loading="lazy" decoding="async" />
+      ) : (
+        <div class="industry__placeholder">
+          <span class="industry__placeholder-label">{t.photoNeeded}</span>
+          {imageHint && <span class="industry__placeholder-hint">{imageHint}</span>}
+        </div>
+      )
+    }
+  </div>
+
+  <h3 class="industry__title">{title}</h3>
+  <p class="industry__summary">{summary}</p>
+</article>
+
+<style>
+  .industry {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .industry__media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--paper-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .industry__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 700ms var(--ease-out);
+  }
+
+  .industry:hover .industry__media img {
+    transform: scale(1.04);
+  }
+
+  /* ── Заглушка вместо фотографии ──────────────────────────── */
+  .industry__placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    /* диагональная штриховка — сразу видно, что это временно */
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 7px,
+      rgba(16, 24, 32, 0.045) 7px,
+      rgba(16, 24, 32, 0.045) 8px
+    );
+    background-size: 200% 200%;
+    transition: background-position 900ms var(--ease-out);
+  }
+
+  .industry:hover .industry__placeholder {
+    background-position: 12% 12%;
+  }
+
+  .industry__placeholder-label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .industry__placeholder-hint {
+    font-size: var(--text-xs);
+    line-height: 1.45;
+    color: var(--muted);
+  }
+
+  /* ── Текст ───────────────────────────────────────────────── */
+  .industry__title {
+    position: relative;
+    display: inline-block;
+    align-self: flex-start;
+    padding-bottom: 0.15em;
+  }
+
+  .industry__title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 380ms var(--ease-out);
+  }
+
+  .industry:hover .industry__title::after {
+    transform: scaleX(1);
+  }
+
+  .industry__summary {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+</style>

@@ -1,53 +1,73 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import WhatWeDo from '../components/WhatWeDo.astro';
+import SectionHead from '../components/SectionHead.astro';
+import IndustriesGrid from '../components/IndustriesGrid.astro';
+import Statement from '../components/Statement.astro';
+import HowWeWork from '../components/HowWeWork.astro';
+import Stats from '../components/Stats.astro';
 import ContactBlock from '../components/ContactBlock.astro';
+import ArrowRight from '../components/ArrowRight.astro';
+
 import { defaultLocale } from '../i18n/config';
-import { getLocalizedEntry } from '../lib/content';
+import { getLocalized, getLocalizedEntry, byOrder } from '../lib/content';
 import { href } from '../lib/url';
 
 const locale = defaultLocale;
 const { data: page } = await getLocalizedEntry('homePage', 'pages/home', locale);
+const industries = byOrder(await getLocalized('industries', locale));
 ---
 
-<BaseLayout title={page.seo.title} description={page.seo.description} locale={locale}>
-  <section class="hero">
+<BaseLayout
+  title={page.seo.title}
+  description={page.seo.description}
+  locale={locale}
+  page="home"
+>
+  <Hero
+    locale={locale}
+    eyebrow={page.hero.eyebrow}
+    titleLines={page.hero.titleLines}
+    lead={page.hero.lead}
+    cta={page.hero.cta}
+    points={page.hero.points}
+  />
+
+  <WhatWeDo
+    eyebrow={page.whatWeDo.eyebrow}
+    title={page.whatWeDo.title}
+    cards={page.whatWeDo.cards}
+  />
+
+  <section class="section section--paper2">
     <div class="container">
-      <h1 class="hero__title">{page.hero.title}</h1>
-      <p class="hero__lead">{page.hero.lead}</p>
-      <div class="hero__actions">
-        <a class="btn btn--primary" href={href(page.hero.cta.href, locale)}>
-          {page.hero.cta.label}
+      <SectionHead eyebrow={page.industries.eyebrow} title={page.industries.title} />
+      <IndustriesGrid locale={locale} items={industries} />
+      <p class="industries-cta reveal">
+        <a class="arrow-link" href={href(page.industries.cta.page, locale)}>
+          {page.industries.cta.label}
+          <ArrowRight />
         </a>
-        <a class="btn btn--ghost" href={href('/uslugi/', locale)}>Что мы делаем</a>
-      </div>
+      </p>
     </div>
   </section>
+
+  <Statement text={page.statement.text} note={page.statement.note} />
+
+  <HowWeWork
+    eyebrow={page.howWeWork.eyebrow}
+    title={page.howWeWork.title}
+    steps={page.howWeWork.steps}
+  />
+
+  <Stats eyebrow={page.stats.eyebrow} items={page.stats.items} />
 
   <ContactBlock locale={locale} />
 </BaseLayout>
 
 <style>
-  .hero {
-    padding-block: clamp(3.5rem, 2rem + 8vw, 9rem) clamp(3rem, 2rem + 6vw, 7rem);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .hero__title {
-    max-width: 18ch;
-  }
-
-  .hero__lead {
-    margin-top: var(--space-6);
-    max-width: var(--measure);
-    font-size: var(--text-md);
-    line-height: 1.6;
-    color: var(--body);
-  }
-
-  .hero__actions {
+  .industries-cta {
     margin-top: var(--space-7);
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-3);
   }
 </style>

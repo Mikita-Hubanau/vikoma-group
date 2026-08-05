@@ -1,0 +1,68 @@
+---
+// Короткое заявление между блоками — смысловая пауза.
+// Текст «зажигается» слева направо по мере прокрутки.
+interface Props {
+  text: string;
+  note?: string;
+}
+
+const { text, note } = Astro.props;
+---
+
+<section class="section section--dark grain statement">
+  <div class="container">
+    {note && <p class="eyebrow reveal">{note}</p>}
+    <p class="statement__text">{text}</p>
+  </div>
+</section>
+
+<style>
+  .statement {
+    padding-block: clamp(3.5rem, 2.2rem + 6vw, 7rem);
+  }
+
+  .statement__text {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    color: var(--on-dark);
+    max-width: 24ch;
+    text-wrap: balance;
+  }
+
+  /* Подсветка текста по мере прокрутки.
+     Если браузер так не умеет — текст просто светлый, как обычно. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .statement__text {
+        background-image: linear-gradient(
+          90deg,
+          var(--on-dark) 45%,
+          rgba(163, 170, 178, 0.3) 55%
+        );
+        background-size: 240% 100%;
+        background-position: 100% 0;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        animation: statement-sweep linear both;
+        animation-timeline: view();
+        animation-range: entry 18% cover 58%;
+      }
+    }
+  }
+
+  @keyframes statement-sweep {
+    to {
+      background-position: 0 0;
+    }
+  }
+
+  @media (min-width: 56rem) {
+    .statement__text {
+      font-size: var(--text-2xl);
+      max-width: 22ch;
+    }
+  }
+</style>

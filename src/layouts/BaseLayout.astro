@@ -7,9 +7,12 @@ import '../styles/global.css';
 
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { defaultLocale, htmlLang, type Locale } from '../i18n/config';
+import { defaultLocale, enabledLocales, htmlLang, type Locale } from '../i18n/config';
+import { href } from '../lib/url';
+import type { RouteKey } from '../i18n/routes';
 import { getSettings } from '../lib/content';
 import { asset } from '../lib/url';
+import { useUI } from '../i18n/ui';
 
 interface Props {
   /** Заголовок вкладки и результата в поиске */
@@ -19,14 +22,30 @@ interface Props {
   /** Картинка превью, если для страницы задана своя */
   ogImage?: string;
   locale?: Locale;
+  /** Какая это страница — для подсветки меню и переключателя языков */
+  page?: RouteKey;
 }
 
-const { title, description, ogImage, locale = defaultLocale } = Astro.props;
+const {
+  title,
+  description,
+  ogImage,
+  locale = defaultLocale,
+  page = 'home',
+} = Astro.props;
 
 const settings = await getSettings(locale);
+const t = useUI(locale);
 
 // Полный адрес текущей страницы — нужен поисковикам и соцсетям
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
+
+// Подсказка поисковикам, что у страницы есть версии на других языках.
+// Пока язык один — список из одной строки, но механизм уже работает.
+const alternates = enabledLocales.map((code) => ({
+  code,
+  url: new URL(href(page, code), Astro.site ?? Astro.url).toString(),
+}));
 const ogImageUrl = ogImage
   ? new URL(ogImage, Astro.site ?? Astro.url).toString()
   : undefined;
@@ -42,6 +61,12 @@ const ogImageUrl = ogImage
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {
+      alternates.length > 1 &&
+        alternates.map((alt) => (
+          <link rel="alternate" hreflang={htmlLang[alt.code]} href={alt.url} />
+        ))
+    }
 
     <!-- Превью при отправке ссылки в мессенджер или соцсеть -->
     <meta property="og:type" content="website" />
@@ -64,8 +89,8 @@ const ogImageUrl = ogImage
   </head>
 
   <body>
-    <a class="skip-link" href="#main">Перейти к содержимому</a>
-    <Header locale={locale} />
+    <a class="skip-link" href="#main">{t.skipToContent}</a>
+    <Header locale={locale} page={page} />
     <main id="main">
       <slot />
     </main>
