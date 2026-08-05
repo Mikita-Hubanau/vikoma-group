@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import WhatWeDo from '../components/WhatWeDo.astro';
+import SectionHead from '../components/SectionHead.astro';
+import IndustriesGrid from '../components/IndustriesGrid.astro';
+import Statement from '../components/Statement.astro';
+import HowWeWork from '../components/HowWeWork.astro';
+import Stats from '../components/Stats.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+import ArrowRight from '../components/ArrowRight.astro';
+
+import type { Locale } from '../i18n/config';
+import { getLocalized, getLocalizedEntry, byOrder } from '../lib/content';
+import { href } from '../lib/url';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { data: page } = await getLocalizedEntry('homePage', 'pages/home', locale);
+const industries = byOrder(await getLocalized('industries', locale));
+---
+
+<BaseLayout
+  title={page.seo.title}
+  description={page.seo.description}
+  locale={locale}
+  page="home"
+>
+  <Hero
+    locale={locale}
+    eyebrow={page.hero.eyebrow}
+    titleLines={page.hero.titleLines}
+    lead={page.hero.lead}
+    cta={page.hero.cta}
+    points={page.hero.points}
+  />
+
+  <WhatWeDo
+    eyebrow={page.whatWeDo.eyebrow}
+    title={page.whatWeDo.title}
+    cards={page.whatWeDo.cards}
+  />
+
+  <section class="section section--paper2">
+    <div class="container">
+      <SectionHead eyebrow={page.industries.eyebrow} title={page.industries.title} />
+      <IndustriesGrid locale={locale} items={industries} />
+      <p class="industries-cta reveal">
+        <a class="arrow-link" href={href(page.industries.cta.page, locale)}>
+          {page.industries.cta.label}
+          <ArrowRight />
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <Statement text={page.statement.text} note={page.statement.note} />
+
+  <HowWeWork
+    eyebrow={page.howWeWork.eyebrow}
+    title={page.howWeWork.title}
+    steps={page.howWeWork.steps}
+  />
+
+  <Stats eyebrow={page.stats.eyebrow} items={page.stats.items} />
+
+  <ContactBlock locale={locale} />
+</BaseLayout>
+
+<style>
+  .industries-cta {
+    margin-top: var(--space-7);
+  }
+</style>

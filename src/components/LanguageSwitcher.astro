@@ -1,9 +1,14 @@
 ---
 // Переключатель языков.
-// Пока включён только русский — блок не выводится вовсе.
-// Как только в src/i18n/config.ts появится 'it' или 'en',
-// переключатель включится сам.
-import { enabledLocales, localeName, type Locale } from '../i18n/config';
+// Показывается только если языков больше одного — список задаётся
+// в src/i18n/config.ts. Ведёт на ту же самую страницу на другом языке,
+// а не на главную: адрес берётся из src/i18n/routes.ts.
+import {
+  enabledLocales,
+  localeName,
+  localeFullName,
+  type Locale,
+} from '../i18n/config';
 import { useUI } from '../i18n/ui';
 import { href } from '../lib/url';
 import type { RouteKey } from '../i18n/routes';
@@ -21,31 +26,42 @@ const t = useUI(locale);
 {
   enabledLocales.length > 1 && (
     <nav class="lang" aria-label={t.language}>
-      {enabledLocales.map((code) => (
-        <a
-          class="lang__item"
-          href={href(page, code)}
-          hreflang={code}
-          aria-current={code === locale ? 'true' : undefined}
-        >
-          {localeName[code]}
-        </a>
-      ))}
+      <ul class="lang__list">
+        {enabledLocales.map((code) => (
+          <li>
+            <a
+              class="lang__item"
+              href={href(page, code)}
+              hreflang={code}
+              lang={code}
+              title={localeFullName[code]}
+              aria-current={code === locale ? 'true' : undefined}
+            >
+              {localeName[code]}
+            </a>
+          </li>
+        ))}
+      </ul>
     </nav>
   )
 }
 
 <style>
-  .lang {
+  .lang__list {
     display: flex;
     align-items: center;
-    gap: var(--space-2);
-    font-size: var(--text-xs);
-    letter-spacing: 0.06em;
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 
   .lang__item {
-    padding: 0.4em 0.5em;
+    display: block;
+    /* высокие поля сверху и снизу — чтобы попадать пальцем */
+    padding: 0.95em 0.5em;
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.08em;
     color: var(--muted);
     transition: color var(--transition);
   }
@@ -57,5 +73,12 @@ const t = useUI(locale);
   .lang__item[aria-current='true'] {
     color: var(--ink);
     font-weight: 600;
+  }
+
+  /* тонкая черта между кодами языков */
+  .lang__list li + li {
+    border-left: 1px solid var(--line);
+    margin-left: 0.15em;
+    padding-left: 0.15em;
   }
 </style>

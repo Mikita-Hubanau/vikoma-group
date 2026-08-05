@@ -1,0 +1,80 @@
+{
+  "seo": {
+    "title": "Vikoma Group — Italian business in the Belarusian market",
+    "description": "We help Italian manufacturers find distributors in Belarus, and Belarusian companies find reliable suppliers. Negotiations, paperwork, logistics."
+  },
+  "hero": {
+    "eyebrow": "Brokerage · Foreign trade · Consulting",
+    "titleLines": ["Italian business", "in the Belarusian market"],
+    "lead": "We help Italian manufacturers find distributors in Belarus, and Belarusian companies find reliable suppliers. We take on the negotiations, the paperwork and the logistics.",
+    "cta": {
+      "label": "Discuss a project",
+      "page": "contacts"
+    },
+    "points": {
+      "from": "Fano",
+      "to": "Minsk"
+    }
+  },
+  "whatWeDo": {
+    "eyebrow": "What we do",
+    "title": "Three jobs we handle end to end",
+    "cards": [
+      {
+        "title": "Finding partners",
+        "text": "We select distributors, dealers and buyers that fit the specific product. We vet every counterparty before the first meeting."
+      },
+      {
+        "title": "Running the deal",
+        "text": "Negotiations, contracts, supply terms. We work in two languages and two legal systems, so nothing gets lost in translation."
+      },
+      {
+        "title": "Logistics and customs",
+        "text": "We arrange shipping, prepare the paperwork, and handle certification and customs clearance."
+      }
+    ]
+  },
+  "industries": {
+    "eyebrow": "Industries",
+    "title": "The sectors we know from experience",
+    "cta": {
+      "label": "More about industries",
+      "page": "industries"
+    }
+  },
+  "statement": {
+    "text": "We don’t sell goods and we don’t take a cut of turnover. What we deliver is a working relationship between two companies — one that outlasts our involvement.",
+    "note": "Our principle"
+  },
+  "howWeWork": {
+    "eyebrow": "How we work",
+    "title": "Four steps from first conversation to delivery",
+    "steps": [
+      {
+        "title": "Introduction",
+        "text": "We discuss the product and the goal. Free of charge."
+      },
+      {
+        "title": "Analysis",
+        "text": "We assess the prospects and propose a market-entry strategy."
+      },
+      {
+        "title": "Execution",
+        "text": "We find partners, run the negotiations and close the deal."
+      },
+      {
+        "title": "Support",
+        "text": "We stay in touch after the first delivery."
+      }
+    ]
+  },
+  "stats": {
+    "eyebrow": "In numbers",
+    "items": [
+      { "value": 8, "label": "years in the market" },
+      { "value": 60, "suffix": "+", "label": "completed projects" },
+      { "value": 2, "label": "offices: Minsk and Fano" },
+      { "value": 5, "label": "industries" }
+    ]
+  }
+}

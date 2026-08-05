@@ -12,6 +12,8 @@ type Dictionary = {
   skipToContent: string;
   language: string;
   discussProject: string;
+  /** Короткий вариант для узкого экрана */
+  discussProjectShort: string;
   writeUs: string;
   contactTitle: string;
   contactLead: string;
@@ -42,6 +44,7 @@ export const ui: Record<Locale, Dictionary> = {
     skipToContent: 'Перейти к содержимому',
     language: 'Язык сайта',
     discussProject: 'Обсудить проект',
+    discussProjectShort: 'Написать',
     writeUs: 'Напишите нам',
     contactTitle: 'Обсудим ваш проект',
     contactLead:
@@ -72,6 +75,7 @@ export const ui: Record<Locale, Dictionary> = {
     skipToContent: 'Vai al contenuto',
     language: 'Lingua del sito',
     discussProject: 'Parliamo del progetto',
+    discussProjectShort: 'Scrivici',
     writeUs: 'Scriveteci',
     contactTitle: 'Parliamo del vostro progetto',
     contactLead:
@@ -102,6 +106,7 @@ export const ui: Record<Locale, Dictionary> = {
     skipToContent: 'Skip to content',
     language: 'Site language',
     discussProject: 'Discuss a project',
+    discussProjectShort: 'Contact us',
     writeUs: 'Get in touch',
     contactTitle: 'Let’s discuss your project',
     contactLead:

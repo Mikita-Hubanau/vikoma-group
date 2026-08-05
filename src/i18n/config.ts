@@ -10,11 +10,11 @@ export type Locale = (typeof locales)[number];
 /**
  * Языки, которые сейчас реально показываются посетителям.
  *
- * Итальянский и английский включатся, когда будут готовы переводы:
- * достаточно дописать их сюда и положить тексты в src/content/it/
- * и src/content/en/. Переключатель языков в шапке появится сам.
+ * Порядок здесь = порядок в переключателе в шапке.
+ * Чтобы временно убрать язык с сайта, достаточно убрать его отсюда:
+ * тексты и страницы останутся на месте.
  */
-export const enabledLocales: Locale[] = ['ru'];
+export const enabledLocales: Locale[] = ['ru', 'it', 'en'];
 
 /** Основной язык. Показывается без префикса: vikoma.by/uslugi/ */
 export const defaultLocale: Locale = 'ru';
@@ -26,9 +26,16 @@ export const htmlLang: Record<Locale, string> = {
   en: 'en',
 };
 
-/** Как язык называется в переключателе. */
+/** Короткий код в переключателе — понятен на любом языке. */
 export const localeName: Record<Locale, string> = {
-  ru: 'Рус',
-  it: 'Ita',
-  en: 'Eng',
+  ru: 'RU',
+  it: 'IT',
+  en: 'EN',
+};
+
+/** Полное название языка — для подсказки и озвучки экрана. */
+export const localeFullName: Record<Locale, string> = {
+  ru: 'Русский',
+  it: 'Italiano',
+  en: 'English',
 };

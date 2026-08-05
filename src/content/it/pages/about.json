@@ -1,0 +1,55 @@
+{
+  "seo": {
+    "title": "Azienda — Vikoma Group",
+    "description": "Vikoma Group collega i produttori italiani e il mercato bielorusso: due lingue, due sistemi normativi, rapporti con le persone e non con database di contatti."
+  },
+  "title": "L’azienda",
+  "lead": "Colmiamo la distanza tra la produzione italiana e il mercato bielorusso.",
+  "story": [
+    "Vikoma Group è nata da una constatazione semplice: i produttori italiani vogliono lavorare con la Bielorussia, ma non sanno come funziona quel mercato. E le aziende bielorusse cercano qualità europea, ma si perdono tra ricerca e trattative.",
+    "Noi colmiamo questa distanza. Conosciamo entrambe le parti: parliamo due lingue, ci muoviamo in due sistemi normativi e lavoriamo con persone reali, non con database di contatti.",
+    "Non vendiamo merce e non prendiamo percentuali sul fatturato. Il nostro prodotto è un rapporto di lavoro tra due aziende, che continua anche quando il nostro compito è finito."
+  ],
+  "approach": {
+    "title": "Perché potete fidarvi",
+    "items": [
+      {
+        "title": "Non vendiamo merce",
+        "text": "Non abbiamo un magazzino né un interesse in una singola fornitura. Non ci conviene imporvi un partner: ci conviene che il rapporto funzioni."
+      },
+      {
+        "title": "Verifichiamo prima di presentarvi qualcuno",
+        "text": "L’affidabilità giuridica e finanziaria della controparte viene verificata prima che investiate tempo in un incontro."
+      },
+      {
+        "title": "Due lingue, due ordinamenti",
+        "text": "Corrispondenza, contratti e trattative senza un interprete di mezzo. Le condizioni dell’accordo sono chiare a entrambe le parti allo stesso modo."
+      },
+      {
+        "title": "Restiamo dopo l’accordo",
+        "text": "La prima fornitura non è il traguardo. Seguiamo il lavoro del distributore e restiamo a disposizione anche dopo."
+      }
+    ]
+  },
+  "team": {
+    "title": "Il team",
+    "note": "Le fotografie del team arriveranno più avanti: al loro posto ci sono segnaposto.",
+    "people": [
+      {
+        "name": "Nome Cognome",
+        "role": "Direttore",
+        "about": "Si occupa della strategia d’ingresso sul mercato e delle trattative con i produttori."
+      },
+      {
+        "name": "Nome Cognome",
+        "role": "Responsabile import-export",
+        "about": "Contratti, controllo valutario, sdoganamento e certificazioni."
+      },
+      {
+        "name": "Nome Cognome",
+        "role": "Sviluppo commerciale",
+        "about": "Ricerca e verifica dei partner, assistenza ai distributori."
+      }
+    ]
+  }
+}

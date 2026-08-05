@@ -1,0 +1,55 @@
+{
+  "seo": {
+    "title": "About — Vikoma Group",
+    "description": "Vikoma Group connects Italian manufacturers with the Belarusian market: two languages, two regulatory systems, real people rather than contact databases."
+  },
+  "title": "About us",
+  "lead": "We close the gap between Italian manufacturing and the Belarusian market.",
+  "story": [
+    "Vikoma Group grew out of a simple observation: Italian manufacturers want to work with Belarus but don’t understand how that market works. And Belarusian companies want European quality but get lost in the search and the negotiations.",
+    "We close that gap. We know both sides — we speak both languages, we work within both regulatory systems, and we deal with real people rather than contact databases.",
+    "We don’t sell goods and we don’t take a cut of turnover. What we deliver is a working relationship between two companies — one that outlasts our involvement."
+  ],
+  "approach": {
+    "title": "Why you can trust us",
+    "items": [
+      {
+        "title": "We don’t sell goods",
+        "text": "We have no warehouse and no stake in any single shipment. We have no reason to push a partner on you — only a reason to make the relationship work."
+      },
+      {
+        "title": "We vet before we introduce",
+        "text": "A counterparty’s legal and financial standing is checked before you spend time on a meeting."
+      },
+      {
+        "title": "Two languages, two legal systems",
+        "text": "Correspondence, contracts and negotiations run without an interpreter in the middle. Both sides read the terms the same way."
+      },
+      {
+        "title": "We stay after the deal",
+        "text": "The first delivery isn’t the finish line. We monitor how the distributor performs and remain available afterwards."
+      }
+    ]
+  },
+  "team": {
+    "title": "The team",
+    "note": "Team photographs will be added later — placeholders stand in for now.",
+    "people": [
+      {
+        "name": "First Last",
+        "role": "Director",
+        "about": "Responsible for market-entry strategy and negotiations with manufacturers."
+      },
+      {
+        "name": "First Last",
+        "role": "Head of foreign trade",
+        "about": "Contracts, currency control, customs clearance and certification."
+      },
+      {
+        "name": "First Last",
+        "role": "Business development manager",
+        "about": "Partner search and vetting, distributor support."
+      }
+    ]
+  }
+}

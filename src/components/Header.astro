@@ -21,6 +21,15 @@ const t = useUI(locale);
       <span class="logo__sub">Group</span>
     </a>
 
+    <div class="site-header__lang">
+      <LanguageSwitcher locale={locale} page={page} />
+    </div>
+
+    <a class="btn btn--primary site-header__cta" href={href('contacts', locale)}>
+      <span class="site-header__cta-full">{t.discussProject}</span>
+      <span class="site-header__cta-short">{t.discussProjectShort}</span>
+    </a>
+
     <nav class="nav" aria-label="Основная навигация">
       <ul class="nav__list">
         {
@@ -38,13 +47,6 @@ const t = useUI(locale);
         }
       </ul>
     </nav>
-
-    <div class="site-header__right">
-      <LanguageSwitcher locale={locale} page={page} />
-      <a class="btn btn--primary site-header__cta" href={href('contacts', locale)}>
-        {t.discussProject}
-      </a>
-    </div>
   </div>
 </header>
 
@@ -56,29 +58,45 @@ const t = useUI(locale);
     border-bottom: 1px solid var(--line);
   }
 
+  /* Телефон: логотип, языки и кнопка в первой строке,
+     меню — во второй, во всю ширину. */
   .site-header__inner {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr auto auto;
+    grid-template-areas:
+      'logo lang cta'
+      'nav  nav  nav';
     align-items: center;
-    gap: var(--space-3) var(--space-5);
+    gap: var(--space-3) var(--space-3);
     padding-block: var(--space-3);
   }
 
-  .site-header__right {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    justify-self: end;
-  }
-
-  /* ── Логотип ─────────────────────────────────────────────── */
   .logo {
+    grid-area: logo;
     display: inline-flex;
     align-items: baseline;
     gap: 0.45em;
     line-height: 1;
   }
 
+  .site-header__lang {
+    grid-area: lang;
+  }
+
+  /* если язык один, переключателя нет — и пустая ячейка не мешает */
+  .site-header__lang:empty {
+    display: none;
+  }
+
+  .site-header__cta {
+    grid-area: cta;
+  }
+
+  .nav {
+    grid-area: nav;
+  }
+
+  /* ── Логотип ─────────────────────────────────────────────── */
   .logo__name {
     font-family: var(--font-serif);
     font-size: 1.3rem;
@@ -102,8 +120,6 @@ const t = useUI(locale);
 
   /* ── Меню ────────────────────────────────────────────────── */
   .nav {
-    grid-column: 1 / -1;
-    grid-row: 2;
     /* если пунктов станет больше и они не влезут — строка прокрутится */
     overflow-x: auto;
     scrollbar-width: none;
@@ -168,6 +184,11 @@ const t = useUI(locale);
     min-height: 38px;
   }
 
+  /* на узком экране у кнопки короткая надпись */
+  .site-header__cta-full {
+    display: none;
+  }
+
   /* ── Начиная с планшета всё выстраивается в одну строку ──── */
   @media (min-width: 62rem) {
     /* В одну строку шапка занимает мало места — можно закрепить,
@@ -181,13 +202,13 @@ const t = useUI(locale);
     }
 
     .site-header__inner {
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns: auto 1fr auto auto;
+      grid-template-areas: 'logo nav lang cta';
+      gap: var(--space-5);
       padding-block: var(--space-4);
     }
 
     .nav {
-      grid-column: 2;
-      grid-row: 1;
       overflow: visible;
       margin-inline: 0;
       padding-inline: 0;
@@ -202,6 +223,14 @@ const t = useUI(locale);
       font-size: var(--text-sm);
       padding: 0.7em 1.4em;
       min-height: 42px;
+    }
+
+    .site-header__cta-full {
+      display: inline;
+    }
+
+    .site-header__cta-short {
+      display: none;
     }
   }
 </style>

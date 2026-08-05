@@ -1,0 +1,56 @@
+{
+  "company": {
+    "name": "Vikoma Group",
+    "tagline": "Il business italiano sul mercato bielorusso"
+  },
+  "phones": [
+    {
+      "label": "Bielorussia",
+      "display": "+375 29 000-00-00",
+      "tel": "+375290000000"
+    },
+    {
+      "label": "Italia",
+      "display": "+39 000 000 0000",
+      "tel": "+390000000000"
+    }
+  ],
+  "email": "info@vikoma.by",
+  "messengers": [
+    {
+      "type": "telegram",
+      "label": "Telegram",
+      "href": "https://t.me/vikoma"
+    },
+    {
+      "type": "whatsapp",
+      "label": "WhatsApp",
+      "href": "https://wa.me/375290000000"
+    },
+    {
+      "type": "viber",
+      "label": "Viber",
+      "href": "viber://chat?number=%2B375290000000"
+    }
+  ],
+  "offices": [
+    {
+      "city": "Minsk",
+      "address": "Indirizzo da definire",
+      "note": "Bielorussia"
+    },
+    {
+      "city": "Fano",
+      "address": "Indirizzo da definire",
+      "note": "Italia"
+    }
+  ],
+  "legal": [
+    { "label": "Denominazione completa", "value": "Vikoma Group LLC" },
+    { "label": "Codice fiscale (UNP)", "value": "000000000" },
+    { "label": "Sede legale", "value": "Da definire" },
+    { "label": "Conto corrente", "value": "BY00 XXXX 0000 0000 0000 0000 0000" },
+    { "label": "Banca", "value": "Da definire" },
+    { "label": "BIC", "value": "Da definire" }
+  ]
+}

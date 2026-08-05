@@ -1,0 +1,80 @@
+{
+  "seo": {
+    "title": "Vikoma Group — il business italiano sul mercato bielorusso",
+    "description": "Aiutiamo i produttori italiani a trovare distributori in Bielorussia e le aziende bielorusse a trovare fornitori affidabili. Trattative, documenti, logistica."
+  },
+  "hero": {
+    "eyebrow": "Intermediazione · Import-export · Consulenza",
+    "titleLines": ["Il business italiano", "sul mercato bielorusso"],
+    "lead": "Aiutiamo i produttori italiani a trovare distributori in Bielorussia e le aziende bielorusse a trovare fornitori affidabili. Ci occupiamo noi di trattative, documenti e logistica.",
+    "cta": {
+      "label": "Parliamo del progetto",
+      "page": "contacts"
+    },
+    "points": {
+      "from": "Fano",
+      "to": "Minsk"
+    }
+  },
+  "whatWeDo": {
+    "eyebrow": "Cosa facciamo",
+    "title": "Tre compiti di cui ci occupiamo dall’inizio alla fine",
+    "cards": [
+      {
+        "title": "Ricerca di partner",
+        "text": "Selezioniamo distributori, rivenditori e buyer adatti allo specifico prodotto. Verifichiamo le controparti prima del primo incontro."
+      },
+      {
+        "title": "Gestione delle trattative",
+        "text": "Negoziazioni, contratti, condizioni di fornitura. Lavoriamo in due lingue e in due ordinamenti giuridici: nessun malinteso."
+      },
+      {
+        "title": "Logistica e dogana",
+        "text": "Organizziamo il trasporto, prepariamo i documenti, curiamo certificazioni e sdoganamento."
+      }
+    ]
+  },
+  "industries": {
+    "eyebrow": "Settori",
+    "title": "Gli ambiti in cui abbiamo esperienza",
+    "cta": {
+      "label": "Scopri i settori",
+      "page": "industries"
+    }
+  },
+  "statement": {
+    "text": "Non vendiamo merce e non prendiamo percentuali sul fatturato. Il nostro prodotto è un rapporto di lavoro tra due aziende, che continua anche quando il nostro compito è finito.",
+    "note": "Il nostro principio"
+  },
+  "howWeWork": {
+    "eyebrow": "Come lavoriamo",
+    "title": "Quattro passi dal primo colloquio alla fornitura",
+    "steps": [
+      {
+        "title": "Conoscenza",
+        "text": "Parliamo del prodotto e dell’obiettivo. Gratuitamente."
+      },
+      {
+        "title": "Analisi",
+        "text": "Valutiamo le prospettive e proponiamo una strategia d’ingresso."
+      },
+      {
+        "title": "Lavoro",
+        "text": "Cerchiamo partner, conduciamo le trattative, formalizziamo l’accordo."
+      },
+      {
+        "title": "Assistenza",
+        "text": "Restiamo a disposizione anche dopo la prima fornitura."
+      }
+    ]
+  },
+  "stats": {
+    "eyebrow": "In cifre",
+    "items": [
+      { "value": 8, "label": "anni sul mercato" },
+      { "value": 60, "suffix": "+", "label": "progetti realizzati" },
+      { "value": 2, "label": "sedi: Minsk e Fano" },
+      { "value": 5, "label": "settori" }
+    ]
+  }
+}
