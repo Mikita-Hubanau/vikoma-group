@@ -12,7 +12,7 @@
       "page": "contacts"
     },
     "points": {
-      "from": "Milano",
+      "from": "Fano",
       "to": "Minsk"
     }
   },
@@ -73,7 +73,7 @@
     "items": [
       { "value": 8, "label": "лет на рынке" },
       { "value": 60, "suffix": "+", "label": "реализованных проектов" },
-      { "value": 2, "label": "офиса: Минск и Милан" },
+      { "value": 2, "label": "офиса: Минск и Фано" },
       { "value": 5, "label": "отраслей" }
     ]
   }

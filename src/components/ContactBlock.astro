@@ -79,6 +79,8 @@ const settings = await getSettings(locale);
     line-height: 1.2;
     border-bottom: 1px solid transparent;
     transition: border-color var(--transition);
+    /* запас сверху и снизу, чтобы палец попадал без прицеливания */
+    padding-block: var(--space-3);
   }
 
   .contact-block__value:hover {

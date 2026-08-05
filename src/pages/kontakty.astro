@@ -1,29 +1,219 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
-import ContactBlock from '../components/ContactBlock.astro';
+import MessengerLinks from '../components/MessengerLinks.astro';
 import { defaultLocale } from '../i18n/config';
-import { getLocalizedEntry } from '../lib/content';
+import { useUI } from '../i18n/ui';
+import { getLocalizedEntry, getSettings } from '../lib/content';
 
 const locale = defaultLocale;
+const t = useUI(locale);
 const { data: page } = await getLocalizedEntry('contactsPage', 'pages/contacts', locale);
+const settings = await getSettings(locale);
+
+// На этой странице нижний блок с контактами не ставим:
+// вся страница и есть контакты, повтор был бы лишним.
 ---
 
-<BaseLayout title={page.seo.title} description={page.seo.description} locale={locale} page="contacts">
+<BaseLayout
+  title={page.seo.title}
+  description={page.seo.description}
+  locale={locale}
+  page="contacts"
+>
   <PageHeader title={page.title} lead={page.lead} />
 
+  <!-- Связь -->
   <section class="section">
     <div class="container">
-      <p class="stub">Раздел собирается на следующем этапе.</p>
+      <p class="eyebrow reveal">{t.contactWays}</p>
+
+      <ul class="direct stagger">
+        {
+          settings.phones.map((phone) => (
+            <li class="direct__item">
+              <a class="direct__value" href={`tel:${phone.tel}`}>
+                {phone.display}
+              </a>
+              <span class="direct__label">{phone.label}</span>
+            </li>
+          ))
+        }
+        <li class="direct__item">
+          <a class="direct__value" href={`mailto:${settings.email}`}>
+            {settings.email}
+          </a>
+          <span class="direct__label">{t.email}</span>
+        </li>
+      </ul>
+
+      <div class="messengers-block reveal">
+        <p class="messengers-block__label">{t.messengers}</p>
+        <MessengerLinks locale={locale} />
+      </div>
     </div>
   </section>
 
-  <ContactBlock locale={locale} />
+  <!-- Офисы -->
+  <section class="section section--paper2">
+    <div class="container">
+      <p class="eyebrow reveal">{t.offices}</p>
+
+      <ul class="offices stagger">
+        {
+          settings.offices.map((office) => (
+            <li class="office">
+              <h2 class="office__city">{office.city}</h2>
+              {office.note && <p class="office__note">{office.note}</p>}
+              <p class="office__address">{office.address}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Реквизиты -->
+  {
+    settings.legal.length > 0 && (
+      <section class="section">
+        <div class="container">
+          <p class="eyebrow reveal">{t.legalDetails}</p>
+
+          <dl class="legal reveal">
+            {settings.legal.map((row) => (
+              <div class="legal__row">
+                <dt class="legal__key">{row.label}</dt>
+                <dd class="legal__value">{row.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+    )
+  }
 </BaseLayout>
 
 <style>
-  .stub {
+  /* ── Телефоны и почта ────────────────────────────────────── */
+  .direct {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-8);
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .direct__value {
+    display: inline-block;
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    line-height: 1.15;
+    color: var(--ink);
+    border-bottom: 1px solid transparent;
+    transition: color var(--transition), border-color var(--transition);
+    /* запас сверху и снизу, чтобы палец попадал без прицеливания */
+    padding-block: var(--space-2);
+  }
+
+  .direct__value:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .direct__label {
+    display: block;
+    margin-top: var(--space-2);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     color: var(--muted);
-    font-size: var(--text-sm);
+  }
+
+  .messengers-block__label {
+    margin-bottom: var(--space-4);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── Офисы ───────────────────────────────────────────────── */
+  .offices {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .office {
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .office__city {
+    font-size: var(--text-lg);
+  }
+
+  .office__note {
+    margin-top: var(--space-1);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .office__address {
+    margin-top: var(--space-3);
+    color: var(--muted);
+  }
+
+  /* ── Реквизиты ───────────────────────────────────────────── */
+  .legal {
+    margin: 0;
+    max-width: 46rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .legal__row {
+    display: grid;
+    gap: var(--space-1);
+    padding-block: var(--space-4);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .legal__key {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .legal__value {
+    margin: 0;
+    color: var(--ink);
+  }
+
+  @media (min-width: 40rem) {
+    .direct {
+      grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+      gap: var(--space-7) var(--space-5);
+    }
+
+    .offices {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6);
+    }
+
+    .legal__row {
+      grid-template-columns: minmax(0, 16rem) minmax(0, 1fr);
+      gap: var(--space-4);
+      align-items: baseline;
+    }
   }
 </style>

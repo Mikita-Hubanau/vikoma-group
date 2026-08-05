@@ -21,6 +21,8 @@ type Dictionary = {
   offices: string;
   legalDetails: string;
   whatsIncluded: string;
+  contactWays: string;
+  team: string;
   allServices: string;
   photoPlaceholder: string;
   photoNeeded: string;
@@ -50,6 +52,8 @@ export const ui: Record<Locale, Dictionary> = {
     offices: 'Офисы',
     legalDetails: 'Реквизиты',
     whatsIncluded: 'Что входит',
+    contactWays: 'Как связаться',
+    team: 'Команда',
     allServices: 'Все услуги',
     photoPlaceholder: 'Фото',
     photoNeeded: 'Нужен снимок',
@@ -78,6 +82,8 @@ export const ui: Record<Locale, Dictionary> = {
     offices: 'Sedi',
     legalDetails: 'Dati societari',
     whatsIncluded: 'Cosa comprende',
+    contactWays: 'Come contattarci',
+    team: 'Team',
     allServices: 'Tutti i servizi',
     photoPlaceholder: 'Foto',
     photoNeeded: 'Foto da inserire',
@@ -106,6 +112,8 @@ export const ui: Record<Locale, Dictionary> = {
     offices: 'Offices',
     legalDetails: 'Company details',
     whatsIncluded: 'What’s included',
+    contactWays: 'How to reach us',
+    team: 'Team',
     allServices: 'All services',
     photoPlaceholder: 'Photo',
     photoNeeded: 'Photo needed',

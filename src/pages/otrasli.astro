@@ -1,20 +1,58 @@
 ---
+import { render } from 'astro:content';
+
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
+import IndustryCard from '../components/IndustryCard.astro';
 import ContactBlock from '../components/ContactBlock.astro';
 import { defaultLocale } from '../i18n/config';
-import { getLocalizedEntry } from '../lib/content';
+import { getLocalized, getLocalizedEntry, byOrder } from '../lib/content';
 
 const locale = defaultLocale;
-const { data: page } = await getLocalizedEntry('industriesPage', 'pages/industries', locale);
+const { data: page } = await getLocalizedEntry(
+  'industriesPage',
+  'pages/industries',
+  locale,
+);
+
+const industries = byOrder(await getLocalized('industries', locale));
+const items = await Promise.all(
+  industries.map(async (entry) => ({
+    data: entry.data,
+    Content: (await render(entry)).Content,
+  })),
+);
 ---
 
-<BaseLayout title={page.seo.title} description={page.seo.description} locale={locale} page="industries">
+<BaseLayout
+  title={page.seo.title}
+  description={page.seo.description}
+  locale={locale}
+  page="industries"
+>
   <PageHeader title={page.title} lead={page.lead} />
 
   <section class="section">
     <div class="container">
-      <p class="stub">Раздел собирается на следующем этапе.</p>
+      <ul class="industries stagger">
+        {
+          items.map(({ data, Content }) => (
+            <li>
+              <IndustryCard
+                locale={locale}
+                title={data.title}
+                summary={data.summary}
+                image={data.image}
+                imageHint={data.imageHint}
+              >
+                <div class="prose industry-text">
+                  <Content />
+                </div>
+              </IndustryCard>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 
@@ -22,8 +60,28 @@ const { data: page } = await getLocalizedEntry('industriesPage', 'pages/industri
 </BaseLayout>
 
 <style>
-  .stub {
-    color: var(--muted);
+  .industries {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-8) var(--space-6);
+  }
+
+  .industry-text {
     font-size: var(--text-sm);
+    color: var(--body);
+  }
+
+  @media (min-width: 48rem) {
+    .industries {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 68rem) {
+    .industries {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 </style>

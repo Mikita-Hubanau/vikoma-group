@@ -250,6 +250,41 @@ a {
   color: var(--on-dark-muted);
 }
 
+/* ── Текст, пришедший из markdown-файла ─────────────────────── */
+.prose > * + * {
+  margin-top: var(--space-4);
+}
+
+.prose p {
+  max-width: var(--measure);
+}
+
+/* ── Список с чёрточками вместо точек ───────────────────────── */
+.dash-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.dash-list > li {
+  position: relative;
+  padding-left: 1.75rem;
+  font-size: var(--text-sm);
+  color: var(--body);
+}
+
+.dash-list > li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 0.85rem;
+  height: 1px;
+  background: var(--accent);
+}
+
 /* ── Кнопки ─────────────────────────────────────────────────── */
 .btn {
   position: relative;

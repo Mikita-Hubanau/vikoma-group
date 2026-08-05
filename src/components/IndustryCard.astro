@@ -32,6 +32,11 @@ const t = useUI(locale);
 
   <h3 class="industry__title">{title}</h3>
   <p class="industry__summary">{summary}</p>
+
+  {/* развёрнутое описание — только на странице «Отрасли» */}
+  <div class="industry__body">
+    <slot />
+  </div>
 </article>
 
 <style>
@@ -127,5 +132,12 @@ const t = useUI(locale);
     margin-top: var(--space-2);
     font-size: var(--text-sm);
     color: var(--muted);
+  }
+
+  /* если описания нет, блок не занимает места */
+  .industry__body:not(:empty) {
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--line);
   }
 </style>
