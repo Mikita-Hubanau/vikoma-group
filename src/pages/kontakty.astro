@@ -9,7 +9,7 @@ const locale = defaultLocale;
 const { data: page } = await getLocalizedEntry('contactsPage', 'pages/contacts', locale);
 ---
 
-<BaseLayout title={page.seo.title} description={page.seo.description} locale={locale}>
+<BaseLayout title={page.seo.title} description={page.seo.description} locale={locale} page="contacts">
   <PageHeader title={page.title} lead={page.lead} />
 
   <section class="section">
