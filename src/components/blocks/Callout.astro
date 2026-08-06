@@ -1,0 +1,57 @@
+---
+// ВЫНОСКА.
+//
+// Короткое важное замечание внутри текста: предупреждение о сроках,
+// условие, оговорка. Не для украшения — если выносок на странице
+// больше двух, они перестают работать.
+interface Props {
+  title?: string;
+  /** 'note' — обычное, 'warn' — требует внимания */
+  tone?: 'note' | 'warn';
+}
+
+const { title, tone = 'note' } = Astro.props;
+---
+
+<aside class:list={['callout', `callout--${tone}`, 'reveal']}>
+  {title && <p class="callout__title">{title}</p>}
+  <div class="callout__body">
+    <slot />
+  </div>
+</aside>
+
+<style>
+  .callout {
+    padding: var(--space-5);
+    background: var(--paper-2);
+    border-left: 2px solid var(--line-strong);
+    max-width: var(--measure);
+  }
+
+  .callout--warn {
+    border-left-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 5%, var(--paper));
+  }
+
+  .callout__title {
+    margin-bottom: var(--space-2);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .callout--warn .callout__title {
+    color: var(--accent);
+  }
+
+  .callout__body {
+    font-size: var(--text-sm);
+    color: var(--body);
+  }
+
+  .callout__body :global(p + p) {
+    margin-top: var(--space-3);
+  }
+</style>

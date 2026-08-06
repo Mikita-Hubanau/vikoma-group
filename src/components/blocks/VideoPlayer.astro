@@ -1,0 +1,59 @@
+---
+// СВОЁ ВИДЕО (файл лежит у нас на сервере).
+//
+// Проигрыватель браузера, никаких сторонних сервисов и скриптов.
+// preload="none" — файл не качается, пока посетитель не нажал «play»:
+// иначе тяжёлое видео съедало бы трафик у всех подряд.
+//
+// Что нужно от вас: файл .mp4 (H.264) и кадр-обложка .jpg.
+// Разумный вес ролика для сайта — до 15–20 МБ.
+import MediaPlaceholder from './MediaPlaceholder.astro';
+
+interface Props {
+  src?: string;
+  /** Картинка-обложка до нажатия */
+  poster?: string;
+  caption?: string;
+  hint?: string;
+}
+
+const { src, poster, caption, hint } = Astro.props;
+---
+
+<figure class="video reveal">
+  {
+    src ? (
+      <video
+        class="video__el"
+        src={src}
+        poster={poster}
+        controls
+        preload="none"
+        playsinline
+      />
+    ) : (
+      <MediaPlaceholder ratio="16/9" kind="Видео" hint={hint} />
+    )
+  }
+  {caption && <figcaption class="video__caption">{caption}</figcaption>}
+</figure>
+
+<style>
+  .video {
+    margin: 0;
+  }
+
+  .video__el {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: var(--ink);
+    aspect-ratio: 16 / 9;
+  }
+
+  .video__caption {
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+</style>

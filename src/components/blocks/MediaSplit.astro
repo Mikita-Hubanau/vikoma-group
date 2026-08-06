@@ -1,0 +1,111 @@
+---
+// ФОТО И ТЕКСТ РЯДОМ.
+// Рабочая лошадка: половина — снимок, половина — рассказ.
+// Если ставить несколько подряд, чередуйте сторону (reverse) —
+// страница перестаёт выглядеть однообразной.
+import MediaPlaceholder from './MediaPlaceholder.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  text: string;
+  /** Список под текстом — необязателен */
+  items?: string[];
+  src?: string;
+  alt?: string;
+  ratio?: string;
+  hint?: string;
+  /** true — фото справа, текст слева */
+  reverse?: boolean;
+}
+
+const {
+  eyebrow,
+  title,
+  text,
+  items = [],
+  src,
+  alt = '',
+  ratio = '4/3',
+  hint,
+  reverse = false,
+} = Astro.props;
+---
+
+<div class:list={['split', reverse && 'split--reverse', 'reveal']}>
+  <div class="split__media">
+    {
+      src ? (
+        <img src={src} alt={alt} loading="lazy" decoding="async" />
+      ) : (
+        <MediaPlaceholder ratio={ratio} hint={hint} />
+      )
+    }
+  </div>
+
+  <div class="split__body">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h3 class="split__title">{title}</h3>
+    <p class="split__text">{text}</p>
+    {
+      items.length > 0 && (
+        <ul class="dash-list split__list">
+          {items.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</div>
+
+<style>
+  .split {
+    display: grid;
+    gap: var(--space-5);
+    align-items: center;
+  }
+
+  .split__media {
+    overflow: hidden;
+    background: var(--paper-2);
+  }
+
+  .split__media img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 800ms var(--ease-out);
+  }
+
+  .split:hover .split__media img {
+    transform: scale(1.03);
+  }
+
+  .split__title {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .split__text {
+    color: var(--body);
+    max-width: 44ch;
+  }
+
+  .split__list {
+    margin-top: var(--space-5);
+  }
+
+  @media (min-width: 52rem) {
+    .split {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+    }
+
+    /* меняем стороны местами, не трогая порядок в разметке:
+       для поисковиков и озвучки экрана текст остаётся после фото */
+    .split--reverse .split__media {
+      order: 2;
+    }
+  }
+</style>

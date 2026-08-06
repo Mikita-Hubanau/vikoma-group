@@ -1,0 +1,123 @@
+---
+// ИСТОРИЯ ПО ГОДАМ.
+//
+// Вертикальная лента с линией, которая заполняется по мере прокрутки.
+// Уместна на странице «О компании», если истории есть чем гордиться:
+// открытие офиса, первая поставка, выход в новую страну.
+interface Props {
+  items: { year: string; title: string; text?: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="timeline">
+  <div class="timeline__track" aria-hidden="true">
+    <div class="timeline__progress"></div>
+  </div>
+
+  <ol class="timeline__list stagger">
+    {
+      items.map((item) => (
+        <li class="milestone">
+          <span class="milestone__year">{item.year}</span>
+          <h3 class="milestone__title">{item.title}</h3>
+          {item.text && <p class="milestone__text">{item.text}</p>}
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<style>
+  .timeline {
+    position: relative;
+  }
+
+  .timeline__track {
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--line-strong);
+  }
+
+  .timeline__progress {
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+
+  .timeline__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-7);
+  }
+
+  .milestone {
+    position: relative;
+    padding-left: var(--space-6);
+  }
+
+  .milestone::before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 9px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    transition: background-color var(--transition), border-color var(--transition);
+  }
+
+  .milestone:hover::before {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .milestone__year {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    line-height: 1;
+    color: var(--accent);
+    margin-bottom: var(--space-2);
+  }
+
+  .milestone__title {
+    font-size: var(--text-md);
+    margin-bottom: var(--space-2);
+  }
+
+  .milestone__text {
+    color: var(--muted);
+    font-size: var(--text-sm);
+    max-width: 46ch;
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .timeline__progress {
+        animation: timeline-fill linear both;
+        animation-timeline: view();
+        animation-range: entry 35% cover 70%;
+      }
+    }
+  }
+
+  @keyframes timeline-fill {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+</style>

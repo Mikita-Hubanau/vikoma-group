@@ -1,0 +1,91 @@
+---
+// Обёртка для каталога блоков: заголовок, пояснение и сам блок.
+// Используется только на служебной странице /blocks/.
+interface Props {
+  id: string;
+  num: number;
+  title: string;
+  /** Когда этот блок уместен */
+  when: string;
+  /** Что нужно подготовить, чтобы блок заработал */
+  needs?: string;
+  /** Во всю ширину экрана, без колонки */
+  full?: boolean;
+}
+
+const { id, num, title, when, needs, full = false } = Astro.props;
+---
+
+<section class="demo" id={id}>
+  <div class="container">
+    <header class="demo__head">
+      <span class="demo__num">{String(num).padStart(2, '0')}</span>
+      <div>
+        <h2 class="demo__title">{title}</h2>
+        <p class="demo__when">{when}</p>
+        {
+          needs && (
+            <p class="demo__needs">
+              <span class="demo__needs-label">Нужно от вас</span>
+              {needs}
+            </p>
+          )
+        }
+      </div>
+    </header>
+  </div>
+
+  <div class:list={['demo__stage', full && 'demo__stage--full']}>
+    {full ? <slot /> : <div class="container"><slot /></div>}
+  </div>
+</section>
+
+<style>
+  .demo {
+    padding-block: var(--space-8);
+    border-top: 1px solid var(--line);
+    scroll-margin-top: var(--space-6);
+  }
+
+  .demo__head {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  .demo__num {
+    font-family: var(--font-serif);
+    font-size: var(--text-sm);
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    padding-top: 0.35em;
+  }
+
+  .demo__title {
+    font-size: var(--text-lg);
+  }
+
+  .demo__when {
+    margin-top: var(--space-2);
+    color: var(--muted);
+    font-size: var(--text-sm);
+    max-width: 56ch;
+  }
+
+  .demo__needs {
+    margin-top: var(--space-3);
+    font-size: var(--text-xs);
+    color: var(--body);
+    max-width: 56ch;
+  }
+
+  .demo__needs-label {
+    display: inline-block;
+    margin-right: 0.6em;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+</style>

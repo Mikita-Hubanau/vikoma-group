@@ -1,0 +1,96 @@
+---
+// ГАЛЕРЕЯ.
+// На компьютере — сетка, на телефоне — лента, которая листается вбок
+// с «подглядыванием» следующего кадра. Без JavaScript.
+//
+// Хорошо подходит для: производство, склад, выставки, объекты.
+import MediaPlaceholder from './MediaPlaceholder.astro';
+
+interface Props {
+  items: { src?: string; alt?: string; caption?: string; hint?: string }[];
+  /** Сколько колонок на широком экране */
+  columns?: 2 | 3 | 4;
+  ratio?: string;
+}
+
+const { items, columns = 3, ratio = '4/3' } = Astro.props;
+---
+
+<ul class="gallery stagger" style={`--columns: ${columns}`}>
+  {
+    items.map((item) => (
+      <li class="gallery__item">
+        <div class="gallery__media">
+          {item.src ? (
+            <img src={item.src} alt={item.alt ?? ''} loading="lazy" decoding="async" />
+          ) : (
+            <MediaPlaceholder ratio={ratio} hint={item.hint} />
+          )}
+        </div>
+        {item.caption && <p class="gallery__caption">{item.caption}</p>}
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .gallery {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    /* телефон: лента с прокруткой вбок */
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 74%;
+    gap: var(--space-4);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    padding-bottom: var(--space-2);
+  }
+
+  .gallery::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gallery__item {
+    scroll-snap-align: start;
+  }
+
+  .gallery__media {
+    overflow: hidden;
+    background: var(--paper-2);
+  }
+
+  .gallery__media img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    transition: transform 700ms var(--ease-out);
+  }
+
+  .gallery__item:hover .gallery__media img {
+    transform: scale(1.04);
+  }
+
+  .gallery__caption {
+    margin-top: var(--space-3);
+    font-size: var(--text-xs);
+    color: var(--muted);
+  }
+
+  @media (min-width: 52rem) {
+    .gallery {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(var(--columns), 1fr);
+      gap: var(--space-5);
+      overflow: visible;
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+  }
+</style>

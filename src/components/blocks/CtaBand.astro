@@ -1,0 +1,118 @@
+---
+// УЗКАЯ ПОЛОСА С ПРИЗЫВОМ.
+//
+// В отличие от большого блока контактов внизу страницы, эта полоса
+// ставится в середине — там, где человек дочитал до конца раздела
+// и уже понял, зачем ему писать.
+import type { Locale } from '../../i18n/config';
+import type { RouteKey } from '../../i18n/routes';
+import { href } from '../../lib/url';
+import ArrowRight from '../ArrowRight.astro';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  text?: string;
+  action: { label: string; page: RouteKey };
+  /** 'quiet' — на светлой подложке, 'strong' — тёмная полоса */
+  tone?: 'quiet' | 'strong';
+}
+
+const { locale, title, text, action, tone = 'quiet' } = Astro.props;
+---
+
+<div class:list={['cta-band', `cta-band--${tone}`, 'reveal']}>
+  <div class="cta-band__text">
+    <h3 class="cta-band__title">{title}</h3>
+    {text && <p class="cta-band__lead">{text}</p>}
+  </div>
+
+  <a class="cta-band__action" href={href(action.page, locale)}>
+    {action.label}
+    <ArrowRight />
+  </a>
+</div>
+
+<style>
+  .cta-band {
+    display: grid;
+    gap: var(--space-5);
+    align-items: center;
+    padding: var(--space-6);
+  }
+
+  .cta-band--quiet {
+    background: var(--paper-2);
+    border-left: 2px solid var(--accent);
+  }
+
+  .cta-band--strong {
+    background: var(--ink);
+  }
+
+  .cta-band__title {
+    font-size: var(--text-lg);
+  }
+
+  .cta-band--strong .cta-band__title {
+    color: var(--on-dark);
+  }
+
+  .cta-band__lead {
+    margin-top: var(--space-2);
+    color: var(--muted);
+    max-width: 52ch;
+  }
+
+  .cta-band--strong .cta-band__lead {
+    color: var(--on-dark-muted);
+  }
+
+  .cta-band__action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    justify-self: start;
+    min-height: 44px;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--ink);
+    border-bottom: 1px solid var(--line-strong);
+    transition: color var(--transition), border-color var(--transition);
+  }
+
+  .cta-band--strong .cta-band__action {
+    color: var(--on-dark);
+    border-bottom-color: rgba(241, 236, 227, 0.3);
+  }
+
+  .cta-band__action:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .cta-band--strong .cta-band__action:hover {
+    color: var(--accent-light);
+    border-color: var(--accent-light);
+  }
+
+  .cta-band__action svg {
+    transition: transform var(--transition);
+  }
+
+  .cta-band__action:hover svg {
+    transform: translateX(4px);
+  }
+
+  @media (min-width: 48rem) {
+    .cta-band {
+      grid-template-columns: 1fr auto;
+      gap: var(--space-7);
+      padding: var(--space-6) var(--space-7);
+    }
+
+    .cta-band__action {
+      justify-self: end;
+    }
+  }
+</style>

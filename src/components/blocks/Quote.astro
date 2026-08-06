@@ -1,0 +1,134 @@
+---
+// ОТЗЫВ ИЛИ ЦИТАТА.
+//
+// Для B2B работает только конкретика: имя, должность, компания.
+// Анонимный отзыв «Иван, предприниматель» доверия не добавляет,
+// скорее наоборот.
+import MediaPlaceholder from './MediaPlaceholder.astro';
+
+interface Props {
+  text: string;
+  author: string;
+  role?: string;
+  company?: string;
+  /** Фото автора — необязательно, но заметно усиливает */
+  photo?: string;
+  /** true — тёмная подложка */
+  dark?: boolean;
+}
+
+const { text, author, role, company, photo, dark = false } = Astro.props;
+---
+
+<figure class:list={['quote', dark && 'quote--dark', 'reveal']}>
+  <blockquote class="quote__text">{text}</blockquote>
+
+  <figcaption class="quote__author">
+    <div class="quote__photo">
+      {
+        photo ? (
+          <img src={photo} alt={author} loading="lazy" />
+        ) : (
+          <MediaPlaceholder ratio="1/1" kind="Фото" />
+        )
+      }
+    </div>
+    <div>
+      <p class="quote__name">{author}</p>
+      {
+        (role || company) && (
+          <p class="quote__role">
+            {[role, company].filter(Boolean).join(', ')}
+          </p>
+        )
+      }
+    </div>
+  </figcaption>
+</figure>
+
+<style>
+  .quote {
+    margin: 0;
+    padding: var(--space-6);
+    border: 1px solid var(--line);
+    background: var(--paper);
+  }
+
+  .quote--dark {
+    background: var(--ink);
+    border-color: transparent;
+  }
+
+  .quote__text {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    line-height: 1.4;
+    color: var(--ink);
+    text-wrap: pretty;
+  }
+
+  /* кавычка как элемент оформления, а не символ в тексте */
+  .quote__text::before {
+    content: '«';
+    color: var(--accent);
+  }
+
+  .quote__text::after {
+    content: '»';
+    color: var(--accent);
+  }
+
+  .quote--dark .quote__text {
+    color: var(--on-dark);
+  }
+
+  .quote__author {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--line);
+  }
+
+  .quote--dark .quote__author {
+    border-top-color: rgba(241, 236, 227, 0.15);
+  }
+
+  .quote__photo {
+    width: 3.5rem;
+    flex: none;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+
+  .quote__photo img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+  }
+
+  .quote__photo :global(.ph) {
+    padding: 0;
+  }
+
+  .quote__photo :global(.ph__kind) {
+    display: none;
+  }
+
+  .quote__name {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .quote--dark .quote__name {
+    color: var(--on-dark);
+  }
+
+  .quote__role {
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+</style>

@@ -1,0 +1,174 @@
+---
+// Сетка принципов: «Почему нам можно доверять».
+// Ячейки разделены тонкими линиями, без рамок и теней.
+//
+// Движение: при прокрутке над каждой ячейкой прочерчивается акцентная
+// линия, номер загорается, текст всплывает. Считает браузер, без JavaScript.
+interface Props {
+  title?: string;
+  items: { title: string; text: string }[];
+}
+
+const { title, items } = Astro.props;
+---
+
+{title && <h2 class="principles__title reveal">{title}</h2>}
+
+<ul class="principles">
+  {
+    items.map((item, i) => (
+      <li class="principle" style={`--i: ${i}`}>
+        <span class="principle__rule" aria-hidden="true" />
+        <span class="principle__num">{String(i + 1).padStart(2, '0')}</span>
+        <h3 class="principle__heading">{item.title}</h3>
+        <p class="principle__text">{item.text}</p>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .principles__title {
+    max-width: 18ch;
+    margin-bottom: var(--space-8);
+  }
+
+  .principles {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0;
+  }
+
+  .principle {
+    position: relative;
+    padding-block: var(--space-6);
+    border-bottom: 1px solid var(--line-strong);
+    transition: background-color 400ms var(--ease-out);
+  }
+
+  /* линия над ячейкой — она прочерчивается при появлении */
+  .principle__rule {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--accent);
+    transform-origin: left;
+  }
+
+  .principle__num {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: var(--text-sm);
+    letter-spacing: 0.08em;
+    color: var(--line-strong);
+    margin-bottom: var(--space-3);
+    transition: color 400ms var(--ease-out), transform 400ms var(--ease-out);
+  }
+
+  .principle__heading {
+    margin-bottom: var(--space-2);
+  }
+
+  .principle__text {
+    color: var(--body);
+    max-width: 42ch;
+  }
+
+  /* при наведении ячейка чуть подсвечивается, номер сдвигается */
+  .principle:hover {
+    background-color: color-mix(in srgb, var(--accent) 4%, transparent);
+  }
+
+  .principle:hover .principle__num {
+    color: var(--accent);
+    transform: translateX(4px);
+  }
+
+  /* ── Движение при прокрутке ──────────────────────────────── */
+  /* Без поддержки или при отключённых анимациях всё сразу на месте. */
+  .principle__rule {
+    transform: scaleX(1);
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .principle__rule {
+        animation: rule-draw linear both;
+        animation-timeline: view();
+        animation-range: entry 6% entry 46%;
+      }
+
+      .principle__num {
+        animation: num-warm linear both;
+        animation-timeline: view();
+        animation-range: entry 10% entry 50%;
+      }
+
+      .principle__heading,
+      .principle__text {
+        animation: principle-rise linear both;
+        animation-timeline: view();
+        animation-range: entry 8% entry 48%;
+      }
+
+      .principle__text {
+        animation-range: entry 12% entry 52%;
+      }
+    }
+  }
+
+  @keyframes rule-draw {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes num-warm {
+    from {
+      color: var(--line-strong);
+      opacity: 0;
+      transform: translateX(-6px);
+    }
+    to {
+      color: var(--accent);
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes principle-rise {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .principles {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: var(--space-6);
+    }
+
+    .principle:nth-child(even) {
+      padding-left: calc(var(--space-6) / 2);
+      margin-left: calc(var(--space-6) / -2);
+      border-left: 1px solid var(--line-strong);
+    }
+
+    /* линия сверху не должна залезать на вертикальный разделитель */
+    .principle:nth-child(even) .principle__rule {
+      left: calc(var(--space-6) / 2);
+    }
+  }
+</style>

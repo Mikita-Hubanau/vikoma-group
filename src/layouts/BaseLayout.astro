@@ -24,6 +24,8 @@ interface Props {
   locale?: Locale;
   /** Какая это страница — для подсветки меню и переключателя языков */
   page?: RouteKey;
+  /** true — закрыть страницу от поисковиков (служебные страницы) */
+  noindex?: boolean;
 }
 
 const {
@@ -32,6 +34,7 @@ const {
   ogImage,
   locale = defaultLocale,
   page = 'home',
+  noindex = false,
 } = Astro.props;
 
 const settings = await getSettings(locale);
@@ -60,6 +63,7 @@ const ogImageUrl = ogImage
 
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
     {
       alternates.length > 1 && (

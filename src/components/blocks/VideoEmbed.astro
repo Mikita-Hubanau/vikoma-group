@@ -1,0 +1,154 @@
+---
+// ВИДЕО С YOUTUBE ИЛИ VIMEO.
+//
+// Показываем обложку с кнопкой «play». Настоящий проигрыватель
+// подгружается только после нажатия. Почему так:
+//   — обычная вставка тянет около 1 МБ чужого кода на каждой загрузке
+//     страницы, даже если видео никто не смотрит;
+//   — и ставит счётчики слежения всем посетителям подряд.
+//
+// Это единственное место на сайте, где есть свой скрипт: 12 строк,
+// они срабатывают только по нажатию на кнопку.
+import MediaPlaceholder from './MediaPlaceholder.astro';
+
+interface Props {
+  /** Только идентификатор ролика, не полная ссылка: dQw4w9WgXcQ */
+  videoId?: string;
+  provider?: 'youtube' | 'vimeo';
+  /** Своя обложка. Если не задать — возьмём кадр с YouTube */
+  poster?: string;
+  title?: string;
+  caption?: string;
+  hint?: string;
+}
+
+const {
+  videoId,
+  provider = 'youtube',
+  poster,
+  title = 'Видео',
+  caption,
+  hint,
+} = Astro.props;
+
+const embedSrc =
+  provider === 'vimeo'
+    ? `https://player.vimeo.com/video/${videoId}?autoplay=1`
+    : `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+
+const posterSrc =
+  poster ??
+  (provider === 'youtube' && videoId
+    ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`
+    : undefined);
+---
+
+<figure class="embed reveal">
+  {
+    videoId ? (
+      <div class="embed__frame" data-embed={embedSrc} data-title={title}>
+        <button class="embed__button" type="button">
+          {posterSrc && <img class="embed__poster" src={posterSrc} alt="" loading="lazy" />}
+          <span class="embed__play" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="26" height="26">
+              <path d="M8 5v14l11-7z" fill="currentColor" />
+            </svg>
+          </span>
+          <span class="visually-hidden">Смотреть: {title}</span>
+        </button>
+      </div>
+    ) : (
+      <MediaPlaceholder ratio="16/9" kind="Видео" hint={hint} />
+    )
+  }
+  {caption && <figcaption class="embed__caption">{caption}</figcaption>}
+</figure>
+
+<script>
+  // Подменяем обложку настоящим проигрывателем — только по нажатию.
+  document.querySelectorAll('.embed__frame').forEach((frame) => {
+    frame.querySelector('.embed__button')?.addEventListener('click', () => {
+      const iframe = document.createElement('iframe');
+      iframe.src = frame.getAttribute('data-embed') ?? '';
+      iframe.title = frame.getAttribute('data-title') ?? '';
+      iframe.loading = 'lazy';
+      iframe.allow = 'accelerometer; autoplay; encrypted-media; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.className = 'embed__iframe';
+      frame.replaceChildren(iframe);
+    });
+  });
+</script>
+
+<style>
+  .embed {
+    margin: 0;
+  }
+
+  .embed__frame {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: var(--ink);
+    overflow: hidden;
+  }
+
+  .embed__button {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+  }
+
+  .embed__poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 700ms var(--ease-out), opacity var(--transition);
+  }
+
+  .embed__button:hover .embed__poster {
+    transform: scale(1.03);
+    opacity: 0.85;
+  }
+
+  .embed__play {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    background: var(--paper);
+    color: var(--ink);
+    padding-left: 4px;
+    transition: background-color var(--transition), color var(--transition),
+      transform var(--transition);
+  }
+
+  .embed__button:hover .embed__play {
+    background: var(--accent);
+    color: var(--paper);
+    transform: scale(1.06);
+  }
+
+  .embed__frame :global(.embed__iframe) {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  .embed__caption {
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+</style>
