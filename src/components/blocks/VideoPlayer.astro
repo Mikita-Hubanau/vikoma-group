@@ -8,7 +8,9 @@
 // Что нужно от вас: файл .mp4 (H.264) и кадр-обложка .jpg.
 // Разумный вес ролика для сайта — до 15–20 МБ.
 import MediaPlaceholder from './MediaPlaceholder.astro';
+import { getImage } from 'astro:assets';
 import { media } from '../../lib/url';
+import { findImage } from '../../lib/images';
 
 interface Props {
   src?: string;
@@ -19,6 +21,12 @@ interface Props {
 }
 
 const { src, poster, caption, hint } = Astro.props;
+
+// обложку прогоняем через сжатие; если файла нет — оставляем как есть
+const posterFile = findImage(poster);
+const posterUrl = posterFile
+  ? (await getImage({ src: posterFile, width: 1280, format: 'webp' })).src
+  : media(poster);
 ---
 
 <figure class="video reveal">
@@ -27,7 +35,7 @@ const { src, poster, caption, hint } = Astro.props;
       <video
         class="video__el"
         src={media(src)}
-        poster={media(poster)}
+        poster={posterUrl}
         controls
         preload="none"
         playsinline

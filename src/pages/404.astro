@@ -1,0 +1,105 @@
+---
+// Страница «не найдено».
+//
+// Показывается, если человек ошибся в адресе или пришёл по устаревшей
+// ссылке. Одна на весь сайт: какой язык нужен посетителю, заранее
+// неизвестно, поэтому короткая фраза идёт на всех трёх.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { defaultLocale, enabledLocales, localeFullName } from '../i18n/config';
+import { useUI } from '../i18n/ui';
+import { navOrder } from '../i18n/routes';
+import { href } from '../lib/url';
+
+const locale = defaultLocale;
+
+const lines = [
+  { code: 'ru', text: 'Такой страницы нет. Возможно, адрес набран с ошибкой или страницу перенесли.' },
+  { code: 'it', text: 'Pagina non trovata. Forse l’indirizzo contiene un errore o la pagina è stata spostata.' },
+  { code: 'en', text: 'Page not found. The address may contain a typo, or the page has moved.' },
+].filter((l) => enabledLocales.includes(l.code as never));
+
+const t = useUI(locale);
+---
+
+<BaseLayout
+  title="Страница не найдена — Vikoma Group"
+  description="Такой страницы нет."
+  locale={locale}
+  noindex={true}
+>
+  <section class="notfound">
+    <div class="container">
+      <p class="notfound__code" aria-hidden="true">404</p>
+
+      <div class="notfound__lines">
+        {
+          lines.map((line) => (
+            <p class="notfound__line" lang={line.code}>
+              <span class="notfound__lang">{localeFullName[line.code as never]}</span>
+              {line.text}
+            </p>
+          ))
+        }
+      </div>
+
+      <nav class="notfound__nav" aria-label="Разделы сайта">
+        <a class="btn btn--primary" href={href('home', locale)}>{t.nav.home}</a>
+        {
+          navOrder.map((key) => (
+            <a class="btn btn--ghost" href={href(key, locale)}>
+              {t.nav[key]}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound {
+    padding-block: clamp(3rem, 2rem + 6vw, 7rem);
+  }
+
+  .notfound__code {
+    font-family: var(--font-serif);
+    font-size: var(--text-huge);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    color: var(--accent);
+  }
+
+  .notfound__lines {
+    margin-top: var(--space-6);
+    display: grid;
+    gap: var(--space-4);
+    max-width: var(--measure);
+  }
+
+  .notfound__line {
+    color: var(--body);
+  }
+
+  /* русская строка крупнее — основной язык сайта */
+  .notfound__line:first-child {
+    font-size: var(--text-md);
+    color: var(--ink);
+  }
+
+  .notfound__lang {
+    display: block;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: var(--space-1);
+  }
+
+  .notfound__nav {
+    margin-top: var(--space-7);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+</style>

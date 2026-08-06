@@ -4,7 +4,7 @@
 // Если ставить несколько подряд, чередуйте сторону (reverse) —
 // страница перестаёт выглядеть однообразной.
 import MediaPlaceholder from './MediaPlaceholder.astro';
-import { media } from '../../lib/url';
+import Photo from './Photo.astro';
 
 interface Props {
   eyebrow?: string;
@@ -37,7 +37,7 @@ const {
   <div class="split__media" style={`--ratio: ${ratio}`}>
     {
       src ? (
-        <img src={media(src)} alt={alt} loading="lazy" decoding="async" />
+        <Photo src={src} alt={alt} sizes="(min-width: 52rem) 46vw, 92vw" />
       ) : (
         <MediaPlaceholder ratio={ratio} hint={hint} />
       )
@@ -74,7 +74,7 @@ const {
 
   /* Место под фото отводится заранее, по заданным пропорциям:
      иначе страница дёргается, пока снимок грузится. */
-  .split__media img {
+  .split__media :global(img) {
     width: 100%;
     aspect-ratio: var(--ratio, 4 / 3);
     object-fit: cover;
@@ -82,7 +82,7 @@ const {
     transition: transform 800ms var(--ease-out);
   }
 
-  .split:hover .split__media img {
+  .split:hover .split__media :global(img) {
     transform: scale(1.03);
   }
 

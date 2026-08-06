@@ -1,0 +1,81 @@
+---
+// ФОТОГРАФИЯ.
+//
+// Один компонент на все блоки. Что он делает сам:
+//   — сжимает снимок и делает современные форматы (AVIF, WebP), которые
+//     весят в несколько раз меньше обычного JPEG;
+//   — заготавливает несколько размеров, и браузер качает тот, что нужен
+//     его экрану: телефон не тянет файл для большого монитора;
+//   — проставляет ширину и высоту, чтобы место под фото было занято
+//     заранее и страница не дёргалась при загрузке.
+//
+// Всё это происходит при сборке. На сайте лежат уже готовые файлы.
+import { Picture } from 'astro:assets';
+import { findImage } from '../../lib/images';
+
+interface Props {
+  /** Адрес из текстов: /media/industries/oborudovanie.jpg */
+  src?: string;
+  alt?: string;
+  /** Какие пропорции держать. Фото обрезается по центру */
+  ratio?: string;
+  /**
+   * Сколько места фото займёт на экране — подсказка браузеру,
+   * какой размер качать. Задаётся в единицах CSS.
+   */
+  sizes?: string;
+  /** Ширины, которые заготовить */
+  widths?: number[];
+  /** true — грузить сразу, без ожидания прокрутки (для первого экрана) */
+  eager?: boolean;
+  class?: string;
+}
+
+const {
+  src,
+  alt = '',
+  ratio,
+  sizes = '(min-width: 52rem) 50vw, 100vw',
+  widths = [400, 600, 800, 1200, 1600],
+  eager = false,
+  class: className,
+} = Astro.props;
+
+const image = findImage(src);
+
+// не заготавливаем размеры больше оригинала — иначе снимок растянется
+const useWidths = image
+  ? (() => {
+      const fit = widths.filter((w) => w <= image.width);
+      return fit.length ? fit : [image.width];
+    })()
+  : [];
+---
+
+{
+  image && (
+    <Picture
+      src={image}
+      widths={useWidths}
+      sizes={sizes}
+      formats={['avif', 'webp']}
+      quality={70}
+      alt={alt}
+      loading={eager ? 'eager' : 'lazy'}
+      decoding={eager ? 'sync' : 'async'}
+      class={className}
+      style={ratio ? `--ratio: ${ratio}` : undefined}
+    />
+  )
+}
+
+<style is:global>
+  /* Картинка всегда занимает всю ширину своего места и обрезается
+     по центру под заданные пропорции. */
+  picture img[data-photo],
+  .photo {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>

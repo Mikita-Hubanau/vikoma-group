@@ -3,7 +3,7 @@
 // с подсказкой, какой снимок сюда нужен (поле imageHint в файле отрасли).
 import type { Locale } from '../i18n/config';
 import { useUI } from '../i18n/ui';
-import { media } from '../lib/url';
+import Photo from './blocks/Photo.astro';
 
 interface Props {
   locale: Locale;
@@ -21,7 +21,11 @@ const t = useUI(locale);
   <div class="industry__media">
     {
       image ? (
-        <img src={media(image)} alt={title} loading="lazy" decoding="async" />
+        <Photo
+          src={image}
+          alt={title}
+          sizes="(min-width: 68rem) 30vw, (min-width: 48rem) 45vw, 90vw"
+        />
       ) : (
         <div class="industry__placeholder">
           <span class="industry__placeholder-label">{t.photoNeeded}</span>
@@ -54,14 +58,14 @@ const t = useUI(locale);
     margin-bottom: var(--space-4);
   }
 
-  .industry__media img {
+  .industry__media :global(img) {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 700ms var(--ease-out);
   }
 
-  .industry:hover .industry__media img {
+  .industry:hover .industry__media :global(img) {
     transform: scale(1.04);
   }
 
