@@ -5,15 +5,30 @@
   },
   "hero": {
     "eyebrow": "Brokerage · Foreign trade · Consulting",
-    "titleLines": ["Italian business", "in the Belarusian market"],
+    "titleLines": [
+      "Italian business",
+      "in the Belarusian market"
+    ],
     "lead": "We help Italian manufacturers find distributors in Belarus, and Belarusian companies find reliable suppliers. We take on the negotiations, the paperwork and the logistics.",
     "cta": {
       "label": "Discuss a project",
       "page": "contacts"
     },
-    "points": {
-      "from": "Fano",
-      "to": "Minsk"
+    "map": {
+      "countries": [
+        {
+          "id": "italy",
+          "label": "Italy"
+        },
+        {
+          "id": "belarus",
+          "label": "Belarus"
+        },
+        {
+          "id": "russia",
+          "label": "Russia"
+        }
+      ]
     }
   },
   "whatWeDo": {
@@ -71,10 +86,23 @@
   "stats": {
     "eyebrow": "In numbers",
     "items": [
-      { "value": 8, "label": "years in the market" },
-      { "value": 60, "suffix": "+", "label": "completed projects" },
-      { "value": 2, "label": "offices: Minsk and Fano" },
-      { "value": 5, "label": "industries" }
+      {
+        "value": 8,
+        "label": "years in the market"
+      },
+      {
+        "value": 60,
+        "suffix": "+",
+        "label": "completed projects"
+      },
+      {
+        "value": 2,
+        "label": "offices: Minsk and Fano"
+      },
+      {
+        "value": 5,
+        "label": "industries"
+      }
     ]
   }
 }

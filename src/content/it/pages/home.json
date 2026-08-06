@@ -5,15 +5,30 @@
   },
   "hero": {
     "eyebrow": "Intermediazione · Import-export · Consulenza",
-    "titleLines": ["Il business italiano", "sul mercato bielorusso"],
+    "titleLines": [
+      "Il business italiano",
+      "sul mercato bielorusso"
+    ],
     "lead": "Aiutiamo i produttori italiani a trovare distributori in Bielorussia e le aziende bielorusse a trovare fornitori affidabili. Ci occupiamo noi di trattative, documenti e logistica.",
     "cta": {
       "label": "Parliamo del progetto",
       "page": "contacts"
     },
-    "points": {
-      "from": "Fano",
-      "to": "Minsk"
+    "map": {
+      "countries": [
+        {
+          "id": "italy",
+          "label": "Italia"
+        },
+        {
+          "id": "belarus",
+          "label": "Bielorussia"
+        },
+        {
+          "id": "russia",
+          "label": "Russia"
+        }
+      ]
     }
   },
   "whatWeDo": {
@@ -71,10 +86,23 @@
   "stats": {
     "eyebrow": "In cifre",
     "items": [
-      { "value": 8, "label": "anni sul mercato" },
-      { "value": 60, "suffix": "+", "label": "progetti realizzati" },
-      { "value": 2, "label": "sedi: Minsk e Fano" },
-      { "value": 5, "label": "settori" }
+      {
+        "value": 8,
+        "label": "anni sul mercato"
+      },
+      {
+        "value": 60,
+        "suffix": "+",
+        "label": "progetti realizzati"
+      },
+      {
+        "value": 2,
+        "label": "sedi: Minsk e Fano"
+      },
+      {
+        "value": 5,
+        "label": "settori"
+      }
     ]
   }
 }

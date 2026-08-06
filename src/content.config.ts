@@ -79,8 +79,19 @@ const homePage = defineCollection({
       titleLines: z.array(z.string()),
       lead: z.string(),
       cta,
-      /** Подписи у двух точек на дуге */
-      points: z.object({ from: z.string(), to: z.string() }),
+      /**
+       * Страны на карте: порядок и подписи на языке страницы.
+       * id должен совпадать с id в scripts/build-map.mjs — оттуда берутся
+       * очертания. Чтобы добавить страну, её нужно сначала завести там.
+       */
+      map: z.object({
+        countries: z.array(
+          z.object({
+            id: z.enum(['italy', 'belarus', 'russia']),
+            label: z.string(),
+          }),
+        ),
+      }),
     }),
     whatWeDo: z.object({
       eyebrow: z.string(),

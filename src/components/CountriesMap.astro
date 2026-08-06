@@ -1,0 +1,200 @@
+---
+// Карта стран на первом экране.
+//
+// Контуры взяты из src/data/map.json — он создаётся заранее скриптом
+// scripts/build-map.mjs по настоящим географическим данным. Здесь только
+// отрисовка: никаких карт-библиотек на сайте нет, это обычная картинка.
+//
+// Движение: карта проявляется слева направо — сначала Италия, потом
+// Беларусь, потом Россия. Затем прочерчиваются связи, и по ним начинают
+// ходить точки.
+import mapData from '../data/map.json';
+
+interface Props {
+  /** Какие страны показать и как их подписать на языке страницы */
+  countries: { id: string; label: string }[];
+}
+
+const { countries } = Astro.props;
+
+// Оставляем только те страны, что перечислены в тексте, и в их порядке
+const shapes = countries
+  .map((c) => {
+    const shape = mapData.countries.find((s) => s.id === c.id);
+    return shape ? { ...shape, label: { ...shape.label, text: c.label } } : null;
+  })
+  .filter((s) => s !== null);
+
+const shownIds = new Set(shapes.map((s) => s.id));
+const links = mapData.links.filter(
+  (l) => shownIds.has(l.from) && shownIds.has(l.to),
+);
+
+const title = countries.map((c) => c.label).join(' — ');
+---
+
+<svg class="map" viewBox={mapData.viewBox} role="img" aria-label={title}>
+  <defs>
+    <clipPath id="vg-map-wipe" clipPathUnits="userSpaceOnUse">
+      <rect class="map__wipe" x="0" y="0" width={mapData.width} height={mapData.height} />
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#vg-map-wipe)">
+    {/* Сначала все заливки, потом все контуры — иначе соседняя страна
+        закрасила бы общую границу, и Беларусь слилась бы с Россией. */}
+    {shapes.map((s) => <path class="map__fill" d={s.d} />)}
+    {shapes.map((s) => <path class="map__outline" d={s.d} />)}
+
+    {
+      links.map((l, i) => (
+        <>
+          <path class="map__arc" d={l.d} pathLength="1" style={`--delay: ${1500 + i * 220}ms`} />
+          <path
+            class="map__pulse"
+            d={l.d}
+            pathLength="1"
+            style={`--delay: ${2600 + i * 900}ms`}
+          />
+        </>
+      ))
+    }
+  </g>
+
+  <g class="map__markers">
+    {
+      shapes.map((s, i) => (
+        <g class="map__marker" style={`--delay: ${700 + i * 260}ms`}>
+          <circle class="map__dot" cx={s.centroid[0]} cy={s.centroid[1]} r="3.4" />
+          <text
+            class="map__label"
+            x={s.label.x}
+            y={s.label.y}
+            text-anchor={s.label.anchor}
+          >
+            {s.label.text}
+          </text>
+        </g>
+      ))
+    }
+  </g>
+</svg>
+
+<style>
+  .map {
+    width: 100%;
+    height: auto;
+    /* обрезка обязательна: контуры нарисованы с запасом за рамкой,
+       иначе Россия вылезает за пределы картинки */
+    overflow: hidden;
+  }
+
+  .map__fill {
+    fill: var(--accent);
+    fill-opacity: 0.07;
+  }
+
+  .map__outline {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.2;
+    stroke-linejoin: round;
+  }
+
+  .map__arc {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+    opacity: 0.45;
+  }
+
+  /* точка, бегущая по связи: короткий штрих с круглым концом */
+  .map__pulse {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 4.5;
+    stroke-linecap: round;
+    stroke-dasharray: 0.006 0.994;
+    opacity: 0;
+  }
+
+  .map__dot {
+    fill: var(--ink);
+  }
+
+  /* Размер в единицах картинки: она сжимается под ширину колонки,
+     поэтому на экране получается около 11–12 пикселей. */
+  .map__label {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    fill: var(--ink);
+  }
+
+  /* ── Движение ────────────────────────────────────────────── */
+  /* Если человек отключил анимации в системе — карта просто сразу
+     на месте: все начальные состояния уже видимые. */
+  @media (prefers-reduced-motion: no-preference) {
+    /* карта открывается слева направо */
+    .map__wipe {
+      transform-box: view-box;
+      transform-origin: 0 0;
+      animation: map-wipe 1500ms var(--ease-out) 250ms both;
+    }
+
+    .map__marker {
+      animation: map-fade 650ms var(--ease-out) both;
+      animation-delay: var(--delay);
+    }
+
+    /* связи прочерчиваются после того, как открылась карта */
+    .map__arc {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: map-draw 900ms var(--ease-out) both;
+      animation-delay: var(--delay);
+    }
+
+    .map__pulse {
+      opacity: 1;
+      animation: map-travel 4.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+      animation-delay: var(--delay);
+    }
+  }
+
+  @keyframes map-wipe {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes map-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes map-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes map-travel {
+    from {
+      stroke-dashoffset: 0;
+    }
+    to {
+      stroke-dashoffset: -1;
+    }
+  }
+</style>
