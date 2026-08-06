@@ -2,6 +2,7 @@
 title: Food products
 order: 2
 summary: Wine, oil, cheese, confectionery
+image: /media/industries/produkty.jpg
 imageHint: Warehouse pallets of food cartons or a packing line, calm lighting
 ---
 

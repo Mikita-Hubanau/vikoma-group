@@ -2,6 +2,7 @@
 title: Building materials
 order: 4
 summary: Tiles, stone, engineering systems
+image: /media/industries/stroymaterialy.jpg
 imageHint: Warehouse of porcelain tile or stone slabs, racking, natural light
 ---
 

@@ -3,6 +3,7 @@
 // с подсказкой, какой снимок сюда нужен (поле imageHint в файле отрасли).
 import type { Locale } from '../i18n/config';
 import { useUI } from '../i18n/ui';
+import { media } from '../lib/url';
 
 interface Props {
   locale: Locale;
@@ -20,7 +21,7 @@ const t = useUI(locale);
   <div class="industry__media">
     {
       image ? (
-        <img src={image} alt={title} loading="lazy" decoding="async" />
+        <img src={media(image)} alt={title} loading="lazy" decoding="async" />
       ) : (
         <div class="industry__placeholder">
           <span class="industry__placeholder-label">{t.photoNeeded}</span>

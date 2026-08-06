@@ -2,6 +2,7 @@
 title: Furniture and interiors
 order: 3
 summary: Furniture, lighting, finishing materials
+image: /media/industries/mebel.jpg
 imageHint: Furniture showroom or warehouse with packed furniture, neutral tones
 ---
 

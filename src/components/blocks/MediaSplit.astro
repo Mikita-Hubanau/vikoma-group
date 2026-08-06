@@ -4,6 +4,7 @@
 // Если ставить несколько подряд, чередуйте сторону (reverse) —
 // страница перестаёт выглядеть однообразной.
 import MediaPlaceholder from './MediaPlaceholder.astro';
+import { media } from '../../lib/url';
 
 interface Props {
   eyebrow?: string;
@@ -33,10 +34,10 @@ const {
 ---
 
 <div class:list={['split', reverse && 'split--reverse', 'reveal']}>
-  <div class="split__media">
+  <div class="split__media" style={`--ratio: ${ratio}`}>
     {
       src ? (
-        <img src={src} alt={alt} loading="lazy" decoding="async" />
+        <img src={media(src)} alt={alt} loading="lazy" decoding="async" />
       ) : (
         <MediaPlaceholder ratio={ratio} hint={hint} />
       )
@@ -71,9 +72,12 @@ const {
     background: var(--paper-2);
   }
 
+  /* Место под фото отводится заранее, по заданным пропорциям:
+     иначе страница дёргается, пока снимок грузится. */
   .split__media img {
     width: 100%;
-    height: auto;
+    aspect-ratio: var(--ratio, 4 / 3);
+    object-fit: cover;
     display: block;
     transition: transform 800ms var(--ease-out);
   }

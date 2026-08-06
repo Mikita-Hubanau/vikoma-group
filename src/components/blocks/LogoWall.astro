@@ -6,6 +6,8 @@
 //
 // Что нужно: файлы SVG или PNG на прозрачном фоне.
 // Важно: перед публикацией убедитесь, что партнёры не против.
+import { media } from '../../lib/url';
+
 interface Props {
   title?: string;
   items: { name: string; src?: string; href?: string }[];
@@ -22,7 +24,7 @@ const { title, items, colored = false } = Astro.props;
   {
     items.map((item) => {
       const inner = item.src ? (
-        <img src={item.src} alt={item.name} loading="lazy" />
+        <img src={media(item.src)} alt={item.name} loading="lazy" />
       ) : (
         <span class="logos__stub">{item.name}</span>
       );

@@ -2,6 +2,7 @@
 title: Fashion and textiles
 order: 5
 summary: Clothing, footwear, accessories, fabrics
+image: /media/industries/moda.jpg
 imageHint: Rolls of fabric in a warehouse or a clothing showroom, muted palette
 ---
 

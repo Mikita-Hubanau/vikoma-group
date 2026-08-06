@@ -3,6 +3,7 @@
 // Самый простой медиа-блок: один снимок и текст под ним.
 // Годится внутри статьи, на странице услуги, в описании отрасли.
 import MediaPlaceholder from './MediaPlaceholder.astro';
+import { media } from '../../lib/url';
 
 interface Props {
   src?: string;
@@ -19,10 +20,10 @@ const { src, alt = '', caption, ratio = '16/9', hint, wide = false } = Astro.pro
 ---
 
 <figure class:list={['fig', wide && 'fig--wide', 'reveal']}>
-  <div class="fig__media">
+  <div class="fig__media" style={`--ratio: ${ratio}`}>
     {
       src ? (
-        <img src={src} alt={alt} loading="lazy" decoding="async" />
+        <img src={media(src)} alt={alt} loading="lazy" decoding="async" />
       ) : (
         <MediaPlaceholder ratio={ratio} hint={hint} />
       )
@@ -41,9 +42,12 @@ const { src, alt = '', caption, ratio = '16/9', hint, wide = false } = Astro.pro
     background: var(--paper-2);
   }
 
+  /* Место под фото отводится заранее, по заданным пропорциям:
+     иначе страница дёргается, пока снимок грузится. */
   .fig__media img {
     width: 100%;
-    height: auto;
+    aspect-ratio: var(--ratio, 16 / 9);
+    object-fit: cover;
     display: block;
   }
 

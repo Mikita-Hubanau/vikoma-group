@@ -41,6 +41,18 @@ export function asset(assetPath: string): string {
   return `${base}/${String(assetPath).replace(/^\/+/, '')}`;
 }
 
+/**
+ * Адрес картинки или видео.
+ *
+ * Свои файлы (начинаются со слеша) прогоняются через asset(), чтобы
+ * работать и в подпапке на GitHub Pages. Чужие ссылки оставляем как есть.
+ */
+export function media(src: string | undefined): string | undefined {
+  if (!src) return undefined;
+  if (/^(https?:)?\/\//.test(src) || src.startsWith('data:')) return src;
+  return asset(src);
+}
+
 /** Полный адрес страницы — для канонической ссылки и Open Graph. */
 export function absoluteUrl(rawPath: string, site: URL | undefined): string {
   if (!site) return rawPath;

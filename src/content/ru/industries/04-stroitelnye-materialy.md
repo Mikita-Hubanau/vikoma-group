@@ -2,6 +2,7 @@
 title: Строительные материалы
 order: 4
 summary: Плитка, камень, инженерные системы
+image: /media/industries/stroymaterialy.jpg
 imageHint: Склад керамогранита или плит камня, стеллажи, естественный свет
 ---
 

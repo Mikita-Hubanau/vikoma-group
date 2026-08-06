@@ -5,6 +5,7 @@
 //
 // Хорошо подходит для: производство, склад, выставки, объекты.
 import MediaPlaceholder from './MediaPlaceholder.astro';
+import { media } from '../../lib/url';
 
 interface Props {
   items: { src?: string; alt?: string; caption?: string; hint?: string }[];
@@ -22,7 +23,7 @@ const { items, columns = 3, ratio = '4/3' } = Astro.props;
       <li class="gallery__item">
         <div class="gallery__media">
           {item.src ? (
-            <img src={item.src} alt={item.alt ?? ''} loading="lazy" decoding="async" />
+            <img src={media(item.src)} alt={item.alt ?? ''} loading="lazy" decoding="async" />
           ) : (
             <MediaPlaceholder ratio={ratio} hint={item.hint} />
           )}

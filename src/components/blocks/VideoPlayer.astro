@@ -8,6 +8,7 @@
 // Что нужно от вас: файл .mp4 (H.264) и кадр-обложка .jpg.
 // Разумный вес ролика для сайта — до 15–20 МБ.
 import MediaPlaceholder from './MediaPlaceholder.astro';
+import { media } from '../../lib/url';
 
 interface Props {
   src?: string;
@@ -25,8 +26,8 @@ const { src, poster, caption, hint } = Astro.props;
     src ? (
       <video
         class="video__el"
-        src={src}
-        poster={poster}
+        src={media(src)}
+        poster={media(poster)}
         controls
         preload="none"
         playsinline

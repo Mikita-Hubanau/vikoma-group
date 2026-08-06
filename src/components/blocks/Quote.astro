@@ -5,6 +5,7 @@
 // Анонимный отзыв «Иван, предприниматель» доверия не добавляет,
 // скорее наоборот.
 import MediaPlaceholder from './MediaPlaceholder.astro';
+import { media } from '../../lib/url';
 
 interface Props {
   text: string;
@@ -27,7 +28,7 @@ const { text, author, role, company, photo, dark = false } = Astro.props;
     <div class="quote__photo">
       {
         photo ? (
-          <img src={photo} alt={author} loading="lazy" />
+          <img src={media(photo)} alt={author} loading="lazy" />
         ) : (
           <MediaPlaceholder ratio="1/1" kind="Фото" />
         )

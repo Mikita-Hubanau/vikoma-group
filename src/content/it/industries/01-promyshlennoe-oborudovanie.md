@@ -2,6 +2,7 @@
 title: Macchinari industriali
 order: 1
 summary: Macchine utensili, linee di produzione, componenti
+image: /media/industries/oborudovanie.jpg
 imageHint: Reparto con macchine utensili, luce soffusa, senza persone in primo piano
 ---
 

@@ -5,6 +5,7 @@
 //
 // Фото затемняется, иначе белый текст на светлых участках теряется.
 import MediaPlaceholder from './MediaPlaceholder.astro';
+import { media } from '../../lib/url';
 
 interface Props {
   eyebrow?: string;
@@ -24,7 +25,7 @@ const { eyebrow, title, text, src, alt = '', hint, size = 'short' } = Astro.prop
   <div class="band__media">
     {
       src ? (
-        <img src={src} alt={alt} loading="lazy" decoding="async" />
+        <img src={media(src)} alt={alt} loading="lazy" decoding="async" />
       ) : (
         <div class="band__placeholder">
           <MediaPlaceholder ratio="21/9" hint={hint} />

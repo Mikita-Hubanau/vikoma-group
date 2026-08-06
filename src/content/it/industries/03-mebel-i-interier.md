@@ -2,6 +2,7 @@
 title: Arredamento e interni
 order: 3
 summary: Mobili, illuminazione, materiali di finitura
+image: /media/industries/mebel.jpg
 imageHint: Showroom di mobili o magazzino con mobili imballati, toni neutri
 ---
 

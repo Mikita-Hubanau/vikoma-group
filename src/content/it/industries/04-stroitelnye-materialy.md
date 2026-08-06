@@ -2,6 +2,7 @@
 title: Materiali da costruzione
 order: 4
 summary: Piastrelle, pietra, impianti tecnici
+image: /media/industries/stroymaterialy.jpg
 imageHint: Magazzino di gres porcellanato o lastre di pietra, scaffalature, luce naturale
 ---
 

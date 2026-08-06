@@ -2,6 +2,7 @@
 title: Moda e tessile
 order: 5
 summary: Abbigliamento, calzature, accessori, tessuti
+image: /media/industries/moda.jpg
 imageHint: Rotoli di tessuto in magazzino o showroom di abbigliamento, palette sobria
 ---
 
