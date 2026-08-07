@@ -1,0 +1,20 @@
+{
+  "seo": {
+    "title": "Страница не найдена — Vikoma Group",
+    "description": "Такой страницы нет."
+  },
+  "texts": [
+    {
+      "code": "ru",
+      "text": "Такой страницы нет. Возможно, адрес набран с ошибкой или страницу перенесли."
+    },
+    {
+      "code": "it",
+      "text": "Pagina non trovata. Forse l’indirizzo contiene un errore o la pagina è stata spostata."
+    },
+    {
+      "code": "en",
+      "text": "Page not found. The address may contain a typo, or the page has moved."
+    }
+  ]
+}

@@ -406,6 +406,88 @@ collections:
           - { name: title, label: Заголовок, widget: string, i18n: true }
           - { name: lead, label: Вводный абзац, widget: text, i18n: true }
 
+
+  # ─────────────────────────────────────────────────────────────
+  #  СЛУЖЕБНОЕ — то, что посетитель обычно не видит
+  # ─────────────────────────────────────────────────────────────
+  - name: system
+    label: Служебное
+    icon: build
+    # Без языков: эти страницы только для вас, переводить их незачем
+    i18n: false
+    editor:
+      preview: false
+    files:
+      - name: blocks
+        label: Каталог блоков
+        file: src/content/system/blocks.json
+        description: Справочник по блокам. Сами показы блоков живут в коде — здесь правятся только описания и ваши пометки.
+        fields:
+          - name: seo
+            label: Для поисковиков
+            widget: object
+            collapsed: true
+            fields:
+              - { name: title, label: Заголовок вкладки, widget: string }
+              - { name: description, label: Описание, widget: text }
+          - { name: title, label: Заголовок страницы, widget: string }
+          - { name: lead, label: Вводный абзац, widget: text }
+          - name: mediaNote
+            label: Примечание про фото и видео
+            widget: text
+            hint: Про то, что снимки временные
+          - name: serviceNote
+            label: Примечание про служебность
+            widget: text
+          - name: blocks
+            label: Блоки
+            widget: list
+            label_singular: Блок
+            summary: '{{fields.name}}{{fields.note}}'
+            # Порядок показа задан в коде, здесь его менять бессмысленно
+            allow_add: false
+            fields:
+              - name: id
+                label: Код блока
+                widget: string
+                hint: Связывает описание с показом. Менять нельзя — блок пропадёт
+              - { name: name, label: Название, widget: string }
+              - { name: when, label: Когда нужен, widget: text }
+              - { name: needs, label: Что нужно от вас, widget: text, required: false }
+              - name: note
+                label: Ваша пометка
+                widget: text
+                required: false
+                hint: 'Например: берём на страницу услуг. Пустое поле не показывается'
+
+      - name: notfound
+        label: Страница «не найдено»
+        file: src/content/system/notfound.json
+        description: Показывается, если посетитель ошибся в адресе. Фраза идёт на всех трёх языках сразу — какой нужен, заранее неизвестно.
+        fields:
+          - name: seo
+            label: Для поисковиков
+            widget: object
+            collapsed: true
+            fields:
+              - { name: title, label: Заголовок вкладки, widget: string }
+              - { name: description, label: Описание, widget: text }
+          - name: texts
+            label: Текст по языкам
+            widget: list
+            label_singular: Язык
+            summary: '{{fields.code}}: {{fields.text}}'
+            allow_add: false
+            fields:
+              - name: code
+                label: Язык
+                widget: select
+                options:
+                  - { label: Русский, value: ru }
+                  - { label: Italiano, value: it }
+                  - { label: English, value: en }
+              - { name: text, label: Фраза, widget: text }
+
   # ─────────────────────────────────────────────────────────────
   #  УСЛУГИ — по файлу на каждую
   # ─────────────────────────────────────────────────────────────

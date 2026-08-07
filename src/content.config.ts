@@ -227,7 +227,41 @@ const industries = defineCollection({
   }),
 });
 
+// ── Каталог блоков (служебная страница, только на русском) ────
+const blocksPage = defineCollection({
+  loader: glob({ pattern: 'system/blocks.json', base: BASE, generateId: () => 'blocks' }),
+  schema: z.object({
+    seo,
+    title: z.string(),
+    lead: z.string(),
+    mediaNote: z.string(),
+    serviceNote: z.string(),
+    blocks: z.array(
+      z.object({
+        /** Совпадает с id блока в коде страницы — по нему подставляется показ */
+        id: z.string(),
+        name: z.string(),
+        when: z.string(),
+        needs: z.string().default(''),
+        /** Свободная пометка: «берём», «не нужен», «переделать» */
+        note: z.string().default(''),
+      }),
+    ),
+  }),
+});
+
+// ── Страница «не найдено» (служебная, тексты на трёх языках) ──
+const notFoundPage = defineCollection({
+  loader: glob({ pattern: 'system/notfound.json', base: BASE, generateId: () => 'notfound' }),
+  schema: z.object({
+    seo,
+    texts: z.array(z.object({ code: z.enum(['ru', 'it', 'en']), text: z.string() })),
+  }),
+});
+
 export const collections = {
+  blocksPage,
+  notFoundPage,
   settings,
   homePage,
   servicesPage,

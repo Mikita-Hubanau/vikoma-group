@@ -5,6 +5,7 @@
 // ссылке. Одна на весь сайт: какой язык нужен посетителю, заранее
 // неизвестно, поэтому короткая фраза идёт на всех трёх.
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEntry } from 'astro:content';
 import { defaultLocale, enabledLocales, localeFullName } from '../i18n/config';
 import { useUI } from '../i18n/ui';
 import { navOrder } from '../i18n/routes';
@@ -12,18 +13,19 @@ import { href } from '../lib/url';
 
 const locale = defaultLocale;
 
-const lines = [
-  { code: 'ru', text: 'Такой страницы нет. Возможно, адрес набран с ошибкой или страницу перенесли.' },
-  { code: 'it', text: 'Pagina non trovata. Forse l’indirizzo contiene un errore o la pagina è stata spostata.' },
-  { code: 'en', text: 'Page not found. The address may contain a typo, or the page has moved.' },
-].filter((l) => enabledLocales.includes(l.code as never));
+// Текст правится в редакторе: раздел «Служебное»
+const entry = await getEntry('notFoundPage', 'notfound');
+if (!entry) throw new Error('Нет файла src/content/system/notfound.json');
+const page = entry.data;
+
+const lines = page.texts.filter((l) => enabledLocales.includes(l.code));
 
 const t = useUI(locale);
 ---
 
 <BaseLayout
-  title="Страница не найдена — Vikoma Group"
-  description="Такой страницы нет."
+  title={page.seo.title}
+  description={page.seo.description}
   locale={locale}
   noindex={true}
 >

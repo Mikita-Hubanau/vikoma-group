@@ -9,11 +9,13 @@ interface Props {
   when: string;
   /** Что нужно подготовить, чтобы блок заработал */
   needs?: string;
+  /** Ваша пометка: «берём», «не нужен» — правится в редакторе */
+  note?: string;
   /** Во всю ширину экрана, без колонки */
   full?: boolean;
 }
 
-const { id, num, title, when, needs, full = false } = Astro.props;
+const { id, num, title, when, needs, note, full = false } = Astro.props;
 ---
 
 <section class="demo" id={id}>
@@ -28,6 +30,14 @@ const { id, num, title, when, needs, full = false } = Astro.props;
             <p class="demo__needs">
               <span class="demo__needs-label">Нужно от вас</span>
               {needs}
+            </p>
+          )
+        }
+        {
+          note && (
+            <p class="demo__note">
+              <span class="demo__note-label">Ваша пометка</span>
+              {note}
             </p>
           )
         }
@@ -78,6 +88,27 @@ const { id, num, title, when, needs, full = false } = Astro.props;
     font-size: var(--text-xs);
     color: var(--body);
     max-width: 56ch;
+  }
+
+  /* пометка заказчика — выделяется, чтобы её было видно в списке */
+  .demo__note {
+    margin-top: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: color-mix(in srgb, var(--accent) 7%, var(--paper));
+    border-left: 2px solid var(--accent);
+    font-size: var(--text-sm);
+    color: var(--ink);
+    max-width: 56ch;
+  }
+
+  .demo__note-label {
+    display: block;
+    margin-bottom: var(--space-1);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
   }
 
   .demo__needs-label {
