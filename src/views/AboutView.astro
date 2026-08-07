@@ -22,7 +22,11 @@ const { data: page } = await getPage('aboutPage', locale);
   locale={locale}
   page="about"
 >
-  <PageHeader title={page.title} lead={page.lead} />
+  <PageHeader
+    title={page.title}
+    lead={page.lead}
+    edit={{ collection: 'pages', entry: 'about', label: 'О компании' }}
+  />
 
   <!-- История -->
   <section class="section">

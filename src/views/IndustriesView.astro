@@ -19,6 +19,7 @@ const industries = byOrder(await getList('industries', locale));
 const items = await Promise.all(
   industries.map(async (entry) => ({
     data: entry.data,
+    slug: entry.id.split('/').pop()!,
     Content: (await render(entry)).Content,
   })),
 );
@@ -30,13 +31,17 @@ const items = await Promise.all(
   locale={locale}
   page="industries"
 >
-  <PageHeader title={page.title} lead={page.lead} />
+  <PageHeader
+    title={page.title}
+    lead={page.lead}
+    edit={{ collection: 'pages', entry: 'industries', label: 'Отрасли — шапка страницы' }}
+  />
 
   <section class="section">
     <div class="container">
       <ul class="industries stagger">
         {
-          items.map(({ data, Content }) => (
+          items.map(({ data, slug, Content }) => (
             <li>
               <IndustryCard
                 locale={locale}
@@ -44,6 +49,7 @@ const items = await Promise.all(
                 summary={data.summary}
                 image={data.image}
                 imageHint={data.imageHint}
+                slug={slug}
               >
                 <div class="prose industry-text">
                   <Content />

@@ -25,7 +25,11 @@ const settings = await getSettings(locale);
   locale={locale}
   page="contacts"
 >
-  <PageHeader title={page.title} lead={page.lead} />
+  <PageHeader
+    title={page.title}
+    lead={page.lead}
+    edit={{ collection: 'pages', entry: 'contacts', label: 'Контакты — шапка страницы' }}
+  />
 
   <!-- Связь -->
   <section class="section">

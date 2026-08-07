@@ -13,6 +13,7 @@ import type { RouteKey } from '../i18n/routes';
 import { getSettings } from '../lib/content';
 import { asset } from '../lib/url';
 import { useUI } from '../i18n/ui';
+import EditMode from '../components/edit/EditMode.astro';
 
 interface Props {
   /** Заголовок вкладки и результата в поиске */
@@ -108,5 +109,6 @@ const ogImageUrl = ogImage
       <slot />
     </main>
     <Footer locale={locale} />
+    <EditMode />
   </body>
 </html>

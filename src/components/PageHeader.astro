@@ -1,14 +1,19 @@
 ---
 // Шапка внутренней страницы: заголовок и вводный абзац.
+import EditButton from './edit/EditButton.astro';
+
 interface Props {
   title: string;
   lead?: string;
+  /** Какую запись открыть по кнопке правки */
+  edit?: { collection: string; entry: string; label: string };
 }
 
-const { title, lead } = Astro.props;
+const { title, lead, edit } = Astro.props;
 ---
 
-<section class="page-header">
+<section class="page-header edit-anchor">
+  {edit && <EditButton collection={edit.collection} entry={edit.entry} label={edit.label} />}
   <div class="container">
     <h1>{title}</h1>
     {lead && <p class="lead page-header__lead">{lead}</p>}

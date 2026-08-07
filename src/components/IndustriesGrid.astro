@@ -27,6 +27,7 @@ const { locale, items, layout = 'scroller' } = Astro.props;
           summary={item.data.summary}
           image={item.data.image}
           imageHint={item.data.imageHint}
+          slug={item.id.split('/').pop()}
         />
       </li>
     ))

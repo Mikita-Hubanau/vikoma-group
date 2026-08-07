@@ -7,6 +7,7 @@ import type { RouteKey } from '../i18n/routes';
 import { useUI } from '../i18n/ui';
 import { href } from '../lib/url';
 import CountriesMap from './CountriesMap.astro';
+import EditButton from './edit/EditButton.astro';
 
 interface Props {
   locale: Locale;
@@ -21,7 +22,8 @@ const { locale, eyebrow, titleLines, lead, cta, map } = Astro.props;
 const t = useUI(locale);
 ---
 
-<section class="hero">
+<section class="hero edit-anchor">
+  <EditButton collection="pages" entry="home" label="Первый экран" />
   <div class="container hero__inner">
     <div class="hero__text">
       <p class="eyebrow enter" style="--delay: 80ms">{eyebrow}</p>

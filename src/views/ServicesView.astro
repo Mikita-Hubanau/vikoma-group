@@ -7,6 +7,7 @@ import ContactBlock from '../components/ContactBlock.astro';
 import type { Locale } from '../i18n/config';
 import { useUI } from '../i18n/ui';
 import { getList, getPage, byOrder } from '../lib/content';
+import EditButton from '../components/edit/EditButton.astro';
 
 interface Props {
   locale: Locale;
@@ -22,6 +23,7 @@ const services = byOrder(await getList('services', locale));
 const items = await Promise.all(
   services.map(async (entry) => ({
     data: entry.data,
+    slug: entry.id.split('/').pop()!,
     Content: (await render(entry)).Content,
   })),
 );
@@ -33,14 +35,19 @@ const items = await Promise.all(
   locale={locale}
   page="services"
 >
-  <PageHeader title={page.title} lead={page.lead} />
+  <PageHeader
+    title={page.title}
+    lead={page.lead}
+    edit={{ collection: 'pages', entry: 'services', label: 'Услуги — шапка страницы' }}
+  />
 
   <section class="section">
     <div class="container">
       <ol class="services">
         {
-          items.map(({ data, Content }, i) => (
-            <li class="service reveal">
+          items.map(({ data, slug, Content }, i) => (
+            <li class="service reveal edit-anchor">
+              <EditButton collection="services" entry={slug} label={data.title} />
               <div class="service__aside">
                 <span class="service__num">{String(i + 1).padStart(2, '0')}</span>
                 <h2 class="service__title">{data.title}</h2>

@@ -4,6 +4,7 @@
 import type { Locale } from '../i18n/config';
 import { useUI } from '../i18n/ui';
 import Photo from './blocks/Photo.astro';
+import EditButton from './edit/EditButton.astro';
 
 interface Props {
   locale: Locale;
@@ -11,13 +12,16 @@ interface Props {
   summary: string;
   image?: string;
   imageHint?: string;
+  /** Имя файла отрасли — чтобы кнопка открыла именно её */
+  slug?: string;
 }
 
-const { locale, title, summary, image, imageHint } = Astro.props;
+const { locale, title, summary, image, imageHint, slug } = Astro.props;
 const t = useUI(locale);
 ---
 
-<article class="industry">
+<article class="industry edit-anchor">
+  {slug && <EditButton collection="industries" entry={slug} label={title} />}
   <div class="industry__media">
     {
       image ? (

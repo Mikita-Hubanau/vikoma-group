@@ -1,6 +1,8 @@
 ---
 // Короткое заявление между блоками — смысловая пауза.
 // Текст «зажигается» слева направо по мере прокрутки.
+import EditButton from './edit/EditButton.astro';
+
 interface Props {
   text: string;
   note?: string;
@@ -9,7 +11,8 @@ interface Props {
 const { text, note } = Astro.props;
 ---
 
-<section class="section section--dark grain statement">
+<section class="section section--dark grain statement edit-anchor">
+  <EditButton collection="pages" entry="home" label="Блок-заявление" />
   <div class="container">
     {note && <p class="eyebrow reveal">{note}</p>}
     <p class="statement__text">{text}</p>

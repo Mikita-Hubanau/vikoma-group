@@ -3,6 +3,7 @@
 // Вдоль шагов идёт линия, которая заполняется акцентным цветом
 // по мере прокрутки блока. Это делает браузер, без JavaScript.
 import SectionHead from './SectionHead.astro';
+import EditButton from './edit/EditButton.astro';
 
 interface Props {
   eyebrow: string;
@@ -13,7 +14,8 @@ interface Props {
 const { eyebrow, title, steps } = Astro.props;
 ---
 
-<section class="section section--paper2">
+<section class="section section--paper2 edit-anchor">
+  <EditButton collection="pages" entry="home" label="Блок «Как мы работаем»" />
   <div class="container">
     <SectionHead eyebrow={eyebrow} title={title} width="24ch" />
 

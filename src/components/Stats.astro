@@ -1,6 +1,8 @@
 ---
 // Цифры компании. Числа «набегают» от нуля, когда блок появляется на экране.
 // Считает сам браузер — никакого JavaScript.
+import EditButton from './edit/EditButton.astro';
+
 interface Props {
   eyebrow: string;
   items: { value: number; suffix?: string; label: string }[];
@@ -9,7 +11,8 @@ interface Props {
 const { eyebrow, items } = Astro.props;
 ---
 
-<section class="section section--tight stats">
+<section class="section section--tight stats edit-anchor">
+  <EditButton collection="pages" entry="home" label="Блок «Цифры»" />
   <div class="container">
     <p class="eyebrow reveal">{eyebrow}</p>
 

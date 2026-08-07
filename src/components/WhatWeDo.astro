@@ -3,6 +3,7 @@
 // Не карточки в рамках, а ячейки, разделённые тонкими линиями:
 // так спокойнее и больше похоже на европейский корпоративный стиль.
 import SectionHead from './SectionHead.astro';
+import EditButton from './edit/EditButton.astro';
 
 interface Props {
   eyebrow: string;
@@ -13,7 +14,8 @@ interface Props {
 const { eyebrow, title, cards } = Astro.props;
 ---
 
-<section class="section">
+<section class="section edit-anchor">
+  <EditButton collection="pages" entry="home" label="Блок «Что мы делаем»" />
   <div class="container">
     <SectionHead eyebrow={eyebrow} title={title} />
 
