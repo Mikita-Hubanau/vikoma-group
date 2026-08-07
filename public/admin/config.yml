@@ -415,9 +415,12 @@ collections:
     icon: handyman
     folder: src/content/services
     create: true
+    # Кнопка удаления убрана намеренно: она стоит рядом с сохранением,
+    # а удаление сносит запись сразу во всех трёх языках и без спроса.
+    # Чтобы разрешить удаление, поменяйте на delete: true.
+    delete: false
     format: frontmatter
     extension: md
-    slug: '{{fields.order}}-{{slug}}'
     summary: '{{fields.order}}. {{title}}'
     sortable_fields: [order, title]
     i18n: true
@@ -452,9 +455,12 @@ collections:
     icon: factory
     folder: src/content/industries
     create: true
+    # Кнопка удаления убрана намеренно: она стоит рядом с сохранением,
+    # а удаление сносит запись сразу во всех трёх языках и без спроса.
+    # Чтобы разрешить удаление, поменяйте на delete: true.
+    delete: false
     format: frontmatter
     extension: md
-    slug: '{{fields.order}}-{{slug}}'
     summary: '{{fields.order}}. {{title}}'
     sortable_fields: [order, title]
     i18n: true

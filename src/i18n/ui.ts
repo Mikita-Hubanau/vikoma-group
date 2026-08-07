@@ -30,6 +30,11 @@ type Dictionary = {
   photoNeeded: string;
   copyright: string;
   sections: string;
+  /** Служебные ссылки в подвале — видны только вам */
+  editSite: string;
+  editOff: string;
+  blocksCatalogue: string;
+  allTexts: string;
 };
 
 export const ui: Record<Locale, Dictionary> = {
@@ -62,6 +67,10 @@ export const ui: Record<Locale, Dictionary> = {
     photoNeeded: 'Нужен снимок',
     copyright: 'Все права защищены',
     sections: 'Разделы',
+    editSite: 'Редактировать',
+    editOff: 'Выключить правку',
+    blocksCatalogue: 'Каталог блоков',
+    allTexts: 'Все тексты',
   },
 
   it: {
@@ -93,6 +102,10 @@ export const ui: Record<Locale, Dictionary> = {
     photoNeeded: 'Foto da inserire',
     copyright: 'Tutti i diritti riservati',
     sections: 'Sezioni',
+    editSite: 'Modifica',
+    editOff: 'Esci dalla modifica',
+    blocksCatalogue: 'Catalogo blocchi',
+    allTexts: 'Tutti i testi',
   },
 
   en: {
@@ -124,6 +137,10 @@ export const ui: Record<Locale, Dictionary> = {
     photoNeeded: 'Photo needed',
     copyright: 'All rights reserved',
     sections: 'Sections',
+    editSite: 'Edit',
+    editOff: 'Exit edit mode',
+    blocksCatalogue: 'Block catalogue',
+    allTexts: 'All texts',
   },
 };
 

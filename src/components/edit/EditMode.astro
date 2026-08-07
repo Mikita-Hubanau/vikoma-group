@@ -1,24 +1,15 @@
 ---
 // РЕЖИМ ПРАВКИ.
 //
-// Включается адресом с ?edit — после этого на блоках появляются
-// карандаши, и режим держится, пока вы ходите по сайту.
-// Выключается адресом с ?edit=0 или кнопкой в панели внизу.
+// Включается ссылкой «Редактировать» в подвале (адрес с ?edit=1)
+// и держится, пока вы ходите по сайту. Выключается там же.
+//
+// Пока режим включён, на блоках видны карандаши, которые открывают
+// редактор сразу на нужной записи.
 //
 // Это единственный скрипт на страницах сайта — около 300 байт.
 // Обычный посетитель ничего не видит и ничего лишнего не грузит.
-import { asset } from '../../lib/url';
-
-const adminUrl = asset('/admin/');
 ---
-
-<div class="edit-bar" hidden>
-  <span class="edit-bar__title">Режим правки</span>
-  <a class="edit-bar__link" href={adminUrl} target="_blank" rel="noopener">
-    Все тексты
-  </a>
-  <a class="edit-bar__link edit-bar__link--off" href="?edit=0">Выключить</a>
-</div>
 
 <script is:inline>
   // Запоминаем режим на время сессии, чтобы карандаши не пропадали
@@ -34,49 +25,3 @@ const adminUrl = asset('/admin/');
     }
   })();
 </script>
-
-<style>
-  .edit-bar {
-    position: fixed;
-    z-index: 90;
-    right: var(--space-4);
-    bottom: var(--space-4);
-    display: none;
-    align-items: center;
-    gap: var(--space-4);
-    padding: 0.7em 1.1em;
-    background: var(--ink);
-    color: var(--on-dark);
-    border-radius: 999px;
-    box-shadow: 0 6px 24px rgba(16, 24, 32, 0.28);
-    font-size: var(--text-xs);
-    white-space: nowrap;
-  }
-
-  :global(html.edit-mode) .edit-bar {
-    display: flex;
-  }
-
-  .edit-bar__title {
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent-light);
-  }
-
-  .edit-bar__link {
-    color: var(--on-dark);
-    border-bottom: 1px solid rgba(241, 236, 227, 0.35);
-    padding-bottom: 1px;
-    transition: border-color var(--transition), color var(--transition);
-  }
-
-  .edit-bar__link:hover {
-    color: var(--accent-light);
-    border-color: var(--accent-light);
-  }
-
-  .edit-bar__link--off {
-    color: var(--on-dark-muted);
-  }
-</style>

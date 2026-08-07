@@ -5,7 +5,7 @@
 import { defaultLocale, type Locale } from '../i18n/config';
 import { useUI } from '../i18n/ui';
 import { getSettings } from '../lib/content';
-import { href } from '../lib/url';
+import { asset, href } from '../lib/url';
 import { navOrder, type RouteKey } from '../i18n/routes';
 
 interface Props {
@@ -65,6 +65,17 @@ const year = new Date().getFullYear();
     <div class="site-footer__bottom">
       <p>© {year} {settings.company.name}. {t.copyright}.</p>
       <a class="site-footer__link" href={`mailto:${settings.email}`}>{settings.email}</a>
+    </div>
+
+    {/* Служебные ссылки. Обычному посетителю видна только «Редактировать»,
+        остальные появляются, когда режим правки включён. */}
+    <div class="site-footer__tools">
+      <a class="site-footer__tool" href={asset('/blocks/')}>{t.blocksCatalogue}</a>
+      <a class="site-footer__tool site-footer__tool--edit" href={asset('/admin/')}>
+        {t.allTexts}
+      </a>
+      <a class="site-footer__tool site-footer__tool--on" href="?edit=1">{t.editSite}</a>
+      <a class="site-footer__tool site-footer__tool--off" href="?edit=0">{t.editOff}</a>
     </div>
   </div>
 </footer>
@@ -149,6 +160,45 @@ const year = new Date().getFullYear();
     display: block;
     font-size: var(--text-xs);
     color: #767e88;
+  }
+
+  /* ── Служебные ссылки ────────────────────────────────────── */
+  .site-footer__tools {
+    margin-top: var(--space-4);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    font-size: var(--text-xs);
+  }
+
+  .site-footer__tool {
+    color: #5f6871;
+    padding-block: 0.4em;
+    transition: color var(--transition);
+  }
+
+  .site-footer__tool:hover {
+    color: var(--on-dark);
+  }
+
+  /* Пока режим правки выключен, видна только кнопка «Редактировать»
+     и каталог блоков. Остальное появляется вместе с режимом. */
+  .site-footer__tool--edit,
+  .site-footer__tool--off {
+    display: none;
+  }
+
+  :global(html.edit-mode) .site-footer__tool--edit,
+  :global(html.edit-mode) .site-footer__tool--off {
+    display: inline;
+  }
+
+  :global(html.edit-mode) .site-footer__tool--on {
+    display: none;
+  }
+
+  :global(html.edit-mode) .site-footer__tool--off {
+    color: var(--accent-light);
   }
 
   .site-footer__bottom {
