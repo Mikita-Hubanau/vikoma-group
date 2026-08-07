@@ -1,0 +1,71 @@
+# Автоматическая публикация сайта на GitHub Pages.
+#
+# Срабатывает при каждом изменении в основной ветке: собирает сайт
+# и выкладывает. Ничего нажимать не нужно — правки из CMS попадают
+# на сайт сами через пару минут.
+#
+# Запустить вручную можно на вкладке Actions в репозитории.
+
+name: Публикация на GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Права, нужные для публикации
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Если правки идут подряд, публикуем по очереди и ничего не теряем
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Сборка
+    runs-on: ubuntu-latest
+    steps:
+      - name: Забрать код
+        uses: actions/checkout@v4
+
+      - name: Настроить Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Поставить Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Установить зависимости
+        run: npm ci
+
+      - name: Собрать сайт
+        # Адрес подставляется сам: на GitHub Pages сайт лежит в подпапке
+        # с именем репозитория, на своём домене — в корне.
+        env:
+          SITE_URL: ${{ steps.pages.outputs.origin }}
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: npm run build
+
+      - name: Загрузить готовые файлы
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    name: Публикация
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Выложить на Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
