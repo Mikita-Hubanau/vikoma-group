@@ -4,7 +4,7 @@ import PageHeader from '../components/PageHeader.astro';
 import MessengerLinks from '../components/MessengerLinks.astro';
 import type { Locale } from '../i18n/config';
 import { useUI } from '../i18n/ui';
-import { getLocalizedEntry, getSettings } from '../lib/content';
+import { getPage, getSettings } from '../lib/content';
 
 interface Props {
   locale: Locale;
@@ -12,7 +12,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = useUI(locale);
-const { data: page } = await getLocalizedEntry('contactsPage', 'pages/contacts', locale);
+const { data: page } = await getPage('contactsPage', locale);
 const settings = await getSettings(locale);
 
 // На этой странице нижний блок с контактами не ставим:

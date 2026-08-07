@@ -5,7 +5,7 @@ import ContactBlock from '../components/ContactBlock.astro';
 import PrinciplesGrid from '../components/blocks/PrinciplesGrid.astro';
 import type { Locale } from '../i18n/config';
 import { useUI } from '../i18n/ui';
-import { getLocalizedEntry } from '../lib/content';
+import { getPage } from '../lib/content';
 
 interface Props {
   locale: Locale;
@@ -13,7 +13,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = useUI(locale);
-const { data: page } = await getLocalizedEntry('aboutPage', 'pages/about', locale);
+const { data: page } = await getPage('aboutPage', locale);
 ---
 
 <BaseLayout

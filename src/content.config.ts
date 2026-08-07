@@ -1,10 +1,26 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-// Все тексты сайта лежат в src/content/<язык>/...
-// Сейчас язык один — ru. Когда появится итальянский, рядом ляжет папка it/
-// и все коллекции подхватят её автоматически: шаблоны менять не придётся.
+// Все тексты сайта лежат в src/content/<раздел>/<язык>/...
+//
+// Порядок «раздел, потом язык» выбран не случайно: именно такую структуру
+// понимает CMS. Благодаря ей она показывает языковые версии рядом и умеет
+// переводить одну в другую по кнопке.
 const BASE = './src/content';
+
+// Короткие и предсказуемые id: по ним потом ищем нужный язык.
+
+/** settings/ru.json → 'ru' (язык в имени файла) */
+const idFromFileName = ({ entry }: { entry: string }) =>
+  entry.split('/').pop()!.replace(/\.[^.]+$/, '');
+
+/** pages/ru/home.json → 'ru' (язык в названии папки) */
+const idFromFolder = ({ entry }: { entry: string }) =>
+  entry.split('/').slice(-2, -1)[0];
+
+/** services/ru/01-issledovanie-rynka.md → 'ru/01-issledovanie-rynka' */
+const idLocaleAndSlug = ({ entry }: { entry: string }) =>
+  entry.replace(/\.[^.]+$/, '').split('/').slice(-2).join('/');
 
 /** Блок SEO — одинаковый на всех страницах. */
 const seo = z.object({
@@ -26,7 +42,7 @@ const cta = z.object({
 
 // ── Общие настройки: контакты, офисы, реквизиты ───────────────
 const settings = defineCollection({
-  loader: glob({ pattern: '*/settings.json', base: BASE }),
+  loader: glob({ pattern: 'settings/*.json', base: BASE, generateId: idFromFileName }),
   schema: z.object({
     company: z.object({
       name: z.string(),
@@ -70,7 +86,7 @@ const settings = defineCollection({
 
 // ── Главная страница ──────────────────────────────────────────
 const homePage = defineCollection({
-  loader: glob({ pattern: '*/pages/home.json', base: BASE }),
+  loader: glob({ pattern: 'pages/*/home.json', base: BASE, generateId: idFromFolder }),
   schema: z.object({
     seo,
     hero: z.object({
@@ -140,19 +156,19 @@ const homePage = defineCollection({
 
 // ── Страница «Услуги» (шапка; сами услуги — отдельные файлы) ───
 const servicesPage = defineCollection({
-  loader: glob({ pattern: '*/pages/services.json', base: BASE }),
+  loader: glob({ pattern: 'pages/*/services.json', base: BASE, generateId: idFromFolder }),
   schema: z.object({ seo, title: z.string(), lead: z.string() }),
 });
 
 // ── Страница «Отрасли» (шапка; сами отрасли — отдельные файлы) ─
 const industriesPage = defineCollection({
-  loader: glob({ pattern: '*/pages/industries.json', base: BASE }),
+  loader: glob({ pattern: 'pages/*/industries.json', base: BASE, generateId: idFromFolder }),
   schema: z.object({ seo, title: z.string(), lead: z.string() }),
 });
 
 // ── Страница «О компании» ─────────────────────────────────────
 const aboutPage = defineCollection({
-  loader: glob({ pattern: '*/pages/about.json', base: BASE }),
+  loader: glob({ pattern: 'pages/*/about.json', base: BASE, generateId: idFromFolder }),
   schema: z.object({
     seo,
     title: z.string(),
@@ -180,13 +196,13 @@ const aboutPage = defineCollection({
 
 // ── Страница «Контакты» ───────────────────────────────────────
 const contactsPage = defineCollection({
-  loader: glob({ pattern: '*/pages/contacts.json', base: BASE }),
+  loader: glob({ pattern: 'pages/*/contacts.json', base: BASE, generateId: idFromFolder }),
   schema: z.object({ seo, title: z.string(), lead: z.string() }),
 });
 
 // ── Услуги: по файлу на услугу ────────────────────────────────
 const services = defineCollection({
-  loader: glob({ pattern: '*/services/*.md', base: BASE }),
+  loader: glob({ pattern: 'services/*/*.md', base: BASE, generateId: idLocaleAndSlug }),
   schema: z.object({
     title: z.string(),
     /** Порядок вывода на странице */
@@ -198,7 +214,7 @@ const services = defineCollection({
 
 // ── Отрасли: по файлу на отрасль ──────────────────────────────
 const industries = defineCollection({
-  loader: glob({ pattern: '*/industries/*.md', base: BASE }),
+  loader: glob({ pattern: 'industries/*/*.md', base: BASE, generateId: idLocaleAndSlug }),
   schema: z.object({
     title: z.string(),
     order: z.number(),

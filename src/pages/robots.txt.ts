@@ -10,7 +10,16 @@ import { asset } from '../lib/url';
 export const GET: APIRoute = ({ site }) => {
   const sitemap = new URL(asset('/sitemap-index.xml'), site).href;
 
-  const body = ['User-agent: *', 'Allow: /', '', `Sitemap: ${sitemap}`, ''].join('\n');
+  const body = [
+    'User-agent: *',
+    'Allow: /',
+    // панель редактора и каталог блоков — служебные, индексировать незачем
+    `Disallow: ${asset('/admin/')}`,
+    `Disallow: ${asset('/blocks/')}`,
+    '',
+    `Sitemap: ${sitemap}`,
+    '',
+  ].join('\n');
 
   return new Response(body, {
     headers: { 'Content-Type': 'text/plain; charset=utf-8' },

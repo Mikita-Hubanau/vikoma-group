@@ -11,7 +11,7 @@ import ContactBlock from '../components/ContactBlock.astro';
 import ArrowRight from '../components/ArrowRight.astro';
 
 import type { Locale } from '../i18n/config';
-import { getLocalized, getLocalizedEntry, byOrder } from '../lib/content';
+import { getList, getPage, byOrder } from '../lib/content';
 import { href } from '../lib/url';
 
 interface Props {
@@ -19,8 +19,8 @@ interface Props {
 }
 
 const { locale } = Astro.props;
-const { data: page } = await getLocalizedEntry('homePage', 'pages/home', locale);
-const industries = byOrder(await getLocalized('industries', locale));
+const { data: page } = await getPage('homePage', locale);
+const industries = byOrder(await getList('industries', locale));
 ---
 
 <BaseLayout

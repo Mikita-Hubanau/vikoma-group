@@ -6,20 +6,16 @@ import PageHeader from '../components/PageHeader.astro';
 import IndustryCard from '../components/IndustryCard.astro';
 import ContactBlock from '../components/ContactBlock.astro';
 import type { Locale } from '../i18n/config';
-import { getLocalized, getLocalizedEntry, byOrder } from '../lib/content';
+import { getList, getPage, byOrder } from '../lib/content';
 
 interface Props {
   locale: Locale;
 }
 
 const { locale } = Astro.props;
-const { data: page } = await getLocalizedEntry(
-  'industriesPage',
-  'pages/industries',
-  locale,
-);
+const { data: page } = await getPage('industriesPage', locale);
 
-const industries = byOrder(await getLocalized('industries', locale));
+const industries = byOrder(await getList('industries', locale));
 const items = await Promise.all(
   industries.map(async (entry) => ({
     data: entry.data,

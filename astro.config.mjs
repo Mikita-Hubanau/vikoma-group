@@ -22,7 +22,11 @@ export default defineConfig({
     routing: { prefixDefaultLocale: false },
   },
 
-  // Каталог блоков — служебная страница для заказчика,
-  // в карту сайта для поисковиков она не попадает.
-  integrations: [sitemap({ filter: (page) => !page.includes('/blocks/') })],
+  // Служебные страницы — каталог блоков и панель редактора —
+  // в карту сайта для поисковиков не попадают.
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/blocks/') && !page.includes('/admin/'),
+    }),
+  ],
 });

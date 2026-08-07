@@ -6,7 +6,7 @@ import PageHeader from '../components/PageHeader.astro';
 import ContactBlock from '../components/ContactBlock.astro';
 import type { Locale } from '../i18n/config';
 import { useUI } from '../i18n/ui';
-import { getLocalized, getLocalizedEntry, byOrder } from '../lib/content';
+import { getList, getPage, byOrder } from '../lib/content';
 
 interface Props {
   locale: Locale;
@@ -14,11 +14,11 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = useUI(locale);
-const { data: page } = await getLocalizedEntry('servicesPage', 'pages/services', locale);
+const { data: page } = await getPage('servicesPage', locale);
 
 // Каждая услуга — отдельный markdown-файл: описание в тексте файла,
 // список «что входит» — в его настройках сверху.
-const services = byOrder(await getLocalized('services', locale));
+const services = byOrder(await getList('services', locale));
 const items = await Promise.all(
   services.map(async (entry) => ({
     data: entry.data,
