@@ -236,6 +236,15 @@ const blocksPage = defineCollection({
     lead: z.string(),
     mediaNote: z.string(),
     serviceNote: z.string(),
+    /** Ролик для показа блока «Видео с YouTube» */
+    youtube: z
+      .object({
+        videoId: z.string().default(''),
+        poster: z.string().default(''),
+        title: z.string().default('Видео'),
+        caption: z.string().default(''),
+      })
+      .default({}),
     blocks: z.array(
       z.object({
         /** Совпадает с id блока в коде страницы — по нему подставляется показ */

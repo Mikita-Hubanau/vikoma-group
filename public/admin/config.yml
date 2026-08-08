@@ -439,6 +439,23 @@ collections:
           - name: serviceNote
             label: Примечание про служебность
             widget: text
+
+          - name: youtube
+            label: Ролик для блока «Видео с YouTube»
+            widget: object
+            fields:
+              - name: videoId
+                label: Код ролика
+                widget: string
+                required: false
+                hint: 'Из ссылки youtube.com/watch?v=ЭТА_ЧАСТЬ — например FZdbKedYpqc. Пустое поле вернёт заглушку'
+              - name: poster
+                label: Обложка
+                widget: image
+                required: false
+                hint: 'Своя обложка лучше. Пока её нет, браузер тянет картинку с серверов YouTube ещё до нажатия «play»'
+              - { name: title, label: Название ролика, widget: string, required: false }
+              - { name: caption, label: Подпись под роликом, widget: text, required: false }
           - name: blocks
             label: Блоки
             widget: list

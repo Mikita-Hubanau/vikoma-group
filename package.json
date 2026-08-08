@@ -10,7 +10,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "build:map": "node scripts/build-map.mjs"
+    "build:map": "node scripts/build-map.mjs",
+    "check:cms": "node scripts/check-cms-config.mjs",
+    "prebuild": "node scripts/check-cms-config.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",

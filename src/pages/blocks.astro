@@ -171,7 +171,13 @@ const meta = (id: string) => {
     id="embed"
     {...meta('embed')}
   >
-    <VideoEmbed hint="Обложка ролика — обычно самый выразительный кадр, а не первый" />
+    <VideoEmbed
+      videoId={page.youtube.videoId || undefined}
+      poster={page.youtube.poster || undefined}
+      title={page.youtube.title}
+      caption={page.youtube.caption}
+      hint="Обложка ролика — обычно самый выразительный кадр, а не первый"
+    />
   </BlockDemo>
 
   <!-- 07 -->

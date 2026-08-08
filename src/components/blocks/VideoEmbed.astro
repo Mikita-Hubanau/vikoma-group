@@ -10,6 +10,9 @@
 // Это единственное место на сайте, где есть свой скрипт: 12 строк,
 // они срабатывают только по нажатию на кнопку.
 import MediaPlaceholder from './MediaPlaceholder.astro';
+import { getImage } from 'astro:assets';
+import { media } from '../../lib/url';
+import { findImage } from '../../lib/images';
 
 interface Props {
   /** Только идентификатор ролика, не полная ссылка: dQw4w9WgXcQ */
@@ -36,11 +39,18 @@ const embedSrc =
     ? `https://player.vimeo.com/video/${videoId}?autoplay=1`
     : `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
 
-const posterSrc =
-  poster ??
-  (provider === 'youtube' && videoId
-    ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`
-    : undefined);
+// Обложку берём свою, с нашего сервера. Так до нажатия «play»
+// браузер посетителя вообще не обращается к YouTube.
+// Если своей нет — берём с YouTube (hqdefault есть у любого ролика,
+// в отличие от maxresdefault, которого у части роликов не бывает).
+const posterFile = findImage(poster);
+const posterSrc = posterFile
+  ? (await getImage({ src: posterFile, width: 1280, format: 'webp' })).src
+  : poster
+    ? media(poster)
+    : provider === 'youtube' && videoId
+      ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
+      : undefined;
 ---
 
 <figure class="embed reveal">
