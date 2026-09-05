@@ -1,597 +1,1216 @@
-# ═══════════════════════════════════════════════════════════════
-#  НАСТРОЙКИ РЕДАКТОРА САЙТА
-#
-#  Описывает, какие поля видит редактор в панели /admin/.
-#  Каждое поле здесь соответствует полю в файлах src/content/.
-#
-#  Если добавить поле сюда, но не добавить в src/content.config.ts —
-#  сборка сайта упадёт с понятной ошибкой. Это защита от опечаток.
-# ═══════════════════════════════════════════════════════════════
-
+# Поля соответствуют src/content.config.ts. Адрес сайта в dist обновляется postbuild.
 backend:
   name: github
   repo: Mikita-Hubanau/vikoma-group
   branch: main
-
-# Куда попадают загруженные фотографии.
-# media_folder — где файл лежит в проекте, public_folder — как на него
-# ссылаются тексты. Сжатием занимается сборка сайта.
 media_folder: src/assets/media
 public_folder: /media
-
 site_url: https://mikita-hubanau.github.io/vikoma-group
-
-# Языки. Порядок задаёт, какой столбец будет первым в редакторе.
 i18n:
   structure: multiple_folders
-  locales: [ru, it, en]
+  locales:
+  - ru
+  - it
+  - en
   default_locale: ru
-
 collections:
-  # ─────────────────────────────────────────────────────────────
-  #  ОБЩИЕ НАСТРОЙКИ
-  # ─────────────────────────────────────────────────────────────
-  - name: settings
-    label: Общее
-    icon: settings
+- name: settings
+  label: Общее
+  icon: settings
+  i18n: true
+  editor:
+    preview: false
+  files:
+  - name: contacts
+    label: Компания, контакты и партнёры
+    file: src/content/settings/{{locale}}.json
     i18n: true
-    editor:
-      preview: false
-    files:
-      - name: contacts
-        label: Контакты и реквизиты
-        file: src/content/settings/{{locale}}.json
+    fields:
+    - name: company
+      label: Компания
+      i18n: true
+      widget: object
+      fields:
+      - name: name
+        label: Имя / название
         i18n: true
-        description: Подставляется во все места сайта сразу — в шапку, подвал и на страницу контактов.
-        fields:
-          - name: company
-            label: Компания
-            widget: object
-            i18n: true
-            fields:
-              - { name: name, label: Название, widget: string, i18n: duplicate }
-              - name: tagline
-                label: Короткое описание
-                widget: string
-                i18n: true
-                hint: Одна строка под логотипом в подвале
-
-          - name: phones
-            label: Телефоны
-            widget: list
-            i18n: true
-            label_singular: Телефон
-            summary: '{{fields.display}} — {{fields.label}}'
-            fields:
-              - { name: label, label: Подпись, widget: string, i18n: true, hint: 'Например: Беларусь' }
-              - { name: display, label: Как показывать, widget: string, i18n: duplicate, hint: '+375 29 123-45-67' }
-              - name: tel
-                label: Для звонка
-                widget: string
-                i18n: duplicate
-                pattern: ['^\+[0-9]+$', 'Только плюс и цифры, без пробелов и скобок']
-                hint: Так номер набирается при нажатии с телефона
-
-          - { name: email, label: Почта, widget: string, i18n: duplicate }
-
-          - name: messengers
-            label: Мессенджеры
-            widget: list
-            i18n: true
-            label_singular: Мессенджер
-            summary: '{{fields.label}}'
-            fields:
-              - name: type
-                label: Какой
-                widget: select
-                i18n: duplicate
-                options:
-                  - { label: Telegram, value: telegram }
-                  - { label: WhatsApp, value: whatsapp }
-                  - { label: Viber, value: viber }
-              - { name: label, label: Подпись на кнопке, widget: string, i18n: duplicate }
-              - name: href
-                label: Ссылка
-                widget: string
-                i18n: duplicate
-                hint: 'Telegram: https://t.me/ник · WhatsApp: https://wa.me/375291234567'
-
-          - name: offices
-            label: Офисы
-            widget: list
-            i18n: true
-            label_singular: Офис
-            summary: '{{fields.city}}'
-            fields:
-              - { name: city, label: Город, widget: string, i18n: true }
-              - { name: address, label: Адрес, widget: string, i18n: true }
-              - { name: note, label: Страна, widget: string, i18n: true, required: false }
-
-          - name: legal
-            label: Реквизиты юрлица
-            widget: list
-            i18n: true
-            required: false
-            label_singular: Строка реквизитов
-            summary: '{{fields.label}}: {{fields.value}}'
-            fields:
-              - { name: label, label: Название, widget: string, i18n: true }
-              - { name: value, label: Значение, widget: string, i18n: duplicate }
-
-  # ─────────────────────────────────────────────────────────────
-  #  СТРАНИЦЫ
-  # ─────────────────────────────────────────────────────────────
-  - name: pages
-    label: Страницы
-    icon: description
+        widget: string
+      - name: tagline
+        label: Краткое описание
+        i18n: true
+        widget: string
+    - name: email
+      label: Email
+      i18n: duplicate
+      widget: string
+      required: false
+      default: ''
+    - name: phones
+      label: Общие телефоны (необязательно)
+      i18n: true
+      widget: list
+      fields:
+      - name: label
+        label: Подпись
+        i18n: true
+        widget: string
+        required: true
+      - name: display
+        label: Телефон для показа
+        i18n: duplicate
+        widget: string
+        required: true
+      - name: tel
+        label: 'Номер для звонка: + и цифры'
+        i18n: duplicate
+        widget: string
+        required: true
+        pattern:
+        - ^\+[0-9]{7,15}$
+        - Плюс и 7–15 цифр; удалите всю строку, если телефона нет
+      required: false
+    - name: offices
+      label: Офисы
+      i18n: true
+      widget: list
+      fields:
+      - name: id
+        label: Идентификатор
+        i18n: duplicate
+        widget: string
+      - name: title
+        label: Заголовок
+        i18n: true
+        widget: string
+      - name: city
+        label: Город
+        i18n: true
+        widget: string
+      - name: person
+        label: Контактное лицо
+        i18n: true
+        widget: string
+      - name: address
+        label: Адрес
+        i18n: true
+        widget: string
+        required: false
+        default: ''
+      - name: note
+        label: Примечание / страна
+        i18n: true
+        widget: string
+      - name: phone
+        label: Телефон для показа
+        i18n: duplicate
+        widget: string
+        required: false
+        default: ''
+      - name: tel
+        label: 'Номер для звонка: + и цифры'
+        i18n: duplicate
+        widget: string
+        required: false
+        default: ''
+        pattern:
+        - ^(\+[0-9]{7,15})?$
+        - Плюс и 7–15 цифр либо пустое поле
+      - name: email
+        label: Email
+        i18n: duplicate
+        widget: string
+        required: false
+        default: ''
+      summary: '{{fields.title}}'
+      min: 2
+      max: 2
+      allow_add: false
+    - name: legal
+      label: Реальные реквизиты (необязательно)
+      i18n: true
+      widget: list
+      fields:
+      - name: label
+        label: Подпись
+        i18n: true
+        widget: string
+        required: true
+      - name: value
+        label: Значение
+        i18n: true
+        widget: string
+        required: true
+      required: false
+    - name: socials
+      label: Социальные сети
+      i18n: true
+      widget: list
+      fields:
+      - name: type
+        label: Тип
+        i18n: duplicate
+        widget: select
+        options:
+        - linkedin
+        - telegram
+      - name: label
+        label: Подпись
+        i18n: true
+        widget: string
+      - name: href
+        label: Внешняя ссылка
+        i18n: duplicate
+        widget: string
+        required: false
+        default: ''
+      summary: '{{fields.label}}'
+      min: 2
+      max: 2
+      allow_add: false
+    - name: partners
+      label: Партнёры
+      i18n: true
+      widget: list
+      fields:
+      - name: id
+        label: Идентификатор
+        i18n: duplicate
+        widget: string
+      - name: shortName
+        label: Короткое название
+        i18n: true
+        widget: string
+      - name: name
+        label: Имя / название
+        i18n: true
+        widget: string
+      - name: icon
+        label: Иконка
+        i18n: duplicate
+        widget: select
+        options: &id002
+        - chart
+        - store
+        - scales
+        - card
+        - network
+        - building
+      - name: description
+        label: Описание
+        i18n: true
+        widget: text
+      - name: logo
+        label: Логотип
+        i18n: duplicate
+        widget: image
+        required: false
+        default: ''
+        hint: Загрузите реальный файл. Пустое поле не создаёт вымышленное изображение.
+      - name: href
+        label: Внешняя ссылка
+        i18n: duplicate
+        widget: string
+        required: false
+        default: ''
+      summary: '{{fields.name}}'
+      min: 5
+      max: 5
+      allow_add: false
+- name: pages
+  label: Страницы
+  icon: description
+  i18n: true
+  editor:
+    preview: false
+  files:
+  - name: home
+    label: Главная
+    file: src/content/pages/{{locale}}/home.json
     i18n: true
-    editor:
-      preview: false
-    files:
-      # ── Главная ──────────────────────────────────────────────
-      - name: home
-        label: Главная
-        file: src/content/pages/{{locale}}/home.json
+    fields:
+    - name: seo
+      label: Поисковики и превью
+      i18n: true
+      widget: object
+      fields:
+      - name: title
+        label: Заголовок
         i18n: true
-        fields:
-          - name: seo
-            label: Для поисковиков
-            widget: object
-            i18n: true
-            collapsed: true
-            fields:
-              - { name: title, label: Заголовок вкладки, widget: string, i18n: true }
-              - name: description
-                label: Описание в поиске
-                widget: text
-                i18n: true
-                hint: 150–160 знаков. Это то, что человек прочитает в результатах поиска
-              - { name: ogImage, label: Картинка превью, widget: image, i18n: duplicate, required: false }
-
-          - name: hero
-            label: Первый экран
-            widget: object
-            i18n: true
-            fields:
-              - { name: eyebrow, label: Надпись над заголовком, widget: string, i18n: true }
-              - name: titleLines
-                label: Заголовок построчно
-                widget: list
-                i18n: true
-                hint: Каждая строка — отдельный пункт. Так задаются переносы
-              - { name: lead, label: Абзац под заголовком, widget: text, i18n: true }
-              - name: cta
-                label: Кнопка
-                widget: object
-                i18n: true
-                fields:
-                  - { name: label, label: Надпись, widget: string, i18n: true }
-                  - name: page
-                    label: Куда ведёт
-                    widget: select
-                    i18n: duplicate
-                    options:
-                      - { label: Главная, value: home }
-                      - { label: Услуги, value: services }
-                      - { label: Отрасли, value: industries }
-                      - { label: О компании, value: about }
-                      - { label: Контакты, value: contacts }
-              - name: map
-                label: Карта стран
-                widget: object
-                i18n: true
-                fields:
-                  - name: countries
-                    label: Страны
-                    widget: list
-                    i18n: true
-                    label_singular: Страна
-                    summary: '{{fields.label}}'
-                    hint: Очертания стран заданы в коде. Чтобы добавить новую, нужен разработчик
-                    fields:
-                      - name: id
-                        label: Какая страна
-                        widget: select
-                        i18n: duplicate
-                        options:
-                          - { label: Италия, value: italy }
-                          - { label: Беларусь, value: belarus }
-                          - { label: Россия, value: russia }
-                      - { name: label, label: Подпись на карте, widget: string, i18n: true }
-
-          - name: whatWeDo
-            label: Блок «Что мы делаем»
-            widget: object
-            i18n: true
-            fields:
-              - { name: eyebrow, label: Надпись над заголовком, widget: string, i18n: true }
-              - { name: title, label: Заголовок, widget: string, i18n: true }
-              - name: cards
-                label: Карточки
-                widget: list
-                i18n: true
-                label_singular: Карточка
-                summary: '{{fields.title}}'
-                fields:
-                  - { name: title, label: Заголовок, widget: string, i18n: true }
-                  - { name: text, label: Текст, widget: text, i18n: true }
-
-          - name: industries
-            label: Блок «Отрасли»
-            widget: object
-            i18n: true
-            fields:
-              - { name: eyebrow, label: Надпись над заголовком, widget: string, i18n: true }
-              - { name: title, label: Заголовок, widget: string, i18n: true }
-              - name: cta
-                label: Ссылка
-                widget: object
-                i18n: true
-                fields:
-                  - { name: label, label: Надпись, widget: string, i18n: true }
-                  - name: page
-                    label: Куда ведёт
-                    widget: select
-                    i18n: duplicate
-                    options:
-                      - { label: Главная, value: home }
-                      - { label: Услуги, value: services }
-                      - { label: Отрасли, value: industries }
-                      - { label: О компании, value: about }
-                      - { label: Контакты, value: contacts }
-
-          - name: statement
-            label: Блок-заявление
-            widget: object
-            i18n: true
-            hint: Тёмная полоса с крупной фразой. Текст подсвечивается при прокрутке
-            fields:
-              - { name: text, label: Фраза, widget: text, i18n: true }
-              - { name: note, label: Надпись сверху, widget: string, i18n: true, required: false }
-
-          - name: howWeWork
-            label: Блок «Как мы работаем»
-            widget: object
-            i18n: true
-            fields:
-              - { name: eyebrow, label: Надпись над заголовком, widget: string, i18n: true }
-              - { name: title, label: Заголовок, widget: string, i18n: true }
-              - name: steps
-                label: Шаги
-                widget: list
-                i18n: true
-                label_singular: Шаг
-                summary: '{{fields.title}}'
-                fields:
-                  - { name: title, label: Название шага, widget: string, i18n: true }
-                  - { name: text, label: Пояснение, widget: text, i18n: true }
-
-          - name: stats
-            label: Блок «Цифры»
-            widget: object
-            i18n: true
-            fields:
-              - { name: eyebrow, label: Надпись над заголовком, widget: string, i18n: true }
-              - name: items
-                label: Цифры
-                widget: list
-                i18n: true
-                label_singular: Цифра
-                summary: '{{fields.value}}{{fields.suffix}} — {{fields.label}}'
-                fields:
-                  - name: value
-                    label: Число
-                    widget: number
-                    value_type: int
-                    min: 0
-                    i18n: duplicate
-                    hint: Только число. Оно «набегает» от нуля при прокрутке
-                  - { name: suffix, label: Приписка, widget: string, i18n: duplicate, required: false, hint: 'Например: +' }
-                  - { name: label, label: Подпись, widget: string, i18n: true }
-
-      # ── Услуги: шапка страницы ───────────────────────────────
-      - name: services
-        label: Услуги — шапка страницы
-        file: src/content/pages/{{locale}}/services.json
+        widget: string
+      - name: description
+        label: Описание
         i18n: true
-        description: Заголовок и вводный абзац. Сами услуги — в отдельном разделе
-        fields:
-          - name: seo
-            label: Для поисковиков
-            widget: object
-            i18n: true
-            collapsed: true
-            fields:
-              - { name: title, label: Заголовок вкладки, widget: string, i18n: true }
-              - { name: description, label: Описание в поиске, widget: text, i18n: true }
-              - { name: ogImage, label: Картинка превью, widget: image, i18n: duplicate, required: false }
-          - { name: title, label: Заголовок, widget: string, i18n: true }
-          - { name: lead, label: Вводный абзац, widget: text, i18n: true }
-
-      # ── Отрасли: шапка страницы ──────────────────────────────
-      - name: industries
-        label: Отрасли — шапка страницы
-        file: src/content/pages/{{locale}}/industries.json
+        widget: text
+      - name: ogImage
+        label: Изображение для превью
+        i18n: duplicate
+        widget: image
+        required: false
+        default: ''
+        hint: Загрузите реальный файл. Пустое поле не создаёт вымышленное изображение.
+      collapsed: true
+    - name: hero
+      label: Первый экран
+      i18n: true
+      widget: object
+      fields:
+      - name: eyebrow
+        label: Надзаголовок
         i18n: true
-        fields:
-          - name: seo
-            label: Для поисковиков
-            widget: object
-            i18n: true
-            collapsed: true
-            fields:
-              - { name: title, label: Заголовок вкладки, widget: string, i18n: true }
-              - { name: description, label: Описание в поиске, widget: text, i18n: true }
-              - { name: ogImage, label: Картинка превью, widget: image, i18n: duplicate, required: false }
-          - { name: title, label: Заголовок, widget: string, i18n: true }
-          - { name: lead, label: Вводный абзац, widget: text, i18n: true }
-
-      # ── О компании ───────────────────────────────────────────
-      - name: about
-        label: О компании
-        file: src/content/pages/{{locale}}/about.json
+        widget: string
+      - name: titleLines
+        label: Строки главного заголовка
         i18n: true
-        fields:
-          - name: seo
-            label: Для поисковиков
-            widget: object
-            i18n: true
-            collapsed: true
-            fields:
-              - { name: title, label: Заголовок вкладки, widget: string, i18n: true }
-              - { name: description, label: Описание в поиске, widget: text, i18n: true }
-              - { name: ogImage, label: Картинка превью, widget: image, i18n: duplicate, required: false }
-          - { name: title, label: Заголовок, widget: string, i18n: true }
-          - { name: lead, label: Вводный абзац, widget: text, i18n: true }
-          - name: story
-            label: История
-            widget: list
-            i18n: true
-            hint: Каждый пункт — отдельный абзац. Первый набирается крупнее
-          - name: approach
-            label: Почему нам можно доверять
-            widget: object
-            i18n: true
-            fields:
-              - { name: title, label: Заголовок блока, widget: string, i18n: true }
-              - name: items
-                label: Принципы
-                widget: list
-                i18n: true
-                label_singular: Принцип
-                summary: '{{fields.title}}'
-                fields:
-                  - { name: title, label: Заголовок, widget: string, i18n: true }
-                  - { name: text, label: Текст, widget: text, i18n: true }
-          - name: team
-            label: Команда
-            widget: object
-            i18n: true
-            fields:
-              - { name: title, label: Заголовок блока, widget: string, i18n: true }
-              - { name: note, label: Примечание, widget: string, i18n: true }
-              - name: people
-                label: Люди
-                widget: list
-                i18n: true
-                label_singular: Человек
-                summary: '{{fields.name}} — {{fields.role}}'
-                fields:
-                  - { name: name, label: Имя и фамилия, widget: string, i18n: duplicate }
-                  - { name: role, label: Должность, widget: string, i18n: true }
-                  - { name: about, label: Чем занимается, widget: text, i18n: true }
-                  - name: photo
-                    label: Фото
-                    widget: image
-                    i18n: duplicate
-                    required: false
-                    hint: Вертикальное, пропорции 3:4. Без фото рисуется заглушка
-
-      # ── Контакты ─────────────────────────────────────────────
-      - name: contacts
-        label: Контакты — шапка страницы
-        file: src/content/pages/{{locale}}/contacts.json
+        widget: list
+        field:
+          name: value
+          label: Текст
+          widget: text
+          i18n: true
+      - name: lead
+        label: Подзаголовок
         i18n: true
-        description: Телефоны и адреса берутся из раздела «Общее»
+        widget: text
+      - name: cta
+        label: Основная кнопка
+        i18n: true
+        widget: object
         fields:
-          - name: seo
-            label: Для поисковиков
-            widget: object
+        - name: label
+          label: Подпись
+          i18n: true
+          widget: string
+        - name: page
+          label: Страница
+          i18n: duplicate
+          widget: select
+          options: &id001
+          - home
+          - about
+          - services
+          - events
+          - contacts
+      - name: secondaryCta
+        label: Вторая кнопка
+        i18n: true
+        widget: object
+        fields:
+        - name: label
+          label: Подпись
+          i18n: true
+          widget: string
+        - name: page
+          label: Страница
+          i18n: duplicate
+          widget: select
+          options: *id001
+      - name: map
+        label: Карта
+        i18n: true
+        widget: object
+        fields:
+        - name: countries
+          label: Страны
+          i18n: true
+          widget: list
+          fields:
+          - name: id
+            label: Идентификатор
+            i18n: duplicate
+            widget: string
+          - name: label
+            label: Подпись
             i18n: true
-            collapsed: true
-            fields:
-              - { name: title, label: Заголовок вкладки, widget: string, i18n: true }
-              - { name: description, label: Описание в поиске, widget: text, i18n: true }
-              - { name: ogImage, label: Картинка превью, widget: image, i18n: duplicate, required: false }
-          - { name: title, label: Заголовок, widget: string, i18n: true }
-          - { name: lead, label: Вводный абзац, widget: text, i18n: true }
-
-
-  # ─────────────────────────────────────────────────────────────
-  #  СЛУЖЕБНОЕ — то, что посетитель обычно не видит
-  # ─────────────────────────────────────────────────────────────
-  - name: system
-    label: Служебное
-    icon: build
-    # Без языков: эти страницы только для вас, переводить их незачем
-    i18n: false
-    editor:
-      preview: false
-    files:
-      - name: blocks
-        label: Каталог блоков
-        file: src/content/system/blocks.json
-        description: Справочник по блокам. Сами показы блоков живут в коде — здесь правятся только описания и ваши пометки.
+            widget: string
+          summary: '{{fields.label}}'
+    - name: whatWeDo
+      label: Что мы делаем
+      i18n: true
+      widget: object
+      fields:
+      - name: eyebrow
+        label: Надзаголовок
+        i18n: true
+        widget: string
+      - name: title
+        label: Заголовок
+        i18n: true
+        widget: string
+      - name: cards
+        label: Карточки услуг
+        i18n: true
+        widget: list
         fields:
-          - name: seo
-            label: Для поисковиков
-            widget: object
-            collapsed: true
-            fields:
-              - { name: title, label: Заголовок вкладки, widget: string }
-              - { name: description, label: Описание, widget: text }
-          - { name: title, label: Заголовок страницы, widget: string }
-          - { name: lead, label: Вводный абзац, widget: text }
-          - name: mediaNote
-            label: Примечание про фото и видео
-            widget: text
-            hint: Про то, что снимки временные
-          - name: serviceNote
-            label: Примечание про служебность
-            widget: text
-
-          - name: youtube
-            label: Ролик для блока «Видео с YouTube»
-            widget: object
-            fields:
-              - name: videoId
-                label: Код ролика
-                widget: string
-                required: false
-                hint: 'Из ссылки youtube.com/watch?v=ЭТА_ЧАСТЬ — например FZdbKedYpqc. Пустое поле вернёт заглушку'
-              - name: poster
-                label: Обложка
-                widget: image
-                required: false
-                hint: 'Своя обложка лучше. Пока её нет, браузер тянет картинку с серверов YouTube ещё до нажатия «play»'
-              - { name: title, label: Название ролика, widget: string, required: false }
-              - { name: caption, label: Подпись под роликом, widget: text, required: false }
-          - name: blocks
-            label: Блоки
-            widget: list
-            label_singular: Блок
-            summary: '{{fields.name}}{{fields.note}}'
-            # Порядок показа задан в коде, здесь его менять бессмысленно
-            allow_add: false
-            fields:
-              - name: id
-                label: Код блока
-                widget: string
-                hint: Связывает описание с показом. Менять нельзя — блок пропадёт
-              - { name: name, label: Название, widget: string }
-              - { name: when, label: Когда нужен, widget: text }
-              - { name: needs, label: Что нужно от вас, widget: text, required: false }
-              - name: note
-                label: Ваша пометка
-                widget: text
-                required: false
-                hint: 'Например: берём на страницу услуг. Пустое поле не показывается'
-
-      - name: notfound
-        label: Страница «не найдено»
-        file: src/content/system/notfound.json
-        description: Показывается, если посетитель ошибся в адресе. Фраза идёт на всех трёх языках сразу — какой нужен, заранее неизвестно.
+        - name: icon
+          label: Иконка
+          i18n: duplicate
+          widget: select
+          options: *id002
+        - name: title
+          label: Заголовок
+          i18n: true
+          widget: string
+        - name: text
+          label: Текст
+          i18n: true
+          widget: text
+        - name: anchor
+          label: Якорь на странице услуг
+          i18n: duplicate
+          widget: string
+        summary: '{{fields.title}}'
+        min: 4
+        max: 4
+        allow_add: false
+    - name: about
+      label: О нас — кратко
+      i18n: true
+      widget: object
+      fields:
+      - name: eyebrow
+        label: Надзаголовок
+        i18n: true
+        widget: string
+      - name: title
+        label: Заголовок
+        i18n: true
+        widget: string
+      - name: paragraphs
+        label: Абзацы
+        i18n: true
+        widget: list
+        field:
+          name: value
+          label: Текст
+          widget: text
+          i18n: true
+      - name: cta
+        label: Основная кнопка
+        i18n: true
+        widget: object
         fields:
-          - name: seo
-            label: Для поисковиков
-            widget: object
-            collapsed: true
-            fields:
-              - { name: title, label: Заголовок вкладки, widget: string }
-              - { name: description, label: Описание, widget: text }
-          - name: texts
-            label: Текст по языкам
-            widget: list
-            label_singular: Язык
-            summary: '{{fields.code}}: {{fields.text}}'
-            allow_add: false
-            fields:
-              - name: code
-                label: Язык
-                widget: select
-                options:
-                  - { label: Русский, value: ru }
-                  - { label: Italiano, value: it }
-                  - { label: English, value: en }
-              - { name: text, label: Фраза, widget: text }
-
-  # ─────────────────────────────────────────────────────────────
-  #  УСЛУГИ — по файлу на каждую
-  # ─────────────────────────────────────────────────────────────
+        - name: label
+          label: Подпись
+          i18n: true
+          widget: string
+        - name: page
+          label: Страница
+          i18n: duplicate
+          widget: select
+          options: *id001
+    - name: seminar
+      label: Анонс семинара
+      i18n: true
+      widget: object
+      fields:
+      - name: eyebrow
+        label: Надзаголовок
+        i18n: true
+        widget: string
+      - name: title
+        label: Заголовок
+        i18n: true
+        widget: string
+        hint: '{date} заменяется датой из общего раздела «Семинар — дата и время». Не вписывайте дату вручную.'
+      - name: archiveTitle
+        label: Заголовок после завершения регистрации
+        i18n: true
+        widget: string
+      - name: text
+        label: Текст
+        i18n: true
+        widget: text
+      - name: cta
+        label: Основная кнопка
+        i18n: true
+        widget: object
+        fields:
+        - name: label
+          label: Подпись
+          i18n: true
+          widget: string
+        - name: page
+          label: Страница
+          i18n: duplicate
+          widget: select
+          options: *id001
+      - name: archiveCta
+        label: Кнопка после завершения регистрации
+        i18n: true
+        widget: string
+    - name: stats
+      label: Почему мы
+      i18n: true
+      widget: object
+      fields:
+      - name: eyebrow
+        label: Надзаголовок
+        i18n: true
+        widget: string
+      - name: items
+        label: Пункты
+        i18n: true
+        widget: list
+        fields:
+        - name: value
+          label: Значение
+          i18n: true
+          widget: string
+        - name: suffix
+          label: Подпись после значения
+          i18n: true
+          widget: string
+          required: false
+          default: ''
+        - name: label
+          label: Подпись
+          i18n: true
+          widget: string
+        - name: kind
+          label: Вид значения
+          i18n: duplicate
+          widget: select
+          options:
+          - number
+          - text
+        summary: '{{fields.label}}'
+        min: 4
+        max: 4
+        allow_add: false
+    - name: partners
+      label: Партнёры
+      i18n: true
+      widget: object
+      fields:
+      - name: title
+        label: Заголовок
+        i18n: true
+        widget: string
+      - name: eyebrow
+        label: Надзаголовок
+        i18n: true
+        widget: string
+    - name: contact
+      label: Блок связи
+      i18n: true
+      widget: object
+      fields:
+      - name: title
+        label: Заголовок
+        i18n: true
+        widget: string
+      - name: text
+        label: Текст
+        i18n: true
+        widget: text
+      - name: label
+        label: Подпись
+        i18n: true
+        widget: string
+  - name: about
+    label: О нас
+    file: src/content/pages/{{locale}}/about.json
+    i18n: true
+    fields:
+    - name: title
+      label: Заголовок
+      i18n: true
+      widget: string
+    - name: lead
+      label: Подзаголовок
+      i18n: true
+      widget: text
+    - name: mission
+      label: Миссия
+      i18n: true
+      widget: object
+      fields:
+      - name: title
+        label: Заголовок
+        i18n: true
+        widget: string
+      - name: text
+        label: Текст
+        i18n: true
+        widget: text
+    - name: team
+      label: Команда
+      i18n: true
+      widget: object
+      fields:
+      - name: title
+        label: Заголовок
+        i18n: true
+        widget: string
+      - name: people
+        label: Участники
+        i18n: true
+        widget: list
+        fields:
+        - name: name
+          label: Имя / название
+          i18n: true
+          widget: string
+        - name: initials
+          label: Инициалы
+          i18n: true
+          widget: string
+        - name: role
+          label: Роль
+          i18n: true
+          widget: string
+        - name: about
+          label: О нас — кратко
+          i18n: true
+          widget: text
+        - name: photo
+          label: Фотография
+          i18n: duplicate
+          widget: image
+          required: false
+          default: ''
+          hint: Загрузите реальный файл. Пустое поле не создаёт вымышленное изображение.
+        summary: '{{fields.name}}'
+        min: 2
+        max: 2
+        allow_add: false
+    - name: status
+      label: Официальный статус
+      i18n: true
+      widget: object
+      fields:
+      - name: title
+        label: Заголовок
+        i18n: true
+        widget: string
+      - name: text
+        label: Текст
+        i18n: true
+        widget: text
+      - name: listTitle
+        label: Вводная строка списка
+        i18n: true
+        widget: string
+      - name: items
+        label: Пункты
+        i18n: true
+        widget: list
+        field:
+          name: value
+          label: Текст
+          widget: text
+          i18n: true
+      - name: retail
+        label: Партнёр по ритейлу
+        i18n: true
+        widget: text
+    - name: approach
+      label: Преимущества
+      i18n: true
+      widget: object
+      fields:
+      - name: title
+        label: Заголовок
+        i18n: true
+        widget: string
+      - name: items
+        label: Пункты
+        i18n: true
+        widget: list
+        fields:
+        - name: title
+          label: Заголовок
+          i18n: true
+          widget: string
+        - name: text
+          label: Текст
+          i18n: true
+          widget: text
+        summary: '{{fields.title}}'
+    - name: partners
+      label: Партнёры
+      i18n: true
+      widget: object
+      fields:
+      - name: title
+        label: Заголовок
+        i18n: true
+        widget: string
+      - name: eyebrow
+        label: Надзаголовок
+        i18n: true
+        widget: string
+    - name: seo
+      label: Поисковики и превью
+      i18n: true
+      widget: object
+      fields:
+      - name: title
+        label: Заголовок
+        i18n: true
+        widget: string
+      - name: description
+        label: Описание
+        i18n: true
+        widget: text
+      - name: ogImage
+        label: Изображение для превью
+        i18n: duplicate
+        widget: image
+        required: false
+        default: ''
+        hint: Загрузите реальный файл. Пустое поле не создаёт вымышленное изображение.
+      collapsed: true
   - name: services
     label: Услуги
-    label_singular: Услуга
-    icon: handyman
-    folder: src/content/services
-    create: true
-    # Кнопка удаления убрана намеренно: она стоит рядом с сохранением,
-    # а удаление сносит запись сразу во всех трёх языках и без спроса.
-    # Чтобы разрешить удаление, поменяйте на delete: true.
-    delete: false
-    format: frontmatter
-    extension: md
-    summary: '{{fields.order}}. {{title}}'
-    sortable_fields: [order, title]
+    file: src/content/pages/{{locale}}/services.json
     i18n: true
-    editor:
-      preview: false
     fields:
-      - { name: title, label: Название услуги, widget: string, i18n: true }
-      - name: order
-        label: Порядок
-        widget: number
-        value_type: int
-        min: 1
-        i18n: duplicate
-        hint: Чем меньше число, тем выше услуга на странице
-      - name: body
-        label: Описание
-        widget: markdown
+    - name: seo
+      label: Поисковики и превью
+      i18n: true
+      widget: object
+      fields:
+      - name: title
+        label: Заголовок
         i18n: true
-        hint: Один-два предложения. Показывается справа от названия
-      - name: items
-        label: Что входит
-        widget: list
-        i18n: true
-        hint: Каждый пункт — отдельная строка списка
-
-  # ─────────────────────────────────────────────────────────────
-  #  ОТРАСЛИ — по файлу на каждую
-  # ─────────────────────────────────────────────────────────────
-  - name: industries
-    label: Отрасли
-    label_singular: Отрасль
-    icon: factory
-    folder: src/content/industries
-    create: true
-    # Кнопка удаления убрана намеренно: она стоит рядом с сохранением,
-    # а удаление сносит запись сразу во всех трёх языках и без спроса.
-    # Чтобы разрешить удаление, поменяйте на delete: true.
-    delete: false
-    format: frontmatter
-    extension: md
-    summary: '{{fields.order}}. {{title}}'
-    sortable_fields: [order, title]
-    i18n: true
-    editor:
-      preview: false
-    fields:
-      - { name: title, label: Название отрасли, widget: string, i18n: true }
-      - name: order
-        label: Порядок
-        widget: number
-        value_type: int
-        min: 1
-        i18n: duplicate
-        hint: Чем меньше число, тем выше отрасль на странице
-      - name: summary
-        label: Короткая подпись
         widget: string
+      - name: description
+        label: Описание
         i18n: true
-        hint: 'Через запятую: станки, линии, комплектующие'
-      - name: image
-        label: Фотография
+        widget: text
+      - name: ogImage
+        label: Изображение для превью
+        i18n: duplicate
         widget: image
-        i18n: duplicate
         required: false
-        hint: Горизонтальная, от 1200 px по длинной стороне. Сжатие сделает сборка
-      - name: imageHint
-        label: Подсказка, какое фото нужно
+        default: ''
+        hint: Загрузите реальный файл. Пустое поле не создаёт вымышленное изображение.
+      collapsed: true
+    - name: title
+      label: Заголовок
+      i18n: true
+      widget: string
+    - name: lead
+      label: Подзаголовок
+      i18n: true
+      widget: text
+    - name: howWeWork
+      label: Как мы работаем
+      i18n: true
+      widget: object
+      fields:
+      - name: eyebrow
+        label: Надзаголовок
+        i18n: true
         widget: string
+      - name: title
+        label: Заголовок
         i18n: true
-        required: false
-        hint: Показывается вместо фото, пока его нет
-      - name: body
+        widget: string
+      - name: steps
+        label: Этапы
+        i18n: true
+        widget: list
+        fields:
+        - name: title
+          label: Заголовок
+          i18n: true
+          widget: string
+        - name: text
+          label: Текст
+          i18n: true
+          widget: text
+        summary: '{{fields.title}}'
+        min: 4
+        max: 4
+        allow_add: false
+  - name: events
+    label: Мероприятия
+    file: src/content/pages/{{locale}}/events.json
+    i18n: true
+    fields:
+    - name: title
+      label: Заголовок
+      i18n: true
+      widget: string
+    - name: lead
+      label: Подзаголовок
+      i18n: true
+      widget: text
+      hint: '{date} заменяется датой из общего раздела «Семинар — дата и время». Не вписывайте дату вручную.'
+    - name: eyebrow
+      label: Надзаголовок
+      i18n: true
+      widget: string
+    - name: detailsTitle
+      label: Заголовок информации о семинаре
+      i18n: true
+      widget: string
+    - name: dateLabel
+      label: Подпись даты
+      i18n: true
+      widget: string
+    - name: timeLabel
+      label: Подпись времени
+      i18n: true
+      widget: string
+    - name: timeNote
+      label: Пояснение времени
+      i18n: true
+      widget: string
+    - name: formatLabel
+      label: Подпись формата
+      i18n: true
+      widget: string
+    - name: formatValue
+      label: Формат
+      i18n: true
+      widget: string
+    - name: languageLabel
+      label: Подпись языков
+      i18n: true
+      widget: string
+    - name: languageValue
+      label: Языки семинара
+      i18n: true
+      widget: string
+    - name: languageNote
+      label: Перевод
+      i18n: true
+      widget: string
+    - name: costLabel
+      label: Подпись стоимости
+      i18n: true
+      widget: string
+    - name: costValue
+      label: Стоимость участия
+      i18n: true
+      widget: string
+    - name: programTitle
+      label: Заголовок программы
+      i18n: true
+      widget: string
+    - name: programNote
+      label: Пояснение к программе
+      i18n: true
+      widget: text
+    - name: program
+      label: Программа
+      i18n: true
+      widget: list
+      field:
+        name: value
+        label: Текст
+        widget: text
+        i18n: true
+    - name: durationLabel
+      label: Подпись продолжительности
+      i18n: true
+      widget: string
+    - name: durationValue
+      label: Продолжительность (текст)
+      i18n: true
+      widget: string
+      hint: '{duration} подставляется из общей продолжительности семинара.'
+    - name: registration
+      label: Регистрация
+      i18n: true
+      widget: object
+      fields:
+      - name: title
+        label: Заголовок
+        i18n: true
+        widget: string
+      - name: text
+        label: Текст
+        i18n: true
+        widget: text
+        hint: '{date} заменяется датой из общего раздела «Семинар — дата и время». Не вписывайте дату вручную.'
+      - name: button
+        label: Текст кнопки
+        i18n: true
+        widget: string
+      - name: externalNote
+        label: Пояснение внешней ссылки
+        i18n: true
+        widget: string
+      - name: unavailable
+        label: Текст при отсутствии настройки
+        i18n: true
+        widget: text
+      - name: closed
+        label: Регистрация завершена
+        i18n: true
+        widget: string
+      - name: ended
+        label: Семинар завершён
+        i18n: true
+        widget: string
+    - name: seo
+      label: Поисковики и превью
+      i18n: true
+      widget: object
+      fields:
+      - name: title
+        label: Заголовок
+        i18n: true
+        widget: string
+      - name: description
         label: Описание
-        widget: markdown
         i18n: true
+        widget: text
+      - name: ogImage
+        label: Изображение для превью
+        i18n: duplicate
+        widget: image
+        required: false
+        default: ''
+        hint: Загрузите реальный файл. Пустое поле не создаёт вымышленное изображение.
+      collapsed: true
+  - name: contacts
+    label: Контакты
+    file: src/content/pages/{{locale}}/contacts.json
+    i18n: true
+    fields:
+    - name: title
+      label: Заголовок
+      i18n: true
+      widget: string
+    - name: lead
+      label: Подзаголовок
+      i18n: true
+      widget: text
+    - name: form
+      label: Форма обратной связи
+      i18n: true
+      widget: object
+      fields:
+      - name: title
+        label: Заголовок
+        i18n: true
+        widget: string
+      - name: lead
+        label: Подзаголовок
+        i18n: true
+        widget: text
+      - name: name
+        label: Имя / название
+        i18n: true
+        widget: string
+      - name: email
+        label: Email
+        i18n: duplicate
+        widget: string
+      - name: phone
+        label: Телефон для показа
+        i18n: duplicate
+        widget: string
+      - name: message
+        label: Сообщение
+        i18n: true
+        widget: text
+      - name: requiredNote
+        label: Обязательные поля — пояснение
+        i18n: true
+        widget: string
+      - name: consent
+        label: Согласие на ответ
+        i18n: true
+        widget: text
+      - name: privacyLink
+        label: Подпись ссылки на обработку данных
+        i18n: true
+        widget: string
+      - name: submit
+        label: Кнопка отправки
+        i18n: true
+        widget: string
+      - name: sending
+        label: Отправка — в процессе
+        i18n: true
+        widget: string
+      - name: success
+        label: Успешный приём сообщения
+        i18n: true
+        widget: text
+      - name: error
+        label: Ошибка отправки
+        i18n: true
+        widget: text
+      - name: uncertain
+        label: Отправку не удалось подтвердить
+        i18n: true
+        widget: text
+      - name: rateLimited
+        label: Слишком много попыток
+        i18n: true
+        widget: string
+      - name: validationError
+        label: Ошибка заполнения
+        i18n: true
+        widget: string
+      - name: unavailable
+        label: Текст при отсутствии настройки
+        i18n: true
+        widget: text
+      collapsed: true
+    - name: privacy
+      label: Информация об обработке данных
+      i18n: true
+      widget: object
+      fields:
+      - name: title
+        label: Заголовок
+        i18n: true
+        widget: string
+      - name: text
+        label: Текст
+        i18n: true
+        widget: text
+      - name: policyLabel
+        label: Подпись ссылки на политику
+        i18n: true
+        widget: string
+      - name: policyUrl
+        label: Адрес политики конфиденциальности
+        i18n: duplicate
+        widget: string
+        required: false
+        default: ''
+      collapsed: true
+    - name: seo
+      label: Поисковики и превью
+      i18n: true
+      widget: object
+      fields:
+      - name: title
+        label: Заголовок
+        i18n: true
+        widget: string
+      - name: description
+        label: Описание
+        i18n: true
+        widget: text
+      - name: ogImage
+        label: Изображение для превью
+        i18n: duplicate
+        widget: image
+        required: false
+        default: ''
+        hint: Загрузите реальный файл. Пустое поле не создаёт вымышленное изображение.
+      collapsed: true
+- name: services
+  label: Услуги — содержание
+  folder: src/content/services
+  i18n: true
+  create: false
+  extension: md
+  format: frontmatter
+  editor:
+    preview: false
+  fields:
+  - name: title
+    label: Заголовок
+    i18n: true
+    widget: string
+  - name: order
+    label: Порядок
+    i18n: duplicate
+    widget: number
+    value_type: int
+  - name: anchor
+    label: Якорь на странице услуг
+    i18n: duplicate
+    widget: string
+  - name: icon
+    label: Иконка
+    i18n: duplicate
+    widget: select
+    options: *id002
+  - name: partner
+    label: Партнёр
+    i18n: true
+    widget: string
+    required: false
+    default: ''
+  - name: items
+    label: Пункты
+    i18n: true
+    widget: list
+    field:
+      name: value
+      label: Текст
+      widget: text
+      i18n: true
+  - name: body
+    label: Дополнительный текст
+    widget: markdown
+    i18n: true
+    required: false
+- name: system
+  label: Общие подключения и служебное
+  i18n: false
+  editor:
+    preview: false
+  files:
+  - name: integrations
+    label: 'Подключения: формы и аналитика'
+    file: src/content/system/integrations.json
+    fields:
+    - name: googleAnalyticsId
+      label: Google Analytics — Measurement ID
+      widget: string
+      required: false
+      default: ''
+      hint: Публичный ID вида G-… из вашего Google Analytics. Пусто = аналитика отключена.
+    - name: contactFormEndpoint
+      label: HTTPS-обработчик формы
+      widget: string
+      required: false
+      default: ''
+      hint: Например, https://formspree.io/f/ВАШ_ID. Это публичный URL формы, не пароль и не API-ключ. Пусто
+        = отправка отключена.
+    - name: registrationUrl
+      label: Ссылка Google Forms
+      widget: string
+      required: false
+      default: ''
+      hint: Реальная ссылка https://forms.gle/… или https://docs.google.com/forms/…
+  - name: seminar
+    label: Семинар — дата и время
+    file: src/content/system/seminar.json
+    fields:
+    - name: startAt
+      label: Начало семинара (ISO с часовым поясом)
+      widget: string
+      hint: 'Пример: 2026-10-01T11:00:00+02:00. Обязательно указывайте UTC-смещение для даты мероприятия.'
+    - name: durationMinutes
+      label: Продолжительность в минутах
+      widget: number
+      value_type: int
+      min: 1
+      max: 1440
+    - name: timeZone
+      label: Часовой пояс IANA
+      widget: string
+    - name: registrationDeadline
+      label: Последний момент регистрации (ISO с часовым поясом)
+      widget: string
+      hint: 'Пример: 2026-09-28T23:59:59+02:00. Последний разрешённый момент регистрации; должен быть раньше
+        начала.'
+  - name: blocks
+    label: Каталог блоков
+    file: src/content/system/blocks.json
+    description: Справочник по блокам. Сами показы блоков живут в коде — здесь правятся только описания и ваши
+      пометки.
+    fields:
+    - name: seo
+      label: Для поисковиков
+      widget: object
+      collapsed: true
+      fields:
+      - name: title
+        label: Заголовок вкладки
+        widget: string
+      - name: description
+        label: Описание
+        widget: text
+    - name: title
+      label: Заголовок страницы
+      widget: string
+    - name: lead
+      label: Вводный абзац
+      widget: text
+    - name: mediaNote
+      label: Примечание про фото и видео
+      widget: text
+      hint: Про то, что снимки временные
+    - name: serviceNote
+      label: Примечание про служебность
+      widget: text
+    - name: youtube
+      label: Ролик для блока «Видео с YouTube»
+      widget: object
+      fields:
+      - name: videoId
+        label: Код ролика
+        widget: string
+        required: false
+        hint: Из ссылки youtube.com/watch?v=ЭТА_ЧАСТЬ — например FZdbKedYpqc. Пустое поле вернёт заглушку
+      - name: poster
+        label: Обложка
+        widget: image
+        required: false
+        hint: Своя обложка лучше. Пока её нет, браузер тянет картинку с серверов YouTube ещё до нажатия «play»
+      - name: title
+        label: Название ролика
+        widget: string
+        required: false
+      - name: caption
+        label: Подпись под роликом
+        widget: text
+        required: false
+    - name: blocks
+      label: Блоки
+      widget: list
+      label_singular: Блок
+      summary: '{{fields.name}}{{fields.note}}'
+      allow_add: false
+      fields:
+      - name: id
+        label: Код блока
+        widget: string
+        hint: Связывает описание с показом. Менять нельзя — блок пропадёт
+      - name: name
+        label: Название
+        widget: string
+      - name: when
+        label: Когда нужен
+        widget: text
+      - name: needs
+        label: Что нужно от вас
+        widget: text
+        required: false
+      - name: note
+        label: Ваша пометка
+        widget: text
+        required: false
+        hint: 'Например: берём на страницу услуг. Пустое поле не показывается'
+  - name: notfound
+    label: Страница «не найдено»
+    file: src/content/system/notfound.json
+    description: Показывается, если посетитель ошибся в адресе. Фраза идёт на всех трёх языках сразу — какой
+      нужен, заранее неизвестно.
+    fields:
+    - name: seo
+      label: Для поисковиков
+      widget: object
+      collapsed: true
+      fields:
+      - name: title
+        label: Заголовок вкладки
+        widget: string
+      - name: description
+        label: Описание
+        widget: text
+    - name: texts
+      label: Текст по языкам
+      widget: list
+      label_singular: Язык
+      summary: '{{fields.code}}: {{fields.text}}'
+      allow_add: false
+      fields:
+      - name: code
+        label: Язык
+        widget: select
+        options:
+        - label: Русский
+          value: ru
+        - label: Italiano
+          value: it
+        - label: English
+          value: en
+      - name: text
+        label: Фраза
+        widget: text

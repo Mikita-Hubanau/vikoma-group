@@ -1,221 +1,50 @@
 ---
-// Подвал намеренно короткий: телефоны, почта и мессенджеры уже стоят
-// в блоке контактов прямо над ним — на каждой странице. Дублировать
-// их ещё раз значит удлинять страницу без пользы.
 import { defaultLocale, type Locale } from '../i18n/config';
 import { useUI } from '../i18n/ui';
 import { getSettings } from '../lib/content';
+import { getIntegrations } from '../lib/integrations';
 import { asset, href } from '../lib/url';
-import { navOrder, type RouteKey } from '../i18n/routes';
-
-interface Props {
-  locale?: Locale;
-}
-
-const { locale = defaultLocale } = Astro.props;
+import { navOrder } from '../i18n/routes';
+import SocialLinks from './SocialLinks.astro';
+interface Props { locale?: Locale; analyticsEnabled?: boolean; }
+const { locale = defaultLocale, analyticsEnabled = true } = Astro.props;
 const t = useUI(locale);
 const settings = await getSettings(locale);
-const year = new Date().getFullYear();
+const email = settings.email || settings.offices.find((o) => o.email)?.email;
+const phones = settings.phones.length ? settings.phones : settings.offices.filter((o) => o.tel && o.phone).map((o) => ({ tel:o.tel, display:o.phone, label:o.note }));
+const { googleAnalyticsId } = getIntegrations();
 ---
-
 <footer class="site-footer">
-  <div class="container">
-    <div class="site-footer__grid">
-      <div class="site-footer__brand">
-        <a class="logo" href={href('home', locale)}>
-          <span class="logo__name">Vikoma</span>
-          <span class="logo__sub">Group</span>
-        </a>
-        <p class="site-footer__tagline">{settings.company.tagline}</p>
-      </div>
-
-      <nav class="site-footer__col" aria-label={t.sections}>
-        <h2 class="site-footer__heading">{t.sections}</h2>
-        <ul class="site-footer__list">
-          <li>
-            <a class="site-footer__link" href={href('home', locale)}>{t.nav.home}</a>
-          </li>
-          {
-            navOrder.map((key: RouteKey) => (
-              <li>
-                <a class="site-footer__link" href={href(key, locale)}>
-                  {t.nav[key]}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </nav>
-
-      <div class="site-footer__col">
-        <h2 class="site-footer__heading">{t.offices}</h2>
-        <ul class="site-footer__list">
-          {
-            settings.offices.map((office) => (
-              <li>
-                <span class="site-footer__city">{office.city}</span>
-                <span class="site-footer__note">{office.address}</span>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </div>
-
-    <div class="site-footer__bottom">
-      <p>© {year} {settings.company.name}. {t.copyright}.</p>
-      <a class="site-footer__link" href={`mailto:${settings.email}`}>{settings.email}</a>
-    </div>
-
-    {/* Служебные ссылки. Обычному посетителю видна только «Редактировать»,
-        остальные появляются, когда режим правки включён. */}
-    <div class="site-footer__tools">
-      <a class="site-footer__tool" href={asset('/blocks/')}>{t.blocksCatalogue}</a>
-      <a class="site-footer__tool site-footer__tool--edit" href={asset('/admin/')}>
-        {t.allTexts}
-      </a>
-      <a class="site-footer__tool site-footer__tool--on" href="?edit=1">{t.editSite}</a>
-      <a class="site-footer__tool site-footer__tool--off" href="?edit=0">{t.editOff}</a>
-    </div>
+ <div class="container">
+  <div class="site-footer__grid">
+   <div><a class="site-footer__brand" href={href('home', locale)}>{settings.company.name}</a><p class="site-footer__tagline">{settings.company.tagline}</p></div>
+   <nav aria-label={t.sections}><h2 class="site-footer__heading">{t.sections}</h2><ul class="site-footer__list">{navOrder.map((key) => <li><a href={href(key, locale)}>{t.nav[key]}</a></li>)}</ul></nav>
+   <div><h2 class="site-footer__heading">{t.nav.contacts}</h2><div class="site-footer__contacts">
+     <span>{t.email}</span>{email ? <a href={`mailto:${email}`}>{email}</a> : <span class="site-footer__pending">{t.unavailable}</span>}
+     <span>{t.phone}</span>{phones.length ? phones.map((p) => <a href={`tel:${p.tel}`}>{p.display}<small> · {p.label}</small></a>) : <span class="site-footer__pending">{t.unavailable}</span>}
+   </div></div>
   </div>
+  <div class="site-footer__bottom"><p>© {new Date().getFullYear()} {settings.company.name}. {t.copyright}.</p><SocialLinks locale={locale} /></div>
+  <div class="site-footer__privacy"><a href={`${href('contacts', locale)}#privacy`}>{t.privacy}</a>{googleAnalyticsId && analyticsEnabled && <button type="button" data-analytics-settings>{t.privacySettings}</button>}</div>
+  <div class="site-footer__tools"><a href={asset('/blocks/')}>{t.blocksCatalogue}</a><a href={asset('/admin/')}>{t.allTexts}</a><a href="?edit=0">{t.editOff}</a></div>
+ </div>
 </footer>
-
 <style>
-  .site-footer {
-    margin-top: auto;
-    background: var(--ink-deep);
-    color: var(--on-dark-muted);
-    /* тонкая линия отделяет подвал от тёмного блока контактов над ним */
-    border-top: 1px solid rgba(241, 236, 227, 0.12);
-    padding-block: var(--space-7) var(--space-5);
-    font-size: var(--text-sm);
-  }
-
-  .site-footer__grid {
-    display: grid;
-    gap: var(--space-6);
-  }
-
-  .site-footer__tagline {
-    margin-top: var(--space-3);
-    max-width: 22rem;
-    color: var(--on-dark-muted);
-  }
-
-  .logo {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 0.45em;
-    line-height: 1;
-  }
-
-  .logo__name {
-    font-family: var(--font-serif);
-    font-size: 1.3rem;
-    font-weight: 500;
-    color: var(--on-dark);
-  }
-
-  .logo__sub {
-    font-size: 0.6rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--on-dark-muted);
-  }
-
-  .site-footer__heading {
-    font-family: var(--font-sans);
-    font-size: var(--text-xs);
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--on-dark);
-    margin-bottom: var(--space-4);
-  }
-
-  .site-footer__list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: var(--space-3);
-  }
-
-  .site-footer__link {
-    color: var(--on-dark-muted);
-    transition: color var(--transition);
-  }
-
-  .site-footer__link:hover {
-    color: var(--on-dark);
-  }
-
-  .site-footer__city {
-    display: block;
-    color: var(--on-dark);
-  }
-
-  .site-footer__note {
-    display: block;
-    font-size: var(--text-xs);
-    color: #767e88;
-  }
-
-  /* ── Служебные ссылки ────────────────────────────────────── */
-  .site-footer__tools {
-    margin-top: var(--space-4);
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-4);
-    font-size: var(--text-xs);
-  }
-
-  .site-footer__tool {
-    color: #5f6871;
-    padding-block: 0.4em;
-    transition: color var(--transition);
-  }
-
-  .site-footer__tool:hover {
-    color: var(--on-dark);
-  }
-
-  /* Пока режим правки выключен, видна только кнопка «Редактировать»
-     и каталог блоков. Остальное появляется вместе с режимом. */
-  .site-footer__tool--edit,
-  .site-footer__tool--off {
-    display: none;
-  }
-
-  :global(html.edit-mode) .site-footer__tool--edit,
-  :global(html.edit-mode) .site-footer__tool--off {
-    display: inline;
-  }
-
-  :global(html.edit-mode) .site-footer__tool--on {
-    display: none;
-  }
-
-  :global(html.edit-mode) .site-footer__tool--off {
-    color: var(--accent-light);
-  }
-
-  .site-footer__bottom {
-    margin-top: var(--space-7);
-    padding-top: var(--space-5);
-    border-top: 1px solid rgba(241, 236, 227, 0.12);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: var(--space-3);
-    font-size: var(--text-xs);
-  }
-
-  @media (min-width: 40rem) {
-    .site-footer__grid {
-      grid-template-columns: 1.6fr 1fr 1fr;
-      gap: var(--space-6);
-    }
-  }
+ .site-footer { margin-top:auto; padding-block:3.5rem 1.5rem; background:var(--ink-deep); color:var(--on-dark-muted); border-top:1px solid #ffffff1c; font-size:var(--text-sm); }
+ .site-footer__grid { display:grid; gap:2.5rem; }
+ .site-footer__brand { font-family:var(--font-serif); color:var(--on-dark); font-size:1.75rem; letter-spacing:-.02em; }
+ .site-footer__tagline { margin-top:1rem; max-width:26rem; }
+ .site-footer__heading { font-family:var(--font-sans); font-size:var(--text-xs); font-weight:600; color:var(--on-dark); text-transform:uppercase; letter-spacing:.13em; margin-bottom:1rem; }
+ .site-footer__list { padding:0; list-style:none; display:grid; gap:.5rem; }
+ .site-footer a:hover,.site-footer button:hover { color:var(--on-dark); }
+ .site-footer__contacts { display:grid; gap:.45rem; overflow-wrap:anywhere; }
+ .site-footer__contacts>span:not(.site-footer__pending) { color:var(--on-dark); margin-top:.35rem; }
+ .site-footer__pending { font-size:var(--text-xs); }
+ .site-footer__bottom { margin-top:3rem; padding-top:1.5rem; border-top:1px solid #ffffff1c; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem; font-size:var(--text-xs); }
+ .site-footer__privacy { display:flex; flex-wrap:wrap; gap:.75rem 1.5rem; margin-top:.75rem; font-size:var(--text-xs); }
+ .site-footer__privacy button { font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer; }
+ .site-footer__privacy a,.site-footer__privacy button { min-height:36px; display:inline-flex; align-items:center; }
+ .site-footer__tools { display:none; flex-wrap:wrap; gap:1.5rem; margin-top:1rem; font-size:var(--text-xs); }
+ :global(html.edit-mode) .site-footer__tools { display:flex; }
+ @media(min-width:48rem) { .site-footer__grid { grid-template-columns:1.7fr 1fr 1.3fr; gap:3rem; } }
 </style>

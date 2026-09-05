@@ -579,3 +579,16 @@ html.edit-mode .edit-anchor:hover {
     }
   }
 }
+
+/* Native hidden states must not be overridden by layout classes. */
+[hidden] { display: none !important; }
+main { min-width: 0; }
+[id] { scroll-margin-top: 7rem; }
+.btn { text-align: center; }
+.btn:disabled { cursor: not-allowed; opacity: .6; }
+.btn:disabled::before { display: none; }
+input, textarea, button { font: inherit; }
+h1, h2, h3 { overflow-wrap: break-word; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

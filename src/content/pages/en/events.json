@@ -1,0 +1,42 @@
+{
+  "title": "Belarus: a strategic gateway to Eurasia for Italian businesses",
+  "lead": "Online seminar on {date}",
+  "eyebrow": "Events",
+  "detailsTitle": "Seminar information",
+  "dateLabel": "Date",
+  "timeLabel": "Time",
+  "timeNote": "Italian local time",
+  "formatLabel": "Format",
+  "formatValue": "Online",
+  "languageLabel": "Languages",
+  "languageValue": "Italian and Russian",
+  "languageNote": "Professional consecutive interpretation",
+  "costLabel": "Participation",
+  "costValue": "Free",
+  "programTitle": "Seminar programme",
+  "programNote": "The programme is being finalised and will be updated. Indicative topics:",
+  "program": [
+    "Opening remarks by Mario Ubaldi and Viktoria Gubanova (Vikub Group)",
+    "The investment climate and preferential regimes in Belarus, presented by NAIP",
+    "An overview of requests from Belarusian businesses, presented by NAIP",
+    "Presentations by Belarusian companies",
+    "Legal session with Belarusian and Italian law firms",
+    "Payment infrastructure and alternative solutions",
+    "Questions and answers"
+  ],
+  "durationLabel": "Duration",
+  "durationValue": "Approximately {duration}",
+  "registration": {
+    "title": "Registration",
+    "text": "Register by {date}",
+    "button": "Register via Google Forms",
+    "externalNote": "The form opens in a new tab.",
+    "unavailable": "The registration link has not been published yet.",
+    "closed": "Registration for this seminar is closed.",
+    "ended": "The seminar has ended."
+  },
+  "seo": {
+    "title": "Events — Vikub Group",
+    "description": "Belarus: a strategic gateway to Eurasia for Italian businesses. Online seminar on 1 October 2026"
+  }
+}

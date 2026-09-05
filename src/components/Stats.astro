@@ -1,131 +1,19 @@
 ---
-// Цифры компании. Числа «набегают» от нуля, когда блок появляется на экране.
-// Считает сам браузер — никакого JavaScript.
 import EditButton from './edit/EditButton.astro';
-
-interface Props {
-  eyebrow: string;
-  items: { value: number; suffix?: string; label: string }[];
-}
-
+interface Props { eyebrow: string; items: { value: string; suffix: string; label: string; kind: 'number' | 'text' }[]; }
 const { eyebrow, items } = Astro.props;
 ---
-
-<section class="section section--tight stats edit-anchor">
-  <EditButton collection="pages" entry="home" label="Блок «Цифры»" />
-  <div class="container">
-    <p class="eyebrow reveal">{eyebrow}</p>
-
-    <ul class="stats__list stagger">
-      {
-        items.map((item) => (
-          <li class="stat">
-            <span class="stat__value">
-              {/* настоящее значение — для поисковиков и озвучки экрана */}
-              <span class="visually-hidden">
-                {item.value}
-                {item.suffix ?? ''}
-              </span>
-              <span class="stat__num" style={`--target: ${item.value}`} aria-hidden="true" />
-              {item.suffix && (
-                <span class="stat__suffix" aria-hidden="true">
-                  {item.suffix}
-                </span>
-              )}
-            </span>
-            <span class="stat__label">{item.label}</span>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
+<section class="section section--tight edit-anchor">
+ <EditButton collection="pages" entry="home" label="Почему мы" />
+ <div class="container"><p class="eyebrow">{eyebrow}</p><ul class="stats">{items.map((item) => <li><p class:list={['stat__value',item.kind === 'text' && 'stat__value--text']}>{item.value}{item.suffix && <span> {item.suffix}</span>}</p><p class="stat__label">{item.label}</p></li>)}</ul></div>
 </section>
-
 <style>
-  /* Регистрируем переменную как целое число — иначе браузер
-     не сможет плавно менять её от нуля до нужного значения. */
-  @property --n {
-    syntax: '<integer>';
-    initial-value: 0;
-    inherits: false;
-  }
-
-  .stats__list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: var(--space-6);
-    border-top: 1px solid var(--line);
-    padding-top: var(--space-6);
-  }
-
-  .stat {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .stat__value {
-    display: flex;
-    align-items: baseline;
-    font-family: var(--font-serif);
-    font-size: var(--text-huge);
-    font-weight: 400;
-    line-height: 0.9;
-    letter-spacing: -0.04em;
-    color: var(--ink);
-  }
-
-  /* Число выводится счётчиком: так его можно анимировать. */
-  .stat__num {
-    --n: var(--target);
-    counter-reset: num var(--n);
-  }
-
-  .stat__num::after {
-    content: counter(num);
-  }
-
-  .stat__suffix {
-    color: var(--accent);
-  }
-
-  .stat__label {
-    font-size: var(--text-sm);
-    color: var(--muted);
-    max-width: 18ch;
-  }
-
-  @keyframes count-up {
-    from {
-      --n: 0;
-    }
-    to {
-      --n: var(--target);
-    }
-  }
-
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .stat__num {
-        animation: count-up linear both;
-        animation-timeline: view();
-        animation-range: entry 15% cover 45%;
-      }
-    }
-  }
-
-  @media (min-width: 40rem) {
-    .stats__list {
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-7) var(--space-5);
-    }
-  }
-
-  @media (min-width: 62rem) {
-    .stats__list {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
+ .stats { display:grid; gap:2rem; padding:2rem 0 0; list-style:none; border-top:1px solid var(--line); }
+ .stats li { display:flex; flex-direction:column; gap:1rem; }
+ .stat__value { font-family:var(--font-serif); font-size:clamp(3rem,5vw,4.75rem); color:var(--ink); line-height:1.1; letter-spacing:-.03em; }
+ .stat__value span { font-family:var(--font-sans); font-size:1rem; letter-spacing:0; color:var(--accent); }
+ .stat__value--text { font-size:clamp(1.6rem,2.5vw,2.1rem); max-width:12ch; line-height:1.15; }
+ .stat__label { font-size:var(--text-sm); max-width:24ch; }
+ @media(min-width:38rem) { .stats { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+ @media(min-width:62rem) { .stats { grid-template-columns:repeat(4,minmax(0,1fr)); } .stat__value { min-height:5.25rem; display:flex; flex-wrap:wrap; align-items:baseline; gap:.5rem; } }
 </style>

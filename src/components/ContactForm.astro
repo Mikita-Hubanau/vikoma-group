@@ -1,0 +1,57 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '../i18n/config';
+import { getIntegrations } from '../lib/integrations';
+import { asset } from '../lib/url';
+interface Props { locale: Locale; labels: CollectionEntry<'contactsPage'>['data']['form']; }
+const { locale, labels: t } = Astro.props;
+const { contactFormEndpoint } = getIntegrations();
+const configured = Boolean(contactFormEndpoint);
+---
+<div class="contact-form-block">
+ <h2>{t.title}</h2><p class="form-lead">{t.lead}</p>
+ {!configured && <p class="form-notice" id="form-unavailable">{t.unavailable}</p>}
+ <p class="required-note" id="contact-required">{t.requiredNote}</p>
+ <form class="contact-form" action={contactFormEndpoint || undefined} method="POST" data-contact-form data-configured={String(configured)} data-locale={locale} data-sending={t.sending} data-submit={t.submit} data-success={t.success} data-error={t.error} data-uncertain={t.uncertain} data-rate-limited={t.rateLimited} data-validation-error={t.validationError} aria-describedby={configured ? 'contact-required' : 'contact-required form-unavailable'}>
+  <input type="hidden" name="_subject" value={`Vikub Group — ${t.title}`} />
+  <input type="hidden" name="language" value={locale} />
+  <fieldset disabled={!configured}>
+   <legend class="visually-hidden">{t.title}</legend>
+   <div class="form-grid">
+    <div class="form-field"><label for="contact-name">{t.name} <span aria-hidden="true">*</span></label><input id="contact-name" name="name" type="text" autocomplete="name" required maxlength="120" /></div>
+    <div class="form-field"><label for="contact-email">{t.email} <span aria-hidden="true">*</span></label><input id="contact-email" name="email" type="email" autocomplete="email" required maxlength="254" /></div>
+    <div class="form-field form-field--full"><label for="contact-phone">{t.phone}</label><input id="contact-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" /></div>
+    <div class="form-field form-field--full"><label for="contact-message">{t.message} <span aria-hidden="true">*</span></label><textarea id="contact-message" name="message" rows="6" required maxlength="5000"></textarea></div>
+   </div>
+   <div class="visually-hidden" aria-hidden="true"><label for="contact-extra">Leave this field empty</label><input id="contact-extra" name="_gotcha" type="text" tabindex="-1" autocomplete="off" /></div>
+   <div class="form-consent"><input id="contact-consent" name="consent" type="checkbox" value="yes" required /><label for="contact-consent">{t.consent}</label></div>
+   <p class="form-privacy"><a class="link" href="#privacy">{t.privacyLink}</a></p>
+   <button class="btn btn--primary" type="submit" data-submit-button disabled={!configured}>{t.submit}</button>
+  </fieldset>
+  <p class="form-status" data-form-status role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
+ </form>
+</div>
+<script is:inline type="module" src={asset('/scripts/contact-form.js')}></script>
+<style>
+ .form-lead { margin-top:1rem; }
+ .required-note { margin-block:1.5rem 1rem; color:var(--muted); font-size:var(--text-xs); }
+ .contact-form fieldset { border:0; padding:0; min-width:0; margin:0; }
+ .form-grid { display:grid; gap:1.25rem; }
+ .form-field { display:flex; flex-direction:column; gap:.5rem; min-width:0; }
+ .form-field label { font-size:var(--text-sm); font-weight:500; }
+ .form-field label span { color:var(--accent); }
+ .form-field input,.form-field textarea { min-width:0; width:100%; border:1px solid var(--line-strong); border-radius:var(--radius); padding:.8rem 1rem; background:var(--paper); color:var(--ink); font-size:1rem; font-family:var(--font-sans); line-height:1.5; }
+ .form-field textarea { resize:vertical; min-height:10rem; }
+ .form-field input:focus-visible,.form-field textarea:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+ fieldset:disabled { opacity:.65; }
+ .form-consent { display:flex; align-items:flex-start; gap:.75rem; margin-top:1.5rem; }
+ .form-consent input { flex-shrink:0; width:1.2rem; height:1.2rem; margin-top:.15rem; accent-color:var(--accent); }
+ .form-consent label { font-size:var(--text-sm); line-height:1.6; }
+ .form-privacy { font-size:var(--text-xs); margin:.5rem 0 1.5rem 1.95rem; }
+ .form-status { margin-top:1.25rem; font-size:var(--text-sm); }
+ .form-status:empty { margin:0; }
+ .form-status[data-state=success] { color:#246342; }
+ .form-status[data-state=error] { color:#9a3028; }
+ .form-notice { padding:1rem; border-left:2px solid var(--accent); background:var(--paper-2); margin-top:1.5rem; font-size:var(--text-sm); }
+ @media(min-width:40rem) { .form-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .form-field--full { grid-column:1/-1; } }
+</style>

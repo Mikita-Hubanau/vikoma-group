@@ -1,8 +1,30 @@
 {
   "seo": {
-    "title": "Services — Vikoma Group",
-    "description": "Market research, partner search and vetting, local representation, foreign trade operations, marketing adaptation."
+    "title": "Services — Vikub Group",
+    "description": "Vikub Group helps Italian companies enter Belarus and the Eurasian Economic Union: market research, investment, retail, legal support and payment solutions."
   },
-  "title": "Services",
-  "lead": "We cover every stage of entering the market — from gauging demand to support after the first delivery. Take one task or the whole path."
+  "title": "What we do for your business",
+  "lead": "We do not sell products. We build working connections between companies and markets.",
+  "howWeWork": {
+    "eyebrow": "How we work",
+    "title": "From the first conversation to ongoing support",
+    "steps": [
+      {
+        "title": "Introduction",
+        "text": "We discuss your product and goals. Free of charge."
+      },
+      {
+        "title": "Analysis",
+        "text": "We assess the prospects and propose a strategy."
+      },
+      {
+        "title": "Delivery",
+        "text": "We find partners, negotiate and formalise the deal."
+      },
+      {
+        "title": "Ongoing support",
+        "text": "We stay in touch and help after the first shipment."
+      }
+    ]
+  }
 }

@@ -1,8 +1,33 @@
 {
-  "seo": {
-    "title": "Contatti — Vikoma Group",
-    "description": "Telefoni in Bielorussia e in Italia, email, messaggistica, sedi a Minsk e Fano, dati societari."
+  "title": "Contattateci",
+  "lead": "Parliamo del vostro progetto e di come possiamo esservi utili.",
+  "form": {
+    "title": "Modulo di contatto",
+    "lead": "Scriveteci: risponderemo entro 24 ore.",
+    "name": "Nome",
+    "email": "Email",
+    "phone": "Telefono",
+    "message": "Messaggio",
+    "requiredNote": "* Campi obbligatori. Il numero di telefono è facoltativo.",
+    "consent": "Acconsento all’utilizzo dei dati indicati per rispondere alla mia richiesta.",
+    "privacyLink": "Come vengono utilizzati i dati",
+    "submit": "Invia",
+    "sending": "Invio in corso…",
+    "success": "Messaggio ricevuto. Risponderemo entro 24 ore.",
+    "error": "Impossibile inviare il messaggio. Il testo rimane nel modulo. Riprovate più tardi.",
+    "uncertain": "Non è stato possibile confermare l’invio. Il messaggio potrebbe essere stato ricevuto; prima di riprovare, verificate i canali di contatto disponibili.",
+    "rateLimited": "Troppi tentativi. Riprovate più tardi.",
+    "validationError": "Controllate i campi del modulo e riprovate.",
+    "unavailable": "Il modulo non è ancora collegato. L’invio dei messaggi è temporaneamente indisponibile."
   },
-  "title": "Contatti",
-  "lead": "Scriveteci su messaggistica o via email: rispondiamo negli orari lavorativi di entrambi i paesi. Il primo colloquio non impegna a nulla."
+  "privacy": {
+    "title": "Utilizzo dei dati",
+    "text": "Nome, email, telefono e messaggio sono utilizzati per rispondere alla richiesta. I dati vengono trasmessi al servizio di gestione dei moduli collegato solo dopo aver premuto «Invia». Google Analytics viene caricato solo con il vostro consenso. Potete modificare la scelta nelle impostazioni di analisi in fondo alla pagina.",
+    "policyLabel": "Informativa sulla privacy",
+    "policyUrl": ""
+  },
+  "seo": {
+    "title": "Contatti — Vikub Group",
+    "description": "Contattateci. Parliamo del vostro progetto e di come possiamo esservi utili."
+  }
 }

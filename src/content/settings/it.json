@@ -1,56 +1,92 @@
 {
   "company": {
-    "name": "Vikoma Group",
-    "tagline": "Il business italiano sul mercato bielorusso"
+    "name": "Vikub Group",
+    "tagline": "Accesso ai mercati della Bielorussia e dell’UEE per le imprese italiane"
   },
-  "phones": [
+  "email": "",
+  "phones": [],
+  "offices": [
     {
-      "label": "Bielorussia",
-      "display": "+375 29 000-00-00",
-      "tel": "+375290000000"
+      "id": "italy",
+      "title": "Sede in Italia",
+      "city": "Fano",
+      "person": "Mario Ubaldi",
+      "address": "via Carlo Gozzi, 8, 61032 Fano (PU), Italy",
+      "note": "Italia",
+      "phone": "",
+      "tel": "",
+      "email": ""
     },
     {
-      "label": "Italia",
-      "display": "+39 000 000 0000",
-      "tel": "+390000000000"
+      "id": "belarus",
+      "title": "Sede in Bielorussia",
+      "city": "Minsk",
+      "person": "Viktoria Gubanova",
+      "address": "",
+      "note": "Bielorussia",
+      "phone": "",
+      "tel": "",
+      "email": ""
     }
   ],
-  "email": "info@vikoma.by",
-  "messengers": [
+  "legal": [],
+  "socials": [
+    {
+      "type": "linkedin",
+      "label": "LinkedIn",
+      "href": ""
+    },
     {
       "type": "telegram",
       "label": "Telegram",
-      "href": "https://t.me/vikoma"
-    },
-    {
-      "type": "whatsapp",
-      "label": "WhatsApp",
-      "href": "https://wa.me/375290000000"
-    },
-    {
-      "type": "viber",
-      "label": "Viber",
-      "href": "viber://chat?number=%2B375290000000"
+      "href": ""
     }
   ],
-  "offices": [
+  "partners": [
     {
-      "city": "Minsk",
-      "address": "Indirizzo da definire",
-      "note": "Bielorussia"
+      "id": "naip",
+      "shortName": "NAIP",
+      "name": "NAIP — Agenzia nazionale per gli investimenti e la privatizzazione della Repubblica di Bielorussia",
+      "icon": "building",
+      "description": "Agenzia statale istituita per attrarre investimenti esteri diretti in Bielorussia. Opera come sportello unico per l’investitore.",
+      "logo": "",
+      "href": ""
     },
     {
-      "city": "Fano",
-      "address": "Indirizzo da definire",
-      "note": "Italia"
+      "id": "retail",
+      "shortName": "SDELKI V PLUS",
+      "name": "«SDELKI V PLUS»",
+      "icon": "store",
+      "description": "Agenzia commerciale che aiuta i produttori a entrare nei mercati russo e bielorusso attraverso le principali catene commerciali. Oltre 20 catene commerciali e 60 acquirenti all’ingrosso.",
+      "logo": "",
+      "href": ""
+    },
+    {
+      "id": "legal-by",
+      "shortName": "Legale · Bielorussia",
+      "name": "Studio legale bielorusso",
+      "icon": "scales",
+      "description": "Specializzazioni: diritto societario e tributario, costituzione di società in Bielorussia, diritto del lavoro, licenze e tutela degli investitori.",
+      "logo": "",
+      "href": ""
+    },
+    {
+      "id": "legal-it",
+      "shortName": "Legale · Italia",
+      "name": "Studio legale italiano",
+      "icon": "scales",
+      "description": "Specializzazioni: rischi legati alle sanzioni, strutturazione di operazioni internazionali, diritto transfrontaliero e assistenza al commercio estero.",
+      "logo": "",
+      "href": ""
+    },
+    {
+      "id": "payments",
+      "shortName": "Soluzioni di pagamento",
+      "name": "Partner per i pagamenti",
+      "icon": "card",
+      "description": "Assistenza bancaria e strumenti di pagamento alternativi per operare con la Bielorussia, comprese le soluzioni in criptovaluta.",
+      "logo": "",
+      "href": ""
     }
-  ],
-  "legal": [
-    { "label": "Denominazione completa", "value": "Vikoma Group LLC" },
-    { "label": "Codice fiscale (UNP)", "value": "000000000" },
-    { "label": "Sede legale", "value": "Da definire" },
-    { "label": "Conto corrente", "value": "BY00 XXXX 0000 0000 0000 0000 0000" },
-    { "label": "Banca", "value": "Da definire" },
-    { "label": "BIC", "value": "Da definire" }
   ]
 }

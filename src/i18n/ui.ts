@@ -9,6 +9,13 @@ import type { RouteKey } from './routes';
  */
 type Dictionary = {
   nav: Record<RouteKey, string>;
+  primaryNavigation: string;
+  partnerLabel: string;
+  unavailable: string;
+  addressPending: string;
+  socialNetworks: string;
+  privacySettings: string;
+  privacy: string;
   skipToContent: string;
   language: string;
   discussProject: string;
@@ -39,11 +46,19 @@ type Dictionary = {
 
 export const ui: Record<Locale, Dictionary> = {
   ru: {
+    primaryNavigation: "Основная навигация",
+    partnerLabel: "Партнёр",
+    unavailable: "Контакт пока не опубликован",
+    addressPending: "Адрес офиса уточняется",
+    socialNetworks: "Социальные сети",
+    privacySettings: "Настройки аналитики",
+    privacy: "Обработка данных",
     nav: {
       home: 'Главная',
       services: 'Услуги',
       industries: 'Отрасли',
-      about: 'О компании',
+      events: 'Мероприятия',
+      about: 'О нас',
       contacts: 'Контакты',
     },
     skipToContent: 'Перейти к содержимому',
@@ -74,11 +89,19 @@ export const ui: Record<Locale, Dictionary> = {
   },
 
   it: {
+    primaryNavigation: "Navigazione principale",
+    partnerLabel: "Partner",
+    unavailable: "Contatto non ancora pubblicato",
+    addressPending: "Indirizzo della sede da confermare",
+    socialNetworks: "Social network",
+    privacySettings: "Impostazioni di analisi",
+    privacy: "Utilizzo dei dati",
     nav: {
       home: 'Home',
       services: 'Servizi',
       industries: 'Settori',
-      about: 'Azienda',
+      events: 'Eventi',
+      about: 'Chi siamo',
       contacts: 'Contatti',
     },
     skipToContent: 'Vai al contenuto',
@@ -109,11 +132,19 @@ export const ui: Record<Locale, Dictionary> = {
   },
 
   en: {
+    primaryNavigation: "Main navigation",
+    partnerLabel: "Partner",
+    unavailable: "Contact details not yet published",
+    addressPending: "Office address to be confirmed",
+    socialNetworks: "Social networks",
+    privacySettings: "Analytics settings",
+    privacy: "Data use",
     nav: {
       home: 'Home',
       services: 'Services',
       industries: 'Industries',
-      about: 'About',
+      events: 'Events',
+      about: 'About us',
       contacts: 'Contact',
     },
     skipToContent: 'Skip to content',

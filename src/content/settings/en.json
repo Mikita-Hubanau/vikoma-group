@@ -1,56 +1,92 @@
 {
   "company": {
-    "name": "Vikoma Group",
-    "tagline": "Italian business in the Belarusian market"
+    "name": "Vikub Group",
+    "tagline": "Market entry in Belarus and the EAEU for Italian businesses"
   },
-  "phones": [
+  "email": "",
+  "phones": [],
+  "offices": [
     {
-      "label": "Belarus",
-      "display": "+375 29 000-00-00",
-      "tel": "+375290000000"
+      "id": "italy",
+      "title": "Office in Italy",
+      "city": "Fano",
+      "person": "Mario Ubaldi",
+      "address": "via Carlo Gozzi, 8, 61032 Fano (PU), Italy",
+      "note": "Italy",
+      "phone": "",
+      "tel": "",
+      "email": ""
     },
     {
-      "label": "Italy",
-      "display": "+39 000 000 0000",
-      "tel": "+390000000000"
+      "id": "belarus",
+      "title": "Office in Belarus",
+      "city": "Minsk",
+      "person": "Viktoria Gubanova",
+      "address": "",
+      "note": "Belarus",
+      "phone": "",
+      "tel": "",
+      "email": ""
     }
   ],
-  "email": "info@vikoma.by",
-  "messengers": [
+  "legal": [],
+  "socials": [
+    {
+      "type": "linkedin",
+      "label": "LinkedIn",
+      "href": ""
+    },
     {
       "type": "telegram",
       "label": "Telegram",
-      "href": "https://t.me/vikoma"
-    },
-    {
-      "type": "whatsapp",
-      "label": "WhatsApp",
-      "href": "https://wa.me/375290000000"
-    },
-    {
-      "type": "viber",
-      "label": "Viber",
-      "href": "viber://chat?number=%2B375290000000"
+      "href": ""
     }
   ],
-  "offices": [
+  "partners": [
     {
-      "city": "Minsk",
-      "address": "Address to be confirmed",
-      "note": "Belarus"
+      "id": "naip",
+      "shortName": "NAIP",
+      "name": "NAIP — National Agency of Investment and Privatization of the Republic of Belarus",
+      "icon": "building",
+      "description": "A government agency established to attract foreign direct investment into Belarus. It operates as a one-stop shop for investors.",
+      "logo": "",
+      "href": ""
     },
     {
-      "city": "Fano",
-      "address": "Address to be confirmed",
-      "note": "Italy"
+      "id": "retail",
+      "shortName": "SDELKI V PLUS",
+      "name": "SDELKI V PLUS LLC",
+      "icon": "store",
+      "description": "A trade agency helping manufacturers enter Russia and Belarus through major retail chains. More than 20 retail chains and 60 wholesale buyers.",
+      "logo": "",
+      "href": ""
+    },
+    {
+      "id": "legal-by",
+      "shortName": "Legal · Belarus",
+      "name": "Belarusian law firm",
+      "icon": "scales",
+      "description": "Specialisations: corporate and tax law, company registration in Belarus, employment law, licensing and investor protection.",
+      "logo": "",
+      "href": ""
+    },
+    {
+      "id": "legal-it",
+      "shortName": "Legal · Italy",
+      "name": "Italian law firm",
+      "icon": "scales",
+      "description": "Specialisations: sanctions risks, international transaction structuring, cross-border law and foreign trade support.",
+      "logo": "",
+      "href": ""
+    },
+    {
+      "id": "payments",
+      "shortName": "Payment solutions",
+      "name": "Payment partner",
+      "icon": "card",
+      "description": "Banking support and alternative payment instruments for working with Belarus, including cryptocurrency solutions.",
+      "logo": "",
+      "href": ""
     }
-  ],
-  "legal": [
-    { "label": "Full legal name", "value": "Vikoma Group LLC" },
-    { "label": "Tax number (UNP)", "value": "000000000" },
-    { "label": "Registered address", "value": "To be confirmed" },
-    { "label": "Bank account", "value": "BY00 XXXX 0000 0000 0000 0000 0000" },
-    { "label": "Bank", "value": "To be confirmed" },
-    { "label": "BIC", "value": "To be confirmed" }
   ]
 }

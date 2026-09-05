@@ -1,116 +1,38 @@
 ---
-// Первый экран главной страницы.
-// Заголовок появляется построчно, рядом открывается карта со странами,
-// на которых работает компания. Флагов намеренно нет — только очертания.
 import type { Locale } from '../i18n/config';
 import type { RouteKey } from '../i18n/routes';
-import { useUI } from '../i18n/ui';
 import { href } from '../lib/url';
+import { getPage } from '../lib/content';
+import { seminar, seminarEnd, eventState } from '../lib/seminar';
 import CountriesMap from './CountriesMap.astro';
+import PartnerMarks from './PartnerMarks.astro';
 import EditButton from './edit/EditButton.astro';
-
-interface Props {
-  locale: Locale;
-  eyebrow: string;
-  titleLines: string[];
-  lead: string;
-  cta: { label: string; page: RouteKey };
-  map: { countries: { id: string; label: string }[] };
-}
-
-const { locale, eyebrow, titleLines, lead, cta, map } = Astro.props;
-const t = useUI(locale);
+interface Props { locale: Locale; eyebrow: string; titleLines: string[]; lead: string; cta: { label: string; page: RouteKey }; secondaryCta: { label: string; page: RouteKey }; map: { countries: { id: string; label: string }[] }; }
+const { locale, eyebrow, titleLines, lead, cta, secondaryCta, map } = Astro.props;
+const { data: home } = await getPage('homePage',locale);
+const isOpen = eventState() === 'open';
 ---
-
-<section class="hero edit-anchor">
-  <EditButton collection="pages" entry="home" label="Первый экран" />
-  <div class="container hero__inner">
-    <div class="hero__text">
-      <p class="eyebrow enter" style="--delay: 80ms">{eyebrow}</p>
-
-      <h1 class="hero__title">
-        {
-          titleLines.map((line, i) => (
-            <span class="hero__line enter" style={`--delay: ${180 + i * 110}ms`}>
-              {line}
-            </span>
-          ))
-        }
-      </h1>
-
-      <p
-        class="hero__lead enter"
-        style={`--delay: ${240 + titleLines.length * 110}ms`}
-      >
-        {lead}
-      </p>
-
-      <div
-        class="hero__actions enter"
-        style={`--delay: ${340 + titleLines.length * 110}ms`}
-      >
-        <a class="btn btn--primary" href={href(cta.page, locale)}>{cta.label}</a>
-        <a class="btn btn--ghost" href={href('services', locale)}>{t.allServices}</a>
-      </div>
-    </div>
-
-    <div class="hero__figure enter" style="--delay: 420ms">
-      <CountriesMap countries={map.countries} />
-    </div>
+<section class="hero edit-anchor" data-event-status data-deadline={seminar.registrationDeadline} data-end={seminarEnd}>
+ <EditButton collection="pages" entry="home" label="Первый экран" />
+ <div class="container hero__inner">
+  <div class="hero__text">
+   <p class="eyebrow enter">{eyebrow}</p>
+   <h1>{titleLines.map((line, i) => <span class:list={['hero__line','enter',i === titleLines.length-1 && 'hero__line--accent']} style={`--delay:${100+i*90}ms`}>{line}{i<titleLines.length-1 ? ' ' : ''}</span>)}</h1>
+   <p class="hero__lead enter" style="--delay:300ms">{lead}</p>
+   <div class="hero__actions enter" style="--delay:380ms"><a class="btn btn--primary" href={href(cta.page, locale)}>{cta.label}</a><a class="btn btn--ghost" href={href(secondaryCta.page, locale)}><span data-event-open hidden={!isOpen}>{secondaryCta.label}</span><span data-event-archive hidden={isOpen}>{home.seminar.archiveCta}</span></a></div>
+   <PartnerMarks locale={locale} compact />
   </div>
+  <div class="hero__figure enter" style="--delay:300ms"><CountriesMap countries={map.countries} /></div>
+ </div>
 </section>
-
 <style>
-  .hero {
-    padding-block: clamp(3rem, 1.8rem + 7vw, 8rem) clamp(3rem, 2rem + 6vw, 7rem);
-    border-bottom: 1px solid var(--line);
-    overflow: hidden;
-  }
-
-  .hero__inner {
-    display: grid;
-    gap: var(--space-8);
-    align-items: center;
-  }
-
-  .hero__title {
-    /* строки заголовка — отдельные блоки, чтобы появляться по очереди */
-    display: flex;
-    flex-direction: column;
-  }
-
-  .hero__line {
-    display: block;
-  }
-
-  .hero__lead {
-    margin-top: var(--space-6);
-    max-width: var(--measure);
-    font-size: var(--text-md);
-    line-height: 1.6;
-    color: var(--body);
-  }
-
-  .hero__actions {
-    margin-top: var(--space-7);
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-3);
-  }
-
-  /* ── Карта ───────────────────────────────────────────────── */
-  .hero__figure {
-    max-width: 30rem;
-  }
-
-  @media (min-width: 56rem) {
-    .hero__inner {
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: var(--space-9);
-    }
-
-    .hero__figure {
-      max-width: none;
-    }
-  }
+ .hero { padding-block:clamp(3rem,6vw,6rem); border-bottom:1px solid var(--line); overflow:hidden; }
+ .hero__inner { display:grid; gap:3rem; align-items:center; }
+ .hero__line { display:block; }
+ .hero__line--accent { color:var(--accent); }
+ .hero__lead { margin-top:1.75rem; font-size:var(--text-md); line-height:1.65; max-width:39rem; }
+ .hero__actions { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:2rem; }
+ .hero__figure { max-width:34rem; width:100%; margin-inline:auto; }
+ @media(min-width:60rem) { .hero__inner { grid-template-columns:minmax(0,1.4fr) minmax(0,1fr); gap:3rem; } .hero h1 { font-size:clamp(2.8rem,4.2vw,3.8rem); } }
+ @media(max-width:30rem) { .hero__actions { align-items:stretch; flex-direction:column; } }
 </style>

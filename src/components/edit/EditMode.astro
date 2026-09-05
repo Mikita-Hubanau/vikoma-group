@@ -15,6 +15,7 @@
   // Запоминаем режим на время сессии, чтобы карандаши не пропадали
   // при переходе на другую страницу.
   (() => {
+    try {
     const p = new URLSearchParams(location.search);
     if (p.has('edit')) {
       if (p.get('edit') === '0') sessionStorage.removeItem('vg-edit');
@@ -23,5 +24,6 @@
     if (sessionStorage.getItem('vg-edit')) {
       document.documentElement.classList.add('edit-mode');
     }
+    } catch { /* Storage may be unavailable in private/restricted browsers. */ }
   })();
 </script>

@@ -1,18 +1,23 @@
 {
   "seo": {
-    "title": "Vikoma Group — Italian business in the Belarusian market",
-    "description": "We help Italian manufacturers find distributors in Belarus, and Belarusian companies find reliable suppliers. Negotiations, paperwork, logistics."
+    "title": "Vikub Group — Market entry in Belarus and the EAEU for Italian businesses",
+    "description": "Vikub Group helps Italian companies enter Belarus and the Eurasian Economic Union: market research, investment, retail, legal support and payment solutions."
   },
   "hero": {
-    "eyebrow": "Brokerage · Foreign trade · Consulting",
+    "eyebrow": "Italy · Belarus · EAEU",
     "titleLines": [
-      "Italian business",
-      "in the Belarusian market"
+      "Belarus and the EAEU",
+      "for Italian businesses.",
+      "From start to finish."
     ],
-    "lead": "We help Italian manufacturers find distributors in Belarus, and Belarusian companies find reliable suppliers. We take on the negotiations, the paperwork and the logistics.",
+    "lead": "Market research, partner search, legal support and retail market entry: we cover every stage. Official NAIP representatives in Italy.",
     "cta": {
-      "label": "Discuss a project",
-      "page": "contacts"
+      "label": "Learn more",
+      "page": "services"
+    },
+    "secondaryCta": {
+      "label": "Register for the seminar",
+      "page": "events"
     },
     "map": {
       "countries": [
@@ -32,77 +37,96 @@
     }
   },
   "whatWeDo": {
-    "eyebrow": "What we do",
-    "title": "Three jobs we handle end to end",
+    "eyebrow": "Support at every stage",
+    "title": "What we do",
     "cards": [
       {
-        "title": "Finding partners",
-        "text": "We select distributors, dealers and buyers that fit the specific product. We vet every counterparty before the first meeting."
+        "icon": "chart",
+        "title": "Market research and investment",
+        "text": "Analysis, partner search and government support through NAIP",
+        "anchor": "market-research"
       },
       {
-        "title": "Running the deal",
-        "text": "Negotiations, contracts, supply terms. We work in two languages and two legal systems, so nothing gets lost in translation."
+        "icon": "store",
+        "title": "Retail market entry",
+        "text": "Supplies to retail chains in Belarus and Russia through our partner SDELKI V PLUS",
+        "anchor": "retail"
       },
       {
-        "title": "Logistics and customs",
-        "text": "We arrange shipping, prepare the paperwork, and handle certification and customs clearance."
+        "icon": "scales",
+        "title": "Legal support",
+        "text": "Belarusian and Italian law firms: sanctions, taxes and business registration",
+        "anchor": "legal"
+      },
+      {
+        "icon": "card",
+        "title": "Payment solutions",
+        "text": "Banking support and alternative platforms",
+        "anchor": "payments"
       }
     ]
   },
-  "industries": {
-    "eyebrow": "Industries",
-    "title": "The sectors we know from experience",
+  "about": {
+    "eyebrow": "About us",
+    "title": "Two markets. One team.",
+    "paragraphs": [
+      "Vikub Group is an international consulting and business development hub specialising in helping Italian companies enter the markets of Belarus and the Eurasian Economic Union (EAEU).",
+      "We are the official representatives of the National Agency of Investment and Privatization of the Republic of Belarus (NAIP) in Italy. This gives us direct access to government support tools, up-to-date analysis and Belarusian businesses.",
+      "Our team combines Italian and Belarusian expertise: Mario Ubaldi is a business consultant with 20 years of experience working with Italian manufacturers; Viktoria Gubanova, former director of Planix Group, specialises in international business connections.",
+      "We offer end-to-end support, from market research to signing contracts and entering retail chains. We work with companies in different sectors according to their needs."
+    ],
     "cta": {
-      "label": "More about industries",
-      "page": "industries"
+      "label": "More about us",
+      "page": "about"
     }
   },
-  "statement": {
-    "text": "We don’t sell goods and we don’t take a cut of turnover. What we deliver is a working relationship between two companies — one that outlasts our involvement.",
-    "note": "Our principle"
-  },
-  "howWeWork": {
-    "eyebrow": "How we work",
-    "title": "Four steps from first conversation to delivery",
-    "steps": [
-      {
-        "title": "Introduction",
-        "text": "We discuss the product and the goal. Free of charge."
-      },
-      {
-        "title": "Analysis",
-        "text": "We assess the prospects and propose a market-entry strategy."
-      },
-      {
-        "title": "Execution",
-        "text": "We find partners, run the negotiations and close the deal."
-      },
-      {
-        "title": "Support",
-        "text": "We stay in touch after the first delivery."
-      }
-    ]
+  "seminar": {
+    "eyebrow": "Online · Free",
+    "title": "Join our online seminar on {date}",
+    "archiveTitle": "Online seminar on {date}",
+    "text": "A free seminar for Italian manufacturers looking to enter Belarus and the EAEU. Learn about the actual needs of Belarusian companies, government support, payment solutions and the legal aspects of doing business.",
+    "cta": {
+      "label": "Details and registration",
+      "page": "events"
+    },
+    "archiveCta": "Seminar details"
   },
   "stats": {
-    "eyebrow": "In numbers",
+    "eyebrow": "Why us",
     "items": [
       {
-        "value": 8,
-        "label": "years in the market"
+        "value": "20",
+        "suffix": "years",
+        "label": "of Mario’s experience in Italian business",
+        "kind": "number"
       },
       {
-        "value": 60,
-        "suffix": "+",
-        "label": "completed projects"
+        "value": "8+",
+        "suffix": "years",
+        "label": "of Viktoria’s international business experience",
+        "kind": "number"
       },
       {
-        "value": 2,
-        "label": "offices: Minsk and Fano"
+        "value": "3",
+        "suffix": "languages",
+        "label": "Russian, Italian and English",
+        "kind": "number"
       },
       {
-        "value": 5,
-        "label": "industries"
+        "value": "Official status",
+        "suffix": "",
+        "label": "NAIP representatives in Italy",
+        "kind": "text"
       }
     ]
+  },
+  "partners": {
+    "title": "Our partners",
+    "eyebrow": "Working together"
+  },
+  "contact": {
+    "title": "Get in touch",
+    "text": "Ready to discuss your project. Write to us and we will reply within 24 hours.",
+    "label": "Contact us"
   }
 }

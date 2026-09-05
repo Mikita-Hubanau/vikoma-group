@@ -1,55 +1,76 @@
 {
-  "seo": {
-    "title": "Azienda — Vikoma Group",
-    "description": "Vikoma Group collega i produttori italiani e il mercato bielorusso: due lingue, due sistemi normativi, rapporti con le persone e non con database di contatti."
-  },
-  "title": "L’azienda",
-  "lead": "Colmiamo la distanza tra la produzione italiana e il mercato bielorusso.",
-  "story": [
-    "Vikoma Group è nata da una constatazione semplice: i produttori italiani vogliono lavorare con la Bielorussia, ma non sanno come funziona quel mercato. E le aziende bielorusse cercano qualità europea, ma si perdono tra ricerca e trattative.",
-    "Noi colmiamo questa distanza. Conosciamo entrambe le parti: parliamo due lingue, ci muoviamo in due sistemi normativi e lavoriamo con persone reali, non con database di contatti.",
-    "Non vendiamo merce e non prendiamo percentuali sul fatturato. Il nostro prodotto è un rapporto di lavoro tra due aziende, che continua anche quando il nostro compito è finito."
-  ],
-  "approach": {
-    "title": "Perché potete fidarvi",
-    "items": [
-      {
-        "title": "Non vendiamo merce",
-        "text": "Non abbiamo un magazzino né un interesse in una singola fornitura. Non ci conviene imporvi un partner: ci conviene che il rapporto funzioni."
-      },
-      {
-        "title": "Verifichiamo prima di presentarvi qualcuno",
-        "text": "L’affidabilità giuridica e finanziaria della controparte viene verificata prima che investiate tempo in un incontro."
-      },
-      {
-        "title": "Due lingue, due ordinamenti",
-        "text": "Corrispondenza, contratti e trattative senza un interprete di mezzo. Le condizioni dell’accordo sono chiare a entrambe le parti allo stesso modo."
-      },
-      {
-        "title": "Restiamo dopo l’accordo",
-        "text": "La prima fornitura non è il traguardo. Seguiamo il lavoro del distributore e restiamo a disposizione anche dopo."
-      }
-    ]
+  "title": "Un hub internazionale di consulenza per accedere ai mercati della Bielorussia e dell’UEE",
+  "lead": "Creiamo relazioni operative tra la produzione italiana e il mercato bielorusso. Status ufficiale, team internazionale e assistenza completa.",
+  "mission": {
+    "title": "La nostra missione",
+    "text": "Creiamo un percorso prevedibile e sicuro per le imprese italiane in Bielorussia e nell’Unione economica eurasiatica. Non siamo soltanto consulenti: siamo un ponte strategico che collega mercati, culture, persone e opportunità."
   },
   "team": {
     "title": "Il team",
-    "note": "Le fotografie del team arriveranno più avanti: al loro posto ci sono segnaposto.",
     "people": [
       {
-        "name": "Nome Cognome",
-        "role": "Direttore",
-        "about": "Si occupa della strategia d’ingresso sul mercato e delle trattative con i produttori."
+        "name": "Mario Ubaldi",
+        "initials": "MU",
+        "role": "Italia · Consulenza aziendale",
+        "about": "Italiano, consulente aziendale con 20 anni di esperienza. È specializzato in finanziamenti, contributi e internazionalizzazione delle imprese italiane. Ha un’ampia base di clienti tra i produttori di diversi settori. Parla italiano, inglese, francese e portoghese.",
+        "photo": ""
       },
       {
-        "name": "Nome Cognome",
-        "role": "Responsabile import-export",
-        "about": "Contratti, controllo valutario, sdoganamento e certificazioni."
-      },
-      {
-        "name": "Nome Cognome",
-        "role": "Sviluppo commerciale",
-        "about": "Ricerca e verifica dei partner, assistenza ai distributori."
+        "name": "Viktoria Gubanova",
+        "initials": "VG",
+        "role": "Bielorussia · Sviluppo internazionale",
+        "about": "Bielorussa. Già direttrice di Planix Group in Bielorussia e rappresentante ufficiale dell’azienda finlandese Planix. Si è occupata dell’importazione di apparecchiature di grande formato e della creazione sistematica di relazioni tra imprese bielorusse e finlandesi: cercava partner bielorussi su richiesta di aziende finlandesi, organizzava fiere e seminari in Finlandia e collaborava con l’ambasciata finlandese. Oggi si dedica al mercato italiano.",
+        "photo": ""
       }
     ]
+  },
+  "status": {
+    "title": "Il nostro status e i nostri partner",
+    "text": "Rappresentanti ufficiali in Italia dell’Agenzia nazionale per gli investimenti e la privatizzazione della Repubblica di Bielorussia (NAIP).",
+    "listTitle": "Questo ci dà accesso diretto a:",
+    "items": [
+      "imprese bielorusse e alle loro esigenze concrete",
+      "analisi aggiornate sui mercati dell’UEE",
+      "informazioni su agevolazioni, incentivi e sostegno pubblico",
+      "opportunità di organizzare incontri con le istituzioni pubbliche"
+    ],
+    "retail": "Il nostro partner strategico per la grande distribuzione è la società «SDELKI V PLUS», un’agenzia commerciale con relazioni consolidate con oltre 20 catene commerciali e 60 acquirenti all’ingrosso in Russia e Bielorussia."
+  },
+  "approach": {
+    "title": "Perché sceglierci",
+    "items": [
+      {
+        "title": "Status ufficiale",
+        "text": "Rappresentanti della NAIP in Italia: accesso diretto agli strumenti di sostegno pubblico."
+      },
+      {
+        "title": "Tre lingue",
+        "text": "Lavoriamo in russo, italiano e inglese."
+      },
+      {
+        "title": "Due mercati, un solo team",
+        "text": "Viviamo e lavoriamo in Italia e in Bielorussia: comprendiamo entrambe le realtà."
+      },
+      {
+        "title": "Assistenza completa",
+        "text": "Dalle ricerche di mercato alle forniture alle catene commerciali, con un unico interlocutore."
+      },
+      {
+        "title": "Verifica prima dell’incontro",
+        "text": "Verifichiamo l’affidabilità delle controparti e i rischi legati alle sanzioni prima che investiate tempo in un incontro."
+      },
+      {
+        "title": "Una rete di specialisti verificati",
+        "text": "Su richiesta mettiamo a disposizione contabili, interpreti e altri esperti di settore."
+      }
+    ]
+  },
+  "partners": {
+    "title": "I nostri partner",
+    "eyebrow": "Lavoriamo insieme"
+  },
+  "seo": {
+    "title": "Chi siamo — Vikub Group",
+    "description": "Creiamo relazioni operative tra la produzione italiana e il mercato bielorusso. Status ufficiale, team internazionale e assistenza completa."
   }
 }

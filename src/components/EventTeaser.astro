@@ -1,0 +1,33 @@
+---
+import type { Locale } from '../i18n/config';
+import { getPage } from '../lib/content';
+import { seminar, seminarEnd, eventDate, eventTime, withDate, eventState } from '../lib/seminar';
+import { href } from '../lib/url';
+import Icon from './Icon.astro';
+import EditButton from './edit/EditButton.astro';
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const { data: home } = await getPage('homePage', locale);
+const { data: event } = await getPage('eventsPage', locale);
+const p = home.seminar;
+const state = eventState();
+const isOpen = state === 'open';
+---
+<section class="section section--dark grain event-teaser edit-anchor" data-event-status data-deadline={seminar.registrationDeadline} data-end={seminarEnd}>
+ <EditButton collection="pages" entry="home" label="Анонс семинара" />
+ <div class="container event-teaser__inner">
+  <div><p class="eyebrow">{p.eyebrow}</p><h2><span data-event-open hidden={!isOpen}>{withDate(p.title,eventDate(locale))}</span><span data-event-archive hidden={isOpen}>{withDate(p.archiveTitle,eventDate(locale))}</span></h2><p class="lead">{p.text}</p><a class="btn btn--primary" href={href(p.cta.page,locale)}><span data-event-open hidden={!isOpen}>{p.cta.label}</span><span data-event-archive hidden={isOpen}>{p.archiveCta}</span><Icon name="arrow" size={20} /></a></div>
+  <div class="event-teaser__meta"><Icon name="calendar" size={40} /><time datetime={seminar.startAt}>{eventDate(locale)}</time><p>{eventTime(locale)} · {event.timeNote}</p><p class="event-teaser__status" data-event-closed hidden={state !== 'closed'}>{event.registration.closed}</p><p class="event-teaser__status" data-event-ended hidden={state !== 'ended'}>{event.registration.ended}</p></div>
+ </div>
+</section>
+<style>
+ .event-teaser__inner { display:grid; gap:3rem; }
+ .event-teaser h2 { max-width:26ch; }
+ .event-teaser .lead { margin-top:1.5rem; }
+ .event-teaser .btn { margin-top:2rem; }
+ .event-teaser__meta { border-top:1px solid #ffffff30; padding-top:2rem; display:flex; flex-direction:column; align-items:flex-start; gap:1rem; }
+ .event-teaser__meta :global(svg) { color:var(--accent-light); }
+ .event-teaser__meta time { font-family:var(--font-serif); font-size:var(--text-xl); }
+ .event-teaser__meta p { color:var(--on-dark-muted); font-size:var(--text-sm); }
+ @media(min-width:52rem) { .event-teaser__inner { grid-template-columns:1.6fr 1fr; gap:5rem; align-items:center; } .event-teaser__meta { border-top:0; border-left:1px solid #ffffff30; padding:2rem 0 2rem 3rem; } }
+</style>

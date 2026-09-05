@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+import Icon from '../components/Icon.astro';
+import EditButton from '../components/edit/EditButton.astro';
+import type { Locale } from '../i18n/config';
+import { getPage } from '../lib/content';
+import { getIntegrations } from '../lib/integrations';
+import { seminar, seminarEnd, eventDate, eventTime, withDate, eventState, eventDuration } from '../lib/seminar';
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const { data: page } = await getPage('eventsPage',locale);
+const { registrationUrl } = getIntegrations();
+const state = eventState();
+const r = page.registration;
+const lead = withDate(page.lead,eventDate(locale));
+---
+<BaseLayout title={page.seo.title} description={page.seo.description} ogImage={page.seo.ogImage} locale={locale} page="events">
+ <PageHeader title={page.title} lead={lead} edit={{collection:'pages',entry:'events',label:'Мероприятия'}} />
+ <section class="section section--tight"><div class="container"><h2 class="visually-hidden">{page.detailsTitle}</h2><dl class="event-facts">
+  <div><dt>{page.dateLabel}</dt><dd><time datetime={seminar.startAt}>{eventDate(locale)}</time></dd></div>
+  <div><dt>{page.timeLabel}</dt><dd>{eventTime(locale)}<small>{page.timeNote}</small></dd></div>
+  <div><dt>{page.formatLabel}</dt><dd>{page.formatValue}</dd></div>
+  <div><dt>{page.languageLabel}</dt><dd>{page.languageValue}<small>{page.languageNote}</small></dd></div>
+  <div><dt>{page.costLabel}</dt><dd class="event-facts__free">{page.costValue}</dd></div>
+ </dl></div></section>
+ <section class="section section--paper2"><div class="container event-content">
+  <div><h2>{page.programTitle}</h2><p class="program-note">{page.programNote}</p><ol class="program">{page.program.map((item,i) => <li><span aria-hidden="true">{String(i+1).padStart(2,'0')}</span><p>{item}</p></li>)}</ol><p class="duration"><Icon name="clock" size={20} /><strong>{page.durationLabel}:</strong> {page.durationValue.replaceAll('{duration}',eventDuration(locale))}</p></div>
+  <aside class="registration edit-anchor" id="registration" data-event-status data-deadline={seminar.registrationDeadline} data-end={seminarEnd}>
+   <EditButton collection="system" entry="integrations" label="Ссылка регистрации" />
+   <Icon name="calendar" size={36} /><h2>{r.title}</h2><p>{withDate(r.text,eventDate(locale,seminar.registrationDeadline))}</p>
+   <div data-event-open hidden={state !== 'open'}>{registrationUrl ? <><a class="btn btn--primary" data-registration-link href={registrationUrl} target="_blank" rel="noopener noreferrer">{r.button}<Icon name="arrow" size={18} /></a><p class="registration__note">{r.externalNote}</p></> : <p class="notice" data-registration-unavailable>{r.unavailable}</p>}</div>
+   <p class="notice" data-event-closed hidden={state !== 'closed'}>{r.closed}</p><p class="notice" data-event-ended hidden={state !== 'ended'}>{r.ended}</p>
+  </aside>
+ </div></section>
+ <ContactBlock locale={locale} />
+</BaseLayout>
+<style>
+ .event-facts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:2rem; margin:0; }
+ .event-facts>div { min-width:0; border-top:1px solid var(--line); padding-top:1.25rem; }
+ .event-facts dt { font-size:var(--text-xs); letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:.75rem; }
+ .event-facts dd { font-family:var(--font-serif); font-size:1.35rem; color:var(--ink); line-height:1.35; }
+ .event-facts small { display:block; margin-top:.5rem; color:var(--body); font-family:var(--font-sans); font-size:var(--text-xs); line-height:1.6; }
+ .event-facts .event-facts__free { color:var(--accent); }
+ .event-content { display:grid; gap:3rem; align-items:start; }
+ .program-note { margin-top:1.25rem; font-size:var(--text-sm); }
+ .program { list-style:none; margin-top:2rem; padding:0; }
+ .program li { display:flex; gap:1.5rem; border-top:1px solid var(--line-strong); padding:1.4rem 0; }
+ .program li>span { font-size:var(--text-sm); color:var(--accent); flex-shrink:0; padding-top:.15rem; font-variant-numeric:tabular-nums; }
+ .program li p { font-size:var(--text-sm); }
+ .duration { display:flex; flex-wrap:wrap; align-items:center; gap:.6rem; font-size:var(--text-sm); margin-top:1rem; }
+ .registration { padding:2rem; border:1px solid var(--line-strong); background:var(--paper); }
+ .registration> :global(svg) { color:var(--accent); margin-bottom:1.5rem; }
+ .registration h2 { font-size:var(--text-xl); }
+ .registration>p { margin-top:1.25rem; }
+ .registration .btn { width:100%; margin-top:1.5rem; gap:.5rem; }
+ .registration__note { margin-top:1rem; font-size:var(--text-xs); }
+ .notice { font-size:var(--text-sm); background:var(--paper-2); padding:1rem; margin-top:1.5rem; border-left:2px solid var(--accent); }
+ @media(min-width:52rem) { .event-content { grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:4rem; } .registration { position:sticky; top:7rem; } }
+ @media(min-width:66rem) { .event-facts { grid-template-columns:1.1fr .85fr .7fr 1.4fr .9fr; } }
+</style>

@@ -1,0 +1,19 @@
+---
+import type { Locale } from '../i18n/config';
+import { getSettings } from '../lib/content';
+import { useUI } from '../i18n/ui';
+import Icon from './Icon.astro';
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const { socials } = await getSettings(locale);
+const t = useUI(locale);
+---
+<ul class="social-links" aria-label={t.socialNetworks}>
+  {socials.map((social) => <li>{social.href ? <a href={social.href} target="_blank" rel="noopener noreferrer"><Icon name={social.type} size={18} />{social.label}</a> : <span class="social-links__pending" title={t.unavailable}><Icon name={social.type} size={18} />{social.label}<span class="visually-hidden"> — {t.unavailable}</span></span>}</li>)}
+</ul>
+<style>
+ .social-links { display:flex; flex-wrap:wrap; gap:.5rem 1.5rem; padding:0; margin:0; list-style:none; }
+ .social-links a,.social-links__pending { display:inline-flex; align-items:center; gap:.5rem; min-height:44px; font-size:var(--text-sm); }
+ .social-links a:hover { color:var(--accent-light); }
+ .social-links__pending { opacity:.72; }
+</style>

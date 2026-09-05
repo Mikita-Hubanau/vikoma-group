@@ -5,13 +5,15 @@ import '@fontsource-variable/inter';
 import '@fontsource-variable/source-serif-4';
 import '../styles/global.css';
 
+import Analytics from '../components/Analytics.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { defaultLocale, enabledLocales, htmlLang, type Locale } from '../i18n/config';
+import { defaultLocale, enabledLocales, htmlLang, ogLocale, type Locale } from '../i18n/config';
 import { href } from '../lib/url';
 import type { RouteKey } from '../i18n/routes';
 import { getSettings } from '../lib/content';
 import { asset } from '../lib/url';
+import { findMediaUrl } from '../lib/images';
 import { useUI } from '../i18n/ui';
 import EditMode from '../components/edit/EditMode.astro';
 
@@ -45,14 +47,19 @@ const t = useUI(locale);
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
 
 // Подсказка поисковикам, что у страницы есть версии на других языках.
-// Пока язык один — список из одной строки, но механизм уже работает.
+// Каждая публичная страница имеет три эквивалентные языковые версии.
 const alternates = enabledLocales.map((code) => ({
   code,
   url: new URL(href(page, code), Astro.site ?? Astro.url).toString(),
 }));
-const ogImageUrl = ogImage
-  ? new URL(ogImage, Astro.site ?? Astro.url).toString()
-  : undefined;
+const previewImage = ogImage ? (/^https:\/\//.test(ogImage) ? ogImage : findMediaUrl(ogImage) || asset(ogImage)) : undefined;
+const ogImageUrl = previewImage ? new URL(previewImage, Astro.site ?? Astro.url).toString() : undefined;
+const organization = JSON.stringify({
+  '@context':'https://schema.org', '@type':'Organization',
+  name:settings.company.name, url:new URL(href('home', locale), Astro.site ?? Astro.url).toString(),
+  ...(settings.email ? { email:settings.email } : {}),
+  ...(settings.socials.some((s) => s.href) ? { sameAs:settings.socials.filter((s) => s.href).map((s) => s.href) } : {}),
+}).replace(/</g, '\\u003c');
 ---
 
 <!doctype html>
@@ -67,7 +74,7 @@ const ogImageUrl = ogImage
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
     {
-      alternates.length > 1 && (
+      !noindex && alternates.length > 1 && (
         <>
           {alternates.map((alt) => (
             <link rel="alternate" hreflang={htmlLang[alt.code]} href={alt.url} />
@@ -85,7 +92,7 @@ const ogImageUrl = ogImage
     <!-- Превью при отправке ссылки в мессенджер или соцсеть -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={settings.company.name} />
-    <meta property="og:locale" content={htmlLang[locale].replace('-', '_')} />
+    <meta property="og:locale" content={ogLocale[locale]} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -99,16 +106,20 @@ const ogImageUrl = ogImage
     <link rel="icon" href={asset('/favicon.svg')} type="image/svg+xml" />
     <link rel="sitemap" href={asset('/sitemap-index.xml')} />
 
+    {!noindex && <script is:inline type="application/ld+json" set:html={organization}></script>}
+
     <meta name="theme-color" content="#101820" />
   </head>
 
   <body>
     <a class="skip-link" href="#main">{t.skipToContent}</a>
     <Header locale={locale} page={page} />
-    <main id="main">
+    <main id="main" tabindex="-1">
       <slot />
     </main>
-    <Footer locale={locale} />
+    <Footer locale={locale} analyticsEnabled={!noindex} />
+    {!noindex && <Analytics locale={locale} />}
+    {(page === 'home' || page === 'events') && !noindex && <script is:inline type="module" src={asset('/scripts/event-state.js')}></script>}
     <EditMode />
   </body>
 </html>

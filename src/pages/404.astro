@@ -31,7 +31,7 @@ const t = useUI(locale);
 >
   <section class="notfound">
     <div class="container">
-      <p class="notfound__code" aria-hidden="true">404</p>
+      <h1 class="notfound__code">404</h1>
 
       <div class="notfound__lines">
         {
@@ -47,7 +47,7 @@ const t = useUI(locale);
       <nav class="notfound__nav" aria-label="Разделы сайта">
         <a class="btn btn--primary" href={href('home', locale)}>{t.nav.home}</a>
         {
-          navOrder.map((key) => (
+          navOrder.filter((key) => key !== 'home').map((key) => (
             <a class="btn btn--ghost" href={href(key, locale)}>
               {t.nav[key]}
             </a>

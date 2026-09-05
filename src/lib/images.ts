@@ -53,3 +53,14 @@ export function findImage(path: string | undefined): ImageMetadata | undefined {
 export function listImages(): string[] {
   return [...byPublicPath.keys()].sort();
 }
+
+const vectors = import.meta.glob<string>('/src/assets/media/**/*.svg', {
+  eager: true, query: '?url', import: 'default',
+});
+export function findMediaUrl(path: string | undefined): string | undefined {
+  if (!path) return undefined;
+  if (/\.svg$/i.test(path)) {
+    return vectors[path.replace(/^\/media\//, '/src/assets/media/')];
+  }
+  return findImage(path)?.src;
+}

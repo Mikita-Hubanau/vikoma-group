@@ -3,174 +3,42 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ContactBlock from '../components/ContactBlock.astro';
 import PrinciplesGrid from '../components/blocks/PrinciplesGrid.astro';
+import Photo from '../components/blocks/Photo.astro';
+import PartnerGrid from '../components/PartnerGrid.astro';
+import SectionHead from '../components/SectionHead.astro';
+import EditButton from '../components/edit/EditButton.astro';
 import type { Locale } from '../i18n/config';
-import { useUI } from '../i18n/ui';
 import { getPage } from '../lib/content';
-
-interface Props {
-  locale: Locale;
-}
-
+import { findImage } from '../lib/images';
+interface Props { locale: Locale; }
 const { locale } = Astro.props;
-const t = useUI(locale);
-const { data: page } = await getPage('aboutPage', locale);
+const { data: page } = await getPage('aboutPage',locale);
 ---
-
-<BaseLayout
-  title={page.seo.title}
-  description={page.seo.description}
-  locale={locale}
-  page="about"
->
-  <PageHeader
-    title={page.title}
-    lead={page.lead}
-    edit={{ collection: 'pages', entry: 'about', label: 'О компании' }}
-  />
-
-  <!-- История -->
-  <section class="section">
-    <div class="container">
-      <div class="story reveal">
-        {
-          page.story.map((paragraph, i) => (
-            <p class:list={['story__p', i === 0 && 'story__p--first']}>{paragraph}</p>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- Почему нам можно доверять -->
-  <section class="section section--paper2">
-    <div class="container">
-      <PrinciplesGrid title={page.approach.title} items={page.approach.items} />
-    </div>
-  </section>
-
-  <!-- Команда -->
-  <section class="section">
-    <div class="container">
-      <div class="team__head reveal">
-        <p class="eyebrow">{t.team}</p>
-        <h2>{page.team.title}</h2>
-        <p class="team__note">{page.team.note}</p>
-      </div>
-
-      <ul class="team stagger">
-        {
-          page.team.people.map((person) => (
-            <li class="person">
-              <div class="person__photo">
-                {person.photo ? (
-                  <img src={person.photo} alt={person.name} loading="lazy" />
-                ) : (
-                  <span class="person__placeholder">{t.photoPlaceholder}</span>
-                )}
-              </div>
-              <h3 class="person__name">{person.name}</h3>
-              <p class="person__role">{person.role}</p>
-              <p class="person__about">{person.about}</p>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
-
-  <ContactBlock locale={locale} />
+<BaseLayout {...page.seo} locale={locale} page="about">
+ <PageHeader title={page.title} lead={page.lead} edit={{collection:'pages',entry:'about',label:'О нас'}} />
+ <section class="section section--tight"><div class="container mission"><h2>{page.mission.title}</h2><p>{page.mission.text}</p></div></section>
+ <section class="section section--paper2"><div class="container"><h2 class="block-heading">{page.team.title}</h2><ul class="team">{page.team.people.map((person) => <li class="person"><div class="person__identity">{person.photo && findImage(person.photo) ? <div class="person__photo"><Photo src={person.photo} alt={person.name} widths={[160,320]} sizes="160px" /></div> : <div class="person__initials" aria-hidden="true">{person.initials}</div>}<div><h3>{person.name}</h3><p class="person__role">{person.role}</p></div></div><p class="person__about">{person.about}</p></li>)}</ul></div></section>
+ <section class="section section--dark grain"><div class="container status"><div><p class="eyebrow">{page.status.title}</p><h2>{page.status.text}</h2></div><div><p class="status__label">{page.status.listTitle}</p><ul class="dash-list">{page.status.items.map((item) => <li>{item}</li>)}</ul><p class="status__retail">{page.status.retail}</p></div></div></section>
+ <section class="section"><div class="container"><PrinciplesGrid title={page.approach.title} items={page.approach.items} /></div></section>
+ <section class="section section--paper2 edit-anchor"><EditButton collection="settings" entry="contacts" label="Партнёры" /><div class="container"><SectionHead {...page.partners} /><PartnerGrid locale={locale} /></div></section>
+ <ContactBlock locale={locale} />
 </BaseLayout>
-
 <style>
-  /* ── История ─────────────────────────────────────────────── */
-  .story {
-    max-width: var(--measure);
-    display: grid;
-    gap: var(--space-5);
-  }
-
-  /* первый абзац крупнее — он задаёт тон */
-  .story__p--first {
-    font-family: var(--font-serif);
-    font-size: var(--text-lg);
-    line-height: 1.45;
-    color: var(--ink);
-  }
-
-  /* ── Команда ─────────────────────────────────────────────── */
-  .team__head {
-    margin-bottom: var(--space-8);
-  }
-
-  .team__note {
-    margin-top: var(--space-4);
-    font-size: var(--text-sm);
-    color: var(--muted);
-  }
-
-  .team {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: var(--space-7) var(--space-6);
-  }
-
-  .person__photo {
-    position: relative;
-    aspect-ratio: 3 / 4;
-    margin-bottom: var(--space-4);
-    background: var(--paper-2);
-    overflow: hidden;
-    /* та же штриховка, что и у заглушек фотографий отраслей */
-    background-image: repeating-linear-gradient(
-      -45deg,
-      transparent,
-      transparent 7px,
-      rgba(16, 24, 32, 0.045) 7px,
-      rgba(16, 24, 32, 0.045) 8px
-    );
-  }
-
-  .person__photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .person__placeholder {
-    position: absolute;
-    left: var(--space-4);
-    bottom: var(--space-4);
-    font-size: var(--text-xs);
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .person__name {
-    font-size: var(--text-md);
-  }
-
-  .person__role {
-    margin-top: var(--space-1);
-    font-size: var(--text-xs);
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-
-  .person__about {
-    margin-top: var(--space-3);
-    font-size: var(--text-sm);
-    color: var(--muted);
-  }
-
-  @media (min-width: 48rem) {
-    .team {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
+ .mission { display:grid; gap:1.5rem; }
+ .mission p { font-family:var(--font-serif); font-size:var(--text-lg); max-width:50rem; color:var(--ink); }
+ .block-heading { margin-bottom:2rem; }
+ .team { display:grid; gap:3rem; list-style:none; padding:0; }
+ .person { min-width:0; border-top:1px solid var(--line-strong); padding-top:2rem; }
+ .person__identity { display:flex; align-items:center; flex-wrap:wrap; gap:1.5rem; margin-bottom:1.75rem; }
+ .person__initials { font-family:var(--font-serif); font-size:2.7rem; line-height:1; letter-spacing:-.04em; color:var(--accent); padding:.7rem; border:1px solid var(--line-strong); width:94px; height:94px; display:flex; align-items:center; justify-content:center; }
+ .person__photo { width:120px; height:120px; flex-shrink:0; overflow:hidden; }
+ .person__photo :global(img) { width:120px; height:120px; object-fit:cover; }
+ .person__role { font-size:var(--text-xs); color:var(--accent); margin-top:.6rem; letter-spacing:.035em; }
+ .person__about { font-size:var(--text-sm); line-height:1.85; }
+ .status { display:grid; gap:2.5rem; }
+ .status h2 { font-size:var(--text-xl); line-height:1.4; }
+ .status__label { margin-bottom:1rem; }
+ .status :global(.dash-list>li) { color:var(--on-dark-muted); }
+ .status__retail { border-top:1px solid #ffffff30; padding-top:1.5rem; margin-top:1.75rem; font-size:var(--text-sm); color:var(--on-dark-muted); }
+ @media(min-width:52rem) { .mission { grid-template-columns:1fr 2fr; gap:4rem; } .team { grid-template-columns:repeat(2,minmax(0,1fr)); gap:4rem; } .status { grid-template-columns:1fr 1.3fr; gap:5rem; } }
 </style>

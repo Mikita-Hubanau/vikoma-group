@@ -1,0 +1,28 @@
+---
+import type { Locale } from '../i18n/config';
+import { getSettings } from '../lib/content';
+import { findMediaUrl } from '../lib/images';
+import Icon from './Icon.astro';
+interface Props { locale: Locale; compact?: boolean; }
+const { locale, compact = false } = Astro.props;
+const settings = await getSettings(locale);
+const partners = compact ? settings.partners.filter((p) => ['naip','retail','payments'].includes(p.id)) : settings.partners;
+---
+<ul class:list={['partner-marks', compact && 'partner-marks--compact']}>
+  {partners.map((partner) => {
+    const logo = findMediaUrl(partner.logo);
+    return <li class="partner-mark">
+      {logo ? <img src={logo} alt={partner.name} width="160" height="64" loading={compact ? 'eager' : 'lazy'} decoding="async" /> : <><Icon name={partner.icon} size={compact ? 22 : 30} /><span>{partner.shortName}</span></>}
+    </li>;
+  })}
+</ul>
+<style>
+  .partner-marks { list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); border-top:1px solid var(--line); }
+  .partner-mark { min-width:0; display:flex; align-items:center; gap:1rem; padding:1.7rem 1rem 1.7rem 0; border-bottom:1px solid var(--line); color:var(--ink-soft); font-size:var(--text-sm); font-weight:600; line-height:1.4; }
+  .partner-mark :global(svg) { flex-shrink:0; color:var(--accent); }
+  .partner-mark img { object-fit:contain; width:auto; max-width:100%; max-height:64px; }
+  .partner-marks--compact { display:flex; flex-wrap:wrap; gap:1rem 1.5rem; margin-top:2rem; padding-top:1.5rem; }
+  .partner-marks--compact .partner-mark { padding:0; border:0; gap:.65rem; font-size:.7rem; letter-spacing:.03em; }
+  .partner-marks--compact img { max-width:125px; max-height:36px; }
+  @media(min-width:62rem) { .partner-marks:not(.partner-marks--compact) { grid-template-columns:repeat(5,minmax(0,1fr)); } .partner-marks:not(.partner-marks--compact) .partner-mark { flex-direction:column; align-items:flex-start; padding-right:1.5rem; } }
+</style>

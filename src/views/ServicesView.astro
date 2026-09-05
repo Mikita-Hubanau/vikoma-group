@@ -7,6 +7,8 @@ import ContactBlock from '../components/ContactBlock.astro';
 import type { Locale } from '../i18n/config';
 import { useUI } from '../i18n/ui';
 import { getList, getPage, byOrder } from '../lib/content';
+import HowWeWork from '../components/HowWeWork.astro';
+import Icon from '../components/Icon.astro';
 import EditButton from '../components/edit/EditButton.astro';
 
 interface Props {
@@ -32,6 +34,7 @@ const items = await Promise.all(
 <BaseLayout
   title={page.seo.title}
   description={page.seo.description}
+  ogImage={page.seo.ogImage}
   locale={locale}
   page="services"
 >
@@ -46,14 +49,16 @@ const items = await Promise.all(
       <ol class="services">
         {
           items.map(({ data, slug, Content }, i) => (
-            <li class="service reveal edit-anchor">
+            <li class="service reveal edit-anchor" id={data.anchor}>
               <EditButton collection="services" entry={slug} label={data.title} />
               <div class="service__aside">
                 <span class="service__num">{String(i + 1).padStart(2, '0')}</span>
+                <Icon name={data.icon} size={30} />
                 <h2 class="service__title">{data.title}</h2>
               </div>
 
               <div class="service__body">
+                {data.partner && <p class="service__partner"><span>{t.partnerLabel}</span> {data.partner}</p>}
                 <div class="prose">
                   <Content />
                 </div>
@@ -72,6 +77,7 @@ const items = await Promise.all(
     </div>
   </section>
 
+  <HowWeWork {...page.howWeWork} />
   <ContactBlock locale={locale} />
 </BaseLayout>
 
@@ -103,6 +109,9 @@ const items = await Promise.all(
     margin-bottom: var(--space-3);
   }
 
+  .service__partner { margin-bottom:1.5rem; color:var(--accent); font-size:var(--text-sm); }
+  .service__partner span { display:block; text-transform:uppercase; font-size:var(--text-xs); letter-spacing:.1em; margin-bottom:.4rem; }
+  .service__aside :global(svg) { margin-bottom:1rem; color:var(--accent); }
   .service__title {
     font-size: var(--text-xl);
   }

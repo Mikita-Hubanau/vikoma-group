@@ -1,18 +1,23 @@
 {
   "seo": {
-    "title": "Vikoma Group — il business italiano sul mercato bielorusso",
-    "description": "Aiutiamo i produttori italiani a trovare distributori in Bielorussia e le aziende bielorusse a trovare fornitori affidabili. Trattative, documenti, logistica."
+    "title": "Vikub Group — Accesso ai mercati della Bielorussia e dell’UEE per le imprese italiane",
+    "description": "Vikub Group accompagna le imprese italiane nei mercati della Bielorussia e dell’Unione economica eurasiatica: analisi, investimenti, distribuzione, assistenza legale e pagamenti."
   },
   "hero": {
-    "eyebrow": "Intermediazione · Import-export · Consulenza",
+    "eyebrow": "Italia · Bielorussia · UEE",
     "titleLines": [
-      "Il business italiano",
-      "sul mercato bielorusso"
+      "Bielorussia e UEE",
+      "per le imprese italiane.",
+      "Chiavi in mano."
     ],
-    "lead": "Aiutiamo i produttori italiani a trovare distributori in Bielorussia e le aziende bielorusse a trovare fornitori affidabili. Ci occupiamo noi di trattative, documenti e logistica.",
+    "lead": "Ricerche di mercato, ricerca di partner, assistenza legale, accesso alla grande distribuzione: seguiamo ogni fase. Rappresentanti ufficiali della NAIP in Italia.",
     "cta": {
-      "label": "Parliamo del progetto",
-      "page": "contacts"
+      "label": "Scopri di più",
+      "page": "services"
+    },
+    "secondaryCta": {
+      "label": "Iscriviti al seminario",
+      "page": "events"
     },
     "map": {
       "countries": [
@@ -32,77 +37,96 @@
     }
   },
   "whatWeDo": {
-    "eyebrow": "Cosa facciamo",
-    "title": "Tre compiti di cui ci occupiamo dall’inizio alla fine",
+    "eyebrow": "Assistenza in ogni fase",
+    "title": "Cosa facciamo",
     "cards": [
       {
-        "title": "Ricerca di partner",
-        "text": "Selezioniamo distributori, rivenditori e buyer adatti allo specifico prodotto. Verifichiamo le controparti prima del primo incontro."
+        "icon": "chart",
+        "title": "Ricerche di mercato e investimenti",
+        "text": "Analisi, ricerca di partner e sostegno pubblico attraverso la NAIP",
+        "anchor": "market-research"
       },
       {
-        "title": "Gestione delle trattative",
-        "text": "Negoziazioni, contratti, condizioni di fornitura. Lavoriamo in due lingue e in due ordinamenti giuridici: nessun malinteso."
+        "icon": "store",
+        "title": "Accesso alla grande distribuzione",
+        "text": "Forniture alle catene commerciali in Bielorussia e Russia tramite il partner «SDELKI V PLUS»",
+        "anchor": "retail"
       },
       {
-        "title": "Logistica e dogana",
-        "text": "Organizziamo il trasporto, prepariamo i documenti, curiamo certificazioni e sdoganamento."
+        "icon": "scales",
+        "title": "Assistenza legale",
+        "text": "Studi legali bielorusso e italiano: sanzioni, fiscalità e costituzione di società",
+        "anchor": "legal"
+      },
+      {
+        "icon": "card",
+        "title": "Soluzioni di pagamento",
+        "text": "Assistenza bancaria e piattaforme alternative",
+        "anchor": "payments"
       }
     ]
   },
-  "industries": {
-    "eyebrow": "Settori",
-    "title": "Gli ambiti in cui abbiamo esperienza",
+  "about": {
+    "eyebrow": "Chi siamo",
+    "title": "Due mercati. Un solo team.",
+    "paragraphs": [
+      "Vikub Group è un hub internazionale di consulenza e sviluppo commerciale, specializzato nell’ingresso delle imprese italiane nei mercati della Bielorussia e dell’Unione economica eurasiatica (UEE).",
+      "Siamo rappresentanti ufficiali in Italia dell’Agenzia nazionale per gli investimenti e la privatizzazione della Repubblica di Bielorussia (NAIP). Questo ci offre un accesso diretto agli strumenti di sostegno pubblico, ad analisi aggiornate e alle imprese bielorusse.",
+      "Il nostro team unisce l’esperienza italiana e bielorussa: Mario Ubaldi è un consulente aziendale con 20 anni di esperienza al fianco dei produttori italiani; Viktoria Gubanova, già direttrice di Planix Group, è esperta nella creazione di connessioni internazionali tra imprese.",
+      "Offriamo un’assistenza completa: dalle ricerche di mercato alla firma dei contratti e all’ingresso nelle catene commerciali. Lavoriamo con aziende di diversi settori in base alle loro esigenze."
+    ],
     "cta": {
-      "label": "Scopri i settori",
-      "page": "industries"
+      "label": "Scopri chi siamo",
+      "page": "about"
     }
   },
-  "statement": {
-    "text": "Non vendiamo merce e non prendiamo percentuali sul fatturato. Il nostro prodotto è un rapporto di lavoro tra due aziende, che continua anche quando il nostro compito è finito.",
-    "note": "Il nostro principio"
-  },
-  "howWeWork": {
-    "eyebrow": "Come lavoriamo",
-    "title": "Quattro passi dal primo colloquio alla fornitura",
-    "steps": [
-      {
-        "title": "Conoscenza",
-        "text": "Parliamo del prodotto e dell’obiettivo. Gratuitamente."
-      },
-      {
-        "title": "Analisi",
-        "text": "Valutiamo le prospettive e proponiamo una strategia d’ingresso."
-      },
-      {
-        "title": "Lavoro",
-        "text": "Cerchiamo partner, conduciamo le trattative, formalizziamo l’accordo."
-      },
-      {
-        "title": "Assistenza",
-        "text": "Restiamo a disposizione anche dopo la prima fornitura."
-      }
-    ]
+  "seminar": {
+    "eyebrow": "Online · Gratuito",
+    "title": "Vi invitiamo al seminario online del {date}",
+    "archiveTitle": "Seminario online del {date}",
+    "text": "Un seminario gratuito per i produttori italiani interessati ai mercati della Bielorussia e dell’UEE. Scoprirete le esigenze concrete delle imprese bielorusse, gli strumenti di sostegno pubblico, le soluzioni di pagamento e gli aspetti legali.",
+    "cta": {
+      "label": "Dettagli e iscrizione",
+      "page": "events"
+    },
+    "archiveCta": "Dettagli del seminario"
   },
   "stats": {
-    "eyebrow": "In cifre",
+    "eyebrow": "Perché sceglierci",
     "items": [
       {
-        "value": 8,
-        "label": "anni sul mercato"
+        "value": "20",
+        "suffix": "anni",
+        "label": "di esperienza di Mario nel business italiano",
+        "kind": "number"
       },
       {
-        "value": 60,
-        "suffix": "+",
-        "label": "progetti realizzati"
+        "value": "8+",
+        "suffix": "anni",
+        "label": "di esperienza di Viktoria nel business internazionale",
+        "kind": "number"
       },
       {
-        "value": 2,
-        "label": "sedi: Minsk e Fano"
+        "value": "3",
+        "suffix": "lingue",
+        "label": "russo, italiano e inglese",
+        "kind": "number"
       },
       {
-        "value": 5,
-        "label": "settori"
+        "value": "Status ufficiale",
+        "suffix": "",
+        "label": "rappresentanti della NAIP in Italia",
+        "kind": "text"
       }
     ]
+  },
+  "partners": {
+    "title": "I nostri partner",
+    "eyebrow": "Lavoriamo insieme"
+  },
+  "contact": {
+    "title": "Contattateci",
+    "text": "Siamo pronti a discutere il vostro progetto. Scriveteci: risponderemo entro 24 ore.",
+    "label": "Contattaci"
   }
 }

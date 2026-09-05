@@ -1,8 +1,30 @@
 {
   "seo": {
-    "title": "Servizi — Vikoma Group",
-    "description": "Ricerca di mercato, selezione e verifica dei partner, rappresentanza, import-export, adattamento marketing."
+    "title": "Servizi — Vikub Group",
+    "description": "Vikub Group accompagna le imprese italiane nei mercati della Bielorussia e dell’Unione economica eurasiatica: analisi, investimenti, distribuzione, assistenza legale e pagamenti."
   },
-  "title": "Servizi",
-  "lead": "Seguiamo tutte le fasi dell’ingresso sul mercato: dalla valutazione della domanda all’assistenza dopo la prima fornitura. Si può affidarci un solo compito oppure l’intero percorso."
+  "title": "Cosa facciamo per la vostra impresa",
+  "lead": "Non vendiamo prodotti. Creiamo relazioni operative tra imprese e mercati.",
+  "howWeWork": {
+    "eyebrow": "Come lavoriamo",
+    "title": "Dal primo incontro all’assistenza continuativa",
+    "steps": [
+      {
+        "title": "Primo contatto",
+        "text": "Parliamo del vostro prodotto e dei vostri obiettivi. Gratuitamente."
+      },
+      {
+        "title": "Analisi",
+        "text": "Valutiamo le prospettive e proponiamo una strategia."
+      },
+      {
+        "title": "Operatività",
+        "text": "Cerchiamo partner, conduciamo trattative e formalizziamo l’accordo."
+      },
+      {
+        "title": "Assistenza",
+        "text": "Restiamo in contatto e vi affianchiamo dopo la prima fornitura."
+      }
+    ]
+  }
 }

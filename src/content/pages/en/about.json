@@ -1,55 +1,76 @@
 {
-  "seo": {
-    "title": "About — Vikoma Group",
-    "description": "Vikoma Group connects Italian manufacturers with the Belarusian market: two languages, two regulatory systems, real people rather than contact databases."
-  },
-  "title": "About us",
-  "lead": "We close the gap between Italian manufacturing and the Belarusian market.",
-  "story": [
-    "Vikoma Group grew out of a simple observation: Italian manufacturers want to work with Belarus but don’t understand how that market works. And Belarusian companies want European quality but get lost in the search and the negotiations.",
-    "We close that gap. We know both sides — we speak both languages, we work within both regulatory systems, and we deal with real people rather than contact databases.",
-    "We don’t sell goods and we don’t take a cut of turnover. What we deliver is a working relationship between two companies — one that outlasts our involvement."
-  ],
-  "approach": {
-    "title": "Why you can trust us",
-    "items": [
-      {
-        "title": "We don’t sell goods",
-        "text": "We have no warehouse and no stake in any single shipment. We have no reason to push a partner on you — only a reason to make the relationship work."
-      },
-      {
-        "title": "We vet before we introduce",
-        "text": "A counterparty’s legal and financial standing is checked before you spend time on a meeting."
-      },
-      {
-        "title": "Two languages, two legal systems",
-        "text": "Correspondence, contracts and negotiations run without an interpreter in the middle. Both sides read the terms the same way."
-      },
-      {
-        "title": "We stay after the deal",
-        "text": "The first delivery isn’t the finish line. We monitor how the distributor performs and remain available afterwards."
-      }
-    ]
+  "title": "An international consulting hub for entering Belarus and the EAEU",
+  "lead": "We build working connections between Italian manufacturing and the Belarusian market. Official status, an international team and end-to-end support.",
+  "mission": {
+    "title": "Our mission",
+    "text": "We create a predictable and safe path for Italian businesses into Belarus and the Eurasian Economic Union. We are more than consultants: we are a strategic bridge connecting markets, cultures, people and opportunities."
   },
   "team": {
-    "title": "The team",
-    "note": "Team photographs will be added later — placeholders stand in for now.",
+    "title": "Our team",
     "people": [
       {
-        "name": "First Last",
-        "role": "Director",
-        "about": "Responsible for market-entry strategy and negotiations with manufacturers."
+        "name": "Mario Ubaldi",
+        "initials": "MU",
+        "role": "Italy · Business consulting",
+        "about": "Italian business consultant with 20 years of experience. He specialises in financing, grants and the internationalisation of Italian companies, with a broad client base of manufacturers across different sectors. He speaks Italian, English, French and Portuguese.",
+        "photo": ""
       },
       {
-        "name": "First Last",
-        "role": "Head of foreign trade",
-        "about": "Contracts, currency control, customs clearance and certification."
-      },
-      {
-        "name": "First Last",
-        "role": "Business development manager",
-        "about": "Partner search and vetting, distributor support."
+        "name": "Viktoria Gubanova",
+        "initials": "VG",
+        "role": "Belarus · International business development",
+        "about": "Belarusian. Former director of Planix Group in Belarus and official representative of the Finnish company Planix. She worked on importing large-format equipment and systematically connecting Belarusian and Finnish businesses: finding Belarusian partners at the request of Finnish companies, organising exhibitions and seminars in Finland, and working with the Finnish embassy. She now focuses on the Italian market.",
+        "photo": ""
       }
     ]
+  },
+  "status": {
+    "title": "Our status and partners",
+    "text": "Official representatives of the National Agency of Investment and Privatization of the Republic of Belarus (NAIP) in Italy.",
+    "listTitle": "This gives us direct access to:",
+    "items": [
+      "Belarusian businesses and their actual needs",
+      "up-to-date analysis of EAEU markets",
+      "information on preferential regimes, incentives and government support",
+      "opportunities to arrange meetings with government bodies"
+    ],
+    "retail": "Our strategic retail market-entry partner is SDELKI V PLUS LLC, a trade agency with established relationships with more than 20 retail chains and 60 wholesale buyers in Russia and Belarus."
+  },
+  "approach": {
+    "title": "Why companies choose us",
+    "items": [
+      {
+        "title": "Official status",
+        "text": "NAIP representatives in Italy, with direct access to government support."
+      },
+      {
+        "title": "Three languages",
+        "text": "We work in Russian, Italian and English."
+      },
+      {
+        "title": "Two markets, one team",
+        "text": "We live and work in Italy and Belarus, and understand both sides."
+      },
+      {
+        "title": "End-to-end support",
+        "text": "From market research to supplying retail chains, with a single team."
+      },
+      {
+        "title": "Checks before introductions",
+        "text": "We check counterparties for reliability and sanctions risks before you invest time in a meeting."
+      },
+      {
+        "title": "A network of vetted specialists",
+        "text": "Accountants, interpreters and other specialists are available on request."
+      }
+    ]
+  },
+  "partners": {
+    "title": "Our partners",
+    "eyebrow": "Working together"
+  },
+  "seo": {
+    "title": "About us — Vikub Group",
+    "description": "We build working connections between Italian manufacturing and the Belarusian market. Official status, an international team and end-to-end support."
   }
 }

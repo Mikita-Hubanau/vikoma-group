@@ -4,233 +4,35 @@ import { useUI } from '../i18n/ui';
 import { navOrder, type RouteKey } from '../i18n/routes';
 import { href } from '../lib/url';
 import LanguageSwitcher from './LanguageSwitcher.astro';
-
-interface Props {
-  locale?: Locale;
-  page?: RouteKey;
-}
-
+interface Props { locale?: Locale; page?: RouteKey; }
 const { locale = defaultLocale, page = 'home' } = Astro.props;
 const t = useUI(locale);
 ---
-
 <header class="site-header">
-  <div class="container site-header__inner">
-    <a class="logo" href={href('home', locale)} aria-label={t.nav.home}>
-      <span class="logo__name">Vikoma</span>
-      <span class="logo__sub">Group</span>
-    </a>
-
-    <div class="site-header__lang">
-      <LanguageSwitcher locale={locale} page={page} />
-    </div>
-
-    <a class="btn btn--primary site-header__cta" href={href('contacts', locale)}>
-      <span class="site-header__cta-full">{t.discussProject}</span>
-      <span class="site-header__cta-short">{t.discussProjectShort}</span>
-    </a>
-
-    <nav class="nav" aria-label="Основная навигация">
-      <ul class="nav__list">
-        {
-          navOrder.map((key: RouteKey) => (
-            <li>
-              <a
-                class="nav__link"
-                href={href(key, locale)}
-                aria-current={key === page ? 'page' : undefined}
-              >
-                {t.nav[key]}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
-  </div>
+ <div class="container site-header__inner">
+  <a class="logo" href={href('home', locale)} aria-label={`Vikub Group — ${t.nav.home}`}><span class="logo__name">Vikub<span class="logo__dot">.</span></span><span class="logo__sub">Group</span></a>
+  <nav class="nav" aria-label={t.primaryNavigation}><ul class="nav__list">{navOrder.map((key) => <li><a class="nav__link" href={href(key, locale)} aria-current={page === key ? 'page' : undefined}>{t.nav[key]}</a></li>)}</ul></nav>
+  <div class="site-header__lang"><LanguageSwitcher locale={locale} page={page} /></div>
+  <a class="btn btn--primary site-header__cta" href={href('contacts', locale)}>{t.discussProject}</a>
+ </div>
 </header>
-
 <style>
-  /* На телефоне шапка обычная и уезжает вверх при прокрутке:
-     закреплённая в две строки съедала бы четверть экрана. */
-  .site-header {
-    background: var(--paper);
-    border-bottom: 1px solid var(--line);
-  }
-
-  /* Телефон: логотип, языки и кнопка в первой строке,
-     меню — во второй, во всю ширину. */
-  .site-header__inner {
-    display: grid;
-    grid-template-columns: 1fr auto auto;
-    grid-template-areas:
-      'logo lang cta'
-      'nav  nav  nav';
-    align-items: center;
-    gap: var(--space-3) var(--space-3);
-    padding-block: var(--space-3);
-  }
-
-  .logo {
-    grid-area: logo;
-    display: inline-flex;
-    align-items: baseline;
-    gap: 0.45em;
-    line-height: 1;
-  }
-
-  .site-header__lang {
-    grid-area: lang;
-  }
-
-  /* если язык один, переключателя нет — и пустая ячейка не мешает */
-  .site-header__lang:empty {
-    display: none;
-  }
-
-  .site-header__cta {
-    grid-area: cta;
-  }
-
-  .nav {
-    grid-area: nav;
-  }
-
-  /* ── Логотип ─────────────────────────────────────────────── */
-  .logo__name {
-    font-family: var(--font-serif);
-    font-size: 1.3rem;
-    font-weight: 500;
-    letter-spacing: -0.015em;
-    color: var(--ink);
-    transition: color var(--transition);
-  }
-
-  .logo:hover .logo__name {
-    color: var(--accent);
-  }
-
-  .logo__sub {
-    font-size: 0.6rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  /* ── Меню ────────────────────────────────────────────────── */
-  .nav {
-    /* если пунктов станет больше и они не влезут — строка прокрутится */
-    overflow-x: auto;
-    scrollbar-width: none;
-    margin-inline: calc(var(--gutter) * -1);
-    padding-inline: var(--gutter);
-  }
-
-  .nav::-webkit-scrollbar {
-    display: none;
-  }
-
-  .nav__list {
-    display: flex;
-    align-items: center;
-    gap: var(--space-5);
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    white-space: nowrap;
-  }
-
-  .nav__link {
-    position: relative;
-    display: block;
-    font-size: var(--text-sm);
-    color: var(--body);
-    padding-block: var(--space-2);
-    transition: color var(--transition);
-  }
-
-  /* подчёркивание выезжает из-под пункта при наведении */
-  .nav__link::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 1px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 260ms var(--ease-out);
-  }
-
-  .nav__link:hover {
-    color: var(--ink);
-  }
-
-  .nav__link:hover::after,
-  .nav__link[aria-current='page']::after {
-    transform: scaleX(1);
-  }
-
-  .nav__link[aria-current='page'] {
-    color: var(--ink);
-  }
-
-  /* ── Кнопка в шапке ──────────────────────────────────────── */
-  .site-header__cta {
-    padding: 0.6em 1.1em;
-    font-size: var(--text-xs);
-    min-height: 38px;
-  }
-
-  /* на узком экране у кнопки короткая надпись */
-  .site-header__cta-full {
-    display: none;
-  }
-
-  /* ── Начиная с планшета всё выстраивается в одну строку ──── */
-  @media (min-width: 62rem) {
-    /* В одну строку шапка занимает мало места — можно закрепить,
-       чтобы кнопка «Обсудить проект» всегда была под рукой. */
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: color-mix(in srgb, var(--paper) 92%, transparent);
-      backdrop-filter: saturate(180%) blur(10px);
-    }
-
-    .site-header__inner {
-      grid-template-columns: auto 1fr auto auto;
-      grid-template-areas: 'logo nav lang cta';
-      gap: var(--space-5);
-      padding-block: var(--space-4);
-    }
-
-    .nav {
-      overflow: visible;
-      margin-inline: 0;
-      padding-inline: 0;
-    }
-
-    .nav__list {
-      justify-content: center;
-      gap: var(--space-6);
-    }
-
-    .site-header__cta {
-      font-size: var(--text-sm);
-      padding: 0.7em 1.4em;
-      min-height: 42px;
-    }
-
-    .site-header__cta-full {
-      display: inline;
-    }
-
-    .site-header__cta-short {
-      display: none;
-    }
-  }
+ .site-header { background:var(--paper); border-bottom:1px solid var(--line); }
+ .site-header__inner { display:grid; grid-template-columns:1fr auto; grid-template-areas:'logo lang' 'nav nav'; align-items:center; gap:.75rem 1rem; padding-block:1rem; }
+ .logo { grid-area:logo; display:inline-flex; align-items:baseline; gap:.4rem; line-height:1; width:fit-content; }
+ .logo__name { font-family:var(--font-serif); font-size:1.8rem; color:var(--ink); letter-spacing:-.04em; }
+ .logo__dot { color:var(--accent); }
+ .logo__sub { font-size:.58rem; letter-spacing:.2em; font-weight:600; text-transform:uppercase; }
+ .site-header__lang { grid-area:lang; }
+ .nav { grid-area:nav; min-width:0; }
+ .nav__list { display:flex; flex-wrap:wrap; align-items:center; list-style:none; padding:0; gap:0 1.3rem; }
+ .nav__link { display:block; min-height:44px; padding-block:.65rem; font-size:var(--text-sm); color:var(--body); border-bottom:1px solid transparent; }
+ .nav__link:hover,.nav__link[aria-current=page] { color:var(--accent); border-color:var(--accent); }
+ .site-header__cta { display:none; grid-area:cta; white-space:nowrap; }
+ @media(min-width:40rem) { .site-header__inner { grid-template-columns:1fr auto auto; grid-template-areas:'logo lang cta' 'nav nav nav'; } .site-header__cta { display:inline-flex; font-size:var(--text-xs); } }
+ @media(min-width:70rem) {
+  .site-header { position:sticky; top:0; z-index:50; background:color-mix(in srgb,var(--paper) 96%,transparent); backdrop-filter:blur(10px); }
+  .site-header__inner { grid-template-columns:auto 1fr auto auto; grid-template-areas:'logo nav lang cta'; gap:1.5rem; }
+  .nav__list { justify-content:center; gap:0 1.3rem; }
+ }
 </style>
