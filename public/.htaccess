@@ -1,6 +1,16 @@
 # Настройки для боевого хостинга (hoster.by и любой другой Apache).
 # GitHub Pages этот файл игнорирует — там всё работает и без него.
 
+# Всегда открывать сайт по защищённому протоколу.
+# Второе условие нужно там, где шифрование завершает nginx перед Apache
+# (так устроен Fornex): без него получился бы бесконечный редирект.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+</IfModule>
+
 # Своя страница «не найдено» вместо стандартной страницы хостинга
 ErrorDocument 404 /404.html
 
