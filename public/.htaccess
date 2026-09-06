@@ -11,6 +11,19 @@
   RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 </IfModule>
 
+# Заголовки безопасности. Директива Options здесь не используется намеренно:
+# на этом хостинге она отключает исполнение PHP во всём каталоге.
+<IfModule mod_headers.c>
+  # не угадывать тип файла вопреки заявленному — закрывает часть XSS-трюков
+  Header always set X-Content-Type-Options "nosniff"
+  # чужим сайтам передаётся только домен-источник, но не полный адрес страницы
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  # X-Frame-Options здесь не ставим: сервер Fornex уже отдаёт его сам,
+  # а два одинаковых заголовка часть браузеров считает некорректными и игнорирует
+  # камера, микрофон и геолокация сайту не нужны — отключаем на уровне браузера
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
 # Своя страница «не найдено» вместо стандартной страницы хостинга
 ErrorDocument 404 /404.html
 
