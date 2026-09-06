@@ -5,7 +5,6 @@ import { href } from '../lib/url';
 import { getPage } from '../lib/content';
 import { seminar, seminarEnd, eventState } from '../lib/seminar';
 import CountriesMap from './CountriesMap.astro';
-import PartnerMarks from './PartnerMarks.astro';
 import EditButton from './edit/EditButton.astro';
 interface Props { locale: Locale; eyebrow: string; titleLines: string[]; lead: string; cta: { label: string; page: RouteKey }; secondaryCta: { label: string; page: RouteKey }; map: { countries: { id: string; label: string }[] }; }
 const { locale, eyebrow, titleLines, lead, cta, secondaryCta, map } = Astro.props;
@@ -20,9 +19,8 @@ const isOpen = eventState() === 'open';
    <h1>{titleLines.map((line, i) => <span class:list={['hero__line','enter',i === titleLines.length-1 && 'hero__line--accent']} style={`--delay:${100+i*90}ms`}>{line}{i<titleLines.length-1 ? ' ' : ''}</span>)}</h1>
    <p class="hero__lead enter" style="--delay:300ms">{lead}</p>
    <div class="hero__actions enter" style="--delay:380ms"><a class="btn btn--primary" href={href(cta.page, locale)}>{cta.label}</a><a class="btn btn--ghost" href={href(secondaryCta.page, locale)}><span data-event-open hidden={!isOpen}>{secondaryCta.label}</span><span data-event-archive hidden={isOpen}>{home.seminar.archiveCta}</span></a></div>
-   <PartnerMarks locale={locale} compact />
   </div>
-  <div class="hero__figure enter" style="--delay:300ms"><div class="hero__map-frame"><CountriesMap countries={map.countries} /></div><div class="hero__caption" aria-hidden="true"><span>Italy meets Belarus</span><span>VIKUB</span></div></div>
+  <div class="hero__figure enter" style="--delay:300ms"><div class="hero__map-frame"><CountriesMap countries={map.countries} /></div><div class="hero__caption" aria-hidden="true"><span>Italy meets Eurasia</span><span>VIKUB</span></div></div>
  </div>
 </section>
 <style>

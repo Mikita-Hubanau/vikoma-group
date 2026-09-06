@@ -15,7 +15,7 @@ const settings = await getSettings(locale);
 ---
 <BaseLayout {...page.seo} locale={locale} page="contacts">
  <PageHeader title={page.title} lead={page.lead} edit={{collection:'pages',entry:'contacts',label:'Контакты'}} />
- <section class="section section--tight edit-anchor"><EditButton collection="settings" entry="contacts" label="Офисы и контакты" /><div class="container"><div class="offices">{settings.offices.map((office) => <article class="office"><p class="eyebrow">{office.title}</p><h2>{office.city}</h2><p class="office__person">{office.person}</p><address>{office.address || t.addressPending}</address><dl class="office__links"><div><dt>{t.phone}</dt><dd>{office.phone && office.tel ? <a class="link" href={`tel:${office.tel}`}>{office.phone}</a> : <span>{t.unavailable}</span>}</dd></div><div><dt>{t.email}</dt><dd>{office.email ? <a class="link" href={`mailto:${office.email}`}>{office.email}</a> : <span>{t.unavailable}</span>}</dd></div></dl></article>)}</div></div></section>
+ <section class="section section--tight edit-anchor"><EditButton collection="settings" entry="contacts" label="Офисы и контакты" /><div class="container"><div class="offices">{settings.offices.map((office) => <article class="office"><p class="eyebrow">{office.title}</p><h2>{office.city} <span class="office__country">({office.note})</span></h2><dl class="office__links"><div><dt>{t.phone}</dt><dd>{office.phone && office.tel ? <a class="link" href={`tel:${office.tel}`}>{office.phone}</a> : <span>{t.unavailable}</span>}</dd></div><div><dt>{t.email}</dt><dd>{office.email ? <a class="link" href={`mailto:${office.email}`}>{office.email}</a> : <span>{t.unavailable}</span>}</dd></div></dl></article>)}</div></div></section>
  <section class="section section--paper2"><div class="container form-section"><ContactForm locale={locale} labels={page.form} /></div></section>
  <section class="section section--tight"><div class="container"><h2 class="social-title">{t.socialNetworks}</h2><SocialLinks locale={locale} /></div></section>
  <section class="section section--tight privacy" id="privacy"><div class="container"><h2>{page.privacy.title}</h2><p>{page.privacy.text}</p>{page.privacy.policyUrl && <p><a class="link" href={page.privacy.policyUrl} target="_blank" rel="noopener noreferrer">{page.privacy.policyLabel}</a></p>}</div></section>
@@ -24,8 +24,7 @@ const settings = await getSettings(locale);
 <style>
  .offices { display:grid; gap:2.5rem; }
  .office { border-top:1px solid var(--line); padding-top:1.5rem; }
- .office__person { margin-top:1.5rem; font-weight:500; }
- .office address { white-space:pre-line; font-style:normal; margin-top:.5rem; max-width:30rem; }
+ .office__country { font-family:var(--font-sans); font-size:var(--text-sm); color:var(--muted); font-weight:400; letter-spacing:0; white-space:normal; }
  .office__links { display:grid; gap:1rem; margin-top:1.5rem; }
  .office__links dt { font-size:var(--text-xs); color:var(--muted); margin-bottom:.2rem; }
  .office__links dd { font-size:var(--text-sm); overflow-wrap:anywhere; }

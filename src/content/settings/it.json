@@ -1,7 +1,7 @@
 {
   "company": {
     "name": "VIKUB",
-    "tagline": "Accesso ai mercati della Bielorussia e dell’UEE per le imprese italiane"
+    "tagline": "Italy meets Eurasia"
   },
   "email": "",
   "phones": [],
@@ -11,7 +11,7 @@
       "title": "Sede in Italia",
       "city": "Fano",
       "person": "Mario Ubaldi",
-      "address": "via Carlo Gozzi, 8\n61032 Fano (PU), Italy",
+      "address": "",
       "note": "Italia",
       "phone": "",
       "tel": "",
@@ -22,7 +22,7 @@
       "title": "Sede in Bielorussia",
       "city": "Minsk",
       "person": "Viktoria Gubanova",
-      "address": "Minsk",
+      "address": "",
       "note": "Bielorussia",
       "phone": "",
       "tel": "",
@@ -46,9 +46,9 @@
     {
       "id": "naip",
       "shortName": "NAIP",
-      "name": "NAIP — Agenzia nazionale per gli investimenti e la privatizzazione della Repubblica di Bielorussia",
+      "name": "NAIP",
       "icon": "building",
-      "description": "Agenzia pubblica per gli investimenti.",
+      "description": "Agenzia statale per l’attrazione degli investimenti in Bielorussia. VIKUB è il suo rappresentante ufficiale in Italia.",
       "logo": "",
       "href": ""
     },
@@ -57,7 +57,7 @@
       "shortName": "SDELKI V PLUS",
       "name": "«SDELKI V PLUS»",
       "icon": "store",
-      "description": "Accesso alla grande distribuzione in Russia e Bielorussia.",
+      "description": "Partner di VIKUB per l’ingresso dei produttori nelle catene commerciali della Bielorussia e della Russia. Lavora con le reti di vendita al dettaglio e i canali all’ingrosso, affiancando le trattative, la stipula dei contratti e i rapporti post-vendita.",
       "logo": "",
       "href": ""
     }

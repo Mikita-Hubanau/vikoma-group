@@ -12,14 +12,14 @@
         "name": "Mario Ubaldi",
         "initials": "MU",
         "role": "Italy · Business consulting",
-        "about": "Italian business consultant with 30 years of experience. He specialises in financing, grants and the internationalisation of Italian companies, with a broad client base of manufacturers across different sectors. He speaks Italian, English, French and Portuguese.",
+        "about": "Italian business consultant with 30 years of experience. He specialises in financing, grants and the internationalisation of Italian companies. He speaks Italian, English, French and Portuguese.",
         "photo": ""
       },
       {
         "name": "Viktoria Gubanova",
         "initials": "VG",
         "role": "Belarus · International business development",
-        "about": "An expert in international business communication and cross-cultural relationships. Over many years, she has successfully built partnerships between European companies and the Belarusian market, organised international exhibitions and business missions, and supported negotiations at every stage. She has worked closely with embassies and government institutions.",
+        "about": "An expert in international business communication and cross-cultural relationships. She has built partnerships between European companies and the Belarusian market, organised exhibitions and business missions, and worked with embassies and government institutions.",
         "photo": ""
       }
     ]
@@ -27,14 +27,14 @@
   "status": {
     "title": "Official status",
     "text": "Official representative of the National Agency of Investment and Privatization of the Republic of Belarus (NAIP) in Italy.",
-    "listTitle": "This gives us direct access to:",
+    "listTitle": "This status gives us:",
     "items": [
-      "Belarusian businesses and their actual needs",
+      "direct access to Belarusian businesses and their actual needs",
       "up-to-date analysis of EAEU markets",
-      "information on preferential regimes, incentives and government support",
-      "opportunities to arrange meetings with government bodies"
+      "information on incentives and government support measures",
+      "the ability to arrange meetings with government bodies"
     ],
-    "retail": "Our partner for retail market entry in Russia and Belarus is SDELKI V PLUS LLC."
+    "retail": ""
   },
   "approach": {
     "title": "Why companies choose us",
@@ -75,9 +75,7 @@
   },
   "experts": {
     "title": "Our expert network",
-    "text": "For specific tasks, we engage trusted specialists: lawyers, accountants, logistics professionals and interpreters. This allows us to remain flexible and offer clients only the expertise they actually need.",
-    "people": [
-      "Olga Skrebnevskaya"
-    ]
+    "text": "For each project, we engage trusted specialists: lawyers, accountants, logistics professionals and interpreters. This allows us to offer clients only the expertise they actually need.",
+    "people": []
   }
 }

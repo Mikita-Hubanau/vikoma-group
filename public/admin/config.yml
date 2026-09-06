@@ -36,9 +36,10 @@ collections:
         i18n: true
         widget: string
       - name: tagline
-        label: Краткое описание
-        i18n: true
+        label: Слоган
+        i18n: duplicate
         widget: string
+        hint: "Единый слоган на всех языках: Italy meets Eurasia"
     - name: email
       label: Email
       i18n: duplicate
@@ -91,9 +92,9 @@ collections:
         i18n: true
         widget: string
       - name: address
-        label: Адрес
+        label: Полный адрес (больше не публикуется)
         i18n: true
-        widget: string
+        widget: hidden
         required: false
         default: ''
       - name: note
@@ -168,7 +169,7 @@ collections:
       max: 2
       allow_add: false
     - name: partners
-      label: Партнёры
+      label: Партнёры — общие для главной и О нас
       i18n: true
       widget: list
       fields:
@@ -200,9 +201,9 @@ collections:
         i18n: true
         widget: text
       - name: logo
-        label: Логотип
+        label: Логотип партнёра (не используется в текстовых блоках)
         i18n: duplicate
-        widget: image
+        widget: hidden
         required: false
         default: ''
         hint: Загрузите реальный файл. Пустое поле не создаёт вымышленное изображение.
@@ -479,7 +480,7 @@ collections:
         max: 4
         allow_add: false
     - name: partners
-      label: Партнёры
+      label: Партнёры — общие для главной и О нас
       i18n: true
       widget: object
       fields:
@@ -589,9 +590,12 @@ collections:
         i18n: true
         widget: text
       - name: people
-        label: Участники сети (не основная команда)
+        label: Участники сети (необязательно)
         i18n: true
         widget: list
+        required: false
+        default: []
+        hint: В текущем ТЗ указан только общий текст, без перечисления экспертов.
     - name: status
       label: Официальный статус
       i18n: true
@@ -622,6 +626,8 @@ collections:
         label: Партнёр по ритейлу
         i18n: true
         widget: text
+        required: false
+        default: ''
     - name: approach
       label: Преимущества
       i18n: true
@@ -646,7 +652,7 @@ collections:
           widget: text
         summary: '{{fields.title}}'
     - name: partners
-      label: Партнёры
+      label: Партнёры — общие для главной и О нас
       i18n: true
       widget: object
       fields:
@@ -1298,25 +1304,25 @@ collections:
         label: Фраза
         widget: text
   - name: design
-    label: Оформление — 5 дизайнов
+    label: Раскладка — 5 вариантов Signature
     file: src/content/system/design.json
     fields:
     - name: defaultDesign
-      label: Дизайн по умолчанию
+      label: Раскладка по умолчанию
       widget: select
       options:
-      - label: 01 · Оригинал
-        value: original
-      - label: 02 · Editorial — терракота
-        value: editorial
-      - label: 03 · Atlas — олива
-        value: atlas
-      - label: 04 · Signature — золото
+      - label: 01 · Signature — прежний дизайн 04
         value: signature
-      - label: 05 · Grid — графит
-        value: grid
-      default: original
+      - label: 02 · Balance — две колонки
+        value: balance
+      - label: 03 · Editorial — редакционная
+        value: editorial
+      - label: 04 · Atlas — карта слева
+        value: atlas
+      - label: 05 · Panorama — панорамная
+        value: panorama
+      default: signature
     - name: showSwitcher
-      label: Показывать переключатель дизайнов
+      label: Показывать переключатель раскладок
       widget: boolean
       default: true

@@ -1,4 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="6" fill="#101820"/>
-  <path d="M16 18h7.6l8.4 22.3L40.4 18H48L35.8 48h-7.6L16 18z" fill="#fcfbf9"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="138 89 494 494" role="img" aria-labelledby="title desc">
+  <title id="title">VIKUB — V symbol</title>
+  <desc id="desc">Vector symbol on a white square for browser and device icons. Gold #B78C42, graphite #212121. No fonts or embedded raster images.</desc>
+  <rect x="138" y="89" width="494" height="494" fill="#FFFFFF"/>
+  <path id="v-gold" fill="#B78C42" d="M 178 162 H 287 L 439 451 L 407 513 H 356 Z"/>
+  <path id="v-graphite" fill="#212121" d="M 490 162 H 592 L 444 439 L 394 346 Z"/>
 </svg>

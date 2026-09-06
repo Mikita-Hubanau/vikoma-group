@@ -3,7 +3,7 @@ from pathlib import Path
 import re,json,time
 import argparse,os,shutil
 parser=argparse.ArgumentParser(description='Check the standalone visual snapshot; this is NOT an Astro build test.')
-parser.add_argument('preview',type=Path,help='Path to VIKUB-design-preview.html')
+parser.add_argument('preview',type=Path,help='Path to VIKUB-layout-preview.html')
 parser.add_argument('--report',type=Path,default=Path('preview-layout-results.json'))
 args=parser.parse_args()
 source=args.preview.read_text()
@@ -17,7 +17,7 @@ with sync_playwright() as p:
  page=b.new_page(viewport={'width':1440,'height':1000},reduced_motion='reduce')
  for route,source in docs.items():
   page.set_content(clean(source))
-  for design in ['original','editorial','atlas','signature','grid']:
+  for design in ['signature','balance','editorial','atlas','panorama']:
    page.evaluate('(design)=>document.documentElement.dataset.design=design',design)
    for width in [320,361,375,768,1024,1440]:
     page.set_viewport_size({'width':width,'height':1000})

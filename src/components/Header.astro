@@ -2,7 +2,7 @@
 import { defaultLocale, type Locale } from '../i18n/config';
 import { useUI } from '../i18n/ui';
 import { navOrder, type RouteKey } from '../i18n/routes';
-import { href } from '../lib/url';
+import { asset, href } from '../lib/url';
 import { designSettings } from '../lib/design';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import DesignSwitcher from './DesignSwitcher.astro';
@@ -12,7 +12,7 @@ const t = useUI(locale);
 ---
 <header class="site-header">
  <div class="container site-header__inner">
-  <a class="logo" href={href('home', locale)} aria-label={`VIKUB — ${t.nav.home}`}><span class="logo__name">VIKUB</span><span class="logo__sub">Italy meets Belarus</span></a>
+  <a class="logo" href={href('home', locale)} aria-label={`VIKUB — ${t.nav.home}`}><img class="logo__image" src={asset('/brand/vikub.svg')} alt="VIKUB" width="1705" height="374" decoding="async" fetchpriority="high" /><span class="logo__sub" lang="en">Italy meets Eurasia</span></a>
   <nav class="nav" aria-label={t.primaryNavigation}><ul class="nav__list">{navOrder.map((key) => <li><a class="nav__link" href={href(key, locale)} aria-current={page === key ? 'page' : undefined}>{t.nav[key]}</a></li>)}</ul></nav>
   <div class="site-header__tools"><div class="site-header__lang"><LanguageSwitcher locale={locale} page={page} /></div>{showDesigns && designSettings.showSwitcher && <DesignSwitcher locale={locale} />}</div>
   <a class="btn btn--primary site-header__cta" href={href('contacts', locale)}>{t.discussProject}</a>
@@ -21,9 +21,9 @@ const t = useUI(locale);
 <style>
  .site-header { background:var(--paper); border-bottom:1px solid var(--line); }
  .site-header__inner { display:grid; grid-template-columns:minmax(0,1fr) auto; grid-template-areas:'logo tools' 'nav nav'; align-items:center; gap:.8rem 1rem; padding-block:1rem; }
- .logo { grid-area:logo; display:flex; flex-direction:column; gap:.45rem; line-height:1; width:fit-content; }
- .logo__name { font-family:var(--font-sans); font-size:1.9rem; color:var(--ink); font-weight:650; letter-spacing:-.065em; }
- .logo__sub { font-size:.55rem; letter-spacing:.015em; color:var(--muted); line-height:1.35; }
+ .logo { grid-area:logo; display:flex; flex-direction:column; gap:.5rem; line-height:1; width:fit-content; max-width:100%; min-height:44px; justify-content:center; }
+ .logo__image { display:block; width:154px; max-width:100%; height:auto; }
+ .logo__sub { font-size:.6rem; letter-spacing:.045em; color:var(--muted); line-height:1.35; }
  .site-header__tools { grid-area:tools; display:flex; flex-direction:column; gap:.5rem; align-items:flex-end; }
  .site-header__lang { display:flex; justify-content:flex-end; }
  .nav { grid-area:nav; min-width:0; }
@@ -31,6 +31,7 @@ const t = useUI(locale);
  .nav__link { display:block; min-height:44px; padding-block:.65rem; font-size:var(--text-sm); color:var(--body); border-bottom:1px solid transparent; }
  .nav__link:hover,.nav__link[aria-current=page] { color:var(--accent); border-color:var(--accent); }
  .site-header__cta { display:none; grid-area:cta; white-space:nowrap; font-size:var(--text-xs); }
+ @media(max-width:40rem) { .logo__image { width:128px; } .logo__sub { font-size:.52rem; white-space:nowrap; } }
  @media(max-width:22.5rem) { .site-header__inner { grid-template-areas:'logo logo' 'tools tools' 'nav nav'; } .site-header__tools { align-items:flex-start; } }
  @media(min-width:44rem) { .site-header__inner { grid-template-columns:1fr auto auto; grid-template-areas:'logo cta tools' 'nav nav nav'; } .site-header__cta { display:inline-flex; } }
  @media(min-width:70rem) {

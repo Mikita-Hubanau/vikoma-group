@@ -17,14 +17,14 @@ const { googleAnalyticsId } = getIntegrations();
 <footer class="site-footer">
  <div class="container">
   <div class="site-footer__grid">
-   <div><a class="site-footer__brand" href={href('home', locale)}>{settings.company.name}</a><p class="site-footer__tagline">{settings.company.tagline}</p></div>
+   <div class="site-footer__identity"><a class="site-footer__brand" href={href('home', locale)} aria-label={`VIKUB — ${t.nav.home}`}><img src={asset('/brand/vikub-on-dark.svg')} alt="VIKUB" width="1705" height="374" loading="lazy" decoding="async" /></a><p class="site-footer__tagline" lang="en">{settings.company.tagline}</p></div>
    <nav aria-label={t.sections}><h2 class="site-footer__heading">{t.sections}</h2><ul class="site-footer__list">{navOrder.map((key) => <li><a href={href(key, locale)}>{t.nav[key]}</a></li>)}</ul></nav>
-   <div><h2 class="site-footer__heading">{t.nav.contacts}</h2><div class="site-footer__contacts">
+   <div class="site-footer__reach"><h2 class="site-footer__heading">{t.nav.contacts}</h2><div class="site-footer__contacts">
      <span>{t.email}</span>{email ? <a href={`mailto:${email}`}>{email}</a> : <span class="site-footer__pending">{t.unavailable}</span>}
      <span>{t.phone}</span>{phones.length ? phones.map((p) => <a href={`tel:${p.tel}`}>{p.display}<small> · {p.label}</small></a>) : <span class="site-footer__pending">{t.unavailable}</span>}
-   </div></div>
+   </div><div class="site-footer__socials"><SocialLinks locale={locale} /></div></div>
   </div>
-  <div class="site-footer__bottom"><p>© {new Date().getFullYear()} {settings.company.name}. {t.copyright}.</p><SocialLinks locale={locale} /></div>
+  <div class="site-footer__bottom"><p>© 2026 {settings.company.name}. {t.copyright}.</p></div>
   <div class="site-footer__privacy"><a href={`${href('contacts', locale)}#privacy`}>{t.privacy}</a>{googleAnalyticsId && analyticsEnabled && <button type="button" data-analytics-settings>{t.privacySettings}</button>}</div>
   <div class="site-footer__tools"><a href={asset('/blocks/')}>{t.blocksCatalogue}</a><a href={asset('/admin/')}>{t.allTexts}</a><a href="?edit=0">{t.editOff}</a></div>
  </div>
@@ -32,8 +32,11 @@ const { googleAnalyticsId } = getIntegrations();
 <style>
  .site-footer { margin-top:auto; padding-block:3.5rem 1.5rem; background:var(--ink-deep); color:var(--on-dark-muted); border-top:1px solid #ffffff1c; font-size:var(--text-sm); }
  .site-footer__grid { display:grid; gap:2.5rem; }
- .site-footer__brand { font-family:var(--font-serif); color:var(--on-dark); font-size:1.75rem; letter-spacing:-.02em; }
- .site-footer__tagline { margin-top:1rem; max-width:26rem; }
+ .site-footer__identity,.site-footer__reach { min-width:0; }
+ .site-footer__brand { display:inline-flex; align-items:center; min-height:44px; max-width:100%; }
+ .site-footer__brand img { display:block; width:196px; max-width:100%; height:auto; }
+ .site-footer__socials { margin-top:1.25rem; }
+ .site-footer__tagline { margin-top:1rem; max-width:26rem; font-size:var(--text-sm); letter-spacing:.045em; color:var(--on-dark-muted); }
  .site-footer__heading { font-family:var(--font-sans); font-size:var(--text-xs); font-weight:600; color:var(--on-dark); text-transform:uppercase; letter-spacing:.13em; margin-bottom:1rem; }
  .site-footer__list { padding:0; list-style:none; display:grid; gap:.5rem; }
  .site-footer a:hover,.site-footer button:hover { color:var(--on-dark); }

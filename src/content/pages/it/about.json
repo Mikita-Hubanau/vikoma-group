@@ -12,14 +12,14 @@
         "name": "Mario Ubaldi",
         "initials": "MU",
         "role": "Italia · Consulenza aziendale",
-        "about": "Italiano, consulente aziendale con 30 anni di esperienza. È specializzato in finanziamenti, contributi e internazionalizzazione delle imprese italiane. Ha un’ampia base di clienti tra i produttori di diversi settori. Parla italiano, inglese, francese e portoghese.",
+        "about": "Consulente aziendale italiano con 30 anni di esperienza. È specializzato in finanziamenti, contributi a fondo perduto e internazionalizzazione delle imprese italiane. Parla italiano, inglese, francese e portoghese.",
         "photo": ""
       },
       {
         "name": "Viktoria Gubanova",
         "initials": "VG",
         "role": "Bielorussia · Sviluppo internazionale",
-        "about": "Esperta di comunicazione d’impresa internazionale e di relazioni interculturali. Nel corso di molti anni ha costruito con successo partnership tra aziende europee e il mercato bielorusso, organizzato fiere internazionali e missioni d’affari e seguito le trattative in ogni fase. Ha lavorato a stretto contatto con ambasciate e istituzioni pubbliche.",
+        "about": "Esperta di comunicazione aziendale internazionale e relazioni interculturali. Ha costruito partnership tra imprese europee e il mercato bielorusso, organizzato fiere e missioni d’affari e collaborato con ambasciate e istituzioni pubbliche.",
         "photo": ""
       }
     ]
@@ -27,14 +27,14 @@
   "status": {
     "title": "Status ufficiale",
     "text": "Rappresentante ufficiale in Italia dell’Agenzia nazionale per gli investimenti e la privatizzazione della Repubblica di Bielorussia (NAIP).",
-    "listTitle": "Questo ci dà accesso diretto a:",
+    "listTitle": "Questo status ci offre:",
     "items": [
-      "imprese bielorusse e alle loro esigenze concrete",
+      "accesso diretto alle imprese bielorusse e alle loro esigenze concrete",
       "analisi aggiornate sui mercati dell’UEE",
-      "informazioni su agevolazioni, incentivi e sostegno pubblico",
-      "opportunità di organizzare incontri con le istituzioni pubbliche"
+      "informazioni sulle agevolazioni e sulle misure di sostegno pubblico",
+      "la possibilità di organizzare incontri con le istituzioni pubbliche"
     ],
-    "retail": "Il nostro partner per l’accesso alla grande distribuzione in Russia e Bielorussia è la società «SDELKI V PLUS»."
+    "retail": ""
   },
   "approach": {
     "title": "Perché sceglierci",
@@ -75,9 +75,7 @@
   },
   "experts": {
     "title": "La nostra rete di esperti",
-    "text": "Per affrontare esigenze specifiche coinvolgiamo specialisti di fiducia: avvocati, commercialisti, esperti di logistica e interpreti. Questo ci consente di rimanere flessibili e offrire ai clienti soltanto le competenze di cui hanno realmente bisogno.",
-    "people": [
-      "Olga Skrebnevskaya"
-    ]
+    "text": "Per ogni progetto coinvolgiamo specialisti di fiducia: avvocati, commercialisti, esperti di logistica e interpreti. Questo ci permette di offrire ai clienti soltanto le competenze di cui hanno realmente bisogno.",
+    "people": []
   }
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="430" height="367" viewBox="170 154 430 367" role="img" aria-labelledby="title desc">
+  <title id="title">VIKUB — V symbol</title>
+  <desc id="desc">Vector outlines on a transparent background. Gold #B78C42, graphite #212121. No fonts or embedded raster images.</desc>
+  <path id="v-gold" fill="#B78C42" d="M 178 162 H 287 L 439 451 L 407 513 H 356 Z"/>
+  <path id="v-graphite" fill="#212121" d="M 490 162 H 592 L 444 439 L 394 346 Z"/>
+</svg>

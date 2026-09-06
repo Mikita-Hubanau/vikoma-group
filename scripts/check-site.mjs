@@ -34,7 +34,7 @@ try {
  for (const key of ['googleAnalyticsId', 'contactFormEndpoint']) if (!integrations[key]) missing.push(key);
  if (!integrations.registrationFormEndpoint && !integrations.contactFormEndpoint) missing.push('registrationFormEndpoint (or contactFormEndpoint)');
  const design=json('src/content/system/design.json');
- assert(['original','editorial','atlas','signature','grid'].includes(design.defaultDesign),'Неизвестный дизайн по умолчанию');
+ assert(['signature','balance','editorial','atlas','panorama'].includes(design.defaultDesign),'Неизвестный дизайн по умолчанию');
  assert(typeof design.showSwitcher==='boolean','Неверное значение showSwitcher');
 } catch(error) { problems.push(error.message); }
 for (const locale of locales) {
@@ -48,6 +48,7 @@ for (const locale of locales) {
   assert(Boolean(data.seo?.title && data.seo?.description),`Пустой SEO-блок: ${file}`);
   assert(!/Vikoma|vikoma\.by|Vikub Group|Young Platform|UniCredit|BPER|Sondrio|Planix|11:00|000-00-00|60 реализованных/i.test(JSON.stringify(data)),`Старая заглушка в ${file}`);
   if (name==='home') {
+   assert(!/под ключ|chiavi in mano|turnkey|from start to finish/i.test(data.hero.titleLines.join(' ')),`${locale}: в hero осталось старое обещание`);
    assert(data.whatWeDo.cards.length===4,`${locale}: на главной нужны 4 услуги`);
    assert(data.stats.items.length===4,`${locale}: нужны 4 факта`);
    assert(data.hero.cta.page==='services' && data.hero.secondaryCta.page==='events',`${locale}: неверные кнопки первого экрана`);
@@ -58,12 +59,13 @@ for (const locale of locales) {
  }
  const settings=json(`src/content/settings/${locale}.json`);
  assert(settings.company.name==='VIKUB',`${locale}: неправильное название компании`);
+ assert(settings.company.tagline==='Italy meets Eurasia',`${locale}: неверный слоган`);
  assert(settings.partners.map(p=>p.id).join('|')===requiredPartners.join('|'),`${locale}: неправильный состав партнёров`);
  assert(settings.offices.map(o=>o.id).join('|')==='italy|belarus',`${locale}: порядок офисов отличается от ТЗ`);
  for (const office of settings.offices) {
   assert(Boolean(office.phone)===Boolean(office.tel),`${locale}/${office.id}: заполните оба поля телефона или оставьте оба пустыми`);
   if (office.tel) assert(/^\+[0-9]{7,15}$/.test(office.tel),`${locale}/${office.id}: неверный телефон`);
-  if (locale==='ru') for (const field of ['address','phone','email']) if (!office[field]) missing.push(`office.${office.id}.${field}`);
+  if (locale==='ru') for (const field of ['phone','email']) if (!office[field]) missing.push(`office.${office.id}.${field}`);
  }
  for (const social of settings.socials) {
   if (social.href) {
@@ -76,8 +78,7 @@ for (const locale of locales) {
   } else if (locale==='ru') missing.push(`social.${social.type}`);
  }
  for (const partner of settings.partners) {
-  if (!partner.logo) { if(locale==='ru') missing.push(`partner.${partner.id}.logo`); }
-  else assert(existsSync(partner.logo.replace(/^\/media\//,'src/assets/media/')),`${locale}: логотип не найден: ${partner.logo}`);
+  if (partner.logo) assert(existsSync(partner.logo.replace(/^\/media\//,'src/assets/media/')),`${locale}: логотип не найден: ${partner.logo}`);
  }
  if(locale==='ru' && !json(`src/content/pages/${locale}/contacts.json`).privacy.policyUrl) missing.push('privacy.policyUrl');
  for (const person of json(`src/content/pages/${locale}/about.json`).team.people) {

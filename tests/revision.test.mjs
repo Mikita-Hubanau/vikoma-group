@@ -4,9 +4,9 @@ import { readFileSync } from 'node:fs';
 import { validateIntegrations } from '../src/lib/config-validation.mjs';
 const text=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
 const json=p=>JSON.parse(text(p));
-const designs=['original','editorial','atlas','signature','grid'];
-test('five complete designs, original preserved as default',()=>{
- const config=json('src/content/system/design.json');assert.equal(config.defaultDesign,'original');assert.equal(config.showSwitcher,true);
+const designs=['signature','balance','editorial','atlas','panorama'];
+test('five Signature layouts, previous design 04 preserved as default',()=>{
+ const config=json('src/content/system/design.json');assert.equal(config.defaultDesign,'signature');assert.equal(config.showSwitcher,true);
  for(const id of designs){assert.ok(text('src/lib/design.ts').includes(`'${id}'`));assert.ok(text('public/scripts/design-switcher.js').includes(`'${id}'`));}
  for(const id of designs.slice(1))assert.match(text('src/styles/designs.css'),new RegExp(`html#vikub-site\\[data-design='${id}'\\] \\.hero`));
  assert.ok(!/linear-gradient|radial-gradient/.test(text('src/styles/designs.css')));
@@ -31,7 +31,7 @@ test('registration is never a mock success; deadline and repeat submission guard
 });
 for(const locale of ['it','en','ru']){
  test(`${locale}: final team, separate expert network, two partners`,()=>{
-  const a=json(`src/content/pages/${locale}/about.json`);assert.equal(a.team.people.length,2);assert.match(a.team.people[0].about,/30/);assert.ok(a.experts.people[0].includes(locale==='ru'?'Ольга':'Olga'));assert.equal(a.status.items.length,4);
+  const a=json(`src/content/pages/${locale}/about.json`);assert.equal(a.team.people.length,2);assert.match(a.team.people[0].about,/30/);assert.deepEqual(a.experts.people,[]);assert.ok(a.experts.text);assert.equal(a.status.items.length,4);
   assert.deepEqual(json(`src/content/settings/${locale}.json`).partners.map(p=>p.id),['naip','retail']);
  });
  test(`${locale}: eight final agenda items, Zoom and success copy`,()=>{

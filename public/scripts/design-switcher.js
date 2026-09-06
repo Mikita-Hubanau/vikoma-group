@@ -1,10 +1,10 @@
 /** Design selection only; no personal data or network calls. The head bootstrap
  * applies the same allowlist before first paint. Buttons remain normal controls
  * (not tabs): all five select a stylesheet for the same content. */
-const designs = ['original', 'editorial', 'atlas', 'signature', 'grid'];
+const designs = ['signature', 'balance', 'editorial', 'atlas', 'panorama'];
 const root = document.documentElement;
 const buttons = [...document.querySelectorAll('[data-design-choice]')];
-let current = designs.includes(root.dataset.design) ? root.dataset.design : 'original';
+let current = designs.includes(root.dataset.design) ? root.dataset.design : 'signature';
 let storageAvailable = true;
 function reflectSelection() {
   for (const button of buttons) button.setAttribute('aria-pressed', String(button.dataset.designChoice === current));

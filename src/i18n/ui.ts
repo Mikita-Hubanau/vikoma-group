@@ -70,7 +70,7 @@ export const ui: Record<Locale, Dictionary> = {
     contactLead:
       'Расскажите, что за продукт и какая задача. Первый разговор бесплатный и ни к чему не обязывает.',
     phone: 'Телефон',
-    email: 'Почта',
+    email: 'Email',
     messengers: 'Мессенджеры',
     offices: 'Офисы',
     legalDetails: 'Реквизиты',

@@ -1,27 +1,22 @@
 ---
 import { getSettings } from '../lib/content';
 import type { Locale } from '../i18n/config';
-import { findMediaUrl } from '../lib/images';
-import Icon from './Icon.astro';
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
 const { partners } = await getSettings(locale);
 ---
 <ul class="partner-grid">
-  {partners.map((partner) => {
-    const logo = findMediaUrl(partner.logo);
-    return <li class="partner-detail" id={`partner-${partner.id}`}>
-      <div class="partner-detail__mark">{logo ? <img src={logo} alt="" width="160" height="64" loading="lazy" /> : <Icon name={partner.icon} size={32} />}</div>
-      <div><h3>{partner.href ? <a class="link" href={partner.href} target="_blank" rel="noopener noreferrer">{partner.name}</a> : partner.name}</h3><p>{partner.description}</p></div>
-    </li>;
-  })}
+  {partners.map((partner, index) => <li class="partner-detail" id={`partner-${partner.id}`}>
+    <span class="partner-detail__number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+    <div class="partner-detail__body"><h3>{partner.href ? <a class="link" href={partner.href} target="_blank" rel="noopener noreferrer">{partner.name}</a> : partner.name}</h3><p>{partner.description}</p></div>
+  </li>)}
 </ul>
 <style>
- .partner-grid { list-style:none; padding:0; display:grid; gap:0; }
- .partner-detail { display:grid; grid-template-columns:3rem minmax(0,1fr); gap:1.5rem; padding-block:2rem; border-top:1px solid var(--line); }
- .partner-detail__mark { color:var(--accent); }
- .partner-detail img { object-fit:contain; width:100%; height:auto; }
- .partner-detail p { margin-top:.75rem; max-width:48rem; }
- .partner-detail h3 { max-width:45rem; }
- @media(min-width:52rem) { .partner-detail { grid-template-columns:8rem minmax(0,1fr); gap:3rem; } }
+ .partner-grid { list-style:none; padding:0; margin:0; display:grid; gap:1.5rem; }
+ .partner-detail { display:grid; grid-template-columns:1.5rem minmax(0,1fr); align-content:start; gap:1rem; padding-block:1.75rem; border-top:1px solid var(--line-strong); min-width:0; }
+ .partner-detail__number { color:var(--accent); font-size:var(--text-xs); font-variant-numeric:tabular-nums; padding-top:.25rem; }
+ .partner-detail__body { min-width:0; }
+ .partner-detail h3 { font-family:var(--font-sans); font-size:var(--text-lg); font-weight:550; line-height:1.35; overflow-wrap:anywhere; }
+ .partner-detail p { margin-top:1rem; max-width:48rem; font-size:var(--text-sm); line-height:1.85; }
+ @media(min-width:52rem) { .partner-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:3rem; } .partner-detail { gap:1.25rem; } }
 </style>

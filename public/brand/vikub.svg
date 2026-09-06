@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1705" height="374" viewBox="170 154 1705 374" role="img" aria-labelledby="title desc">
+  <title id="title">VIKUB — logo</title>
+  <desc id="desc">Vector outlines on a transparent background. Gold #B78C42, graphite #212121. No fonts or embedded raster images.</desc>
+  <path id="v-gold" fill="#B78C42" d="M 178 162 H 287 L 439 451 L 407 513 H 356 Z"/>
+  <path id="v-graphite" fill="#212121" d="M 490 162 H 592 L 444 439 L 394 346 Z"/>
+  <path id="i" fill="#212121" d="M 632 162 H 711 V 513 H 632 Z"/>
+  <path id="k" fill="#212121" d="M 773 162 H 850 V 314 L 997 162 H 1094 L 931 329 L 1107 513 H 1009 L 850 349 V 513 H 773 Z"/>
+  <path id="u-gold" fill="#B78C42" d="M 1132 162 H 1213 V 362 C 1213 417 1244 446 1301 446 C 1319 446 1334 443 1347 438 L 1384 504 C 1360 514 1333 520 1300 520 C 1192 520 1132 465 1132 364 Z"/>
+  <path id="u-graphite" fill="#212121" d="M 1393 162 H 1474 V 363 C 1474 426 1449 474 1397 498 L 1358 432 C 1381 414 1393 391 1393 362 Z"/>
+  <path id="b" fill="#212121" fill-rule="evenodd" d="M 1527 162 H 1718 C 1799 162 1846 190 1846 252 C 1846 285 1830 310 1801 327 C 1843 345 1867 370 1867 413 C 1867 478 1817 513 1732 513 H 1527 Z M 1605 224 V 298 H 1717 C 1747 298 1762 284 1762 261 C 1762 236 1747 224 1717 224 Z M 1605 359 V 447 H 1722 C 1763 447 1783 431 1783 403 C 1783 374 1763 359 1722 359 Z"/>
+</svg>

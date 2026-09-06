@@ -1,7 +1,7 @@
 {
   "company": {
     "name": "VIKUB",
-    "tagline": "Market entry in Belarus and the EAEU for Italian businesses"
+    "tagline": "Italy meets Eurasia"
   },
   "email": "",
   "phones": [],
@@ -11,7 +11,7 @@
       "title": "Office in Italy",
       "city": "Fano",
       "person": "Mario Ubaldi",
-      "address": "via Carlo Gozzi, 8\n61032 Fano (PU), Italy",
+      "address": "",
       "note": "Italy",
       "phone": "",
       "tel": "",
@@ -22,7 +22,7 @@
       "title": "Office in Belarus",
       "city": "Minsk",
       "person": "Viktoria Gubanova",
-      "address": "Minsk",
+      "address": "",
       "note": "Belarus",
       "phone": "",
       "tel": "",
@@ -46,18 +46,18 @@
     {
       "id": "naip",
       "shortName": "NAIP",
-      "name": "NAIP — National Agency of Investment and Privatization of the Republic of Belarus",
+      "name": "NAIP",
       "icon": "building",
-      "description": "Government investment agency.",
+      "description": "The state agency for attracting investment to Belarus. VIKUB is its official representative in Italy.",
       "logo": "",
       "href": ""
     },
     {
       "id": "retail",
       "shortName": "SDELKI V PLUS",
-      "name": "SDELKI V PLUS LLC",
+      "name": "SDELKI V PLUS",
       "icon": "store",
-      "description": "Retail market entry in Russia and Belarus.",
+      "description": "VIKUB’s partner for helping manufacturers enter retail chains in Belarus and Russia. It works with retail networks and wholesale channels, supporting negotiations, contract signing and post-sale relationships.",
       "logo": "",
       "href": ""
     }
