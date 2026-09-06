@@ -6,7 +6,7 @@ import { locales, defaultLocale } from '../locales.config.mjs';
 import { DOMAIN, BASE_PATH } from '../site.config.mjs';
 const json=(path)=>JSON.parse(readFileSync(new URL(path,import.meta.url),'utf8'));
 const seminar=json('../src/content/system/seminar.json');
-test('branding and locales',()=>{assert.equal(DOMAIN,'vikub.group');assert.equal(defaultLocale,'it');assert.deepEqual(locales,['it','en','ru']);assert.equal(typeof BASE_PATH,'string');});
+test('branding and locales',()=>{assert.equal(DOMAIN,'vikub.com');assert.equal(defaultLocale,'it');assert.deepEqual(locales,['it','en','ru']);assert.equal(typeof BASE_PATH,'string');});
 test('unconfigured integrations remain genuinely disabled',()=>{assert.deepEqual(validateIntegrations({}),{googleAnalyticsId:'',contactFormEndpoint:'',registrationUrl:'',registrationFormEndpoint:''});});
 test('valid production integration formats',()=>{assert.equal(validateIntegrations({googleAnalyticsId:'G-AB12CD34EF',contactFormEndpoint:'https://formspree.io/f/example',registrationUrl:'https://forms.gle/example'}).googleAnalyticsId,'G-AB12CD34EF');});
 for (const url of ['http://example.com','javascript:alert(1)','https://user:password@example.com','https://example.com/#fragment']) {
