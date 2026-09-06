@@ -1,6 +1,6 @@
 {
-  "googleAnalyticsId": "",
-  "contactFormEndpoint": "",
+  "googleAnalyticsId": "G-D3K8Y44M31",
+  "contactFormEndpoint": "https://vikub.com/api/contact.php",
   "registrationUrl": "",
-  "registrationFormEndpoint": ""
+  "registrationFormEndpoint": "https://vikub.com/api/contact.php"
 }
