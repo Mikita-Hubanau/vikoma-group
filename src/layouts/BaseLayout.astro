@@ -4,6 +4,8 @@
 import '@fontsource-variable/inter';
 import '@fontsource-variable/source-serif-4';
 import '../styles/global.css';
+import '../styles/designs.css';
+import { designSettings } from '../lib/design';
 
 import Analytics from '../components/Analytics.astro';
 import Header from '../components/Header.astro';
@@ -63,11 +65,23 @@ const organization = JSON.stringify({
 ---
 
 <!doctype html>
-<html lang={htmlLang[locale]}>
+<html id="vikub-site" lang={htmlLang[locale]} data-design={designSettings.defaultDesign}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <script is:inline>
+      (() => {
+        const allowed = ['original', 'editorial', 'atlas', 'signature', 'grid'];
+        const root = document.documentElement;
+        let stored = '';
+        try { stored = localStorage.getItem('vikub-design') || ''; } catch {}
+        const requested = new URLSearchParams(location.search).get('design');
+        const design = allowed.includes(requested) ? requested : allowed.includes(stored) ? stored : root.dataset.design;
+        if (allowed.includes(design)) root.dataset.design = design;
+        if (allowed.includes(requested)) { try { localStorage.setItem('vikub-design', requested); } catch {} }
+      })();
+    </script>
 
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -113,13 +127,14 @@ const organization = JSON.stringify({
 
   <body>
     <a class="skip-link" href="#main">{t.skipToContent}</a>
-    <Header locale={locale} page={page} />
-    <main id="main" tabindex="-1">
+    <Header locale={locale} page={page} showDesigns={!noindex} />
+    <main id="main" tabindex="-1" data-page={page}>
       <slot />
     </main>
     <Footer locale={locale} analyticsEnabled={!noindex} />
     {!noindex && <Analytics locale={locale} />}
     {(page === 'home' || page === 'events') && !noindex && <script is:inline type="module" src={asset('/scripts/event-state.js')}></script>}
+    <script is:inline type="module" src={asset('/scripts/design-switcher.js')}></script>
     <EditMode />
   </body>
 </html>

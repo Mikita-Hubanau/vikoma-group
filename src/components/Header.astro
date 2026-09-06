@@ -3,36 +3,41 @@ import { defaultLocale, type Locale } from '../i18n/config';
 import { useUI } from '../i18n/ui';
 import { navOrder, type RouteKey } from '../i18n/routes';
 import { href } from '../lib/url';
+import { designSettings } from '../lib/design';
 import LanguageSwitcher from './LanguageSwitcher.astro';
-interface Props { locale?: Locale; page?: RouteKey; }
-const { locale = defaultLocale, page = 'home' } = Astro.props;
+import DesignSwitcher from './DesignSwitcher.astro';
+interface Props { locale?: Locale; page?: RouteKey; showDesigns?: boolean; }
+const { locale = defaultLocale, page = 'home', showDesigns = true } = Astro.props;
 const t = useUI(locale);
 ---
 <header class="site-header">
  <div class="container site-header__inner">
-  <a class="logo" href={href('home', locale)} aria-label={`Vikub Group — ${t.nav.home}`}><span class="logo__name">Vikub<span class="logo__dot">.</span></span><span class="logo__sub">Group</span></a>
+  <a class="logo" href={href('home', locale)} aria-label={`VIKUB — ${t.nav.home}`}><span class="logo__name">VIKUB</span><span class="logo__sub">Italy meets Belarus</span></a>
   <nav class="nav" aria-label={t.primaryNavigation}><ul class="nav__list">{navOrder.map((key) => <li><a class="nav__link" href={href(key, locale)} aria-current={page === key ? 'page' : undefined}>{t.nav[key]}</a></li>)}</ul></nav>
-  <div class="site-header__lang"><LanguageSwitcher locale={locale} page={page} /></div>
+  <div class="site-header__tools"><div class="site-header__lang"><LanguageSwitcher locale={locale} page={page} /></div>{showDesigns && designSettings.showSwitcher && <DesignSwitcher locale={locale} />}</div>
   <a class="btn btn--primary site-header__cta" href={href('contacts', locale)}>{t.discussProject}</a>
  </div>
 </header>
 <style>
  .site-header { background:var(--paper); border-bottom:1px solid var(--line); }
- .site-header__inner { display:grid; grid-template-columns:1fr auto; grid-template-areas:'logo lang' 'nav nav'; align-items:center; gap:.75rem 1rem; padding-block:1rem; }
- .logo { grid-area:logo; display:inline-flex; align-items:baseline; gap:.4rem; line-height:1; width:fit-content; }
- .logo__name { font-family:var(--font-serif); font-size:1.8rem; color:var(--ink); letter-spacing:-.04em; }
- .logo__dot { color:var(--accent); }
- .logo__sub { font-size:.58rem; letter-spacing:.2em; font-weight:600; text-transform:uppercase; }
- .site-header__lang { grid-area:lang; }
+ .site-header__inner { display:grid; grid-template-columns:minmax(0,1fr) auto; grid-template-areas:'logo tools' 'nav nav'; align-items:center; gap:.8rem 1rem; padding-block:1rem; }
+ .logo { grid-area:logo; display:flex; flex-direction:column; gap:.45rem; line-height:1; width:fit-content; }
+ .logo__name { font-family:var(--font-sans); font-size:1.9rem; color:var(--ink); font-weight:650; letter-spacing:-.065em; }
+ .logo__sub { font-size:.55rem; letter-spacing:.015em; color:var(--muted); line-height:1.35; }
+ .site-header__tools { grid-area:tools; display:flex; flex-direction:column; gap:.5rem; align-items:flex-end; }
+ .site-header__lang { display:flex; justify-content:flex-end; }
  .nav { grid-area:nav; min-width:0; }
- .nav__list { display:flex; flex-wrap:wrap; align-items:center; list-style:none; padding:0; gap:0 1.3rem; }
+ .nav__list { display:flex; flex-wrap:wrap; align-items:center; list-style:none; padding:0; gap:0 1.1rem; }
  .nav__link { display:block; min-height:44px; padding-block:.65rem; font-size:var(--text-sm); color:var(--body); border-bottom:1px solid transparent; }
  .nav__link:hover,.nav__link[aria-current=page] { color:var(--accent); border-color:var(--accent); }
- .site-header__cta { display:none; grid-area:cta; white-space:nowrap; }
- @media(min-width:40rem) { .site-header__inner { grid-template-columns:1fr auto auto; grid-template-areas:'logo lang cta' 'nav nav nav'; } .site-header__cta { display:inline-flex; font-size:var(--text-xs); } }
+ .site-header__cta { display:none; grid-area:cta; white-space:nowrap; font-size:var(--text-xs); }
+ @media(max-width:22.5rem) { .site-header__inner { grid-template-areas:'logo logo' 'tools tools' 'nav nav'; } .site-header__tools { align-items:flex-start; } }
+ @media(min-width:44rem) { .site-header__inner { grid-template-columns:1fr auto auto; grid-template-areas:'logo cta tools' 'nav nav nav'; } .site-header__cta { display:inline-flex; } }
  @media(min-width:70rem) {
-  .site-header { position:sticky; top:0; z-index:50; background:color-mix(in srgb,var(--paper) 96%,transparent); backdrop-filter:blur(10px); }
-  .site-header__inner { grid-template-columns:auto 1fr auto auto; grid-template-areas:'logo nav lang cta'; gap:1.5rem; }
-  .nav__list { justify-content:center; gap:0 1.3rem; }
+  .site-header { position:sticky; top:0; z-index:50; }
+  .site-header__inner { grid-template-columns:auto 1fr auto; grid-template-areas:'logo nav tools'; gap:2rem; }
+  .nav__list { justify-content:center; gap:0 1.4rem; }
+  .site-header__cta { display:none; }
  }
+ @media(min-width:82rem) { .site-header__inner { grid-template-columns:auto 1fr auto auto; grid-template-areas:'logo nav cta tools'; gap:1.5rem; } .site-header__cta { display:inline-flex; } }
 </style>

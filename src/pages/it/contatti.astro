@@ -1,7 +1,4 @@
 ---
-// Адрес страницы. Вся вёрстка — в src/views/ContactsView.astro,
-// она общая для всех языков.
-import ContactsView from '../../views/ContactsView.astro';
+import LegacyRedirect from '../../components/LegacyRedirect.astro';
 ---
-
-<ContactsView locale="it" />
+<LegacyRedirect page="contacts" locale="it" />

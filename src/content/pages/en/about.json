@@ -3,7 +3,7 @@
   "lead": "We build working connections between Italian manufacturing and the Belarusian market. Official status, an international team and end-to-end support.",
   "mission": {
     "title": "Our mission",
-    "text": "We create a predictable and safe path for Italian businesses into Belarus and the Eurasian Economic Union. We are more than consultants: we are a strategic bridge connecting markets, cultures, people and opportunities."
+    "text": "We understand both sides of the market and help Italian companies connect with the right people, businesses and institutions. We support the journey from understanding a market to making a concrete business contact and working together further."
   },
   "team": {
     "title": "Our team",
@@ -12,21 +12,21 @@
         "name": "Mario Ubaldi",
         "initials": "MU",
         "role": "Italy · Business consulting",
-        "about": "Italian business consultant with 20 years of experience. He specialises in financing, grants and the internationalisation of Italian companies, with a broad client base of manufacturers across different sectors. He speaks Italian, English, French and Portuguese.",
+        "about": "Italian business consultant with 30 years of experience. He specialises in financing, grants and the internationalisation of Italian companies, with a broad client base of manufacturers across different sectors. He speaks Italian, English, French and Portuguese.",
         "photo": ""
       },
       {
         "name": "Viktoria Gubanova",
         "initials": "VG",
         "role": "Belarus · International business development",
-        "about": "Belarusian. Former director of Planix Group in Belarus and official representative of the Finnish company Planix. She worked on importing large-format equipment and systematically connecting Belarusian and Finnish businesses: finding Belarusian partners at the request of Finnish companies, organising exhibitions and seminars in Finland, and working with the Finnish embassy. She now focuses on the Italian market.",
+        "about": "An expert in international business communication and cross-cultural relationships. Over many years, she has successfully built partnerships between European companies and the Belarusian market, organised international exhibitions and business missions, and supported negotiations at every stage. She has worked closely with embassies and government institutions.",
         "photo": ""
       }
     ]
   },
   "status": {
-    "title": "Our status and partners",
-    "text": "Official representatives of the National Agency of Investment and Privatization of the Republic of Belarus (NAIP) in Italy.",
+    "title": "Official status",
+    "text": "Official representative of the National Agency of Investment and Privatization of the Republic of Belarus (NAIP) in Italy.",
     "listTitle": "This gives us direct access to:",
     "items": [
       "Belarusian businesses and their actual needs",
@@ -34,7 +34,7 @@
       "information on preferential regimes, incentives and government support",
       "opportunities to arrange meetings with government bodies"
     ],
-    "retail": "Our strategic retail market-entry partner is SDELKI V PLUS LLC, a trade agency with established relationships with more than 20 retail chains and 60 wholesale buyers in Russia and Belarus."
+    "retail": "Our partner for retail market entry in Russia and Belarus is SDELKI V PLUS LLC."
   },
   "approach": {
     "title": "Why companies choose us",
@@ -70,7 +70,14 @@
     "eyebrow": "Working together"
   },
   "seo": {
-    "title": "About us — Vikub Group",
+    "title": "About us — VIKUB",
     "description": "We build working connections between Italian manufacturing and the Belarusian market. Official status, an international team and end-to-end support."
+  },
+  "experts": {
+    "title": "Our expert network",
+    "text": "For specific tasks, we engage trusted specialists: lawyers, accountants, logistics professionals and interpreters. This allows us to remain flexible and offer clients only the expertise they actually need.",
+    "people": [
+      "Olga Skrebnevskaya"
+    ]
   }
 }

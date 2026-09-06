@@ -21,7 +21,8 @@ const isOpen = state === 'open';
  </div>
 </section>
 <style>
- .event-teaser__inner { display:grid; gap:3rem; }
+ .event-teaser__inner { display:grid; grid-template-columns:minmax(0,1fr); gap:3rem; }
+ .event-teaser__inner > div { min-width:0; }
  .event-teaser h2 { max-width:26ch; }
  .event-teaser .lead { margin-top:1.5rem; }
  .event-teaser .btn { margin-top:2rem; }
@@ -29,5 +30,5 @@ const isOpen = state === 'open';
  .event-teaser__meta :global(svg) { color:var(--accent-light); }
  .event-teaser__meta time { font-family:var(--font-serif); font-size:var(--text-xl); }
  .event-teaser__meta p { color:var(--on-dark-muted); font-size:var(--text-sm); }
- @media(min-width:52rem) { .event-teaser__inner { grid-template-columns:1.6fr 1fr; gap:5rem; align-items:center; } .event-teaser__meta { border-top:0; border-left:1px solid #ffffff30; padding:2rem 0 2rem 3rem; } }
+ @media(min-width:52rem) { .event-teaser__inner { grid-template-columns:minmax(0,1.6fr) minmax(0,1fr); gap:5rem; align-items:center; } .event-teaser__meta { border-top:0; border-left:1px solid #ffffff30; padding:2rem 0 2rem 3rem; } }
 </style>

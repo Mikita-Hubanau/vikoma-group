@@ -1,0 +1,55 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '../i18n/config';
+import { asset, href } from '../lib/url';
+import { seminar } from '../lib/seminar';
+interface Props { locale: Locale; labels: CollectionEntry<'eventsPage'>['data']['registration']; endpoint: string; }
+const { locale, labels: t, endpoint } = Astro.props;
+const configured = Boolean(endpoint);
+---
+{!configured && <p class="form-notice" id="registration-unavailable">{t.unavailable}</p>}
+<p class="required-note" id="registration-required">{t.requiredNote}</p>
+<form class="registration-form" action={endpoint || undefined} method="POST" data-registration-form data-configured={String(configured)} data-locale={locale} data-deadline={seminar.registrationDeadline} data-closed={t.closed} data-sending={t.sending} data-submit={t.button} data-success={t.success} data-error={t.error} data-uncertain={t.uncertain} data-rate-limited={t.rateLimited} data-validation-error={t.validationError} aria-describedby={configured ? 'registration-required' : 'registration-required registration-unavailable'}>
+ <input type="hidden" name="_subject" value="VIKUB — Seminar registration" />
+ <input type="hidden" name="form_type" value="seminar_registration" />
+ <input type="hidden" name="event_id" value="vikub-seminar-2026-10-01" />
+ <input type="hidden" name="event_start" value={seminar.startAt} />
+ <input type="hidden" name="language" value={locale} />
+ <fieldset disabled={!configured}>
+  <legend class="visually-hidden">{t.title}</legend>
+  <div class="registration-fields">
+   <div class="registration-field"><label for="registration-first-name">{t.firstName} <span aria-hidden="true">*</span></label><input id="registration-first-name" name="first_name" autocomplete="given-name" type="text" required maxlength="120" /></div>
+   <div class="registration-field"><label for="registration-last-name">{t.lastName} <span aria-hidden="true">*</span></label><input id="registration-last-name" name="last_name" autocomplete="family-name" type="text" required maxlength="120" /></div>
+   <div class="registration-field registration-field--full"><label for="registration-company">{t.company} <span aria-hidden="true">*</span></label><input id="registration-company" name="company" autocomplete="organization" type="text" required maxlength="200" /></div>
+   <div class="registration-field registration-field--full"><label for="registration-email">{t.email} <span aria-hidden="true">*</span></label><input id="registration-email" name="email" autocomplete="email" type="email" required maxlength="254" /></div>
+   <div class="registration-field registration-field--full"><label for="registration-phone">{t.phone}</label><input id="registration-phone" name="phone" autocomplete="tel" type="tel" maxlength="40" /></div>
+  </div>
+  <div class="visually-hidden" aria-hidden="true"><label for="registration-extra">Leave this field empty</label><input id="registration-extra" name="_gotcha" type="text" tabindex="-1" autocomplete="off" /></div>
+  <div class="registration-consent"><input id="registration-consent" name="consent" type="checkbox" value="yes" required /><label for="registration-consent">{t.consent}</label></div>
+  <p class="registration-privacy"><a class="link" href={`${href('contacts', locale)}#privacy`}>{t.privacyLink}</a></p>
+  <button class="btn btn--primary" type="submit" data-submit-button disabled={!configured}>{t.button}</button>
+ </fieldset>
+ <p class="form-status" data-form-status role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
+</form>
+<script is:inline type="module" src={asset('/scripts/contact-form.js')}></script>
+<style>
+ .required-note { margin:1.5rem 0 1rem; font-size:var(--text-xs); color:var(--muted); }
+ .registration-form fieldset { border:0; padding:0; margin:0; min-width:0; }
+ .registration-form fieldset:disabled { opacity:.65; }
+ .registration-fields { display:grid; gap:1rem; }
+ .registration-field { display:grid; gap:.4rem; min-width:0; }
+ .registration-field label { font-size:var(--text-sm); font-weight:500; }
+ .registration-field label span { color:var(--accent); }
+ .registration-field input { width:100%; min-width:0; min-height:46px; border:1px solid var(--line-strong); padding:.7rem .8rem; border-radius:var(--radius); background:var(--paper); color:var(--ink); font:1rem/1.4 var(--font-sans); }
+ .registration-consent { display:flex; align-items:flex-start; gap:.65rem; margin-top:1.3rem; }
+ .registration-consent input { flex-shrink:0; width:1.2rem; height:1.2rem; margin-top:.15rem; accent-color:var(--accent); }
+ .registration-consent label { font-size:var(--text-xs); line-height:1.7; }
+ .registration-privacy { margin:.5rem 0 1rem 1.85rem; font-size:var(--text-xs); }
+ .registration-form .btn { width:100%; }
+ .form-status { margin-top:1.3rem; font-size:var(--text-sm); }
+ .form-status:empty { margin:0; }
+ .form-status[data-state=success] { border-left:2px solid var(--accent); padding:1.1rem; color:var(--ink); background:var(--paper-2); }
+ .form-status[data-state=error] { border-left:2px solid var(--ink); padding-left:1rem; color:var(--ink); }
+ .form-notice { border-left:2px solid var(--accent); padding:1rem; font-size:var(--text-xs); background:var(--paper-2); margin-top:1rem; }
+ @media(min-width:32rem) { .registration-fields { grid-template-columns:repeat(2,minmax(0,1fr)); } .registration-field--full { grid-column:1/-1; } }
+</style>

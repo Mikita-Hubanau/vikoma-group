@@ -1,4 +1,4 @@
 ---
-import { href } from '../lib/url';
-return Astro.redirect(href('services', 'ru'), 301);
+import LegacyRedirect from '../components/LegacyRedirect.astro';
 ---
+<LegacyRedirect page="services" locale="ru" />

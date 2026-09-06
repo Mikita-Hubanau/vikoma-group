@@ -1,11 +1,13 @@
 ---
-title: Soluzioni di pagamento
+title: Infrastruttura dei pagamenti e regolamenti internazionali
 order: 4
 anchor: payments
 icon: card
-partner: Partner per i pagamenti
+partner: ''
 items:
-- Consulenza sull’assistenza bancaria alle imprese straniere in Bielorussia
-- Strumenti di pagamento digitali
-- Trasferimenti internazionali in criptovaluta tramite la piattaforma italiana Young Platform
+- Consulenza sulle opzioni disponibili di assistenza bancaria
+- Regolamenti transfrontalieri nel rispetto delle restrizioni vigenti
+- Coinvolgimento di specialisti finanziari quando necessario
 ---
+
+Offriamo consulenza sulle opzioni disponibili per l’assistenza bancaria e transfrontaliera nelle operazioni internazionali, tenendo conto delle restrizioni vigenti. Quando necessario, coinvolgiamo specialisti finanziari qualificati.

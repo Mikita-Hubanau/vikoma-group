@@ -14,12 +14,14 @@ export function validateIntegrations(input) {
     googleAnalyticsId: String(input.googleAnalyticsId ?? '').trim(),
     contactFormEndpoint: String(input.contactFormEndpoint ?? '').trim(),
     registrationUrl: String(input.registrationUrl ?? '').trim(),
+    registrationFormEndpoint: String(input.registrationFormEndpoint ?? '').trim(),
   };
   if (result.googleAnalyticsId && !/^G-[A-Z0-9]{4,20}$/.test(result.googleAnalyticsId)) {
     throw new Error('Google Analytics: нужен Measurement ID формата G-…, а не номер ресурса.');
   }
   validateHttps(result.contactFormEndpoint, 'Адрес обработчика формы');
   validateHttps(result.registrationUrl, 'Google Forms');
+  validateHttps(result.registrationFormEndpoint, 'Обработчик регистрации');
   if (result.registrationUrl) {
     const url = new URL(result.registrationUrl);
     if (!(url.hostname === 'forms.gle' && url.pathname.length > 1) &&

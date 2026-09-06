@@ -22,12 +22,12 @@
   },
   "privacy": {
     "title": "Utilizzo dei dati",
-    "text": "Nome, email, telefono e messaggio sono utilizzati per rispondere alla richiesta. I dati vengono trasmessi al servizio di gestione dei moduli collegato solo dopo aver premuto «Invia». Google Analytics viene caricato solo con il vostro consenso. Potete modificare la scelta nelle impostazioni di analisi in fondo alla pagina.",
+    "text": "I dati del modulo di contatto vengono utilizzati per rispondere alla vostra richiesta. I dati di iscrizione al seminario vengono utilizzati per organizzare la partecipazione e inviare il link di accesso. Non inserite informazioni riservate nei moduli. Prima del lancio, gli organizzatori devono pubblicare un’informativa completa con i dati del titolare, i tempi di conservazione e i contatti per le richieste.",
     "policyLabel": "Informativa sulla privacy",
     "policyUrl": ""
   },
   "seo": {
-    "title": "Contatti — Vikub Group",
+    "title": "Contatti — VIKUB",
     "description": "Contattateci. Parliamo del vostro progetto e di come possiamo esservi utili."
   }
 }

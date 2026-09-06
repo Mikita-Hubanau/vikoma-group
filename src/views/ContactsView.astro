@@ -25,7 +25,7 @@ const settings = await getSettings(locale);
  .offices { display:grid; gap:2.5rem; }
  .office { border-top:1px solid var(--line); padding-top:1.5rem; }
  .office__person { margin-top:1.5rem; font-weight:500; }
- .office address { font-style:normal; margin-top:.5rem; max-width:30rem; }
+ .office address { white-space:pre-line; font-style:normal; margin-top:.5rem; max-width:30rem; }
  .office__links { display:grid; gap:1rem; margin-top:1.5rem; }
  .office__links dt { font-size:var(--text-xs); color:var(--muted); margin-bottom:.2rem; }
  .office__links dd { font-size:var(--text-sm); overflow-wrap:anywhere; }

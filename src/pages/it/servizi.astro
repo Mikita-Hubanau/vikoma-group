@@ -1,7 +1,4 @@
 ---
-// Адрес страницы. Вся вёрстка — в src/views/ServicesView.astro,
-// она общая для всех языков.
-import ServicesView from '../../views/ServicesView.astro';
+import LegacyRedirect from '../../components/LegacyRedirect.astro';
 ---
-
-<ServicesView locale="it" />
+<LegacyRedirect page="services" locale="it" />

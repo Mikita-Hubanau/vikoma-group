@@ -22,16 +22,18 @@ const isOpen = eventState() === 'open';
    <div class="hero__actions enter" style="--delay:380ms"><a class="btn btn--primary" href={href(cta.page, locale)}>{cta.label}</a><a class="btn btn--ghost" href={href(secondaryCta.page, locale)}><span data-event-open hidden={!isOpen}>{secondaryCta.label}</span><span data-event-archive hidden={isOpen}>{home.seminar.archiveCta}</span></a></div>
    <PartnerMarks locale={locale} compact />
   </div>
-  <div class="hero__figure enter" style="--delay:300ms"><CountriesMap countries={map.countries} /></div>
+  <div class="hero__figure enter" style="--delay:300ms"><div class="hero__map-frame"><CountriesMap countries={map.countries} /></div><div class="hero__caption" aria-hidden="true"><span>Italy meets Belarus</span><span>VIKUB</span></div></div>
  </div>
 </section>
 <style>
  .hero { padding-block:clamp(3rem,6vw,6rem); border-bottom:1px solid var(--line); overflow:hidden; }
- .hero__inner { display:grid; gap:3rem; align-items:center; }
+ .hero__inner { display:grid; grid-template-columns:minmax(0,1fr); gap:3rem; align-items:center; }
+ .hero__text { min-width:0; }
  .hero__line { display:block; }
  .hero__line--accent { color:var(--accent); }
  .hero__lead { margin-top:1.75rem; font-size:var(--text-md); line-height:1.65; max-width:39rem; }
  .hero__actions { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:2rem; }
+ .hero__caption { display:none; }
  .hero__figure { max-width:34rem; width:100%; margin-inline:auto; }
  @media(min-width:60rem) { .hero__inner { grid-template-columns:minmax(0,1.4fr) minmax(0,1fr); gap:3rem; } .hero h1 { font-size:clamp(2.8rem,4.2vw,3.8rem); } }
  @media(max-width:30rem) { .hero__actions { align-items:stretch; flex-direction:column; } }

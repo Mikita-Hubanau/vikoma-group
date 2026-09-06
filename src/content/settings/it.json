@@ -1,6 +1,6 @@
 {
   "company": {
-    "name": "Vikub Group",
+    "name": "VIKUB",
     "tagline": "Accesso ai mercati della Bielorussia e dell’UEE per le imprese italiane"
   },
   "email": "",
@@ -11,7 +11,7 @@
       "title": "Sede in Italia",
       "city": "Fano",
       "person": "Mario Ubaldi",
-      "address": "via Carlo Gozzi, 8, 61032 Fano (PU), Italy",
+      "address": "via Carlo Gozzi, 8\n61032 Fano (PU), Italy",
       "note": "Italia",
       "phone": "",
       "tel": "",
@@ -22,7 +22,7 @@
       "title": "Sede in Bielorussia",
       "city": "Minsk",
       "person": "Viktoria Gubanova",
-      "address": "",
+      "address": "Minsk",
       "note": "Bielorussia",
       "phone": "",
       "tel": "",
@@ -48,7 +48,7 @@
       "shortName": "NAIP",
       "name": "NAIP — Agenzia nazionale per gli investimenti e la privatizzazione della Repubblica di Bielorussia",
       "icon": "building",
-      "description": "Agenzia statale istituita per attrarre investimenti esteri diretti in Bielorussia. Opera come sportello unico per l’investitore.",
+      "description": "Agenzia pubblica per gli investimenti.",
       "logo": "",
       "href": ""
     },
@@ -57,34 +57,7 @@
       "shortName": "SDELKI V PLUS",
       "name": "«SDELKI V PLUS»",
       "icon": "store",
-      "description": "Agenzia commerciale che aiuta i produttori a entrare nei mercati russo e bielorusso attraverso le principali catene commerciali. Oltre 20 catene commerciali e 60 acquirenti all’ingrosso.",
-      "logo": "",
-      "href": ""
-    },
-    {
-      "id": "legal-by",
-      "shortName": "Legale · Bielorussia",
-      "name": "Studio legale bielorusso",
-      "icon": "scales",
-      "description": "Specializzazioni: diritto societario e tributario, costituzione di società in Bielorussia, diritto del lavoro, licenze e tutela degli investitori.",
-      "logo": "",
-      "href": ""
-    },
-    {
-      "id": "legal-it",
-      "shortName": "Legale · Italia",
-      "name": "Studio legale italiano",
-      "icon": "scales",
-      "description": "Specializzazioni: rischi legati alle sanzioni, strutturazione di operazioni internazionali, diritto transfrontaliero e assistenza al commercio estero.",
-      "logo": "",
-      "href": ""
-    },
-    {
-      "id": "payments",
-      "shortName": "Soluzioni di pagamento",
-      "name": "Partner per i pagamenti",
-      "icon": "card",
-      "description": "Assistenza bancaria e strumenti di pagamento alternativi per operare con la Bielorussia, comprese le soluzioni in criptovaluta.",
+      "description": "Accesso alla grande distribuzione in Russia e Bielorussia.",
       "logo": "",
       "href": ""
     }

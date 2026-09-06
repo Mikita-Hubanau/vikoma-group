@@ -1,5 +1,6 @@
 {
   "googleAnalyticsId": "",
   "contactFormEndpoint": "",
-  "registrationUrl": ""
+  "registrationUrl": "",
+  "registrationFormEndpoint": ""
 }

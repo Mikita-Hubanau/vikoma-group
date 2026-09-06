@@ -90,10 +90,13 @@ const items = await Promise.all(
 
   .service {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-5);
     padding-block: var(--space-7);
     border-top: 1px solid var(--line);
   }
+
+  .service__aside, .service__body { min-width: 0; }
 
   .service:last-child {
     border-bottom: 1px solid var(--line);

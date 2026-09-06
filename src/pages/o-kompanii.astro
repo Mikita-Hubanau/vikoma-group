@@ -1,7 +1,4 @@
 ---
-// Адрес страницы. Вся вёрстка — в src/views/AboutView.astro,
-// она общая для всех языков.
-import AboutView from '../views/AboutView.astro';
+import LegacyRedirect from '../components/LegacyRedirect.astro';
 ---
-
-<AboutView locale="ru" />
+<LegacyRedirect page="about" locale="ru" />

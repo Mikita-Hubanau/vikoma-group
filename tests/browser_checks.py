@@ -37,7 +37,7 @@ def form_fixture(configured=True, endpoint='https://forms.test/f/demo'):
         ('uncertain','uncertain'),('rate-limited','rateLimited'),('validation-error','validationError')])
     return document(f'''<div class="container"><div class="contact-form-block"><h2>{FORM_COPY['title']}</h2>
     <form data-contact-form data-configured="{str(configured).lower()}" {attrs} action="{endpoint}" method="POST">
-    <input type="hidden" name="language" value="ru"><input type="hidden" name="_subject" value="Vikub Group">
+    <input type="hidden" name="language" value="ru"><input type="hidden" name="_subject" value="VIKUB">
     <fieldset {disabled}><legend class="visually-hidden">Контакты</legend><div class="form-grid">
     <div class="form-field"><label for="name">Имя</label><input id="name" name="name" required maxlength="120"></div>
     <div class="form-field"><label for="email">Email</label><input id="email" name="email" type="email" required maxlength="254"></div>

@@ -13,8 +13,9 @@ const configured = Boolean(contactFormEndpoint);
  {!configured && <p class="form-notice" id="form-unavailable">{t.unavailable}</p>}
  <p class="required-note" id="contact-required">{t.requiredNote}</p>
  <form class="contact-form" action={contactFormEndpoint || undefined} method="POST" data-contact-form data-configured={String(configured)} data-locale={locale} data-sending={t.sending} data-submit={t.submit} data-success={t.success} data-error={t.error} data-uncertain={t.uncertain} data-rate-limited={t.rateLimited} data-validation-error={t.validationError} aria-describedby={configured ? 'contact-required' : 'contact-required form-unavailable'}>
-  <input type="hidden" name="_subject" value={`Vikub Group — ${t.title}`} />
+  <input type="hidden" name="_subject" value={`VIKUB — ${t.title}`} />
   <input type="hidden" name="language" value={locale} />
+  <input type="hidden" name="form_type" value="contact_enquiry" />
   <fieldset disabled={!configured}>
    <legend class="visually-hidden">{t.title}</legend>
    <div class="form-grid">

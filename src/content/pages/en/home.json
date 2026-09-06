@@ -1,7 +1,7 @@
 {
   "seo": {
-    "title": "Vikub Group — Market entry in Belarus and the EAEU for Italian businesses",
-    "description": "Vikub Group helps Italian companies enter Belarus and the Eurasian Economic Union: market research, investment, retail, legal support and payment solutions."
+    "title": "VIKUB — Market entry in Belarus and the EAEU for Italian businesses",
+    "description": "VIKUB helps Italian businesses enter Belarus and the EAEU through market research, partner search, legal support and retail market entry."
   },
   "hero": {
     "eyebrow": "Italy · Belarus · EAEU",
@@ -60,8 +60,8 @@
       },
       {
         "icon": "card",
-        "title": "Payment solutions",
-        "text": "Banking support and alternative platforms",
+        "title": "Payment infrastructure and international settlements",
+        "text": "Advice on banking and cross-border support, taking current restrictions into account.",
         "anchor": "payments"
       }
     ]
@@ -70,10 +70,10 @@
     "eyebrow": "About us",
     "title": "Two markets. One team.",
     "paragraphs": [
-      "Vikub Group is an international consulting and business development hub specialising in helping Italian companies enter the markets of Belarus and the Eurasian Economic Union (EAEU).",
+      "VIKUB is an international consulting and business development hub specialising in helping Italian companies enter the markets of Belarus and the Eurasian Economic Union (EAEU).",
       "We are the official representatives of the National Agency of Investment and Privatization of the Republic of Belarus (NAIP) in Italy. This gives us direct access to government support tools, up-to-date analysis and Belarusian businesses.",
-      "Our team combines Italian and Belarusian expertise: Mario Ubaldi is a business consultant with 20 years of experience working with Italian manufacturers; Viktoria Gubanova, former director of Planix Group, specialises in international business connections.",
-      "We offer end-to-end support, from market research to signing contracts and entering retail chains. We work with companies in different sectors according to their needs."
+      "Our team combines Italian and Belarusian expertise: Mario Ubaldi is a business consultant with 30 years of experience; Viktoria Gubanova is an expert in international business communication and cross-cultural relationships.",
+      "We help companies move from understanding the market to a concrete business contact and ongoing support. We work with businesses in different sectors according to their needs."
     ],
     "cta": {
       "label": "More about us",
@@ -84,7 +84,7 @@
     "eyebrow": "Online · Free",
     "title": "Join our online seminar on {date}",
     "archiveTitle": "Online seminar on {date}",
-    "text": "A free seminar for Italian manufacturers looking to enter Belarus and the EAEU. Learn about the actual needs of Belarusian companies, government support, payment solutions and the legal aspects of doing business.",
+    "text": "A free online seminar for Italian manufacturers: actual needs of Belarusian businesses, the investment climate, sanctions and tax issues, logistics and certification.",
     "cta": {
       "label": "Details and registration",
       "page": "events"
@@ -95,15 +95,15 @@
     "eyebrow": "Why us",
     "items": [
       {
-        "value": "20",
+        "value": "30",
         "suffix": "years",
         "label": "of Mario’s experience in Italian business",
         "kind": "number"
       },
       {
-        "value": "8+",
-        "suffix": "years",
-        "label": "of Viktoria’s international business experience",
+        "value": "2",
+        "suffix": "markets",
+        "label": "understanding the Italian and Belarusian business environments",
         "kind": "number"
       },
       {

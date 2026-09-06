@@ -19,10 +19,10 @@ const { data: page } = await getPage('homePage', locale);
 <BaseLayout {...page.seo} locale={locale} page="home">
  <Hero locale={locale} {...page.hero} />
  <WhatWeDo locale={locale} {...page.whatWeDo} />
- <section class="section section--paper2 edit-anchor"><EditButton collection="pages" entry="home" label="О нас — кратко" /><div class="container about-summary"><div><SectionHead eyebrow={page.about.eyebrow} title={page.about.title} /><a class="arrow-link" href={href(page.about.cta.page,locale)}>{page.about.cta.label}<ArrowRight /></a></div><div class="about-summary__text">{page.about.paragraphs.map((paragraph) => <p>{paragraph}</p>)}</div></div></section>
+ <section class="section section--paper2 home-about edit-anchor"><EditButton collection="pages" entry="home" label="О нас — кратко" /><div class="container about-summary"><div><SectionHead eyebrow={page.about.eyebrow} title={page.about.title} /><a class="arrow-link" href={href(page.about.cta.page,locale)}>{page.about.cta.label}<ArrowRight /></a></div><div class="about-summary__text">{page.about.paragraphs.map((paragraph) => <p>{paragraph}</p>)}</div></div></section>
  <EventTeaser locale={locale} />
  <Stats {...page.stats} />
- <section class="section section--tight edit-anchor"><EditButton collection="settings" entry="contacts" label="Партнёры" /><div class="container"><SectionHead {...page.partners} /><PartnerMarks locale={locale} /></div></section>
+ <section class="section section--tight home-partners edit-anchor"><EditButton collection="settings" entry="contacts" label="Партнёры" /><div class="container"><SectionHead {...page.partners} /><PartnerMarks locale={locale} /></div></section>
  <ContactBlock locale={locale} />
 </BaseLayout>
 <style>

@@ -1,4 +1,4 @@
-# Поля соответствуют src/content.config.ts. Адрес сайта в dist обновляется postbuild.
+# Поля синхронизированы с src/content.config.ts. Не хранить секреты.
 backend:
   name: github
   repo: Mikita-Hubanau/vikoma-group
@@ -9,10 +9,10 @@ site_url: https://mikita-hubanau.github.io/vikoma-group
 i18n:
   structure: multiple_folders
   locales:
-  - ru
   - it
   - en
-  default_locale: ru
+  - ru
+  default_locale: it
 collections:
 - name: settings
   label: Общее
@@ -213,9 +213,10 @@ collections:
         required: false
         default: ''
       summary: '{{fields.name}}'
-      min: 5
-      max: 5
+      min: 2
+      max: 2
       allow_add: false
+      hint: 'Два партнёра из подтверждённого списка ТЗ: НАИП и СДЕЛКИ В ПЛЮС.'
 - name: pages
   label: Страницы
   icon: description
@@ -574,6 +575,23 @@ collections:
         min: 2
         max: 2
         allow_add: false
+    - name: experts
+      label: Наша сеть экспертов
+      i18n: true
+      widget: object
+      fields:
+      - name: title
+        label: Заголовок
+        i18n: true
+        widget: string
+      - name: text
+        label: Описание
+        i18n: true
+        widget: text
+      - name: people
+        label: Участники сети (не основная команда)
+        i18n: true
+        widget: list
     - name: status
       label: Официальный статус
       i18n: true
@@ -795,6 +813,8 @@ collections:
       label: Пояснение к программе
       i18n: true
       widget: text
+      required: false
+      default: ''
     - name: program
       label: Программа
       i18n: true
@@ -823,28 +843,87 @@ collections:
         i18n: true
         widget: string
       - name: text
-        label: Текст
+        label: Срок ({date} — дата из настроек)
         i18n: true
-        widget: text
-        hint: '{date} заменяется датой из общего раздела «Семинар — дата и время». Не вписывайте дату вручную.'
+        widget: string
       - name: button
-        label: Текст кнопки
+        label: Кнопка регистрации
         i18n: true
         widget: string
       - name: externalNote
-        label: Пояснение внешней ссылки
+        label: Подпись внешней формы
+        i18n: true
+        widget: string
+      - name: externalButton
+        label: Кнопка Google Forms
         i18n: true
         widget: string
       - name: unavailable
-        label: Текст при отсутствии настройки
+        label: Регистрация не подключена
         i18n: true
         widget: text
       - name: closed
-        label: Регистрация завершена
+        label: Регистрация закрыта
         i18n: true
         widget: string
       - name: ended
         label: Семинар завершён
+        i18n: true
+        widget: string
+      - name: firstName
+        label: 'Поле: имя'
+        i18n: true
+        widget: string
+      - name: lastName
+        label: 'Поле: фамилия'
+        i18n: true
+        widget: string
+      - name: company
+        label: 'Поле: компания'
+        i18n: true
+        widget: string
+      - name: email
+        label: 'Поле: email'
+        i18n: true
+        widget: string
+      - name: phone
+        label: 'Поле: телефон'
+        i18n: true
+        widget: string
+      - name: requiredNote
+        label: Обязательные поля
+        i18n: true
+        widget: string
+      - name: consent
+        label: Согласие на обработку
+        i18n: true
+        widget: text
+      - name: privacyLink
+        label: Ссылка на политику
+        i18n: true
+        widget: string
+      - name: sending
+        label: Во время отправки
+        i18n: true
+        widget: string
+      - name: success
+        label: После успешной регистрации
+        i18n: true
+        widget: text
+      - name: error
+        label: Ошибка
+        i18n: true
+        widget: text
+      - name: uncertain
+        label: Неизвестный результат
+        i18n: true
+        widget: text
+      - name: rateLimited
+        label: Слишком много запросов
+        i18n: true
+        widget: string
+      - name: validationError
+        label: Ошибка полей
         i18n: true
         widget: string
     - name: seo
@@ -1069,14 +1148,20 @@ collections:
       widget: string
       required: false
       default: ''
-      hint: Например, https://formspree.io/f/ВАШ_ID. Это публичный URL формы, не пароль и не API-ключ. Пусто
-        = отправка отключена.
+      hint: Например, https://formspree.io/f/ВАШ_ID. Это публичный URL формы, не пароль и не API-ключ. Пусто = отправка отключена.
     - name: registrationUrl
       label: Ссылка Google Forms
       widget: string
       required: false
       default: ''
-      hint: Реальная ссылка https://forms.gle/… или https://docs.google.com/forms/…
+      hint: Необязательная резервная ссылка Google Forms. Встроенная форма использует registrationFormEndpoint.
+    - name: registrationFormEndpoint
+      label: HTTPS-обработчик регистрации на семинар
+      widget: string
+      required: false
+      default: ''
+      hint: PUBLIC_REGISTRATION_FORM_ENDPOINT. Если пусто, используется обработчик контактной формы. Нужен ответ JSON {ok:true}
+        или {success:true}; секретные ключи здесь не хранить.
   - name: seminar
     label: Семинар — дата и время
     file: src/content/system/seminar.json
@@ -1084,7 +1169,7 @@ collections:
     - name: startAt
       label: Начало семинара (ISO с часовым поясом)
       widget: string
-      hint: 'Пример: 2026-10-01T11:00:00+02:00. Обязательно указывайте UTC-смещение для даты мероприятия.'
+      hint: 'Пример: 2026-10-01T10:00:00+02:00. Обязательно указывайте UTC-смещение для даты мероприятия.'
     - name: durationMinutes
       label: Продолжительность в минутах
       widget: number
@@ -1097,13 +1182,11 @@ collections:
     - name: registrationDeadline
       label: Последний момент регистрации (ISO с часовым поясом)
       widget: string
-      hint: 'Пример: 2026-09-28T23:59:59+02:00. Последний разрешённый момент регистрации; должен быть раньше
-        начала.'
+      hint: 'Пример: 2026-09-28T23:59:59+02:00. Последний разрешённый момент регистрации; должен быть раньше начала.'
   - name: blocks
     label: Каталог блоков
     file: src/content/system/blocks.json
-    description: Справочник по блокам. Сами показы блоков живут в коде — здесь правятся только описания и ваши
-      пометки.
+    description: Справочник по блокам. Сами показы блоков живут в коде — здесь правятся только описания и ваши пометки.
     fields:
     - name: seo
       label: Для поисковиков
@@ -1180,8 +1263,8 @@ collections:
   - name: notfound
     label: Страница «не найдено»
     file: src/content/system/notfound.json
-    description: Показывается, если посетитель ошибся в адресе. Фраза идёт на всех трёх языках сразу — какой
-      нужен, заранее неизвестно.
+    description: Показывается, если посетитель ошибся в адресе. Фраза идёт на всех трёх языках сразу — какой нужен, заранее
+      неизвестно.
     fields:
     - name: seo
       label: Для поисковиков
@@ -1214,3 +1297,26 @@ collections:
       - name: text
         label: Фраза
         widget: text
+  - name: design
+    label: Оформление — 5 дизайнов
+    file: src/content/system/design.json
+    fields:
+    - name: defaultDesign
+      label: Дизайн по умолчанию
+      widget: select
+      options:
+      - label: 01 · Оригинал
+        value: original
+      - label: 02 · Editorial — терракота
+        value: editorial
+      - label: 03 · Atlas — олива
+        value: atlas
+      - label: 04 · Signature — золото
+        value: signature
+      - label: 05 · Grid — графит
+        value: grid
+      default: original
+    - name: showSwitcher
+      label: Показывать переключатель дизайнов
+      widget: boolean
+      default: true

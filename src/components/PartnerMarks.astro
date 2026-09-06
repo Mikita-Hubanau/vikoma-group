@@ -6,7 +6,7 @@ import Icon from './Icon.astro';
 interface Props { locale: Locale; compact?: boolean; }
 const { locale, compact = false } = Astro.props;
 const settings = await getSettings(locale);
-const partners = compact ? settings.partners.filter((p) => ['naip','retail','payments'].includes(p.id)) : settings.partners;
+const partners = compact ? settings.partners.filter((p) => ['naip','retail'].includes(p.id)) : settings.partners;
 ---
 <ul class:list={['partner-marks', compact && 'partner-marks--compact']}>
   {partners.map((partner) => {
@@ -24,5 +24,5 @@ const partners = compact ? settings.partners.filter((p) => ['naip','retail','pay
   .partner-marks--compact { display:flex; flex-wrap:wrap; gap:1rem 1.5rem; margin-top:2rem; padding-top:1.5rem; }
   .partner-marks--compact .partner-mark { padding:0; border:0; gap:.65rem; font-size:.7rem; letter-spacing:.03em; }
   .partner-marks--compact img { max-width:125px; max-height:36px; }
-  @media(min-width:62rem) { .partner-marks:not(.partner-marks--compact) { grid-template-columns:repeat(5,minmax(0,1fr)); } .partner-marks:not(.partner-marks--compact) .partner-mark { flex-direction:column; align-items:flex-start; padding-right:1.5rem; } }
+  @media(min-width:62rem) { .partner-marks:not(.partner-marks--compact) { grid-template-columns:repeat(2,minmax(0,1fr)); } .partner-marks:not(.partner-marks--compact) .partner-mark { flex-direction:column; align-items:flex-start; padding-right:1.5rem; } }
 </style>

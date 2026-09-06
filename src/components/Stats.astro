@@ -3,7 +3,7 @@ import EditButton from './edit/EditButton.astro';
 interface Props { eyebrow: string; items: { value: string; suffix: string; label: string; kind: 'number' | 'text' }[]; }
 const { eyebrow, items } = Astro.props;
 ---
-<section class="section section--tight edit-anchor">
+<section class="section section--tight home-stats edit-anchor">
  <EditButton collection="pages" entry="home" label="Почему мы" />
  <div class="container"><p class="eyebrow">{eyebrow}</p><ul class="stats">{items.map((item) => <li><p class:list={['stat__value',item.kind === 'text' && 'stat__value--text']}>{item.value}{item.suffix && <span> {item.suffix}</span>}</p><p class="stat__label">{item.label}</p></li>)}</ul></div>
 </section>

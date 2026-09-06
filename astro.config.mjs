@@ -11,6 +11,12 @@ export default defineConfig({
   build: { format: 'directory' },
   i18n: { defaultLocale, locales, routing: { prefixDefaultLocale: false } },
   integrations: [sitemap({
-    filter: (page) => !/\/(blocks|admin|otrasli|settori|industries)(\/|$)/.test(page) && !/\/404(\.html|\/)/.test(page),
+    filter: (page) => {
+      const base = BASE_PATH.replace(/\/$/, '');
+      const pathname = new URL(page).pathname;
+      const path = (base && pathname.startsWith(base + '/') ? pathname.slice(base.length) : pathname) || '/';
+      if (/^\/(blocks|admin|it)(\/|$)/.test(path) || /\/(otrasli|settori|industries)(\/|$)/.test(path) || /\/404(\.html|\/)/.test(path)) return false;
+      return !/^\/(o-kompanii|uslugi|meropriyatiya|kontakty)\/$/.test(path);
+    },
   })],
 });

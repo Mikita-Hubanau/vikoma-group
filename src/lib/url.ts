@@ -5,7 +5,7 @@ import { routes, type RouteKey } from '../i18n/routes';
  * Собирает правильную ссылку на страницу сайта.
  *
  * Страница называется по смыслу, а не адресом: href('services', 'it')
- * вернёт /it/servizi/. Поэтому при смене адресов или добавлении языка
+ * вернёт /servizi/. Поэтому при смене адресов или добавлении языка
  * вёрстку править не нужно.
  *
  * Заодно учитывает, что на GitHub Pages сайт лежит в подпапке.
@@ -23,7 +23,7 @@ function buildPath(rawPath: string, locale: Locale): string {
   // '/' или '/vikoma-group/' → '' или '/vikoma-group'
   const base = import.meta.env.BASE_URL.replace(/\/+$/, '');
 
-  // Основной язык живёт без префикса, остальные — в своей папке: /it/...
+  // Основной язык живёт без префикса, остальные — в своей папке: /ru/...
   const langPrefix = locale === defaultLocale ? '' : `/${locale}`;
 
   const clean = String(rawPath).replace(/^\/+/, '').replace(/\/+$/, '');

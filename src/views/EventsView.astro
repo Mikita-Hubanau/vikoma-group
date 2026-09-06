@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ContactBlock from '../components/ContactBlock.astro';
 import Icon from '../components/Icon.astro';
+import RegistrationForm from '../components/RegistrationForm.astro';
 import EditButton from '../components/edit/EditButton.astro';
 import type { Locale } from '../i18n/config';
 import { getPage } from '../lib/content';
@@ -11,13 +12,15 @@ import { seminar, seminarEnd, eventDate, eventTime, withDate, eventState, eventD
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
 const { data: page } = await getPage('eventsPage',locale);
-const { registrationUrl } = getIntegrations();
+const { registrationUrl, registrationFormEndpoint, contactFormEndpoint } = getIntegrations();
+const endpoint = registrationFormEndpoint || contactFormEndpoint;
 const state = eventState();
 const r = page.registration;
 const lead = withDate(page.lead,eventDate(locale));
 ---
 <BaseLayout title={page.seo.title} description={page.seo.description} ogImage={page.seo.ogImage} locale={locale} page="events">
  <PageHeader title={page.title} lead={lead} edit={{collection:'pages',entry:'events',label:'Мероприятия'}} />
+ <div class="container event-register-cta" data-event-status data-deadline={seminar.registrationDeadline} data-end={seminarEnd}><a class="btn btn--primary" href="#registration" data-registration-link data-event-open hidden={state !== 'open'}>{r.button}<Icon name="arrow" size={18} /></a></div>
  <section class="section section--tight"><div class="container"><h2 class="visually-hidden">{page.detailsTitle}</h2><dl class="event-facts">
   <div><dt>{page.dateLabel}</dt><dd><time datetime={seminar.startAt}>{eventDate(locale)}</time></dd></div>
   <div><dt>{page.timeLabel}</dt><dd>{eventTime(locale)}<small>{page.timeNote}</small></dd></div>
@@ -26,17 +29,22 @@ const lead = withDate(page.lead,eventDate(locale));
   <div><dt>{page.costLabel}</dt><dd class="event-facts__free">{page.costValue}</dd></div>
  </dl></div></section>
  <section class="section section--paper2"><div class="container event-content">
-  <div><h2>{page.programTitle}</h2><p class="program-note">{page.programNote}</p><ol class="program">{page.program.map((item,i) => <li><span aria-hidden="true">{String(i+1).padStart(2,'0')}</span><p>{item}</p></li>)}</ol><p class="duration"><Icon name="clock" size={20} /><strong>{page.durationLabel}:</strong> {page.durationValue.replaceAll('{duration}',eventDuration(locale))}</p></div>
+  <div><h2>{page.programTitle}</h2>{page.programNote && <p class="program-note">{page.programNote}</p>}<ol class="program">{page.program.map((item,i) => <li><span aria-hidden="true">{String(i+1).padStart(2,'0')}</span><p>{item}</p></li>)}</ol><p class="duration"><Icon name="clock" size={20} /><strong>{page.durationLabel}:</strong> {page.durationValue.replaceAll('{duration}',eventDuration(locale))}</p></div>
   <aside class="registration edit-anchor" id="registration" data-event-status data-deadline={seminar.registrationDeadline} data-end={seminarEnd}>
-   <EditButton collection="system" entry="integrations" label="Ссылка регистрации" />
+   <EditButton collection="system" entry="integrations" label="Подключение регистрации" />
    <Icon name="calendar" size={36} /><h2>{r.title}</h2><p>{withDate(r.text,eventDate(locale,seminar.registrationDeadline))}</p>
-   <div data-event-open hidden={state !== 'open'}>{registrationUrl ? <><a class="btn btn--primary" data-registration-link href={registrationUrl} target="_blank" rel="noopener noreferrer">{r.button}<Icon name="arrow" size={18} /></a><p class="registration__note">{r.externalNote}</p></> : <p class="notice" data-registration-unavailable>{r.unavailable}</p>}</div>
+   <div data-event-open hidden={state !== 'open'}>
+    <RegistrationForm locale={locale} labels={r} endpoint={endpoint} />
+    {registrationUrl && <div class="registration__fallback"><a class="arrow-link" data-registration-link href={registrationUrl} target="_blank" rel="noopener noreferrer">{r.externalButton}<Icon name="arrow" size={18} /></a><p class="registration__note">{r.externalNote}</p></div>}
+   </div>
    <p class="notice" data-event-closed hidden={state !== 'closed'}>{r.closed}</p><p class="notice" data-event-ended hidden={state !== 'ended'}>{r.ended}</p>
   </aside>
  </div></section>
  <ContactBlock locale={locale} />
 </BaseLayout>
 <style>
+ .event-register-cta { padding-top:1.5rem; }
+ .registration__fallback { margin-top:1.75rem; padding-top:1.25rem; border-top:1px solid var(--line); }
  .event-facts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:2rem; margin:0; }
  .event-facts>div { min-width:0; border-top:1px solid var(--line); padding-top:1.25rem; }
  .event-facts dt { font-size:var(--text-xs); letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:.75rem; }
@@ -57,6 +65,6 @@ const lead = withDate(page.lead,eventDate(locale));
  .registration .btn { width:100%; margin-top:1.5rem; gap:.5rem; }
  .registration__note { margin-top:1rem; font-size:var(--text-xs); }
  .notice { font-size:var(--text-sm); background:var(--paper-2); padding:1rem; margin-top:1.5rem; border-left:2px solid var(--accent); }
- @media(min-width:52rem) { .event-content { grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:4rem; } .registration { position:sticky; top:7rem; } }
+ @media(min-width:52rem) { .event-content { grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:4rem; } .registration { position:relative; } }
  @media(min-width:66rem) { .event-facts { grid-template-columns:1.1fr .85fr .7fr 1.4fr .9fr; } }
 </style>

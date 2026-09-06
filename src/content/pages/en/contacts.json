@@ -22,12 +22,12 @@
   },
   "privacy": {
     "title": "How data is used",
-    "text": "Your name, email, phone number and message are used to respond to your enquiry. The data is sent to the connected form-processing service only when you press “Send”. Google Analytics loads only with your consent. You can change your choice in the analytics settings at the bottom of the page.",
+    "text": "Contact form data is used to respond to your enquiry. Seminar registration data is used to organise participation and send the joining link. Do not include confidential information in the forms. Before launch, the organiser must publish a full privacy notice identifying the data controller, retention periods and contact details for requests.",
     "policyLabel": "Privacy policy",
     "policyUrl": ""
   },
   "seo": {
-    "title": "Contact — Vikub Group",
+    "title": "Contact — VIKUB",
     "description": "Get in touch. Let’s discuss your project and how we can help."
   }
 }

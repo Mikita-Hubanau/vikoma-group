@@ -1,2 +1,2 @@
-export const locales = ['ru', 'it', 'en'];
-export const defaultLocale = 'ru';
+export const locales = ['it', 'en', 'ru'];
+export const defaultLocale = 'it';

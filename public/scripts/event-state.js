@@ -12,6 +12,10 @@ function updateEventState() {
     section.querySelectorAll('[data-event-archive]').forEach((item) => { item.hidden = open; });
     section.querySelectorAll('[data-event-closed]').forEach((item) => { item.hidden = open || ended; });
     section.querySelectorAll('[data-event-ended]').forEach((item) => { item.hidden = !ended; });
+    section.querySelectorAll('[data-registration-form]').forEach((form) => {
+      const fieldset = form.querySelector('fieldset');
+      if (fieldset && !open) fieldset.disabled = true;
+    });
     // Guard activation even if an already-focused link survives a clock change.
     section.querySelectorAll('[data-registration-link]').forEach((link) => {
       if (!open) link.setAttribute('aria-disabled', 'true');

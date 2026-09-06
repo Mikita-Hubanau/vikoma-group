@@ -18,7 +18,7 @@ const entry = await getEntry('notFoundPage', 'notfound');
 if (!entry) throw new Error('Нет файла src/content/system/notfound.json');
 const page = entry.data;
 
-const lines = page.texts.filter((l) => enabledLocales.includes(l.code));
+const lines = enabledLocales.flatMap((code) => page.texts.filter((line) => line.code === code));
 
 const t = useUI(locale);
 ---
@@ -44,7 +44,7 @@ const t = useUI(locale);
         }
       </div>
 
-      <nav class="notfound__nav" aria-label="Разделы сайта">
+      <nav class="notfound__nav" aria-label={t.primaryNavigation}>
         <a class="btn btn--primary" href={href('home', locale)}>{t.nav.home}</a>
         {
           navOrder.filter((key) => key !== 'home').map((key) => (
@@ -82,7 +82,7 @@ const t = useUI(locale);
     color: var(--body);
   }
 
-  /* русская строка крупнее — основной язык сайта */
+  /* итальянская строка крупнее — основной язык сайта */
   .notfound__line:first-child {
     font-size: var(--text-md);
     color: var(--ink);

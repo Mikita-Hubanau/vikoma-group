@@ -1,6 +1,6 @@
 {
   "company": {
-    "name": "Vikub Group",
+    "name": "VIKUB",
     "tagline": "Market entry in Belarus and the EAEU for Italian businesses"
   },
   "email": "",
@@ -11,7 +11,7 @@
       "title": "Office in Italy",
       "city": "Fano",
       "person": "Mario Ubaldi",
-      "address": "via Carlo Gozzi, 8, 61032 Fano (PU), Italy",
+      "address": "via Carlo Gozzi, 8\n61032 Fano (PU), Italy",
       "note": "Italy",
       "phone": "",
       "tel": "",
@@ -22,7 +22,7 @@
       "title": "Office in Belarus",
       "city": "Minsk",
       "person": "Viktoria Gubanova",
-      "address": "",
+      "address": "Minsk",
       "note": "Belarus",
       "phone": "",
       "tel": "",
@@ -48,7 +48,7 @@
       "shortName": "NAIP",
       "name": "NAIP — National Agency of Investment and Privatization of the Republic of Belarus",
       "icon": "building",
-      "description": "A government agency established to attract foreign direct investment into Belarus. It operates as a one-stop shop for investors.",
+      "description": "Government investment agency.",
       "logo": "",
       "href": ""
     },
@@ -57,34 +57,7 @@
       "shortName": "SDELKI V PLUS",
       "name": "SDELKI V PLUS LLC",
       "icon": "store",
-      "description": "A trade agency helping manufacturers enter Russia and Belarus through major retail chains. More than 20 retail chains and 60 wholesale buyers.",
-      "logo": "",
-      "href": ""
-    },
-    {
-      "id": "legal-by",
-      "shortName": "Legal · Belarus",
-      "name": "Belarusian law firm",
-      "icon": "scales",
-      "description": "Specialisations: corporate and tax law, company registration in Belarus, employment law, licensing and investor protection.",
-      "logo": "",
-      "href": ""
-    },
-    {
-      "id": "legal-it",
-      "shortName": "Legal · Italy",
-      "name": "Italian law firm",
-      "icon": "scales",
-      "description": "Specialisations: sanctions risks, international transaction structuring, cross-border law and foreign trade support.",
-      "logo": "",
-      "href": ""
-    },
-    {
-      "id": "payments",
-      "shortName": "Payment solutions",
-      "name": "Payment partner",
-      "icon": "card",
-      "description": "Banking support and alternative payment instruments for working with Belarus, including cryptocurrency solutions.",
+      "description": "Retail market entry in Russia and Belarus.",
       "logo": "",
       "href": ""
     }

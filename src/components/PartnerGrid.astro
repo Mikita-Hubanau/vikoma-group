@@ -18,10 +18,10 @@ const { partners } = await getSettings(locale);
 </ul>
 <style>
  .partner-grid { list-style:none; padding:0; display:grid; gap:0; }
- .partner-detail { display:grid; grid-template-columns:3rem 1fr; gap:1.5rem; padding-block:2rem; border-top:1px solid var(--line); }
+ .partner-detail { display:grid; grid-template-columns:3rem minmax(0,1fr); gap:1.5rem; padding-block:2rem; border-top:1px solid var(--line); }
  .partner-detail__mark { color:var(--accent); }
  .partner-detail img { object-fit:contain; width:100%; height:auto; }
  .partner-detail p { margin-top:.75rem; max-width:48rem; }
  .partner-detail h3 { max-width:45rem; }
- @media(min-width:52rem) { .partner-detail { grid-template-columns:8rem 1fr; gap:3rem; } }
+ @media(min-width:52rem) { .partner-detail { grid-template-columns:8rem minmax(0,1fr); gap:3rem; } }
 </style>

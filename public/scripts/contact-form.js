@@ -2,19 +2,22 @@
  * No SMTP secrets, localStorage of personal data, simulated success or silent retries.
  * The normal POST action still works without JavaScript once configured.
  */
-for (const form of document.querySelectorAll('[data-contact-form]')) {
+for (const form of document.querySelectorAll('[data-contact-form], [data-registration-form]')) {
   const button = form.querySelector('[data-submit-button]');
   const status = form.querySelector('[data-form-status]');
   const fieldset = form.querySelector('fieldset');
   if (!(form instanceof HTMLFormElement) || !button || !status || !fieldset) continue;
   let submitting = false;
+  let completed = false;
+  const registration = form.hasAttribute('data-registration-form');
   const message = (key, state = 'error') => {
     status.textContent = form.dataset[key] || form.dataset.error || '';
     status.dataset.state = state;
   };
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
-    if (submitting || form.dataset.configured !== 'true') return;
+    if (submitting || completed || form.dataset.configured !== 'true') return;
+    if (registration && Date.now() > Date.parse(form.dataset.deadline || '')) { message('closed'); return; }
     if (!form.reportValidity()) return;
     const payload = new FormData(form);
     if (String(payload.get('_gotcha') || '').trim()) { message('error'); return; }
@@ -51,6 +54,7 @@ for (const form of document.querySelectorAll('[data-contact-form]')) {
         message('uncertain'); return;
       }
       form.reset();
+      if (registration) { completed = true; fieldset.hidden = true; }
       message('success', 'success');
     } catch {
       // Timeouts and disconnected responses can happen after the server accepted
@@ -59,8 +63,8 @@ for (const form of document.querySelectorAll('[data-contact-form]')) {
     } finally {
       clearTimeout(timeout);
       submitting = false;
-      fieldset.disabled = false;
-      button.disabled = false;
+      fieldset.disabled = completed;
+      button.disabled = completed;
       button.textContent = form.dataset.submit || '';
       form.removeAttribute('aria-busy');
       status.focus({ preventScroll: true });

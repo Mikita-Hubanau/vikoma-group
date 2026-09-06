@@ -7,7 +7,7 @@ import { href } from '../lib/url';
 interface Props { locale: Locale; eyebrow: string; title: string; cards: { icon: string; title: string; text: string; anchor: string }[]; }
 const { locale, eyebrow, title, cards } = Astro.props;
 ---
-<section class="section edit-anchor">
+<section class="section home-services edit-anchor">
  <EditButton collection="pages" entry="home" label="Что мы делаем" />
  <div class="container"><SectionHead eyebrow={eyebrow} title={title} />
   <ul class="service-cards">{cards.map((card, i) => <li class="service-card"><div class="service-card__top"><Icon name={card.icon} size={32} /><span>{String(i+1).padStart(2,'0')}</span></div><h3><a href={`${href('services', locale)}#${card.anchor}`}>{card.title}</a></h3><p>{card.text}</p></li>)}</ul>

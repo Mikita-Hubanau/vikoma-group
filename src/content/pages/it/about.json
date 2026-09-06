@@ -3,7 +3,7 @@
   "lead": "Creiamo relazioni operative tra la produzione italiana e il mercato bielorusso. Status ufficiale, team internazionale e assistenza completa.",
   "mission": {
     "title": "La nostra missione",
-    "text": "Creiamo un percorso prevedibile e sicuro per le imprese italiane in Bielorussia e nell’Unione economica eurasiatica. Non siamo soltanto consulenti: siamo un ponte strategico che collega mercati, culture, persone e opportunità."
+    "text": "Conosciamo entrambe le realtà e aiutiamo le imprese italiane a entrare in contatto con le persone, le aziende e le istituzioni giuste. Le accompagniamo dalla comprensione del mercato a un contatto commerciale concreto e nelle fasi successive."
   },
   "team": {
     "title": "Il team",
@@ -12,21 +12,21 @@
         "name": "Mario Ubaldi",
         "initials": "MU",
         "role": "Italia · Consulenza aziendale",
-        "about": "Italiano, consulente aziendale con 20 anni di esperienza. È specializzato in finanziamenti, contributi e internazionalizzazione delle imprese italiane. Ha un’ampia base di clienti tra i produttori di diversi settori. Parla italiano, inglese, francese e portoghese.",
+        "about": "Italiano, consulente aziendale con 30 anni di esperienza. È specializzato in finanziamenti, contributi e internazionalizzazione delle imprese italiane. Ha un’ampia base di clienti tra i produttori di diversi settori. Parla italiano, inglese, francese e portoghese.",
         "photo": ""
       },
       {
         "name": "Viktoria Gubanova",
         "initials": "VG",
         "role": "Bielorussia · Sviluppo internazionale",
-        "about": "Bielorussa. Già direttrice di Planix Group in Bielorussia e rappresentante ufficiale dell’azienda finlandese Planix. Si è occupata dell’importazione di apparecchiature di grande formato e della creazione sistematica di relazioni tra imprese bielorusse e finlandesi: cercava partner bielorussi su richiesta di aziende finlandesi, organizzava fiere e seminari in Finlandia e collaborava con l’ambasciata finlandese. Oggi si dedica al mercato italiano.",
+        "about": "Esperta di comunicazione d’impresa internazionale e di relazioni interculturali. Nel corso di molti anni ha costruito con successo partnership tra aziende europee e il mercato bielorusso, organizzato fiere internazionali e missioni d’affari e seguito le trattative in ogni fase. Ha lavorato a stretto contatto con ambasciate e istituzioni pubbliche.",
         "photo": ""
       }
     ]
   },
   "status": {
-    "title": "Il nostro status e i nostri partner",
-    "text": "Rappresentanti ufficiali in Italia dell’Agenzia nazionale per gli investimenti e la privatizzazione della Repubblica di Bielorussia (NAIP).",
+    "title": "Status ufficiale",
+    "text": "Rappresentante ufficiale in Italia dell’Agenzia nazionale per gli investimenti e la privatizzazione della Repubblica di Bielorussia (NAIP).",
     "listTitle": "Questo ci dà accesso diretto a:",
     "items": [
       "imprese bielorusse e alle loro esigenze concrete",
@@ -34,7 +34,7 @@
       "informazioni su agevolazioni, incentivi e sostegno pubblico",
       "opportunità di organizzare incontri con le istituzioni pubbliche"
     ],
-    "retail": "Il nostro partner strategico per la grande distribuzione è la società «SDELKI V PLUS», un’agenzia commerciale con relazioni consolidate con oltre 20 catene commerciali e 60 acquirenti all’ingrosso in Russia e Bielorussia."
+    "retail": "Il nostro partner per l’accesso alla grande distribuzione in Russia e Bielorussia è la società «SDELKI V PLUS»."
   },
   "approach": {
     "title": "Perché sceglierci",
@@ -70,7 +70,14 @@
     "eyebrow": "Lavoriamo insieme"
   },
   "seo": {
-    "title": "Chi siamo — Vikub Group",
+    "title": "Chi siamo — VIKUB",
     "description": "Creiamo relazioni operative tra la produzione italiana e il mercato bielorusso. Status ufficiale, team internazionale e assistenza completa."
+  },
+  "experts": {
+    "title": "La nostra rete di esperti",
+    "text": "Per affrontare esigenze specifiche coinvolgiamo specialisti di fiducia: avvocati, commercialisti, esperti di logistica e interpreti. Questo ci consente di rimanere flessibili e offrire ai clienti soltanto le competenze di cui hanno realmente bisogno.",
+    "people": [
+      "Olga Skrebnevskaya"
+    ]
   }
 }

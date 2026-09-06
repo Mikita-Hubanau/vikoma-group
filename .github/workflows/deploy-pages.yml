@@ -53,6 +53,7 @@ jobs:
           BASE_PATH: ${{ steps.pages.outputs.base_path }}
           PUBLIC_GOOGLE_ANALYTICS_ID: ${{ vars.PUBLIC_GOOGLE_ANALYTICS_ID }}
           PUBLIC_CONTACT_FORM_ENDPOINT: ${{ vars.PUBLIC_CONTACT_FORM_ENDPOINT }}
+          PUBLIC_REGISTRATION_FORM_ENDPOINT: ${{ vars.PUBLIC_REGISTRATION_FORM_ENDPOINT }}
           PUBLIC_REGISTRATION_URL: ${{ vars.PUBLIC_REGISTRATION_URL }}
         run: npm run build
 

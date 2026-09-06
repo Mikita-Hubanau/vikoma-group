@@ -7,11 +7,11 @@ const problems = [];
 const missing = [];
 const assert = (ok, text) => { if (!ok) problems.push(text); };
 const pageNames = ['home','about','services','events','contacts'];
-const requiredPartners = ['naip','retail','legal-by','legal-it','payments'];
+const requiredPartners = ['naip','retail'];
 const requiredServices = ['market-research','retail','legal','payments','specialists'];
 const routes = {
- ru:['index','o-kompanii','uslugi','meropriyatiya','kontakty'],
- it:['it/index','it/azienda','it/servizi','it/eventi','it/contatti'],
+ ru:['ru/index','ru/o-kompanii','ru/uslugi','ru/meropriyatiya','ru/kontakty'],
+ it:['index','azienda','servizi','eventi','contatti'],
  en:['en/index','en/about','en/services','en/events','en/contacts'],
 };
 const keys = (value, prefix='') => Object.entries(value).flatMap(([key,v]) => {
@@ -28,9 +28,14 @@ try {
    googleAnalyticsId:process.env.PUBLIC_GOOGLE_ANALYTICS_ID || base.googleAnalyticsId,
    contactFormEndpoint:process.env.PUBLIC_CONTACT_FORM_ENDPOINT || base.contactFormEndpoint,
    registrationUrl:process.env.PUBLIC_REGISTRATION_URL || base.registrationUrl,
+   registrationFormEndpoint:process.env.PUBLIC_REGISTRATION_FORM_ENDPOINT || base.registrationFormEndpoint,
  });
  validateSeminar(json('src/content/system/seminar.json'));
- for (const [key,value] of Object.entries(integrations)) if (!value) missing.push(key);
+ for (const key of ['googleAnalyticsId', 'contactFormEndpoint']) if (!integrations[key]) missing.push(key);
+ if (!integrations.registrationFormEndpoint && !integrations.contactFormEndpoint) missing.push('registrationFormEndpoint (or contactFormEndpoint)');
+ const design=json('src/content/system/design.json');
+ assert(['original','editorial','atlas','signature','grid'].includes(design.defaultDesign),'Неизвестный дизайн по умолчанию');
+ assert(typeof design.showSwitcher==='boolean','Неверное значение showSwitcher');
 } catch(error) { problems.push(error.message); }
 for (const locale of locales) {
  for (let i=0;i<pageNames.length;i++) {
@@ -41,7 +46,7 @@ for (const locale of locales) {
   const data=json(file), reference=json(`src/content/pages/ru/${name}.json`);
   assert(keys(data)===keys(reference),`Структура перевода расходится: ${file}`);
   assert(Boolean(data.seo?.title && data.seo?.description),`Пустой SEO-блок: ${file}`);
-  assert(!/Vikoma|vikoma\.by|000-00-00|60 реализованных/.test(JSON.stringify(data)),`Старая заглушка в ${file}`);
+  assert(!/Vikoma|vikoma\.by|Vikub Group|Young Platform|UniCredit|BPER|Sondrio|Planix|11:00|000-00-00|60 реализованных/i.test(JSON.stringify(data)),`Старая заглушка в ${file}`);
   if (name==='home') {
    assert(data.whatWeDo.cards.length===4,`${locale}: на главной нужны 4 услуги`);
    assert(data.stats.items.length===4,`${locale}: нужны 4 факта`);
@@ -49,10 +54,10 @@ for (const locale of locales) {
    assert(data.whatWeDo.cards.every((card)=>requiredServices.includes(card.anchor)),`${locale}: неизвестные ссылки на услуги`);
   }
   if (name==='about') assert(data.team.people.length===2,`${locale}: в ТЗ 2 участника команды`);
-  if (name==='events') assert(data.program.length>0 && data.registration.unavailable,`${locale}: программа или статус регистрации пусты`);
+  if (name==='events') assert(data.program.length===8 && data.registration.unavailable,`${locale}: программа или статус регистрации пусты`);
  }
  const settings=json(`src/content/settings/${locale}.json`);
- assert(settings.company.name==='Vikub Group',`${locale}: неправильное название компании`);
+ assert(settings.company.name==='VIKUB',`${locale}: неправильное название компании`);
  assert(settings.partners.map(p=>p.id).join('|')===requiredPartners.join('|'),`${locale}: неправильный состав партнёров`);
  assert(settings.offices.map(o=>o.id).join('|')==='italy|belarus',`${locale}: порядок офисов отличается от ТЗ`);
  for (const office of settings.offices) {
@@ -74,6 +79,7 @@ for (const locale of locales) {
   if (!partner.logo) { if(locale==='ru') missing.push(`partner.${partner.id}.logo`); }
   else assert(existsSync(partner.logo.replace(/^\/media\//,'src/assets/media/')),`${locale}: логотип не найден: ${partner.logo}`);
  }
+ if(locale==='ru' && !json(`src/content/pages/${locale}/contacts.json`).privacy.policyUrl) missing.push('privacy.policyUrl');
  for (const person of json(`src/content/pages/${locale}/about.json`).team.people) {
   if (person.photo) assert(existsSync(person.photo.replace(/^\/media\//,'src/assets/media/')),`${locale}: фото не найдено: ${person.photo}`);
  }

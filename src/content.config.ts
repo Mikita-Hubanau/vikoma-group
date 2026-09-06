@@ -15,7 +15,7 @@ const process = z.object({ eyebrow: z.string(), title: z.string(), steps: z.arra
 const sectionTitle = z.object({ title: z.string(), eyebrow: z.string() }).strict();
 const blankEmail = z.union([z.literal(''), z.string().email()]).default('');
 const httpsLink = z.union([z.literal(''), z.string().url().refine((s) => s.startsWith('https://'), 'Нужна ссылка https://')]).default('');
-const partner = z.object({ id: z.enum(['naip','retail','legal-by','legal-it','payments']), shortName: z.string(), name: z.string(), icon, description: z.string(), logo: z.string().default(''), href: httpsLink.default('') }).strict();
+const partner = z.object({ id: z.enum(['naip','retail']), shortName: z.string(), name: z.string(), icon, description: z.string(), logo: z.string().default(''), href: httpsLink.default('') }).strict();
 
 const settings = defineCollection({
   loader: glob({ pattern: 'settings/*.json', base: BASE, generateId: idFromFileName }),
@@ -28,7 +28,7 @@ const settings = defineCollection({
     offices: z.array(z.object({ id: z.enum(['italy','belarus']), title: z.string(), city: z.string(), person: z.string(), address: z.string().default(''), note: z.string(), phone: z.string().default(''), tel: z.union([z.literal(''),z.string().regex(/^\+[0-9]{7,15}$/)]).default(''), email: blankEmail }).strict()).length(2),
     legal: z.array(z.object({ label: z.string(), value: z.string() }).strict()).default([]),
     socials: z.array(z.object({ type: z.enum(['linkedin','telegram']), label: z.string(), href: httpsLink }).strict()).length(2),
-    partners: z.array(partner).length(5),
+    partners: z.array(partner).length(2),
   }).strict(),
 });
 const homePage = defineCollection({
@@ -49,6 +49,7 @@ const aboutPage = defineCollection({
   schema: z.object({ seo, title: z.string(), lead: z.string(),
     mission: z.object({ title: z.string(), text: z.string() }).strict(),
     team: z.object({ title: z.string(), people: z.array(z.object({ name: z.string(), initials: z.string(), role: z.string(), about: z.string(), photo: z.string().default('') }).strict()).length(2) }).strict(),
+    experts: z.object({ title: z.string(), text: z.string(), people: z.array(z.string()) }).strict(),
     status: z.object({ title: z.string(), text: z.string(), listTitle: z.string(), items: z.array(z.string()), retail: z.string() }).strict(),
     approach: textItems, partners: sectionTitle,
   }).strict(),
@@ -67,7 +68,7 @@ const eventsPage = defineCollection({
     detailsTitle: z.string(), dateLabel: z.string(), timeLabel: z.string(), timeNote: z.string(),
     formatLabel: z.string(), formatValue: z.string(), languageLabel: z.string(), languageValue: z.string(), languageNote: z.string(), costLabel: z.string(), costValue: z.string(),
     programTitle: z.string(), programNote: z.string(), program: z.array(z.string()).min(1), durationLabel: z.string(), durationValue: z.string(),
-    registration: z.object({ title: z.string(), text: z.string(), button: z.string(), externalNote: z.string(), unavailable: z.string(), closed: z.string(), ended: z.string() }).strict(),
+    registration: z.object({ title: z.string(), text: z.string(), button: z.string(), externalNote: z.string(), externalButton: z.string(), unavailable: z.string(), closed: z.string(), ended: z.string(), firstName: z.string(), lastName: z.string(), company: z.string(), email: z.string(), phone: z.string(), requiredNote: z.string(), consent: z.string(), privacyLink: z.string(), sending: z.string(), success: z.string(), error: z.string(), uncertain: z.string(), rateLimited: z.string(), validationError: z.string() }).strict(),
   }).strict(),
 });
 const contactsPage = defineCollection({
