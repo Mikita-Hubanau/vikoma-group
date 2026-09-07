@@ -1,24 +1,40 @@
 {
-  "title": "Contattateci",
-  "lead": "Parliamo del vostro progetto e di come possiamo esservi utili.",
+  "title": "Contattaci",
+  "lead": "",
   "form": {
-    "title": "Modulo di contatto",
-    "lead": "Scriveteci: risponderemo entro 24 ore.",
+    "title": "Raccontaci la tua esigenza",
+    "lead": "Ingresso in un mercato, ricerca di partner, investimenti, acquisti in Italia. Ti contatteremo per discutere i prossimi passi. Se il progetto non rientra nelle nostre competenze, te lo diremo con sincerità.",
     "name": "Nome",
     "email": "Email",
     "phone": "Telefono",
     "message": "Messaggio",
-    "requiredNote": "* Campi obbligatori. Il numero di telefono è facoltativo.",
-    "consent": "Acconsento all’utilizzo dei dati indicati per rispondere alla mia richiesta.",
+    "requiredNote": "Tutti i campi sono obbligatori. È richiesto il consenso al trattamento dei dati.",
+    "consent": "Acconsento al trattamento dei miei dati personali.",
     "privacyLink": "Come vengono utilizzati i dati",
-    "submit": "Invia",
+    "submit": "Invia la richiesta",
     "sending": "Invio in corso…",
     "success": "Messaggio ricevuto. Risponderemo entro 24 ore.",
     "error": "Impossibile inviare il messaggio. Il testo rimane nel modulo. Riprovate più tardi.",
     "uncertain": "Non è stato possibile confermare l’invio. Il messaggio potrebbe essere stato ricevuto; prima di riprovare, verificate i canali di contatto disponibili.",
     "rateLimited": "Troppi tentativi. Riprovate più tardi.",
     "validationError": "Controllate i campi del modulo e riprovate.",
-    "unavailable": "Il modulo non è ancora collegato. L’invio dei messaggi è temporaneamente indisponibile."
+    "unavailable": "Il modulo non è ancora collegato. L’invio dei messaggi è temporaneamente indisponibile.",
+    "followUp": "",
+    "company": "Azienda",
+    "service": "Come possiamo aiutarti?",
+    "servicePlaceholder": "Seleziona un’opzione",
+    "directEmail": "Puoi anche scriverci via email:",
+    "services": [
+      "Ingresso nel mercato bielorusso",
+      "Ingresso nel mercato russo / UEE",
+      "Ricerca di partner commerciali",
+      "Investimenti in Bielorussia / UEE",
+      "Ricerca di un fornitore / produttore in Italia",
+      "Ricerca di prodotti / attrezzature in Italia",
+      "Valutazione delle prospettive del mio progetto",
+      "Altro"
+    ],
+    "responseNote": "Di solito rispondiamo entro 24 ore."
   },
   "privacy": {
     "title": "Utilizzo dei dati",
@@ -29,5 +45,12 @@
   "seo": {
     "title": "Contatti — VIKUB",
     "description": "Contattateci. Parliamo del vostro progetto e di come possiamo esservi utili."
-  }
+  },
+  "contactsLabel": "Contatti",
+  "italy": "Italia",
+  "belarus": "Bielorussia",
+  "email": "Email",
+  "socialTitle": "Social network",
+  "socialPending": "I link saranno aggiunti dopo la conferma.",
+  "pendingLabel": "link non ancora pubblicato"
 }

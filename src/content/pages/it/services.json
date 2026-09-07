@@ -3,28 +3,40 @@
     "title": "Servizi — VIKUB",
     "description": "VIKUB accompagna le imprese italiane nei mercati della Bielorussia e dell’Unione economica eurasiatica: analisi, investimenti, distribuzione, assistenza legale e pagamenti."
   },
-  "title": "Cosa facciamo per la vostra impresa",
-  "lead": "Non vendiamo prodotti. Creiamo relazioni operative tra imprese e mercati.",
+  "title": "Cosa facciamo",
+  "lead": "Aiutiamo le imprese italiane a comprendere i mercati, trovare partner e valutare i rischi — prima di prendere una decisione.",
   "howWeWork": {
     "eyebrow": "Come lavoriamo",
-    "title": "Dal primo incontro all’assistenza continuativa",
+    "title": "Come lavoriamo",
     "steps": [
       {
-        "title": "Primo contatto",
-        "text": "Parliamo del vostro prodotto e dei vostri obiettivi. Gratuitamente."
+        "title": "Primo incontro",
+        "text": "Discutiamo il vostro obiettivo, il prodotto e le aspettative."
       },
       {
         "title": "Analisi",
-        "text": "Valutiamo le prospettive e proponiamo una strategia."
+        "text": "Esaminiamo la richiesta, valutiamo tutti i requisiti normativi ed escludiamo gli scenari irrealistici."
       },
       {
-        "title": "Operatività",
-        "text": "Cerchiamo partner, conduciamo trattative e formalizziamo l’accordo."
+        "title": "Ricerca di opportunità",
+        "text": "Individuiamo progetti e partner coerenti con la vostra strategia."
       },
       {
-        "title": "Assistenza",
-        "text": "Restiamo in contatto e vi affianchiamo dopo la prima fornitura."
+        "title": "Contatti",
+        "text": "Organizziamo incontri e vi prepariamo alle trattative."
+      },
+      {
+        "title": "Realizzazione",
+        "text": "Coinvolgiamo gli esperti e affianchiamo l’operazione fino alla conclusione."
       }
+    ]
+  },
+  "expertSupport": {
+    "eyebrow": "Supporto specialistico",
+    "title": "Avvocati, fiscalisti e specialisti della logistica — per il vostro progetto",
+    "paragraphs": [
+      "Non offriamo consigli generici. Per ogni esigenza formiamo un gruppo di specialisti: avvocati italiani e bielorussi, consulenti fiscali, contabili, esperti di certificazione e logistica.",
+      "Sono tutti professionisti verificati e con molti collaboriamo da anni. Non ricevete soltanto una consulenza, ma un gruppo di progetto pronto a lavorare."
     ]
   }
 }

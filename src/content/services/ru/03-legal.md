@@ -1,4 +1,5 @@
 ---
+archived: true
 title: Юридическая поддержка
 order: 3
 anchor: legal

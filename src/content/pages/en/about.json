@@ -1,9 +1,9 @@
 {
-  "title": "An international consulting hub for entering Belarus and the EAEU",
-  "lead": "We build working connections between Italian manufacturing and the Belarusian market. Official status, an international team and end-to-end support.",
+  "title": "An international consulting hub for entering the markets of Belarus and the EAEU",
+  "lead": "We help Italian businesses understand markets, find partners and assess risks — before making a decision.",
   "mission": {
-    "title": "Our mission",
-    "text": "We understand both sides of the market and help Italian companies connect with the right people, businesses and institutions. We support the journey from understanding a market to making a concrete business contact and working together further."
+    "title": "Why VIKUB",
+    "text": "VIKUB is not an acronym. It is our names and our lives: we are a family, an Italian and a Belarusian, living in both countries. We do not study markets only through reports — we work in them every day."
   },
   "team": {
     "title": "Our team",
@@ -11,15 +11,22 @@
       {
         "name": "Mario Ubaldi",
         "initials": "MU",
-        "role": "Italy · Business consulting",
-        "about": "Italian business consultant with 30 years of experience. He specialises in financing, grants and the internationalisation of Italian companies. He speaks Italian, English, French and Portuguese.",
+        "role": "Italy · Business consultant",
+        "about": "For 30 years, we have helped companies grow through financing, grants and internationalisation. Languages: Italian, English, French and Portuguese.",
         "photo": ""
       },
       {
-        "name": "Viktoria Gubanova",
-        "initials": "VG",
-        "role": "Belarus · International business development",
-        "about": "An expert in international business communication and cross-cultural relationships. She has built partnerships between European companies and the Belarusian market, organised exhibitions and business missions, and worked with embassies and government institutions.",
+        "name": "Viktoryia Hubanava",
+        "initials": "VH",
+        "role": "International business communications expert",
+        "about": "For 17 years, I have built partnerships between Europe and Belarus. Trade fairs, business missions and negotiations with embassies and public authorities. Russian, English; currently learning Italian.",
+        "photo": ""
+      },
+      {
+        "name": "Olga Skrebnevskaya",
+        "initials": "OS",
+        "role": "Professional interpreter (Italian, Russian, English)",
+        "about": "20 years of experience. Specialises in consecutive interpreting and legal and business communication. Has worked with the Embassy of Italy in Belarus and dozens of Italian delegations.",
         "photo": ""
       }
     ]
@@ -71,11 +78,13 @@
   },
   "seo": {
     "title": "About us — VIKUB",
-    "description": "We build working connections between Italian manufacturing and the Belarusian market. Official status, an international team and end-to-end support."
+    "description": "We build practical bridges between Italian manufacturers and Belarusian markets. Official status, an international team and real experience."
   },
   "experts": {
-    "title": "Our expert network",
-    "text": "For each project, we engage trusted specialists: lawyers, accountants, logistics professionals and interpreters. This allows us to offer clients only the expertise they actually need.",
+    "eyebrow": "Professional network",
+    "title": "Trusted experts — for your task",
+    "text": "We do not keep lawyers and accountants on staff, but have a network of reliable specialists whom we bring in as needed. You pay only for what you actually use.",
     "people": []
-  }
+  },
+  "subtitle": "We build practical bridges between Italian manufacturers and Belarusian markets. Official status, an international team and real experience."
 }

@@ -1,4 +1,5 @@
 ---
+archived: true
 title: Legal support
 order: 3
 anchor: legal

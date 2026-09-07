@@ -1,4 +1,5 @@
 ---
+archived: true
 title: Infrastruttura dei pagamenti e regolamenti internazionali
 order: 4
 anchor: payments

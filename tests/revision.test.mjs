@@ -4,17 +4,15 @@ import { readFileSync } from 'node:fs';
 import { validateIntegrations } from '../src/lib/config-validation.mjs';
 const text=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
 const json=p=>JSON.parse(text(p));
-const designs=['signature','balance','editorial','atlas','panorama'];
-test('five Signature layouts, previous design 04 preserved as default',()=>{
- const config=json('src/content/system/design.json');assert.equal(config.defaultDesign,'signature');assert.equal(config.showSwitcher,true);
- for(const id of designs){assert.ok(text('src/lib/design.ts').includes(`'${id}'`));assert.ok(text('public/scripts/design-switcher.js').includes(`'${id}'`));}
- for(const id of designs.slice(1))assert.match(text('src/styles/designs.css'),new RegExp(`html#vikub-site\\[data-design='${id}'\\] \\.hero`));
- assert.ok(!/linear-gradient|radial-gradient/.test(text('src/styles/designs.css')));
- assert.ok(text('src/layouts/BaseLayout.astro').includes('id="vikub-site"')); // Required specificity anchor for scoped component CSS.
+test('only the approved second layout is enabled',()=>{
+ const config=json('src/content/system/design.json');assert.equal(config.defaultDesign,'balance');assert.equal(config.showSwitcher,false);
+ assert.ok(text('src/layouts/BaseLayout.astro').includes('id="vikub-site"'));
+ assert.match(text('src/lib/design.ts'),/defaultDesign: 'balance'/);
+ assert.doesNotMatch(text('src/styles/designs.css'),/linear-gradient|radial-gradient/);
 });
-test('head applies saved design before paint, UI buttons are accessible',()=>{
- assert.ok(text('src/layouts/BaseLayout.astro').includes("localStorage.getItem('vikub-design')"));
- const buttons=text('src/components/DesignSwitcher.astro');assert.ok(buttons.includes('aria-pressed'));assert.ok(buttons.includes('aria-live="polite"'));assert.ok(buttons.includes('type="button"'));
+test('old local preferences cannot override the fixed layout',()=>{
+ assert.doesNotMatch(text('src/layouts/BaseLayout.astro'),/localStorage.getItem|URLSearchParams|design-switcher/);
+ assert.doesNotMatch(text('src/components/Header.astro'),/DesignSwitcher/);
 });
 test('dedicated registration endpoint validates HTTPS and credentials',()=>{
  assert.equal(validateIntegrations({registrationFormEndpoint:'https://forms.example.com/register'}).registrationFormEndpoint,'https://forms.example.com/register');
@@ -31,15 +29,15 @@ test('registration is never a mock success; deadline and repeat submission guard
 });
 for(const locale of ['it','en','ru']){
  test(`${locale}: final team, separate expert network, two partners`,()=>{
-  const a=json(`src/content/pages/${locale}/about.json`);assert.equal(a.team.people.length,2);assert.match(a.team.people[0].about,/30/);assert.deepEqual(a.experts.people,[]);assert.ok(a.experts.text);assert.equal(a.status.items.length,4);
+  const a=json(`src/content/pages/${locale}/about.json`);assert.equal(a.team.people.length,3);assert.match(a.team.people[0].about,/30/);assert.deepEqual(a.experts.people,[]);assert.ok(a.experts.text);assert.equal(a.status.items.length,4);
   assert.deepEqual(json(`src/content/settings/${locale}.json`).partners.map(p=>p.id),['naip','retail']);
  });
- test(`${locale}: eight final agenda items, Zoom and success copy`,()=>{
-  const e=json(`src/content/pages/${locale}/events.json`);assert.equal(e.program.length,8);assert.equal(e.programNote,'');assert.ok(e.formatValue.includes('Zoom'));assert.ok(e.registration.success.includes('3–4'));assert.ok(e.seo.description.includes('10:00'));
+ test(`${locale}: eight preserved agenda items, grouped topics and success copy`,()=>{
+  const e=json(`src/content/pages/${locale}/events.json`);assert.equal(e.program.length,8);assert.ok(e.programNote);assert.equal(e.programGroups.length,3);assert.ok(e.formatValue);assert.ok(e.registration.success.includes('3–4'));assert.ok(e.seo.description.includes('10:00'));
  });
  test(`${locale}: stale brand, payment names and old team claims are absent`,()=>{
   const contents=['home','about','services','events','contacts'].map(name=>text(`src/content/pages/${locale}/${name}.json`)).join('\n')+text(`src/content/settings/${locale}.json`)+text(`src/content/services/${locale}/04-payments.md`);
-  assert.doesNotMatch(contents,/Vikub Group|Young Platform|UniCredit|Banca Popolare|BPER|Planix|11:00|20-лет|20 years|20 anni|guarantee|гарантируем/i);
+  assert.doesNotMatch(contents,/Vikub Group|Young Platform|UniCredit|Banca Popolare|BPER|Planix|11:00|guarantee|гарантируем/i);
  });
 }
 test('Russian registration confirmation matches the brief exactly',()=>assert.equal(json('src/content/pages/ru/events.json').registration.success,'Спасибо за регистрацию. Ссылка для подключения будет отправлена за 3–4 дня до семинара.'));

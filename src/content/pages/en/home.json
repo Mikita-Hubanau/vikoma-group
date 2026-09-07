@@ -1,15 +1,15 @@
 {
   "seo": {
     "title": "VIKUB — Market entry in Belarus and the EAEU for Italian businesses",
-    "description": "VIKUB helps Italian businesses enter Belarus and the EAEU through market research, partner search, legal support and retail market entry."
+    "description": "We seek out and find sales markets, partners and investment opportunities for you in Belarus and the EAEU."
   },
   "hero": {
     "eyebrow": "Italy · Belarus · EAEU",
     "titleLines": [
-      "Belarus and the EAEU",
-      "for Italian businesses."
+      "Bringing Italian businesses",
+      "to the markets of Belarus, Russia and the EAEU"
     ],
-    "lead": "Market research, partner search, legal support and retail market entry: we cover every stage. Official NAIP representatives in Italy.",
+    "lead": "We seek out and find sales markets, partners and investment opportunities for you in Belarus and the EAEU.",
     "cta": {
       "label": "Learn more",
       "page": "services"
@@ -41,38 +41,40 @@
     "cards": [
       {
         "icon": "chart",
-        "title": "Market research and investment",
-        "text": "Analysis, partner search and government support through NAIP",
-        "anchor": "market-research"
+        "title": "Investing in Belarus — a way into the EAEU",
+        "text": "We help Italian companies invest in Belarus and use it as a base to enter the Eurasian Economic Union market (over 180 million people).",
+        "anchor": "market-research",
+        "items": [
+          "Assess the prospects and risks of each project.",
+          "Find suitable investment opportunities.",
+          "Arrange direct contact with key stakeholders."
+        ],
+        "partnerId": "naip",
+        "partnerLabel": "NAIP (official representation in Italy)"
       },
       {
         "icon": "store",
-        "title": "Retail market entry",
-        "text": "Supplies to retail chains in Belarus and Russia through our partner SDELKI V PLUS",
-        "anchor": "retail"
-      },
-      {
-        "icon": "scales",
-        "title": "Legal support",
-        "text": "Belarusian and Italian law firms: sanctions, taxes and business registration",
-        "anchor": "legal"
-      },
-      {
-        "icon": "card",
-        "title": "Payment infrastructure and international settlements",
-        "text": "Advice on banking and cross-border support, taking current restrictions into account.",
-        "anchor": "payments"
+        "title": "Retail in Belarus and Russia",
+        "text": "We bring Italian products into retail networks in both countries. We handle buyer searches, negotiations, logistics and certification — from the first contact to shipment.",
+        "anchor": "retail",
+        "items": [
+          "Find wholesale customers and retail chains.",
+          "Support transactions at every stage.",
+          "Handle certification and documentation."
+        ],
+        "partnerId": "retail",
+        "partnerLabel": "«СДЕЛКИ В ПЛЮС» (20+ chains and 60+ wholesalers)"
       }
-    ]
+    ],
+    "itemsLabel": "What we do:"
   },
   "about": {
-    "eyebrow": "About us",
-    "title": "Two markets. One team.",
+    "eyebrow": "Who we are",
+    "title": "Who we are",
     "paragraphs": [
-      "VIKUB is an international consulting and business development hub specialising in helping Italian companies enter the markets of Belarus and the Eurasian Economic Union (EAEU).",
-      "We are the official representatives of the National Agency of Investment and Privatization of the Republic of Belarus (NAIP) in Italy. This gives us direct access to government support tools, up-to-date analysis and Belarusian businesses.",
-      "Our team combines Italian and Belarusian expertise: Mario Ubaldi is a business consultant with 30 years of experience; Viktoria Gubanova is an expert in international business communication and cross-cultural relationships.",
-      "We help companies move from understanding the market to a concrete business contact and ongoing support. We work with businesses in different sectors according to their needs."
+      "VIKUB is an international consulting hub.",
+      "We are husband and wife, an Italian and a Belarusian. We live and work in both countries. We know the business cultures, legislation and markets of Italy, Belarus and the EAEU from the inside.",
+      "We are official representatives of NAIP in Italy."
     ],
     "cta": {
       "label": "More about us",
@@ -90,42 +92,43 @@
     },
     "archiveCta": "Seminar details"
   },
-  "stats": {
-    "eyebrow": "Why us",
-    "items": [
-      {
-        "value": "30",
-        "suffix": "years",
-        "label": "of Mario’s experience in Italian business",
-        "kind": "number"
-      },
-      {
-        "value": "2",
-        "suffix": "markets",
-        "label": "understanding the Italian and Belarusian business environments",
-        "kind": "number"
-      },
-      {
-        "value": "3",
-        "suffix": "languages",
-        "label": "Russian, Italian and English",
-        "kind": "number"
-      },
-      {
-        "value": "Official status",
-        "suffix": "",
-        "label": "NAIP representatives in Italy",
-        "kind": "text"
-      }
-    ]
-  },
   "partners": {
     "title": "Our partners",
     "eyebrow": "Working together"
   },
   "contact": {
-    "title": "Get in touch",
-    "text": "Ready to discuss your project. Write to us and we will reply within 24 hours.",
-    "label": "Go to contact page"
+    "title": "Ready to discuss your project?",
+    "text": "Tell us about your idea. We will assess its prospects and tell you whether we can help. If not, we will say so honestly.",
+    "label": "Discuss your project"
+  },
+  "why": {
+    "title": "Why VIKUB",
+    "items": [
+      {
+        "icon": "globe",
+        "title": "We know both markets from the inside",
+        "text": "Through day-to-day work, not just reports."
+      },
+      {
+        "icon": "network",
+        "title": "Direct contacts",
+        "text": "We have access to the right people in Belarus and Italy."
+      },
+      {
+        "icon": "building",
+        "title": "Official status",
+        "text": "We represent NAIP, a state agency, giving us access to verified information and direct contacts."
+      },
+      {
+        "icon": "chart",
+        "title": "An integrated approach",
+        "text": "We support projects from analysis to implementation, bringing in specialists for each task."
+      }
+    ]
+  },
+  "belarus": {
+    "title": "For Belarusian companies",
+    "text": "VIKUB helps Belarusian businesses find Italian manufacturers, equipment, technologies and partners.",
+    "label": "Send an enquiry"
   }
 }

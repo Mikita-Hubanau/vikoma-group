@@ -17,7 +17,6 @@ import { getSettings } from '../lib/content';
 import { asset } from '../lib/url';
 import { findMediaUrl } from '../lib/images';
 import { useUI } from '../i18n/ui';
-import EditMode from '../components/edit/EditMode.astro';
 
 interface Props {
   /** Заголовок вкладки и результата в поиске */
@@ -72,18 +71,6 @@ const organization = JSON.stringify({
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <script is:inline>
-      (() => {
-        const allowed = ['signature', 'balance', 'editorial', 'atlas', 'panorama'];
-        const root = document.documentElement;
-        let stored = '';
-        try { stored = localStorage.getItem('vikub-design') || ''; } catch {}
-        const requested = new URLSearchParams(location.search).get('design');
-        const design = allowed.includes(requested) ? requested : allowed.includes(stored) ? stored : root.dataset.design;
-        if (allowed.includes(design)) root.dataset.design = design;
-        if (allowed.includes(requested)) { try { localStorage.setItem('vikub-design', requested); } catch {} }
-      })();
-    </script>
 
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -133,14 +120,12 @@ const organization = JSON.stringify({
 
   <body>
     <a class="skip-link" href="#main">{t.skipToContent}</a>
-    <Header locale={locale} page={page} showDesigns={!noindex} />
+    <Header locale={locale} page={page} />
     <main id="main" tabindex="-1" data-page={page}>
       <slot />
     </main>
     <Footer locale={locale} analyticsEnabled={!noindex} />
     {!noindex && <Analytics locale={locale} />}
     {(page === 'home' || page === 'events') && !noindex && <script is:inline type="module" src={asset('/scripts/event-state.js')}></script>}
-    <script is:inline type="module" src={asset('/scripts/design-switcher.js')}></script>
-    <EditMode />
   </body>
 </html>

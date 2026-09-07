@@ -8,7 +8,7 @@ const missing = [];
 const assert = (ok, text) => { if (!ok) problems.push(text); };
 const pageNames = ['home','about','services','events','contacts'];
 const requiredPartners = ['naip','retail'];
-const requiredServices = ['market-research','retail','legal','payments','specialists'];
+const requiredServices = ['market-research','retail'];
 const routes = {
  ru:['ru/index','ru/o-kompanii','ru/uslugi','ru/meropriyatiya','ru/kontakty'],
  it:['index','azienda','servizi','eventi','contatti'],
@@ -34,8 +34,8 @@ try {
  for (const key of ['googleAnalyticsId', 'contactFormEndpoint']) if (!integrations[key]) missing.push(key);
  if (!integrations.registrationFormEndpoint && !integrations.contactFormEndpoint) missing.push('registrationFormEndpoint (or contactFormEndpoint)');
  const design=json('src/content/system/design.json');
- assert(['signature','balance','editorial','atlas','panorama'].includes(design.defaultDesign),'Неизвестный дизайн по умолчанию');
- assert(typeof design.showSwitcher==='boolean','Неверное значение showSwitcher');
+ assert(design.defaultDesign==='balance','Единственный макет должен быть Balance');
+ assert(design.showSwitcher===false,'Переключатель макетов должен быть отключён');
 } catch(error) { problems.push(error.message); }
 for (const locale of locales) {
  for (let i=0;i<pageNames.length;i++) {
@@ -49,13 +49,19 @@ for (const locale of locales) {
   assert(!/Vikoma|vikoma\.by|Vikub Group|Young Platform|UniCredit|BPER|Sondrio|Planix|11:00|000-00-00|60 реализованных/i.test(JSON.stringify(data)),`Старая заглушка в ${file}`);
   if (name==='home') {
    assert(!/под ключ|chiavi in mano|turnkey|from start to finish/i.test(data.hero.titleLines.join(' ')),`${locale}: в hero осталось старое обещание`);
-   assert(data.whatWeDo.cards.length===4,`${locale}: на главной нужны 4 услуги`);
-   assert(data.stats.items.length===4,`${locale}: нужны 4 факта`);
+   assert(data.whatWeDo.cards.length===2,`${locale}: на главной нужны 2 услуги`);
+   assert(data.why.items.length===4,`${locale}: нужны 4 преимущества`);
    assert(data.hero.cta.page==='services' && data.hero.secondaryCta.page==='events',`${locale}: неверные кнопки первого экрана`);
    assert(data.whatWeDo.cards.every((card)=>requiredServices.includes(card.anchor)),`${locale}: неизвестные ссылки на услуги`);
   }
-  if (name==='about') assert(data.team.people.length===2,`${locale}: в ТЗ 2 участника команды`);
-  if (name==='events') assert(data.program.length===8 && data.registration.unavailable,`${locale}: программа или статус регистрации пусты`);
+  if (name==='about') assert(data.team.people.length===3,`${locale}: в ТЗ 3 участника команды`);
+  if (name==='events') {
+   assert(data.program.length===8 && data.registration.unavailable,`${locale}: программа или статус регистрации пусты`);
+   const covered=[0,...data.programGroups.flatMap(g=>g.indices),data.program.length-1];
+   assert(covered.length===8 && [...new Set(covered)].sort((a,b)=>a-b).join(',')==='0,1,2,3,4,5,6,7',`${locale}: программа должна сохранять каждый исходный пункт ровно один раз`);
+   assert(data.benefits.items.length===4 && data.programGroups.length===3,`${locale}: нужны 4 результата и 3 темы`);
+  }
+  if (name==='services') assert(data.howWeWork.steps.length===5,`${locale}: нужны 5 шагов`);
  }
  const settings=json(`src/content/settings/${locale}.json`);
  assert(settings.company.name==='VIKUB',`${locale}: неправильное название компании`);
@@ -65,7 +71,7 @@ for (const locale of locales) {
  for (const office of settings.offices) {
   assert(Boolean(office.phone)===Boolean(office.tel),`${locale}/${office.id}: заполните оба поля телефона или оставьте оба пустыми`);
   if (office.tel) assert(/^\+[0-9]{7,15}$/.test(office.tel),`${locale}/${office.id}: неверный телефон`);
-  if (locale==='ru') for (const field of ['phone','email']) if (!office[field]) missing.push(`office.${office.id}.${field}`);
+
  }
  for (const social of settings.socials) {
   if (social.href) {
@@ -85,15 +91,16 @@ for (const locale of locales) {
   if (person.photo) assert(existsSync(person.photo.replace(/^\/media\//,'src/assets/media/')),`${locale}: фото не найдено: ${person.photo}`);
  }
  const files=readdirSync(`src/content/services/${locale}`).filter(f=>f.endsWith('.md')).sort();
- assert(files.length===5,`${locale}: должно остаться 5 новых файлов услуг. Удалите старые файлы перед копированием обновления.`);
- const anchors=files.map(file=>readFileSync(`src/content/services/${locale}/${file}`,'utf8').match(/^anchor:\s*(.+)$/m)?.[1]?.trim());
+ const active=files.filter(file=>!/^archived:\s*true\s*$/m.test(readFileSync(`src/content/services/${locale}/${file}`,'utf8')));
+ assert(active.length===2,`${locale}: нужны ровно 2 активные услуги`);
+ const anchors=active.map(file=>readFileSync(`src/content/services/${locale}/${file}`,'utf8').match(/^anchor:\s*(.+)$/m)?.[1]?.trim());
  assert(anchors.join('|')===requiredServices.join('|'),`${locale}: нарушены порядок или якоря услуг`);
 }
 if (problems.length) {
  console.error('Ошибки сайта:\n'+problems.map(p=>`  • ${p}`).join('\n'));
  process.exit(1);
 }
-console.log(`✓ Структура сайта: ${pageNames.length * locales.length} языковых страниц, 15 услуг, ссылки и настройки согласованы.`);
+console.log(`✓ Структура сайта: ${pageNames.length * locales.length} языковых страниц, 6 активных услуг, ссылки и настройки согласованы.`);
 if (missing.length) {
  const text=[...new Set(missing)].map(p=>`  · ${p}`).join('\n');
  if (process.argv.includes('--launch')) { console.error('Перед публичным запуском заполните:\n'+text);process.exit(1); }

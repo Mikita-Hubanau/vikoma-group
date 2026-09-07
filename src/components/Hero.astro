@@ -17,7 +17,7 @@ const isOpen = eventState() === 'open';
   <div class="hero__text">
    <p class="eyebrow enter">{eyebrow}</p>
    <h1>{titleLines.map((line, i) => <span class:list={['hero__line','enter',i === titleLines.length-1 && 'hero__line--accent']} style={`--delay:${100+i*90}ms`}>{line}{i<titleLines.length-1 ? ' ' : ''}</span>)}</h1>
-   <p class="hero__lead enter" style="--delay:300ms">{lead}</p>
+   <h2 class="hero__lead enter" style="--delay:300ms">{lead}</h2>
    <div class="hero__actions enter" style="--delay:380ms"><a class="btn btn--primary" href={href(cta.page, locale)}>{cta.label}</a><a class="btn btn--ghost" href={href(secondaryCta.page, locale)}><span data-event-open hidden={!isOpen}>{secondaryCta.label}</span><span data-event-archive hidden={isOpen}>{home.seminar.archiveCta}</span></a></div>
   </div>
   <div class="hero__figure enter" style="--delay:300ms"><div class="hero__map-frame"><CountriesMap countries={map.countries} /></div><div class="hero__caption" aria-hidden="true"><span>Italy meets Eurasia</span><span>VIKUB</span></div></div>

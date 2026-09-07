@@ -1,20 +1,20 @@
 {
   "title": "Bielorussia: una finestra strategica sull’Eurasia per le imprese italiane",
-  "lead": "Seminario online del {date}",
+  "lead": "Aiutiamo le imprese italiane a comprendere i mercati, trovare partner e valutare i rischi — prima di prendere una decisione.",
   "eyebrow": "Eventi",
   "detailsTitle": "Informazioni sul seminario",
   "dateLabel": "Data",
   "timeLabel": "Orario",
   "timeNote": "ora italiana",
   "formatLabel": "Formato",
-  "formatValue": "Online (Zoom)",
+  "formatValue": "Online",
   "languageLabel": "Lingue",
   "languageValue": "Italiano e russo",
   "languageNote": "Interpretazione consecutiva professionale",
   "costLabel": "Partecipazione",
   "costValue": "Gratuita",
   "programTitle": "Programma del seminario",
-  "programNote": "",
+  "programNote": "Il programma potrà subire modifiche.",
   "program": [
     "Saluti introduttivi — Mario Ubaldi e Viktoria Gubanova, VIKUB",
     "Clima degli investimenti e agevolazioni in Bielorussia — rappresentanti della NAIP",
@@ -26,7 +26,7 @@
     "Domande e risposte"
   ],
   "durationLabel": "Durata",
-  "durationValue": "Circa {duration}",
+  "durationValue": "60–90 minuti",
   "registration": {
     "title": "Iscrizione al seminario",
     "text": "Iscrivetevi entro il {date}",
@@ -54,5 +54,58 @@
   "seo": {
     "title": "Eventi — VIKUB",
     "description": "VIKUB: seminario online gratuito il 1 ottobre 2026, alle 10:00 (ora italiana). Italiano e russo, con interpretazione consecutiva professionale."
-  }
+  },
+  "freeLabel": "Partecipazione gratuita",
+  "benefits": {
+    "title": "Cosa otterrete",
+    "items": [
+      {
+        "icon": "store",
+        "title": "Le richieste attuali delle imprese bielorusse",
+        "text": "Scoprirete cosa cercano oggi catene commerciali e grossisti."
+      },
+      {
+        "icon": "scales",
+        "title": "Valutazione degli aspetti legali",
+        "text": "Capirete quali requisiti normativi sono importanti per il vostro progetto."
+      },
+      {
+        "icon": "network",
+        "title": "Risposte alle vostre domande",
+        "text": "Potrete rivolgerle ai nostri esperti in diretta."
+      },
+      {
+        "icon": "chart",
+        "title": "Un piano chiaro per il primo passo",
+        "text": "Riceverete una raccomandazione pratica per iniziare."
+      }
+    ]
+  },
+  "audience": {
+    "title": "A chi è rivolto",
+    "paragraphs": []
+  },
+  "programGroups": [
+    {
+      "title": "Clima degli investimenti",
+      "indices": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "title": "Aspetti legali e fiscali",
+      "indices": [
+        4,
+        5
+      ]
+    },
+    {
+      "title": "Logistica, certificazione e pagamenti",
+      "indices": [
+        6
+      ]
+    }
+  ]
 }

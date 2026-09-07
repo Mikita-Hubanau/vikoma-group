@@ -7,8 +7,7 @@ import { CONTACT_DETAILS, getContactsCopy } from '../data/contacts-page.mjs';
 
 interface Props { locale: Locale; labels: CollectionEntry<'contactsPage'>['data']['form']; }
 const { locale, labels } = Astro.props;
-// Keep the existing transport/status translations. Revised visible copy comes
-// from contacts-page.mjs without changing the existing CMS collection schema.
+// Copy, statuses and privacy text share the same CMS-backed JSON source.
 const t = { ...labels, ...getContactsCopy(locale).form };
 const { contactFormEndpoint } = getIntegrations();
 const configured = Boolean(contactFormEndpoint);
@@ -16,7 +15,7 @@ const configured = Boolean(contactFormEndpoint);
 <div class="contact-form-block">
   <h2>{t.title}</h2>
   <p class="form-lead">{t.lead}</p>
-  <p class="form-lead">{t.followUp}</p>
+  {t.followUp && <p class="form-lead">{t.followUp}</p>}
 
   {!configured && (
     <div class="form-notice" id="form-unavailable">
@@ -43,7 +42,7 @@ const configured = Boolean(contactFormEndpoint);
         </div>
         <div class="form-field">
           <label for="contact-phone">{t.phone} <span aria-hidden="true">*</span></label>
-          <input id="contact-phone" name="phone" type="tel" autocomplete="tel" required maxlength="40" />
+          <input id="contact-phone" name="phone" type="tel" autocomplete="tel" required minlength="7" maxlength="40" pattern="\+?[0-9\s\(\)\.\-]{7,40}" />
         </div>
         <div class="form-field">
           <label for="contact-company">{t.company} <span aria-hidden="true">*</span></label>
@@ -74,9 +73,11 @@ const configured = Boolean(contactFormEndpoint);
     </fieldset>
     <p class="form-status" data-form-status role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
   </form>
+  <p class="contact-response-note">{t.responseNote}</p>
 </div>
 <script is:inline type="module" src={asset('/scripts/contact-form.js')}></script>
 <style>
+  .contact-response-note { margin-top:1.5rem; font-size:var(--text-sm); color:var(--muted); }
   .form-lead { margin-top:1rem; }
   .required-note { margin-block:1.5rem 1rem; color:var(--muted); font-size:var(--text-xs); }
   .contact-form fieldset { border:0; padding:0; min-width:0; margin:0; }

@@ -5,9 +5,9 @@ const text=(p)=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
 const json=(p)=>JSON.parse(text(p));
 const locales=['it','en','ru'];
 const expectedHeadings={
- it:'Bielorussia e UEE per le imprese italiane.',
- en:'Belarus and the EAEU for Italian businesses.',
- ru:'Выход в Беларусь и ЕАЭС для итальянского бизнеса.',
+ it:'L’ingresso delle imprese italiane nei mercati di Bielorussia, Russia e UEE',
+ en:'Bringing Italian businesses to the markets of Belarus, Russia and the EAEU',
+ ru:'Выход итальянского бизнеса на рынки Беларуси, России и ЕАЭС',
 };
 for(const locale of locales){
  test(`${locale}: simplified hero and contact CTA`,()=>{
@@ -15,7 +15,7 @@ for(const locale of locales){
   assert.equal(h.hero.titleLines.join(' '),expectedHeadings[locale]);
   assert.equal(h.hero.titleLines.length,2);
   assert.ok(h.contact.label);
-  if(locale==='ru') assert.equal(h.contact.label,'Перейти в контакты');
+  if(locale==='ru') assert.equal(h.contact.label,'Обсудить проект');
  });
  test(`${locale}: shared partner descriptions and city-only contacts`,()=>{
   const s=json(`src/content/settings/${locale}.json`);
@@ -32,16 +32,16 @@ for(const locale of locales){
  });
  test(`${locale}: shortened team and generic expert network`,()=>{
   const a=json(`src/content/pages/${locale}/about.json`);
-  assert.equal(a.team.people.length,2);assert.match(a.team.people[0].about,/30/);
+  assert.equal(a.team.people.length,3);assert.match(a.team.people[0].about,/30/);
   assert.deepEqual(a.experts.people,[]);assert.ok(a.experts.text.length>100);
   assert.equal(a.status.items.length,4);assert.equal(a.status.retail,'');
-  assert.doesNotMatch(JSON.stringify(a),/Skreb|Скреб|Planix|клиентскую базу|client base/);
+  assert.doesNotMatch(JSON.stringify(a),/Planix|клиентскую базу|client base/);
  });
 }
-test('partner blocks use one text-only component on both pages',()=>{
+test('partner blocks use one linked logo-ready component on both pages',()=>{
  for(const view of ['HomeView','AboutView']) assert.match(text(`src/views/${view}.astro`),/<PartnerGrid locale=\{locale\} \/>/);
  const grid=text('src/components/PartnerGrid.astro');
- assert.match(grid,/partner\.description/);assert.doesNotMatch(grid,/<img\b|<Icon\b|findMediaUrl/);
+ assert.match(grid,/partner\.description/);assert.match(grid,/<img\b/);assert.match(grid,/findMediaUrl/);assert.match(grid,/href=\{partner\.href\}/);assert.match(grid,/partner-detail__placeholder/);
  assert.doesNotMatch(text('src/components/Hero.astro'),/PartnerMarks/);
 });
 test('supplied wordmark and V stay vector-only and gold is retained on dark surfaces',()=>{

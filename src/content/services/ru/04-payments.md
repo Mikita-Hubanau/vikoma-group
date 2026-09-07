@@ -1,4 +1,5 @@
 ---
+archived: true
 title: Платёжная инфраструктура и международные расчёты
 order: 4
 anchor: payments

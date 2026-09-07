@@ -1,26 +1,32 @@
 ---
 import SectionHead from './SectionHead.astro';
-import EditButton from './edit/EditButton.astro';
 import Icon from './Icon.astro';
+import PartnerLink from './PartnerLink.astro';
 import type { Locale } from '../i18n/config';
 import { href } from '../lib/url';
-interface Props { locale: Locale; eyebrow: string; title: string; cards: { icon: string; title: string; text: string; anchor: string }[]; }
-const { locale, eyebrow, title, cards } = Astro.props;
+interface Props { locale: Locale; eyebrow: string; title: string; itemsLabel: string; cards: { icon: string; title: string; text: string; anchor: string; items: string[]; partnerId: 'naip'|'retail'; partnerLabel: string }[]; }
+const { locale, eyebrow, title, itemsLabel, cards } = Astro.props;
 ---
-<section class="section home-services edit-anchor">
- <EditButton collection="pages" entry="home" label="Что мы делаем" />
+<section class="section home-services">
  <div class="container"><SectionHead eyebrow={eyebrow} title={title} />
-  <ul class="service-cards">{cards.map((card, i) => <li class="service-card"><div class="service-card__top"><Icon name={card.icon} size={32} /><span>{String(i+1).padStart(2,'0')}</span></div><h3><a href={`${href('services', locale)}#${card.anchor}`}>{card.title}</a></h3><p>{card.text}</p></li>)}</ul>
+  <ul class="service-cards">{cards.map((card, i) => <li class="service-card">
+    <div class="service-card__top"><Icon name={card.icon} size={32} /><span aria-hidden="true">{String(i+1).padStart(2,'0')}</span></div>
+    <h3><a href={`${href('services', locale)}#${card.anchor}`}>{card.title}</a></h3>
+    <p>{card.text}</p>
+    <div class="service-card__details"><p class="service-card__label">{itemsLabel}</p><ul class="dash-list">{card.items.map((item) => <li>{item}</li>)}</ul></div>
+    <div class="service-card__partner"><PartnerLink locale={locale} id={card.partnerId} label={card.partnerLabel} /></div>
+  </li>)}</ul>
  </div>
 </section>
 <style>
- .service-cards { display:grid; list-style:none; padding:0; margin:0; border-top:1px solid var(--line); }
- .service-card { padding:2rem 0; border-bottom:1px solid var(--line); min-width:0; }
+ .service-cards { display:grid; grid-template-columns:minmax(0,1fr); gap:1.5rem; list-style:none; padding:0; margin:0; }
+ .service-card { min-width:0; padding:2rem; border:1px solid var(--line); }
  .service-card__top { display:flex; justify-content:space-between; align-items:center; color:var(--accent); margin-bottom:1.5rem; }
- .service-card__top span { color:var(--muted); font-size:var(--text-xs); font-variant-numeric:tabular-nums; }
  .service-card h3 { margin-bottom:1rem; font-size:1.4rem; }
  .service-card h3 a:hover { color:var(--accent); }
- .service-card p { font-size:var(--text-sm); max-width:35ch; }
- @media(min-width:42rem) { .service-cards { grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:2rem; } }
- @media(min-width:66rem) { .service-cards { grid-template-columns:repeat(4,minmax(0,1fr)); column-gap:2rem; } }
+ .service-card p,.service-card__details { font-size:var(--text-sm); }
+ .service-card__details { margin-top:1.5rem; }
+ .service-card__label { font-weight:500; color:var(--ink); margin-bottom:1rem; }
+ .service-card__partner { margin-top:1.5rem; border-top:1px solid var(--line); padding-top:1.25rem; }
+ @media(min-width:42rem) { .service-cards { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 </style>

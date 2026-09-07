@@ -1,4 +1,5 @@
 ---
+archived: true
 title: Payment infrastructure and international settlements
 order: 4
 anchor: payments

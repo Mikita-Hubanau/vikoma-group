@@ -1,6 +1,6 @@
 {
   "startAt": "2026-10-01T10:00:00+02:00",
-  "durationMinutes": 120,
+  "durationMinutes": 90,
   "timeZone": "Europe/Rome",
   "registrationDeadline": "2026-09-28T23:59:59+02:00"
 }

@@ -3,8 +3,19 @@
     "name": "VIKUB",
     "tagline": "Italy meets Eurasia"
   },
-  "email": "",
-  "phones": [],
+  "email": "info@vikub.com",
+  "phones": [
+    {
+      "label": "Italy",
+      "display": "+39 328 2303160",
+      "tel": "+393282303160"
+    },
+    {
+      "label": "Belarus",
+      "display": "+375 29 6409880",
+      "tel": "+375296409880"
+    }
+  ],
   "offices": [
     {
       "id": "italy",
@@ -21,7 +32,7 @@
       "id": "belarus",
       "title": "Office in Belarus",
       "city": "Minsk",
-      "person": "Viktoria Gubanova",
+      "person": "Viktoryia Hubanava",
       "address": "",
       "note": "Belarus",
       "phone": "",
@@ -50,7 +61,7 @@
       "icon": "building",
       "description": "The state agency for attracting investment to Belarus. VIKUB is its official representative in Italy.",
       "logo": "",
-      "href": ""
+      "href": "https://investinbelarus.by"
     },
     {
       "id": "retail",
@@ -59,7 +70,7 @@
       "icon": "store",
       "description": "VIKUB’s partner for helping manufacturers enter retail chains in Belarus and Russia. It works with retail networks and wholesale channels, supporting negotiations, contract signing and post-sale relationships.",
       "logo": "",
-      "href": ""
+      "href": "https://zdzelki.b24site.online"
     }
   ]
 }

@@ -9,7 +9,7 @@ const { socials } = await getSettings(locale);
 const t = useUI(locale);
 ---
 <ul class="social-links" aria-label={t.socialNetworks}>
-  {socials.map((social) => <li>{social.href ? <a href={social.href} target="_blank" rel="noopener noreferrer"><Icon name={social.type} size={18} />{social.label}</a> : <span class="social-links__pending" title={t.unavailable}><Icon name={social.type} size={18} />{social.label}<span class="visually-hidden"> — {t.unavailable}</span></span>}</li>)}
+  {socials.filter((social) => social.type !== 'telegram' || Boolean(social.href)).map((social) => <li>{social.href ? <a href={social.href} target="_blank" rel="noopener noreferrer"><Icon name={social.type} size={18} />{social.label}</a> : <span class="social-links__pending" title={t.unavailable}><Icon name={social.type} size={18} />{social.label}<span class="visually-hidden"> — {t.unavailable}</span></span>}</li>)}
 </ul>
 <style>
  .social-links { display:flex; flex-wrap:wrap; gap:.5rem 1.5rem; padding:0; margin:0; list-style:none; }

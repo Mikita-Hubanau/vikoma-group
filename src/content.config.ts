@@ -9,9 +9,10 @@ const idFromFolder = ({ entry }: { entry: string }) => entry.split('/').slice(-2
 const idLocaleAndSlug = ({ entry }: { entry: string }) => entry.replace(/\.[^.]+$/, '').split('/').slice(-2).join('/');
 const seo = z.object({ title: z.string().min(1), description: z.string().min(1), ogImage: z.string().optional() }).strict();
 const cta = z.object({ label: z.string(), page: z.enum(['home', 'about', 'services', 'events', 'contacts']) }).strict();
-const icon = z.enum(['chart', 'store', 'scales', 'card', 'network', 'building']);
+const icon = z.enum(['chart', 'store', 'scales', 'card', 'network', 'building', 'globe', 'check']);
 const textItems = z.object({ title: z.string(), items: z.array(z.object({ title: z.string(), text: z.string() }).strict()) }).strict();
-const process = z.object({ eyebrow: z.string(), title: z.string(), steps: z.array(z.object({ title: z.string(), text: z.string() }).strict()).length(4) }).strict();
+const featureGrid = z.object({ title: z.string(), items: z.array(z.object({ icon, title: z.string(), text: z.string() }).strict()).length(4) }).strict();
+const process = z.object({ eyebrow: z.string(), title: z.string(), steps: z.array(z.object({ title: z.string(), text: z.string() }).strict()).length(5) }).strict();
 const sectionTitle = z.object({ title: z.string(), eyebrow: z.string() }).strict();
 const blankEmail = z.union([z.literal(''), z.string().email()]).default('');
 const httpsLink = z.union([z.literal(''), z.string().url().refine((s) => s.startsWith('https://'), 'Нужна ссылка https://')]).default('');
@@ -36,10 +37,11 @@ const homePage = defineCollection({
   schema: z.object({
     seo,
     hero: z.object({ eyebrow: z.string(), titleLines: z.array(z.string()), lead: z.string(), cta, secondaryCta: cta, map: z.object({ countries: z.array(z.object({ id: z.enum(['italy','belarus','russia']), label: z.string() }).strict()) }).strict() }).strict(),
-    whatWeDo: z.object({ eyebrow: z.string(), title: z.string(), cards: z.array(z.object({ icon, title: z.string(), text: z.string(), anchor: z.string().regex(/^[a-z-]+$/) }).strict()).length(4) }).strict(),
+    whatWeDo: z.object({ eyebrow: z.string(), title: z.string(), itemsLabel: z.string(), cards: z.array(z.object({ icon, title: z.string(), text: z.string(), anchor: z.string().regex(/^[a-z-]+$/), items: z.array(z.string()).length(3), partnerId: z.enum(['naip','retail']), partnerLabel: z.string() }).strict()).length(2) }).strict(),
     about: z.object({ eyebrow: z.string(), title: z.string(), paragraphs: z.array(z.string()), cta }).strict(),
     seminar: z.object({ eyebrow: z.string(), title: z.string(), archiveTitle: z.string(), text: z.string(), cta, archiveCta: z.string() }).strict(),
-    stats: z.object({ eyebrow: z.string(), items: z.array(z.object({ value: z.string(), suffix: z.string().default(''), label: z.string(), kind: z.enum(['number','text']) }).strict()).length(4) }).strict(),
+    why: featureGrid,
+    belarus: z.object({ title: z.string(), text: z.string(), label: z.string() }).strict(),
     partners: sectionTitle,
     contact: z.object({ title: z.string(), text: z.string(), label: z.string() }).strict(),
   }).strict(),
@@ -48,25 +50,28 @@ const aboutPage = defineCollection({
   loader: glob({ pattern: 'pages/*/about.json', base: BASE, generateId: idFromFolder }),
   schema: z.object({ seo, title: z.string(), lead: z.string(),
     mission: z.object({ title: z.string(), text: z.string() }).strict(),
-    team: z.object({ title: z.string(), people: z.array(z.object({ name: z.string(), initials: z.string(), role: z.string(), about: z.string(), photo: z.string().default('') }).strict()).length(2) }).strict(),
-    experts: z.object({ title: z.string(), text: z.string(), people: z.array(z.string()) }).strict(),
+    subtitle: z.string(),
+    team: z.object({ title: z.string(), people: z.array(z.object({ name: z.string(), initials: z.string(), role: z.string(), about: z.string(), photo: z.string().default('') }).strict()).length(3) }).strict(),
+    experts: z.object({ eyebrow: z.string(), title: z.string(), text: z.string(), people: z.array(z.string()) }).strict(),
     status: z.object({ title: z.string(), text: z.string(), listTitle: z.string(), items: z.array(z.string()), retail: z.string() }).strict(),
     approach: textItems, partners: sectionTitle,
   }).strict(),
 });
 const servicesPage = defineCollection({
   loader: glob({ pattern: 'pages/*/services.json', base: BASE, generateId: idFromFolder }),
-  schema: z.object({ seo, title: z.string(), lead: z.string(), howWeWork: process }).strict(),
+  schema: z.object({ seo, title: z.string(), lead: z.string(), expertSupport: z.object({ eyebrow: z.string(), title: z.string(), paragraphs: z.array(z.string()).length(2) }).strict(), howWeWork: process }).strict(),
 });
 const services = defineCollection({
   loader: glob({ pattern: 'services/*/*.md', base: BASE, generateId: idLocaleAndSlug }),
-  schema: z.object({ title: z.string(), order: z.number().int().min(1).max(5), anchor: z.string().regex(/^[a-z-]+$/), icon, partner: z.string().default(''), items: z.array(z.string()).min(1) }).strict(),
+  schema: z.object({ title: z.string(), order: z.number().int().min(1).max(5), anchor: z.string().regex(/^[a-z-]+$/), icon, partner: z.string().default(''), partnerId: z.enum(['','naip','retail']).default(''), archived: z.boolean().default(false), items: z.array(z.string()).min(1) }).strict(),
 });
 const eventsPage = defineCollection({
   loader: glob({ pattern: 'pages/*/events.json', base: BASE, generateId: idFromFolder }),
   schema: z.object({ seo, title: z.string(), lead: z.string(), eyebrow: z.string(),
     detailsTitle: z.string(), dateLabel: z.string(), timeLabel: z.string(), timeNote: z.string(),
     formatLabel: z.string(), formatValue: z.string(), languageLabel: z.string(), languageValue: z.string(), languageNote: z.string(), costLabel: z.string(), costValue: z.string(),
+    freeLabel: z.string(), audience: z.object({ title: z.string(), paragraphs: z.array(z.string()) }).strict(), benefits: featureGrid,
+    programGroups: z.array(z.object({ title: z.string(), indices: z.array(z.number().int().min(0).max(7)).min(1) }).strict()).length(3),
     programTitle: z.string(), programNote: z.string(), program: z.array(z.string()).min(1), durationLabel: z.string(), durationValue: z.string(),
     registration: z.object({ title: z.string(), text: z.string(), button: z.string(), externalNote: z.string(), externalButton: z.string(), unavailable: z.string(), closed: z.string(), ended: z.string(), firstName: z.string(), lastName: z.string(), company: z.string(), email: z.string(), phone: z.string(), requiredNote: z.string(), consent: z.string(), privacyLink: z.string(), sending: z.string(), success: z.string(), error: z.string(), uncertain: z.string(), rateLimited: z.string(), validationError: z.string() }).strict(),
   }).strict(),
@@ -74,7 +79,15 @@ const eventsPage = defineCollection({
 const contactsPage = defineCollection({
   loader: glob({ pattern: 'pages/*/contacts.json', base: BASE, generateId: idFromFolder }),
   schema: z.object({ seo, title: z.string(), lead: z.string(),
-    form: z.object({ title: z.string(), lead: z.string(), name: z.string(), email: z.string(), phone: z.string(), message: z.string(), requiredNote: z.string(), consent: z.string(), privacyLink: z.string(), submit: z.string(), sending: z.string(), success: z.string(), error: z.string(), uncertain: z.string(), rateLimited: z.string(), validationError: z.string(), unavailable: z.string() }).strict(),
+    contactsLabel: z.string(), italy: z.string(), belarus: z.string(), email: z.string(),
+    socialTitle: z.string(), socialPending: z.string(), pendingLabel: z.string(),
+    form: z.object({ title: z.string(), lead: z.string(), followUp: z.string(), responseNote: z.string(),
+      name: z.string(), email: z.string(), phone: z.string(), company: z.string(), service: z.string(),
+      servicePlaceholder: z.string(), services: z.array(z.string()).length(8), directEmail: z.string(),
+      message: z.string(), requiredNote: z.string(), consent: z.string(), privacyLink: z.string(),
+      submit: z.string(), sending: z.string(), success: z.string(), error: z.string(), uncertain: z.string(),
+      rateLimited: z.string(), validationError: z.string(), unavailable: z.string()
+    }).strict(),
     privacy: z.object({ title: z.string(), text: z.string(), policyLabel: z.string(), policyUrl: httpsLink }).strict(),
   }).strict(),
 });

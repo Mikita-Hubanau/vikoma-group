@@ -3,8 +3,19 @@
     "name": "VIKUB",
     "tagline": "Italy meets Eurasia"
   },
-  "email": "",
-  "phones": [],
+  "email": "info@vikub.com",
+  "phones": [
+    {
+      "label": "Italia",
+      "display": "+39 328 2303160",
+      "tel": "+393282303160"
+    },
+    {
+      "label": "Bielorussia",
+      "display": "+375 29 6409880",
+      "tel": "+375296409880"
+    }
+  ],
   "offices": [
     {
       "id": "italy",
@@ -21,7 +32,7 @@
       "id": "belarus",
       "title": "Sede in Bielorussia",
       "city": "Minsk",
-      "person": "Viktoria Gubanova",
+      "person": "Viktoryia Hubanava",
       "address": "",
       "note": "Bielorussia",
       "phone": "",
@@ -50,7 +61,7 @@
       "icon": "building",
       "description": "Agenzia statale per l’attrazione degli investimenti in Bielorussia. VIKUB è il suo rappresentante ufficiale in Italia.",
       "logo": "",
-      "href": ""
+      "href": "https://investinbelarus.by"
     },
     {
       "id": "retail",
@@ -59,7 +70,7 @@
       "icon": "store",
       "description": "Partner di VIKUB per l’ingresso dei produttori nelle catene commerciali della Bielorussia e della Russia. Lavora con le reti di vendita al dettaglio e i canali all’ingrosso, affiancando le trattative, la stipula dei contratti e i rapporti post-vendita.",
       "logo": "",
-      "href": ""
+      "href": "https://zdzelki.b24site.online"
     }
   ]
 }

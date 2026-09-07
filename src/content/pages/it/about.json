@@ -1,9 +1,9 @@
 {
-  "title": "Un hub internazionale di consulenza per accedere ai mercati della Bielorussia e dell’UEE",
-  "lead": "Creiamo relazioni operative tra la produzione italiana e il mercato bielorusso. Status ufficiale, team internazionale e assistenza completa.",
+  "title": "Un hub di consulenza internazionale per accedere ai mercati di Bielorussia e UEE",
+  "lead": "Aiutiamo le imprese italiane a comprendere i mercati, trovare partner e valutare i rischi — prima di prendere una decisione.",
   "mission": {
-    "title": "La nostra missione",
-    "text": "Conosciamo entrambe le realtà e aiutiamo le imprese italiane a entrare in contatto con le persone, le aziende e le istituzioni giuste. Le accompagniamo dalla comprensione del mercato a un contatto commerciale concreto e nelle fasi successive."
+    "title": "Perché VIKUB",
+    "text": "VIKUB non è un acronimo. Sono i nostri nomi e le nostre vite: siamo una famiglia, un italiano e una bielorussa, e viviamo in entrambi i Paesi. Non studiamo i mercati soltanto attraverso i report: li viviamo ogni giorno."
   },
   "team": {
     "title": "Il team",
@@ -11,15 +11,22 @@
       {
         "name": "Mario Ubaldi",
         "initials": "MU",
-        "role": "Italia · Consulenza aziendale",
-        "about": "Consulente aziendale italiano con 30 anni di esperienza. È specializzato in finanziamenti, contributi a fondo perduto e internazionalizzazione delle imprese italiane. Parla italiano, inglese, francese e portoghese.",
+        "role": "Italia · Consulente aziendale",
+        "about": "Da 30 anni aiutiamo le imprese a crescere: finanziamenti, contributi e internazionalizzazione. Lingue: italiano, inglese, francese e portoghese.",
         "photo": ""
       },
       {
-        "name": "Viktoria Gubanova",
-        "initials": "VG",
-        "role": "Bielorussia · Sviluppo internazionale",
-        "about": "Esperta di comunicazione aziendale internazionale e relazioni interculturali. Ha costruito partnership tra imprese europee e il mercato bielorusso, organizzato fiere e missioni d’affari e collaborato con ambasciate e istituzioni pubbliche.",
+        "name": "Viktoryia Hubanava",
+        "initials": "VH",
+        "role": "Esperta di comunicazione aziendale internazionale",
+        "about": "Da 17 anni costruisco partnership tra Europa e Bielorussia. Fiere, missioni imprenditoriali, trattative con ambasciate e istituzioni pubbliche. Russo, inglese; sto studiando italiano.",
+        "photo": ""
+      },
+      {
+        "name": "Olga Skrebnevskaya",
+        "initials": "OS",
+        "role": "Interprete professionista (italiano, russo, inglese)",
+        "about": "20 anni di esperienza. Specializzata nell’interpretazione consecutiva e nella comunicazione giuridica e aziendale. Ha collaborato con l’Ambasciata d’Italia in Bielorussia e con decine di delegazioni italiane.",
         "photo": ""
       }
     ]
@@ -71,11 +78,13 @@
   },
   "seo": {
     "title": "Chi siamo — VIKUB",
-    "description": "Creiamo relazioni operative tra la produzione italiana e il mercato bielorusso. Status ufficiale, team internazionale e assistenza completa."
+    "description": "Creiamo ponti operativi tra i produttori italiani e i mercati bielorussi. Rappresentanza ufficiale, un team internazionale, esperienza concreta."
   },
   "experts": {
-    "title": "La nostra rete di esperti",
-    "text": "Per ogni progetto coinvolgiamo specialisti di fiducia: avvocati, commercialisti, esperti di logistica e interpreti. Questo ci permette di offrire ai clienti soltanto le competenze di cui hanno realmente bisogno.",
+    "eyebrow": "Rete professionale",
+    "title": "Esperti verificati — per la vostra esigenza",
+    "text": "Non abbiamo avvocati e contabili in organico, ma una rete di specialisti affidabili che coinvolgiamo quando serve. Pagate soltanto per ciò di cui avete realmente bisogno.",
     "people": []
-  }
+  },
+  "subtitle": "Creiamo ponti operativi tra i produttori italiani e i mercati bielorussi. Rappresentanza ufficiale, un team internazionale, esperienza concreta."
 }

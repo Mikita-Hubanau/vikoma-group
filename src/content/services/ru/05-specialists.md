@@ -1,4 +1,5 @@
 ---
+archived: true
 title: Сеть проверенных специалистов
 order: 5
 anchor: specialists

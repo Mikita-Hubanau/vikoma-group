@@ -1,20 +1,20 @@
 {
   "title": "Belarus: a strategic gateway to Eurasia for Italian businesses",
-  "lead": "Online seminar on {date}",
+  "lead": "We help Italian businesses understand markets, find partners and assess risks — before making a decision.",
   "eyebrow": "Events",
   "detailsTitle": "Seminar information",
   "dateLabel": "Date",
   "timeLabel": "Time",
   "timeNote": "Italian local time",
   "formatLabel": "Format",
-  "formatValue": "Online (Zoom)",
+  "formatValue": "Online",
   "languageLabel": "Languages",
   "languageValue": "Italian and Russian",
   "languageNote": "Professional consecutive interpretation",
   "costLabel": "Participation",
   "costValue": "Free",
   "programTitle": "Seminar programme",
-  "programNote": "",
+  "programNote": "The programme is subject to change.",
   "program": [
     "Opening remarks — Mario Ubaldi and Viktoria Gubanova, VIKUB",
     "Investment climate and incentives in Belarus — NAIP representatives",
@@ -26,7 +26,7 @@
     "Questions and answers"
   ],
   "durationLabel": "Duration",
-  "durationValue": "Approximately {duration}",
+  "durationValue": "60–90 minutes",
   "registration": {
     "title": "Seminar registration",
     "text": "Register by {date}",
@@ -54,5 +54,58 @@
   "seo": {
     "title": "Events — VIKUB",
     "description": "VIKUB: free online seminar on 1 October 2026 at 10:00 Italian time. Italian and Russian with professional consecutive interpretation."
-  }
+  },
+  "freeLabel": "Free participation",
+  "benefits": {
+    "title": "What you will gain",
+    "items": [
+      {
+        "icon": "store",
+        "title": "Current demand from Belarusian businesses",
+        "text": "Find out what retail chains and wholesalers are looking for right now."
+      },
+      {
+        "icon": "scales",
+        "title": "An assessment of legal issues",
+        "text": "Understand which regulatory requirements matter for your project."
+      },
+      {
+        "icon": "network",
+        "title": "Answers to your questions",
+        "text": "Ask our experts directly during the live session."
+      },
+      {
+        "icon": "chart",
+        "title": "A clear first-step plan",
+        "text": "Get a practical recommendation to help you start."
+      }
+    ]
+  },
+  "audience": {
+    "title": "Who the event is for",
+    "paragraphs": []
+  },
+  "programGroups": [
+    {
+      "title": "Investment climate",
+      "indices": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "title": "Legal and tax matters",
+      "indices": [
+        4,
+        5
+      ]
+    },
+    {
+      "title": "Logistics, certification and payments",
+      "indices": [
+        6
+      ]
+    }
+  ]
 }

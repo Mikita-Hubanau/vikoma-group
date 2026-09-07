@@ -7,7 +7,6 @@ import html, json, os, re, shutil, unittest
 from playwright.sync_api import sync_playwright
 R=Path(__file__).resolve().parents[1]
 LABELS=json.loads((R/'src/content/pages/ru/events.json').read_text())['registration']
-DESIGNS=['signature','balance','editorial','atlas','panorama']
 
 class RevisionBrowserChecks(unittest.TestCase):
  @classmethod
@@ -21,29 +20,20 @@ class RevisionBrowserChecks(unittest.TestCase):
   self.page.evaluate("""()=>{window.store={};window.calls=[];Object.defineProperty(window,'localStorage',{configurable:true,get:()=>({getItem:k=>store[k]??null,setItem:(k,v)=>store[k]=String(v)})});}""")
  def tearDown(self):self.ctx.close();self.assertEqual(self.errors,[])
  def script(self,name):
-  self.page.add_script_tag(type='module',content=(R/f'public/scripts/{name}.js').read_text());self.page.wait_for_timeout(30)
- def designs(self):
-  buttons=''.join(f'<button type="button" data-design-choice="{v}" data-design-name="{v}" aria-pressed="{str(i==0).lower()}">{i+1}</button>' for i,v in enumerate(DESIGNS))
-  self.page.set_content(f'<html data-design="signature"><body><div data-design-switcher><div role="group">{buttons}</div><span data-design-current></span></div></body></html>')
+  source=(R/f'public/scripts/{name}.js').read_text()
+  if name=='contact-form':
+   helpers=(R/'public/scripts/form-validation.mjs').read_text().replace('export ', '')
+   source=re.sub(r"^import .*?;\s*", '', source, count=1, flags=re.M)+"\n"
+   source=helpers+"\n"+source
+  self.page.add_script_tag(type='module',content=source);self.page.wait_for_timeout(30)
+ def test_old_saved_design_and_switcher_script_cannot_change_balance(self):
+  self.page.set_content('<html data-design="balance"><body></body></html>')
+  self.page.evaluate("store['vikub-design']='panorama'")
   self.script('design-switcher')
- def test_all_five_buttons_switch_and_update_aria(self):
-  self.designs()
-  for design in DESIGNS:
-   self.page.click(f'[data-design-choice={design}]');self.assertEqual(self.page.locator('html').get_attribute('data-design'),design);self.assertEqual(self.page.locator('[aria-pressed=true]').count(),1);self.assertEqual(self.page.locator('[data-design-current]').inner_text(),design);self.assertEqual(self.page.evaluate("store['vikub-design']"),design)
- def test_design_can_be_selected_with_keyboard(self):
-  self.designs();self.page.focus('[data-design-choice=balance]');self.page.keyboard.press('Enter');self.assertEqual(self.page.locator('html').get_attribute('data-design'),'balance')
- def test_storage_blocked_does_not_break_design_buttons(self):
-  self.page.evaluate("Object.defineProperty(window,'localStorage',{configurable:true,get(){throw new Error('blocked')}})");self.designs();self.page.click('[data-design-choice=atlas]');self.assertEqual(self.page.locator('html').get_attribute('data-design'),'atlas')
- def test_cross_tab_design_selection(self):
-  self.designs();self.page.evaluate("window.dispatchEvent(new StorageEvent('storage',{key:'vikub-design',newValue:'editorial'}))");self.assertEqual(self.page.locator('html').get_attribute('data-design'),'editorial')
- def test_invalid_cross_tab_value_ignored(self):
-  self.designs();self.page.evaluate("window.dispatchEvent(new StorageEvent('storage',{key:'vikub-design',newValue:'not-a-design'}))");self.assertEqual(self.page.locator('html').get_attribute('data-design'),'signature')
- def test_head_bootstrap_restores_known_saved_design(self):
-  head=re.search(r'<script is:inline>([\s\S]*?)</script>',(R/'src/layouts/BaseLayout.astro').read_text())[1]
-  self.page.set_content('<html data-design="signature"><body></body></html>');self.page.evaluate("store['vikub-design']='panorama'");self.page.add_script_tag(content=head);self.assertEqual(self.page.locator('html').get_attribute('data-design'),'panorama')
- def test_head_bootstrap_rejects_invalid_saved_design(self):
-  head=re.search(r'<script is:inline>([\s\S]*?)</script>',(R/'src/layouts/BaseLayout.astro').read_text())[1]
-  self.page.set_content('<html data-design="signature"><body></body></html>');self.page.evaluate("store['vikub-design']='unknown'");self.page.add_script_tag(content=head);self.assertEqual(self.page.locator('html').get_attribute('data-design'),'signature')
+  self.page.evaluate("window.dispatchEvent(new StorageEvent('storage',{key:'vikub-design',newValue:'editorial'}))")
+  self.assertEqual(self.page.locator('html').get_attribute('data-design'),'balance')
+  self.assertNotIn('localStorage',(R/'src/layouts/BaseLayout.astro').read_text())
+  self.assertEqual(self.page.locator('[data-design-switcher]').count(),0)
  def registration(self,configured=True,deadline='2026-09-28T23:59:59+02:00'):
   attrs=' '.join(f'data-{k}="{html.escape(LABELS[v])}"' for k,v in [('submit','button'),('sending','sending'),('success','success'),('error','error'),('uncertain','uncertain'),('rate-limited','rateLimited'),('validation-error','validationError'),('closed','closed')])
   disabled='' if configured else 'disabled'

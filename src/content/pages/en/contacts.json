@@ -1,24 +1,40 @@
 {
   "title": "Get in touch",
-  "lead": "Let’s discuss your project and how we can help.",
+  "lead": "",
   "form": {
-    "title": "Contact form",
-    "lead": "Write to us and we will reply within 24 hours.",
+    "title": "Tell us about your task",
+    "lead": "Market entry, finding partners, investments or sourcing in Italy. We will get in touch to discuss the next steps. If the project is outside our expertise, we will say so honestly.",
     "name": "Name",
     "email": "Email",
     "phone": "Phone",
     "message": "Message",
-    "requiredNote": "* Required fields. Phone number is optional.",
-    "consent": "I agree to the use of the information provided to respond to my enquiry.",
+    "requiredNote": "All fields are required. Consent to data processing is also required.",
+    "consent": "I agree to the processing of my personal data.",
     "privacyLink": "How your data is used",
-    "submit": "Send",
+    "submit": "Send enquiry",
     "sending": "Sending…",
     "success": "Your message has been accepted. We will reply within 24 hours.",
     "error": "We could not send your message. Your text is still in the form. Please try again later.",
     "uncertain": "We could not confirm submission. Your message may have been received; check the available contact channels before trying again.",
     "rateLimited": "Too many attempts. Please try again later.",
     "validationError": "Please check the form fields and try again.",
-    "unavailable": "The form is not connected yet. Message submission is temporarily unavailable."
+    "unavailable": "The form is not connected yet. Message submission is temporarily unavailable.",
+    "followUp": "",
+    "company": "Company",
+    "service": "How can we help?",
+    "servicePlaceholder": "Select an option",
+    "directEmail": "You can also contact us by email:",
+    "services": [
+      "Entering the Belarusian market",
+      "Entering the Russian / EAEU market",
+      "Finding trading partners",
+      "Investments in Belarus / EAEU",
+      "Finding a supplier / manufacturer in Italy",
+      "Finding products / equipment in Italy",
+      "Assessing the prospects of my project",
+      "Other"
+    ],
+    "responseNote": "We usually reply within 24 hours."
   },
   "privacy": {
     "title": "How data is used",
@@ -29,5 +45,12 @@
   "seo": {
     "title": "Contact — VIKUB",
     "description": "Get in touch. Let’s discuss your project and how we can help."
-  }
+  },
+  "contactsLabel": "Contacts",
+  "italy": "Italy",
+  "belarus": "Belarus",
+  "email": "Email",
+  "socialTitle": "Social media",
+  "socialPending": "Links will be added once confirmed.",
+  "pendingLabel": "link not yet published"
 }

@@ -12,6 +12,7 @@ from pathlib import Path
 import html
 import json
 import os
+import re
 import shutil
 import unittest
 from playwright.sync_api import sync_playwright
@@ -41,7 +42,9 @@ def form_fixture(configured=True, endpoint='https://forms.test/f/demo'):
     <fieldset {disabled}><legend class="visually-hidden">Контакты</legend><div class="form-grid">
     <div class="form-field"><label for="name">Имя</label><input id="name" name="name" required maxlength="120"></div>
     <div class="form-field"><label for="email">Email</label><input id="email" name="email" type="email" required maxlength="254"></div>
-    <div class="form-field form-field--full"><label for="phone">Телефон</label><input id="phone" name="phone" type="tel" maxlength="40"></div>
+    <div class="form-field form-field--full"><label for="phone">Телефон</label><input id="phone" name="phone" type="tel" required minlength="7" maxlength="40"></div>
+    <div class="form-field"><label for="company">Компания</label><input id="company" name="company" required maxlength="200"></div>
+    <div class="form-field form-field--full"><label for="service">Тема</label><select id="service" name="service" required><option value="" selected disabled>Выберите</option><option value="Другое">Другое</option></select></div>
     <div class="form-field form-field--full"><label for="message">Сообщение</label><textarea id="message" name="message" required maxlength="5000"></textarea></div>
     </div><input name="_gotcha" tabindex="-1" style="position:absolute;left:-9999px"><div class="form-consent"><input id="consent" type="checkbox" name="consent" value="yes" required><label for="consent">{FORM_COPY['consent']}</label></div>
     <button data-submit-button type="submit" {disabled}>{FORM_COPY['submit']}</button></fieldset>
@@ -104,6 +107,9 @@ class BrowserChecks(unittest.TestCase):
 
     def inject(self, module):
         source = (ROOT / f'public/scripts/{module}.js').read_text()
+        if module == 'contact-form':
+            helpers = (ROOT / 'public/scripts/form-validation.mjs').read_text().replace('export ', '')
+            source = helpers + '\n' + re.sub(r'^import .*?;\s*', '', source, count=1, flags=re.M)
         self.page.add_script_tag(type='module', content=source)
         self.page.wait_for_timeout(40)
 
@@ -111,6 +117,9 @@ class BrowserChecks(unittest.TestCase):
         self.page.fill('[name=name]', 'Мария')
         self.page.fill('[name=email]', 'test@example.com')
         self.page.fill('[name=message]', 'Тестовое сообщение')
+        self.page.fill('[name=phone]', '+39 328 2303160')
+        self.page.fill('[name=company]', 'Test company')
+        self.page.select_option('[name=service]', 'Другое')
         self.page.check('[name=consent]')
 
     def submit(self):
@@ -143,7 +152,9 @@ class BrowserChecks(unittest.TestCase):
         sent = self.page.evaluate('sent')
         self.assertEqual(sent['data']['email'], 'test@example.com')
         self.assertEqual(sent['data']['consent'], 'yes')
-        self.assertEqual(sent['data']['phone'], '')
+        self.assertEqual(sent['data']['phone'], '+39 328 2303160')
+        self.assertEqual(sent['data']['company'], 'Test company')
+        self.assertEqual(sent['data']['service'], 'Другое')
         self.assertEqual(sent['method'], 'POST')
         self.assertEqual(sent['credentials'], 'omit')
         self.assertTrue(self.page.locator('[data-form-status]').evaluate('element=>element===document.activeElement'))
@@ -201,6 +212,23 @@ class BrowserChecks(unittest.TestCase):
         self.page.evaluate('(()=>{window.calls=0;window.fetch=()=>{calls++;return Promise.reject()}})()')
         self.fill_form(); self.submit(); self.status_is('error')
         self.assertEqual(self.page.evaluate('calls'),0)
+
+    def test_new_required_fields_and_whitespace_block_submission(self):
+        self.show(form_fixture(), 'contact-form')
+        self.page.evaluate("()=>{window.calls=0;window.fetch=async()=>{calls++;return new Response('{\"ok\":true}',{headers:{'Content-Type':'application/json'}})}}")
+        self.fill_form()
+        for name, value in [('company','   '),('name','   '),('message','  '),('phone','letters')]:
+            old=self.page.input_value(f'[name={name}]')
+            self.page.fill(f'[name={name}]', value)
+            self.page.click('[data-submit-button]')
+            self.assertEqual(self.page.evaluate('calls'), 0, name)
+            self.page.fill(f'[name={name}]', old)
+        self.page.locator('[name=service]').evaluate("el=>{el.value='';el.dispatchEvent(new Event('change',{bubbles:true}))}")
+        self.page.click('[data-submit-button]')
+        self.assertEqual(self.page.evaluate('calls'), 0)
+        self.page.select_option('[name=service]', 'Другое')
+        self.submit()
+        self.assertEqual(self.page.evaluate('calls'), 1)
 
     def analytics(self, init=''):
         self.show(analytics_fixture(),'analytics',init)

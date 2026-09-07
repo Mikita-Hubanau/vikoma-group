@@ -4,15 +4,16 @@ import EditButton from './edit/EditButton.astro';
 
 interface Props {
   title: string;
+  compact?: boolean;
   lead?: string;
   /** Какую запись открыть по кнопке правки */
   edit?: { collection: string; entry: string; label: string };
 }
 
-const { title, lead, edit } = Astro.props;
+const { title, lead, edit, compact = false } = Astro.props;
 ---
 
-<section class="page-header edit-anchor">
+<section class:list={["page-header", "edit-anchor", compact && "page-header--compact", !lead && "page-header--no-lead"]}>
   {edit && <EditButton collection={edit.collection} entry={edit.entry} label={edit.label} />}
   <div class="container">
     <h1>{title}</h1>

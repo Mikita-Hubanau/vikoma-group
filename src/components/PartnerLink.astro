@@ -1,0 +1,15 @@
+---
+import { getSettings } from '../lib/content';
+import type { Locale } from '../i18n/config';
+import { useUI } from '../i18n/ui';
+interface Props { locale: Locale; id: 'naip' | 'retail'; label: string; }
+const { locale, id, label } = Astro.props;
+const { partners } = await getSettings(locale);
+const partner = partners.find((item) => item.id === id);
+const t = useUI(locale);
+---
+<span class="partner-link"><span>{t.partnerLabel}:</span> {partner?.href ? <a class="link" href={partner.href} target="_blank" rel="noopener noreferrer">{label}</a> : label}</span>
+<style>
+ .partner-link { font-size:var(--text-sm); line-height:1.7; overflow-wrap:anywhere; }
+ .partner-link > span { font-weight:500; color:var(--ink); }
+</style>

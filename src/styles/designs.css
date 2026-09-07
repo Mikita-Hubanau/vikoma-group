@@ -1,9 +1,4 @@
-/* VIKUB — five layouts, ONE Signature palette.
-   01 Signature (the previous design 04), 02 Balance, 03 Editorial,
-   04 Atlas, 05 Panorama. Content, routes and forms are shared.
-   The root ID deliberately outranks scoped Astro component selectors.
-   All colours are defined here once; layouts change geometry, not colour.
-*/
+/* Balance — approved layout 02. Shared palette and responsive geometry only. */
 html#vikub-site[data-design] {
   --paper: #fff;
   --paper-2: #f5f5f5;
@@ -45,12 +40,9 @@ html#vikub-site[data-design] .social-links a:hover { color: var(--accent); }
 html#vikub-site[data-design] .site-footer .social-links a:hover { color: var(--on-dark); }
 html#vikub-site[data-design] .contact-block { border-top: 1px solid var(--line); }
 html#vikub-site[data-design] .registration { padding: clamp(1.3rem, 3vw, 2.5rem); }
-html#vikub-site[data-design] .form-status[data-state='error'] { color: var(--ink); }
-html#vikub-site[data-design] .form-status[data-state='success'] { color: var(--ink); }
+html#vikub-site[data-design] .form-status[data-state="error"] { color: var(--ink); }
+html#vikub-site[data-design] .form-status[data-state="success"] { color: var(--ink); }
 html#vikub-site[data-design] .hero .partner-marks--compact { gap: 1rem 2rem; }
-
-
-/* Shared Signature identity and accessible structural defaults. */
 html#vikub-site[data-design] .hero__line--accent { font-style: italic; }
 html#vikub-site[data-design] .hero__figure { min-width: 0; }
 html#vikub-site[data-design] .hero__map-frame { min-width: 0; }
@@ -65,92 +57,22 @@ html#vikub-site[data-design] .service__title,
 html#vikub-site[data-design] .service-card h3 { font-weight: 400; }
 html#vikub-site[data-design] .service-card__top span { color: var(--accent); }
 html#vikub-site[data-design] .service-card p { max-width: 100%; }
-html#vikub-site[data-design] .stat__value { color: var(--accent); font-weight: 400; }
-html#vikub-site[data-design] .stat__value--text { color: var(--ink); }
 html#vikub-site[data-design] .service__aside { top: 11rem; }
 html#vikub-site[data-design] .event-teaser { border-top: 3px solid var(--accent-light); background: var(--ink); }
 html#vikub-site[data-design] .event-teaser h2 { font-weight: 400; }
 html#vikub-site[data-design] .event-teaser__meta time { color: var(--accent-light); font-weight: 400; }
 html#vikub-site[data-design] .person__initials { border-color: var(--accent-light); font-weight: 400; }
 html#vikub-site[data-design] .registration { border-color: var(--accent-light); }
-html#vikub-site[data-design] .office { border-top-color: var(--accent-light); }
 html#vikub-site[data-design] .contact-block { background: var(--paper); color: var(--body); }
 html#vikub-site[data-design] .contact-block h2 { color: var(--ink); font-weight: 400; }
 html#vikub-site[data-design] .contact-block .lead { color: var(--body); }
-/* The CTA is white in all layouts, so use the light-surface hover treatment. */
 html#vikub-site[data-design] .contact-block .btn--primary:hover { background: var(--ink); color: var(--on-dark); }
-html#vikub-site[data-design] :is(.hero__text,.about-summary > *, .event-content > *, .team > *, .office, .page-header .container > *) { min-width: 0; }
 html#vikub-site[data-design] :is(.hero h1,.page-header h1,.section-head h2,.service-card h3) { overflow-wrap: anywhere; }
 html#vikub-site[data-design] .hero .map__pulse { display: none; }
 html#vikub-site[data-design] .hero .map__wipe,
 html#vikub-site[data-design] .hero .map__marker,
 html#vikub-site[data-design] .hero .map__arc { animation: none; opacity: 1; transform: none; }
 html#vikub-site[data-design] .hero .map__arc { stroke-dasharray: 3 3; stroke-dashoffset: 0; opacity: .45; }
-
-/* 01 / SIGNATURE — preserved composition of previous design 04. */
-html#vikub-site[data-design='signature'] .hero { padding-block: clamp(3rem, 5vw, 5rem) 2rem; }
-html#vikub-site[data-design='signature'] .hero__inner { display: flex; flex-direction: column; gap: 2.5rem; text-align: center; }
-html#vikub-site[data-design='signature'] .hero__text { max-width: 61rem; width: 100%; }
-html#vikub-site[data-design='signature'] .hero .eyebrow { justify-content: center; font-size: .65rem; letter-spacing: .23em; margin-bottom: 1.8rem; }
-html#vikub-site[data-design='signature'] .hero .eyebrow::before { display: none; }
-html#vikub-site[data-design='signature'] .hero h1 { font-size: clamp(2.5rem, 4.9vw, 5rem); line-height: 1.05; font-weight: 400; letter-spacing: -.04em; }
-html#vikub-site[data-design='signature'] .hero__line--accent { font-style: italic; color: var(--accent); }
-html#vikub-site[data-design='signature'] .hero__lead { max-width: 44rem; margin-inline: auto; font-size: 1rem; }
-html#vikub-site[data-design='signature'] .hero__actions { justify-content: center; margin-top: 1.8rem; }
-html#vikub-site[data-design='signature'] .hero .partner-marks--compact { justify-content: center; border-top: 0; margin-top: 1rem; padding-top: 1rem; }
-html#vikub-site[data-design='signature'] .hero__figure { max-width: 52rem; border-top: 1px solid var(--line-strong); }
-html#vikub-site[data-design='signature'] .hero__map-frame { display: flex; justify-content: center; padding-top: 1.25rem; }
-html#vikub-site[data-design='signature'] .hero__figure .map { width: auto; height: 200px; max-width: 100%; }
-html#vikub-site[data-design='signature'] .hero__caption { border-top: 1px solid var(--line); margin-top: 1rem; }
-html#vikub-site[data-design='signature'] .section-head { text-align: center; }
-html#vikub-site[data-design='signature'] .section-head h2 { margin-inline: auto; max-width: 30ch; font-weight: 400; }
-html#vikub-site[data-design='signature'] .section-head .eyebrow { justify-content: center; }
-html#vikub-site[data-design='signature'] .section-head .eyebrow::before { display: none; }
-html#vikub-site[data-design='signature'] .service-cards { column-gap: 0; }
-html#vikub-site[data-design='signature'] .service-card { padding: 2rem 1.5rem; }
-html#vikub-site[data-design='signature'] .service-card__top svg { display: none; }
-html#vikub-site[data-design='signature'] .service-card__top span { color: var(--accent); font: 400 2.5rem/1 var(--font-serif); }
-html#vikub-site[data-design='signature'] .service-card h3 { font-size: 1.6rem; font-weight: 400; }
-html#vikub-site[data-design='signature'] .home-about { background: var(--paper-2); }
-html#vikub-site[data-design='signature'] .about-summary .section-head { text-align: left; }
-html#vikub-site[data-design='signature'] .about-summary .section-head h2 { margin-inline: 0; }
-html#vikub-site[data-design='signature'] .about-summary .eyebrow { justify-content: flex-start; }
-html#vikub-site[data-design='signature'] .about-summary__text p:first-child { font: 400 1.45rem/1.55 var(--font-serif); color: var(--ink); }
-html#vikub-site[data-design='signature'] .event-teaser { border-top: 3px solid var(--accent-light); background: #202020; }
-html#vikub-site[data-design='signature'] .event-teaser h2 { font-weight: 400; }
-html#vikub-site[data-design='signature'] .event-teaser__meta time { font-style: italic; font-size: clamp(2rem, 3.2vw, 3.1rem); color: var(--accent-light); }
-html#vikub-site[data-design='signature'] .stats { text-align: center; }
-html#vikub-site[data-design='signature'] .stats li { align-items: center; }
-html#vikub-site[data-design='signature'] .stat__value { color: var(--accent); font-weight: 400; justify-content: center; }
-html#vikub-site[data-design='signature'] .stat__value--text { color: var(--ink); }
-html#vikub-site[data-design='signature'] .partner-mark { align-items: center; justify-content: center; text-align: center; }
-html#vikub-site[data-design='signature'] .contact-block { background: #fff; color: var(--body); text-align: center; border-top: 1px solid var(--line); }
-html#vikub-site[data-design='signature'] .contact-block h2 { color: var(--ink); font-weight: 400; }
-html#vikub-site[data-design='signature'] .contact-block__inner { flex-direction: column; gap: 2rem; }
-html#vikub-site[data-design='signature'] .contact-block .lead { color: var(--body); }
-html#vikub-site[data-design='signature'] .page-header { text-align: center; }
-html#vikub-site[data-design='signature'] .page-header h1 { max-width: 27ch; margin-inline: auto; font-weight: 400; }
-html#vikub-site[data-design='signature'] .page-header__lead { margin-inline: auto; max-width: 46rem; font-size: 1rem; }
-html#vikub-site[data-design='signature'] .person__identity { justify-content: center; text-align: center; flex-direction: column; }
-html#vikub-site[data-design='signature'] .person__initials { border-color: var(--accent-light); font-weight: 400; }
-html#vikub-site[data-design='signature'] .person h3 { font-weight: 400; font-size: 2rem; }
-html#vikub-site[data-design='signature'] .service__title { font-weight: 400; }
-html#vikub-site[data-design='signature'] .service__num { color: var(--accent); font-size: 3rem; font-style: italic; }
-html#vikub-site[data-design='signature'] .event-register-cta { text-align: center; }
-html#vikub-site[data-design='signature'] .registration { border: 1px solid var(--accent-light); }
-html#vikub-site[data-design='signature'] .office { border-top-color: var(--accent-light); text-align: center; }
-html#vikub-site[data-design='signature'] .office .eyebrow { justify-content: center; }
-html#vikub-site[data-design='signature'] .office address { margin-inline: auto; }
-@media (min-width: 42rem) {
-  html#vikub-site[data-design='signature'] .service-card:nth-child(even) { border-left: 1px solid var(--line); }
-}
-@media (min-width: 66rem) {
-  html#vikub-site[data-design='signature'] .service-card:not(:first-child) { border-left: 1px solid var(--line); }
-}
-
-
-/* 02 / BALANCE — two-column consultancy, open map panel, paired services.
-   Reading order is unchanged: headline, explanation, actions, then map. */
 html#vikub-site[data-design='balance'] .hero { padding-block: clamp(3rem, 6vw, 6rem); }
 html#vikub-site[data-design='balance'] .hero h1 { font-size: clamp(2.45rem, 4.1vw, 4.15rem); line-height: 1.07; }
 html#vikub-site[data-design='balance'] .hero .eyebrow { margin-bottom: 2rem; }
@@ -173,294 +95,68 @@ html#vikub-site[data-design='balance'] .about-summary__text { border-left: 1px s
 html#vikub-site[data-design='balance'] .event-teaser { padding-block: clamp(3.5rem, 5vw, 5rem); }
 html#vikub-site[data-design='balance'] .event-teaser h2 { font-size: clamp(2rem, 2.9vw, 3rem); }
 html#vikub-site[data-design='balance'] .event-teaser__meta time { font-size: 2.5rem; }
-html#vikub-site[data-design='balance'] .stats { gap: 1.5rem; }
-html#vikub-site[data-design='balance'] .stats li { border-left: 1px solid var(--line-strong); padding-left: 1.5rem; }
 html#vikub-site[data-design='balance'] .contact-block__inner { gap: 2rem; }
 html#vikub-site[data-design='balance'] .page-header { padding-block: clamp(3rem, 5vw, 5rem); }
 html#vikub-site[data-design='balance'] .page-header h1 { max-width: 24ch; }
 html#vikub-site[data-design='balance'] .person { background: var(--paper); border: 1px solid var(--line-strong); padding: 2rem; }
-html#vikub-site[data-design='balance'] .person__initials { width: 72px; height: 72px; font-size: 2rem; }
 html#vikub-site[data-design='balance'] .team { gap: 1.5rem; }
 html#vikub-site[data-design='balance'] .service { border: 1px solid var(--line); margin-bottom: 1.5rem; padding: clamp(1.5rem, 3vw, 3rem); }
 html#vikub-site[data-design='balance'] .service__num { font-size: 2.8rem; font-style: italic; }
-html#vikub-site[data-design='balance'] .office { border: 1px solid var(--line-strong); border-top: 2px solid var(--accent-light); padding: 2rem; }
-html#vikub-site[data-design='balance'] .offices { gap: 1.5rem; }
 @media (min-width: 42rem) {
- html#vikub-site[data-design='balance'] .service-cards { grid-template-columns: repeat(2,minmax(0,1fr)); }
+html#vikub-site[data-design='balance'] .service-cards { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
 @media (min-width: 64rem) {
- html#vikub-site[data-design='balance'] .hero__inner { grid-template-columns: minmax(0,1.15fr) minmax(0,1fr); gap: clamp(2rem, 4vw, 4.5rem); }
- html#vikub-site[data-design='balance'] .page-header > .container { display: grid; grid-template-columns: minmax(0,1.3fr) minmax(0,1fr); align-items: end; gap: 4rem; }
- html#vikub-site[data-design='balance'] .page-header__lead { margin: 0 0 .25rem; font-size: 1rem; }
- html#vikub-site[data-design='balance'] .service { grid-template-columns: minmax(0,.85fr) minmax(0,1.3fr); gap: 3rem; }
+html#vikub-site[data-design='balance'] .hero__inner { grid-template-columns: minmax(0,1.15fr) minmax(0,1fr); gap: clamp(2rem, 4vw, 4.5rem); }
+html#vikub-site[data-design='balance'] .page-header > .container { display: grid; grid-template-columns: minmax(0,1.3fr) minmax(0,1fr); align-items: end; gap: 4rem; }
+html#vikub-site[data-design='balance'] .page-header__lead { margin: 0 0 .25rem; font-size: 1rem; }
+html#vikub-site[data-design='balance'] .service { grid-template-columns: minmax(0,.85fr) minmax(0,1.3fr); gap: 3rem; }
 }
-
-/* 03 / EDITORIAL — a margin column, oversized heading, compact narrative
-   next to the map; service rows follow a numbered, magazine-like rhythm. */
-html#vikub-site[data-design='editorial'] .hero { padding-block: clamp(3rem, 5vw, 5rem); }
-html#vikub-site[data-design='editorial'] .hero h1 { font-size: clamp(2.5rem, 4.9vw, 5rem); line-height: 1.07; }
-html#vikub-site[data-design='editorial'] .hero__line { display: inline; }
-html#vikub-site[data-design='editorial'] .hero__line--accent { display: block; margin-top: .12em; }
-html#vikub-site[data-design='editorial'] .hero__figure { max-width: none; border-top: 1px solid var(--accent-light); border-bottom: 1px solid var(--line-strong); padding-block: 1rem; }
-html#vikub-site[data-design='editorial'] .hero__map-frame { padding-block: 1rem; }
-html#vikub-site[data-design='editorial'] .hero__caption { border-top: 1px solid var(--line); }
-html#vikub-site[data-design='editorial'] .hero .partner-marks--compact { gap: 1rem; }
-html#vikub-site[data-design='editorial'] .service-cards { grid-template-columns: minmax(0,1fr); }
-html#vikub-site[data-design='editorial'] .service-card { display: grid; grid-template-columns: 2.5rem minmax(0,1fr); gap: .75rem 1.5rem; padding-block: 2rem; }
-html#vikub-site[data-design='editorial'] .service-card__top { grid-row: 1 / 3; display: block; margin: 0; }
-html#vikub-site[data-design='editorial'] .service-card__top svg { display: none; }
-html#vikub-site[data-design='editorial'] .service-card__top span { font: italic 400 2.25rem/1 var(--font-serif); color: var(--accent); }
-html#vikub-site[data-design='editorial'] .service-card h3 { font-size: 1.6rem; margin-bottom: 0; }
-html#vikub-site[data-design='editorial'] .service-card p { grid-column: 2; }
-html#vikub-site[data-design='editorial'] .home-about { background: var(--paper-2); }
-html#vikub-site[data-design='editorial'] .about-summary__text p:first-child { font: 400 1.7rem/1.5 var(--font-serif); color: var(--ink); }
-html#vikub-site[data-design='editorial'] .event-teaser h2 { font-size: clamp(2rem, 3.1vw, 3.4rem); }
-html#vikub-site[data-design='editorial'] .event-teaser__meta time { font-size: 2.75rem; font-style: italic; }
-html#vikub-site[data-design='editorial'] .stats { gap: 1.5rem; }
-html#vikub-site[data-design='editorial'] .home-partners .section-head { margin-bottom: 2rem; }
-html#vikub-site[data-design='editorial'] .page-header h1 { max-width: 27ch; }
-html#vikub-site[data-design='editorial'] .person { border-top: 1px solid var(--accent-light); }
-html#vikub-site[data-design='editorial'] .person__initials { border: 0; padding: 0; justify-content: flex-start; width: 70px; }
-html#vikub-site[data-design='editorial'] .service__num { font-size: 3rem; font-style: italic; }
-html#vikub-site[data-design='editorial'] .service__aside > svg { display: none; }
-html#vikub-site[data-design='editorial'] .service__title { font-size: 2rem; }
-html#vikub-site[data-design='editorial'] .registration { border-width: 1px 0 0; padding-inline: 0; background: transparent; }
-html#vikub-site[data-design='editorial'] .event-content { grid-template-columns: minmax(0,1fr); max-width: 64rem; }
-html#vikub-site[data-design='editorial'] .registration { max-width: 46rem; width: 100%; }
-@media (min-width: 64rem) {
- html#vikub-site[data-design='editorial'] .hero__inner { grid-template-columns: minmax(0,.48fr) minmax(0,1fr) minmax(0,1fr); grid-template-areas: 'kicker title title' '. lead map' '. actions map' '. partners map'; gap: 1.5rem 3rem; align-items: start; }
- html#vikub-site[data-design='editorial'] .hero__text { display: contents; }
- html#vikub-site[data-design='editorial'] .hero .eyebrow { grid-area: kicker; display: block; border-top: 1px solid var(--accent-light); padding-top: 1rem; margin-top: .65rem; }
- html#vikub-site[data-design='editorial'] .hero .eyebrow::before { display: none; }
- html#vikub-site[data-design='editorial'] .hero h1 { grid-area: title; margin-bottom: 1rem; }
- html#vikub-site[data-design='editorial'] .hero__lead { grid-area: lead; margin: 0; max-width: none; }
- html#vikub-site[data-design='editorial'] .hero__actions { grid-area: actions; margin: 0; flex-direction: column; align-items: flex-start; gap: .75rem; }
- html#vikub-site[data-design='editorial'] .hero .partner-marks--compact { grid-area: partners; margin: 0; padding-top: 1.25rem; }
- html#vikub-site[data-design='editorial'] .hero__figure { grid-area: map; align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
- html#vikub-site[data-design='editorial'] .home-services > .container,
- html#vikub-site[data-design='editorial'] .about-summary,
- html#vikub-site[data-design='editorial'] .home-partners > .container { display: grid; grid-template-columns: minmax(0,.6fr) minmax(0,1.6fr); gap: 4rem; }
- html#vikub-site[data-design='editorial'] .home-services .section-head h2 { font-size: 2.5rem; }
- html#vikub-site[data-design='editorial'] .service-card { grid-template-columns: 2.5rem minmax(0,1fr) minmax(0,1fr); gap: 1.25rem; }
- html#vikub-site[data-design='editorial'] .service-card__top { grid-row: auto; }
- html#vikub-site[data-design='editorial'] .service-card p { grid-column: auto; }
- html#vikub-site[data-design='editorial'] .service-card h3 { font-size: 1.5rem; }
- html#vikub-site[data-design='editorial'] .team { grid-template-columns: minmax(0,1fr); }
- html#vikub-site[data-design='editorial'] .person { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.5fr); gap: 4rem; }
- html#vikub-site[data-design='editorial'] .person__identity { align-content: start; }
- html#vikub-site[data-design='editorial'] .offices { grid-template-columns: minmax(0,1fr); gap: 2rem; }
- html#vikub-site[data-design='editorial'] .office { display: grid; grid-template-columns: minmax(0,.7fr) minmax(0,1fr) minmax(0,1.2fr); grid-template-areas: 'label city links'; gap: .5rem 3rem; padding-top: 2rem; }
- html#vikub-site[data-design='editorial'] .office > .eyebrow { grid-area: label; }
- html#vikub-site[data-design='editorial'] .office h2 { grid-area: city; }
- html#vikub-site[data-design='editorial'] .office__person { grid-area: person; }
- html#vikub-site[data-design='editorial'] .office address { grid-area: address; }
- html#vikub-site[data-design='editorial'] .office__links { grid-area: links; margin-top: 0; }
-}
-
-/* 04 / ATLAS — a map-led modular layout. The map is left on a wide display;
-   on mobile the original text-first DOM order is restored naturally. */
-html#vikub-site[data-design='atlas'] .hero { padding-block: clamp(2rem, 4vw, 4rem); }
-html#vikub-site[data-design='atlas'] .hero h1 { font-size: clamp(2.3rem, 3.5vw, 3.8rem); line-height: 1.08; }
-html#vikub-site[data-design='atlas'] .hero__figure { max-width: none; background: var(--accent-soft); border: 1px solid var(--line-strong); padding: clamp(1.25rem, 2.75vw, 3rem); }
-html#vikub-site[data-design='atlas'] .hero__map-frame { padding-block: 2.5rem; }
-html#vikub-site[data-design='atlas'] .hero__caption { border-top: 1px solid var(--line-strong); }
-html#vikub-site[data-design='atlas'] .hero__actions { gap: .75rem; }
-html#vikub-site[data-design='atlas'] .hero .partner-marks--compact { gap: 1rem; }
-html#vikub-site[data-design='atlas'] .home-services { padding-block: clamp(3rem, 5vw, 5rem); }
-html#vikub-site[data-design='atlas'] .service-cards { border: 1px solid var(--line-strong); gap: 0; }
-html#vikub-site[data-design='atlas'] .service-card { padding: 2rem; background: var(--paper); }
-html#vikub-site[data-design='atlas'] .service-card:last-child { border-bottom: 0; }
-html#vikub-site[data-design='atlas'] .service-card__top { margin-bottom: 1.5rem; }
-html#vikub-site[data-design='atlas'] .service-card__top span { font: 400 2.25rem/1 var(--font-serif); }
-html#vikub-site[data-design='atlas'] .service-card h3 { font-size: 1.65rem; }
-html#vikub-site[data-design='atlas'] .home-about { background: var(--paper-2); }
-html#vikub-site[data-design='atlas'] .event-teaser { padding-block: clamp(3rem, 4vw, 4rem); }
-html#vikub-site[data-design='atlas'] .event-teaser h2 { font-size: clamp(2rem, 3vw, 3rem); }
-html#vikub-site[data-design='atlas'] .event-teaser__meta time { font-size: 2.5rem; }
-html#vikub-site[data-design='atlas'] .stats { gap: 0; padding-top: 0; border: 1px solid var(--line-strong); }
-html#vikub-site[data-design='atlas'] .stats li { padding: 1.75rem; border-bottom: 1px solid var(--line); }
-html#vikub-site[data-design='atlas'] .stats li:last-child { border-bottom: 0; }
-html#vikub-site[data-design='atlas'] .stat__value { font-size: clamp(2.8rem, 4vw, 4rem); }
-html#vikub-site[data-design='atlas'] .stat__value--text { font-size: clamp(1.5rem, 2vw, 1.9rem); }
-html#vikub-site[data-design='atlas'] .page-header { background: var(--paper-2); border-bottom: 1px solid var(--line-strong); }
-html#vikub-site[data-design='atlas'] .page-header h1 { max-width: 27ch; }
-html#vikub-site[data-design='atlas'] .team { gap: 1.5rem; }
-html#vikub-site[data-design='atlas'] .person { background: var(--paper); padding: 2rem; border: 1px solid var(--line-strong); }
-html#vikub-site[data-design='atlas'] .person__identity { flex-direction: column; align-items: flex-start; }
-html#vikub-site[data-design='atlas'] .person__initials { width: 64px; height: 64px; font-size: 1.8rem; }
-html#vikub-site[data-design='atlas'] .services { display: grid; grid-template-columns: minmax(0,1fr); gap: 1.5rem; }
-html#vikub-site[data-design='atlas'] .service { grid-template-columns: minmax(0,1fr); background: var(--paper-2); padding: 2rem; border: 1px solid var(--line-strong); gap: 2rem; align-content: start; }
-html#vikub-site[data-design='atlas'] .service__aside { position: static; }
-html#vikub-site[data-design='atlas'] .service__num { float: right; margin-left: 1rem; font-size: 2.25rem; }
-html#vikub-site[data-design='atlas'] .service__title { clear: both; }
-html#vikub-site[data-design='atlas'] .event-facts { border: 1px solid var(--line-strong); gap: 0; }
-html#vikub-site[data-design='atlas'] .event-facts > div { padding: 1.25rem; border-top: 0; border-bottom: 1px solid var(--line); }
-html#vikub-site[data-design='atlas'] .office { border: 1px solid var(--line-strong); background: var(--paper-2); padding: 2rem; }
-html#vikub-site[data-design='atlas'] .offices { gap: 1.5rem; }
-@media (min-width: 42rem) {
- html#vikub-site[data-design='atlas'] .service-cards { grid-template-columns: repeat(2,minmax(0,1fr)); }
- html#vikub-site[data-design='atlas'] .service-card:nth-child(even) { border-left: 1px solid var(--line-strong); }
- html#vikub-site[data-design='atlas'] .service-card:nth-last-child(-n+2) { border-bottom: 0; }
-}
-@media (min-width: 64rem) {
- html#vikub-site[data-design='atlas'] .hero__inner { grid-template-columns: minmax(0,1.12fr) minmax(0,1fr); grid-template-areas: 'map copy'; gap: 3.5rem; }
- html#vikub-site[data-design='atlas'] .hero__text { grid-area: copy; padding-block: 1rem; }
- html#vikub-site[data-design='atlas'] .hero__figure { grid-area: map; align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
- html#vikub-site[data-design='atlas'] .hero__map-frame { flex: 1; display: flex; align-items: center; }
- html#vikub-site[data-design='atlas'] .hero__map-frame .map { width: 100%; height: auto; }
- html#vikub-site[data-design='atlas'] .home-services > .container { display: grid; grid-template-columns: minmax(0,.65fr) minmax(0,1.45fr); gap: 3.5rem; align-items: start; }
- html#vikub-site[data-design='atlas'] .home-services .section-head { padding-top: 1.75rem; border-top: 1px solid var(--accent-light); }
- html#vikub-site[data-design='atlas'] .home-services .section-head h2 { font-size: 2.75rem; }
- html#vikub-site[data-design='atlas'] .service-card { padding: 1.75rem; }
- html#vikub-site[data-design='atlas'] .event-teaser__inner { grid-template-columns: minmax(0,1.8fr) minmax(0,1fr); gap: 4rem; }
- html#vikub-site[data-design='atlas'] .stats li { border-bottom: 0; }
- html#vikub-site[data-design='atlas'] .stats li + li { border-left: 1px solid var(--line-strong); }
- html#vikub-site[data-design='atlas'] .services { grid-template-columns: repeat(2,minmax(0,1fr)); }
- html#vikub-site[data-design='atlas'] .service:last-child { grid-column: 1 / -1; grid-template-columns: minmax(0,.85fr) minmax(0,1.4fr); gap: 3rem; }
-}
-
-/* 05 / PANORAMA — a broad headline, then a map / introduction band.
-   Numbered service columns and centred long-form sections continue the axis. */
-html#vikub-site[data-design='panorama'] .hero { padding-block: clamp(2.5rem, 4vw, 4rem); }
-html#vikub-site[data-design='panorama'] .hero h1 { font-size: clamp(2.6rem, 5.3vw, 5.4rem); line-height: 1.05; }
-html#vikub-site[data-design='panorama'] .hero__line { display: inline; }
-html#vikub-site[data-design='panorama'] .hero__figure { max-width: none; border: 1px solid var(--line-strong); background: var(--paper-2); padding: 1.5rem; }
-html#vikub-site[data-design='panorama'] .hero__map-frame { padding-block: 1rem; }
-html#vikub-site[data-design='panorama'] .hero__caption { border-top: 1px solid var(--line-strong); }
-html#vikub-site[data-design='panorama'] .home-services .section-head { border-top: 1px solid var(--accent-light); padding-top: 1.5rem; }
-html#vikub-site[data-design='panorama'] .service-cards { gap: 0; }
-html#vikub-site[data-design='panorama'] .service-card { padding: 2rem 1.75rem; }
-html#vikub-site[data-design='panorama'] .service-card__top svg { display: none; }
-html#vikub-site[data-design='panorama'] .service-card__top span { font: 400 3rem/1 var(--font-serif); }
-html#vikub-site[data-design='panorama'] .service-card h3 { font-size: 1.7rem; }
-html#vikub-site[data-design='panorama'] .home-about { background: var(--paper-2); text-align: center; }
-html#vikub-site[data-design='panorama'] .about-summary { grid-template-columns: minmax(0,1fr); max-width: 60rem; gap: 2.5rem; }
-html#vikub-site[data-design='panorama'] .about-summary .section-head { margin-bottom: 1.5rem; }
-html#vikub-site[data-design='panorama'] .about-summary .eyebrow { justify-content: center; }
-html#vikub-site[data-design='panorama'] .about-summary .eyebrow::before { display: none; }
-html#vikub-site[data-design='panorama'] .about-summary__text { margin-inline: auto; max-width: 46rem; }
-html#vikub-site[data-design='panorama'] .event-teaser__inner { grid-template-columns: minmax(0,1fr); max-width: 64rem; text-align: center; gap: 2.5rem; }
-html#vikub-site[data-design='panorama'] .event-teaser .eyebrow { justify-content: center; }
-html#vikub-site[data-design='panorama'] .event-teaser .eyebrow::before { display: none; }
-html#vikub-site[data-design='panorama'] .event-teaser h2 { max-width: 35ch; margin-inline: auto; }
-html#vikub-site[data-design='panorama'] .event-teaser .lead { margin-inline: auto; max-width: 45rem; }
-html#vikub-site[data-design='panorama'] .event-teaser__meta { border-left: 0; border-top: 1px solid var(--on-dark-muted); padding: 1.5rem 0 0; flex-direction: row; justify-content: center; align-items: center; flex-wrap: wrap; gap: 1rem 2rem; }
-html#vikub-site[data-design='panorama'] .event-teaser__meta time { font-size: 1.8rem; }
-html#vikub-site[data-design='panorama'] .event-teaser__meta svg { width: 26px; height: 26px; }
-html#vikub-site[data-design='panorama'] .stats { text-align: center; }
-html#vikub-site[data-design='panorama'] .stats li { align-items: center; }
-html#vikub-site[data-design='panorama'] .stat__value { justify-content: center; }
-html#vikub-site[data-design='panorama'] .home-partners { text-align: center; }
-html#vikub-site[data-design='panorama'] .home-partners .eyebrow { justify-content: center; }
-html#vikub-site[data-design='panorama'] .partner-mark { align-items: center; justify-content: center; text-align: center; }
-html#vikub-site[data-design='panorama'] .contact-block__inner { flex-direction: column; text-align: center; }
-html#vikub-site[data-design='panorama'] .page-header { text-align: center; }
-html#vikub-site[data-design='panorama'] .page-header h1 { max-width: 31ch; margin-inline: auto; }
-html#vikub-site[data-design='panorama'] .page-header__lead { margin-inline: auto; }
-html#vikub-site[data-design='panorama'] .mission { grid-template-columns: minmax(0,1fr); max-width: 62rem; text-align: center; }
-html#vikub-site[data-design='panorama'] .mission p { margin-inline: auto; }
-html#vikub-site[data-design='panorama'] .person { padding-top: 2.5rem; }
-html#vikub-site[data-design='panorama'] .person__identity { flex-direction: column; text-align: center; }
-html#vikub-site[data-design='panorama'] .person__about { max-width: 45ch; margin-inline: auto; }
-html#vikub-site[data-design='panorama'] .service { grid-template-columns: minmax(0,1fr); max-width: 62rem; margin-inline: auto; gap: 2.5rem; }
-html#vikub-site[data-design='panorama'] .service__aside { position: static; display: flex; align-items: baseline; gap: 1.5rem; }
-html#vikub-site[data-design='panorama'] .service__aside > svg { display: none; }
-html#vikub-site[data-design='panorama'] .service__num { font-size: 3rem; flex-shrink: 0; margin-bottom: 0; }
-html#vikub-site[data-design='panorama'] .service__title { font-size: clamp(1.8rem, 2.5vw, 2.5rem); }
-html#vikub-site[data-design='panorama'] .service__body { max-width: 50rem; }
-html#vikub-site[data-design='panorama'] .event-register-cta { text-align: center; }
-html#vikub-site[data-design='panorama'] .event-content { grid-template-columns: minmax(0,1fr); max-width: 64rem; }
-html#vikub-site[data-design='panorama'] .registration { max-width: 46rem; width: 100%; justify-self: center; }
-html#vikub-site[data-design='panorama'] .office { text-align: center; }
-html#vikub-site[data-design='panorama'] .office > .eyebrow { justify-content: center; }
-html#vikub-site[data-design='panorama'] .office address { margin-inline: auto; }
-@media (min-width: 42rem) {
- html#vikub-site[data-design='panorama'] .service-card:nth-child(even) { border-left: 1px solid var(--line); }
-}
-@media (min-width: 64rem) {
- html#vikub-site[data-design='panorama'] .hero__inner { grid-template-columns: minmax(0,1.35fr) minmax(0,1fr); grid-template-areas: 'kicker kicker' 'title title' 'map lead' 'map actions'; gap: 1.25rem 4rem; align-items: start; }
- html#vikub-site[data-design='panorama'] .hero__text { display: contents; }
- html#vikub-site[data-design='panorama'] .hero .eyebrow { grid-area: kicker; margin: 0; }
- html#vikub-site[data-design='panorama'] .hero h1 { grid-area: title; max-width: 26ch; padding-bottom: 2rem; margin-bottom: 1rem; }
- html#vikub-site[data-design='panorama'] .hero__lead { grid-area: lead; margin: 0; max-width: none; padding-top: .25rem; }
- html#vikub-site[data-design='panorama'] .hero__actions { grid-area: actions; margin: 0; align-items: flex-start; }
- html#vikub-site[data-design='panorama'] .hero .partner-marks--compact { grid-area: partners; margin: 0; padding-top: 1rem; }
- html#vikub-site[data-design='panorama'] .hero__figure { grid-area: map; align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
- html#vikub-site[data-design='panorama'] .hero__map-frame .map { height: 300px; width: 100%; }
- html#vikub-site[data-design='panorama'] .home-services .section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 3rem; }
- html#vikub-site[data-design='panorama'] .home-services .section-head h2 { max-width: 24ch; text-align: right; }
- html#vikub-site[data-design='panorama'] .service__body { margin-left: 4.75rem; }
-}
-@media (min-width: 66rem) {
- html#vikub-site[data-design='panorama'] .service-card:not(:first-child) { border-left: 1px solid var(--line); }
-}
-
-/* Shared narrow-screen rules; no order changes or hidden business content.
-   Text-first and full-width controls keep all five layouts usable on phones. */
 @media (max-width: 63.999rem) {
- html#vikub-site[data-design='balance'] .hero__inner,
- html#vikub-site[data-design='editorial'] .hero__inner,
- html#vikub-site[data-design='atlas'] .hero__inner,
- html#vikub-site[data-design='panorama'] .hero__inner { grid-template-columns: minmax(0,1fr); gap: 2.5rem; }
- html#vikub-site[data-design='balance'] .hero__figure,
- html#vikub-site[data-design='atlas'] .hero__figure { max-width: 46rem; }
- html#vikub-site[data-design='editorial'] .hero__figure,
- html#vikub-site[data-design='panorama'] .hero__figure { max-width: 42rem; }
+html#vikub-site[data-design='balance'] .hero__inner { grid-template-columns: minmax(0,1fr); gap: 2.5rem; }
+html#vikub-site[data-design='balance'] .hero__figure { max-width: 46rem; }
 }
 @media (max-width: 40rem) {
- html#vikub-site[data-design] .hero__inner { gap: 2rem; }
- html#vikub-site[data-design] .hero__figure { max-width: 32rem; }
- html#vikub-site[data-design] .hero__lead { font-size: 1rem; }
- html#vikub-site[data-design='signature'] .hero__figure .map { height: auto; width: 100%; }
- html#vikub-site[data-design='signature'] .service-card { padding-inline: 0; }
- html#vikub-site[data-design='signature'] .stats { text-align: left; }
- html#vikub-site[data-design='signature'] .stats li { align-items: flex-start; }
- html#vikub-site[data-design='balance'] .hero__map-frame,
- html#vikub-site[data-design='atlas'] .hero__map-frame { padding-block: 1rem; }
- html#vikub-site[data-design='balance'] .service-card { padding: 1.5rem; grid-template-columns: 1.75rem minmax(0,1fr); column-gap: 1rem; }
- html#vikub-site[data-design='atlas'] .service-card,
- html#vikub-site[data-design='atlas'] .service,
- html#vikub-site[data-design='atlas'] .office,
- html#vikub-site[data-design='balance'] .office,
- html#vikub-site[data-design='balance'] .person,
- html#vikub-site[data-design='atlas'] .person { padding: 1.5rem; }
- html#vikub-site[data-design='panorama'] .service-card { padding-inline: 0; }
- html#vikub-site[data-design='panorama'] .stats { text-align: left; }
- html#vikub-site[data-design='panorama'] .stats li { align-items: flex-start; }
- html#vikub-site[data-design='panorama'] .service__aside { display: block; }
- html#vikub-site[data-design='panorama'] .service__num { margin-bottom: 1rem; }
- html#vikub-site[data-design='panorama'] .hero__map-frame { padding-block: 0; }
- html#vikub-site[data-design='atlas'] .event-facts { grid-template-columns: minmax(0,1fr); }
- html#vikub-site[data-design] .event-teaser__meta time { overflow-wrap: anywhere; }
+html#vikub-site[data-design] .hero__inner { gap: 2rem; }
+html#vikub-site[data-design] .hero__figure { max-width: 32rem; }
+html#vikub-site[data-design] .hero__lead { font-size: 1rem; }
+html#vikub-site[data-design='balance'] .hero__map-frame { padding-block: 1rem; }
+html#vikub-site[data-design='balance'] .service-card { padding: 1.5rem; grid-template-columns: 1.75rem minmax(0,1fr); column-gap: 1rem; }
+html#vikub-site[data-design='balance'] .person { padding: 1.5rem; }
+html#vikub-site[data-design] .event-teaser__meta time { overflow-wrap: anywhere; }
 }
 @media (prefers-reduced-motion: reduce) {
- html#vikub-site[data-design] .btn { transition: none; }
+html#vikub-site[data-design] .btn { transition: none; }
 }
-/* On phones the tools share the header grid: logo / language on row one,
-   all five layout buttons directly below, navigation on row three. */
 @media (max-width: 40rem) {
- html#vikub-site[data-design] .site-header__inner { grid-template-columns: minmax(0,1fr) auto; grid-template-areas: 'logo lang' 'layouts layouts' 'nav nav'; gap: .75rem 1rem; }
- html#vikub-site[data-design] .site-header__tools { display: contents; }
- html#vikub-site[data-design] .site-header__lang { grid-area: lang; }
- html#vikub-site[data-design] .design-switcher { grid-area: layouts; width: 100%; max-width: none; }
- html#vikub-site[data-design] .nav__list { justify-content: space-between; gap: 0 .9rem; }
- html#vikub-site[data-design] .nav__link { font-size: .78rem; }
- html#vikub-site[data-design] .site-header__cta { display: none; }
+html#vikub-site[data-design] .site-header__inner { grid-template-columns: minmax(0,1fr) auto; grid-template-areas: 'logo lang' 'nav nav'; gap: .75rem 1rem; }
+html#vikub-site[data-design] .site-header__tools { display: contents; }
+html#vikub-site[data-design] .site-header__lang { grid-area: lang; }
+html#vikub-site[data-design] .nav__list { justify-content: space-between; gap: 0 .9rem; }
+html#vikub-site[data-design] .nav__link { font-size: .78rem; }
+html#vikub-site[data-design] .site-header__cta { display: none; }
 }
-/* Prevent a long compound word from establishing an implicit grid minimum. */
 html#vikub-site[data-design] .about-summary__text { grid-template-columns: minmax(0,1fr); }
 html#vikub-site[data-design] .about-summary__text p { min-width: 0; overflow-wrap: anywhere; }
-
-/* Descriptive partners: same source on Home and About, across all layouts. */
 html#vikub-site[data-design] .partner-detail { box-shadow:none; background:transparent; }
-@media (min-width:64rem) {
- html#vikub-site[data-design='editorial'] .partner-grid { grid-template-columns:minmax(0,1fr); gap:0; }
- html#vikub-site[data-design='editorial'] .partner-detail { grid-template-columns:3rem minmax(0,1fr); }
- html#vikub-site[data-design='editorial'] .partner-detail__body { display:grid; grid-template-columns:minmax(0,.75fr) minmax(0,1.5fr); gap:3rem; }
- html#vikub-site[data-design='editorial'] .partner-detail p { margin-top:0; }
- html#vikub-site[data-design='atlas'] .partner-grid { gap:0; border:1px solid var(--line); }
- html#vikub-site[data-design='atlas'] .partner-detail { border-top:0; padding:2rem; }
- html#vikub-site[data-design='atlas'] .partner-detail + .partner-detail { border-left:1px solid var(--line); }
+html#vikub-site[data-design] .partner-detail__body { text-align:left; }
+/* Detailed brief: keep two service cards, four benefits, and full-size portraits. */
+html#vikub-site[data-design='balance'] .service-card > .service-card__details,
+html#vikub-site[data-design='balance'] .service-card > .service-card__partner { grid-column: 2; }
+html#vikub-site[data-design='balance'] .service-card__top { grid-row: 1 / 6; }
+html#vikub-site[data-design='balance'] .hero__lead { font-family: var(--font-sans); font-weight: 400; letter-spacing: 0; color: var(--body); }
+html#vikub-site[data-design='balance'] .person__photo,
+html#vikub-site[data-design='balance'] .person__initials { width: 200px; height: 200px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+html#vikub-site[data-design='balance'] .person__initials { display: grid; place-items: center; font-size: 3rem; color: var(--accent); background: var(--accent-soft); border: 1px solid var(--line-strong); }
+html#vikub-site[data-design='balance'] .person__photo img { width: 200px; height: 200px; object-fit: cover; display: block; }
+html#vikub-site[data-design='balance'] .person__identity { display: flex; flex-direction: column; align-items: flex-start; }
+html#vikub-site[data-design='balance'] .page-header--compact h1 { font-size: clamp(2.25rem, 4.2vw, 4.2rem); }
+html#vikub-site[data-design='balance'] .page-header--no-lead > .container { grid-template-columns: minmax(0,1fr); }
+html#vikub-site[data-design='balance'] .page-header--no-lead h1 { max-width: none; }
+html#vikub-site[data-design='balance'] .contact-detail { border-top: 2px solid var(--accent-light); }
+@media (min-width: 64rem) { html#vikub-site[data-design='balance'] .team { grid-template-columns: repeat(3,minmax(0,1fr)); } }
+@media (max-width: 40rem) {
+ html#vikub-site[data-design='balance'] .service-card { display: block; }
+ html#vikub-site[data-design='balance'] .service-card__top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+ html#vikub-site[data-design='balance'] .service-card__top span { margin: 0; }
 }
 
-html#vikub-site[data-design] .partner-detail__body { text-align:left; }

@@ -15,7 +15,7 @@ const russianServices = [
   'Инвестиции в Беларуси / ЕАЭС',
   'Поиск поставщика / производителя в Италии',
   'Поиск товара / оборудования в Италии',
-  'Я хочу понять, есть ли смысл в моём проекте',
+  'Оценка перспектив моего проекта',
   'Другое',
 ];
 
@@ -33,11 +33,11 @@ test('contacts: exact approved phone numbers, normalized tel targets and email',
 test('contacts: exact Russian heading, project paragraphs and button text', () => {
   const copy = getContactsCopy('ru');
   assert.equal(copy.title, 'Свяжитесь с нами');
-  assert.equal(copy.form.title, 'Обсудить проект');
-  assert.equal(copy.form.lead, 'Расскажите нам, что вы хотите сделать — выйти на рынок, найти партнёра, рассмотреть инвестиционный проект или решить другую бизнес-задачу. Мы свяжемся с вами и обсудим возможные следующие шаги.');
-  assert.equal(copy.form.followUp, 'Не уверены, подходит ли ваш проект для нашего сопровождения? Напишите нам — мы рассмотрим ваш запрос и честно скажем, можем ли быть полезны.');
+  assert.equal(copy.form.title, 'Расскажите о своей задаче');
+  assert.equal(copy.form.lead, 'Выход на рынок, поиск партнёров, инвестиции, закупки в Италии. Мы свяжемся с вами и обсудим шаги. Если проект не наш профиль – скажем честно.');
+  assert.equal(copy.form.followUp, '');
   assert.equal(copy.form.submit, 'Отправить запрос');
-  assert.equal(copy.form.service, 'Чем мы можем вам помочь?');
+  assert.equal(copy.form.service, 'Чем мы можем помочь?');
 });
 
 test('contacts: the eight Russian request topics match the brief and its ordering', () => {
@@ -50,11 +50,11 @@ test('contacts: each existing language has a complete matching copy structure', 
     const copy = getContactsCopy(locale);
     assert.deepEqual(Object.keys(copy).sort(), Object.keys(CONTACT_COPY.ru).sort());
     assert.deepEqual(Object.keys(copy.form).sort(), Object.keys(CONTACT_COPY.ru.form).sort());
-    for (const value of Object.values(copy)) {
-      if (typeof value === 'string') assert.ok(value.trim());
+    for (const [key, value] of Object.entries(copy)) {
+      if (key !== 'lead' && typeof value === 'string') assert.ok(value.trim());
     }
     for (const [name, value] of Object.entries(copy.form)) {
-      if (name !== 'services') assert.ok(typeof value === 'string' && value.trim(), `${locale}.${name}`);
+      if (!['services','followUp'].includes(name)) assert.ok(typeof value === 'string' && value.trim(), `${locale}.${name}`);
     }
     assert.equal(copy.form.services.length, 8);
     assert.equal(new Set(copy.form.services).size, 8);
@@ -73,7 +73,8 @@ test('contacts: only approved social network names, with no invented account add
 });
 
 test('contacts: an empty social URL stays non-clickable, including whitespace-only values', () => {
-  assert.deepEqual(getContactSocials([{ label: 'Telegram', url: '  ' }]), [{ label: 'Telegram', href: '' }]);
+  assert.deepEqual(getContactSocials([{ label: 'Telegram', url: '  ' }]), []);
+  assert.deepEqual(getContactSocials([{ label: 'LinkedIn', url: '  ' }]), [{label:'LinkedIn',href:''}]);
   assert.match(view, /social\.href\s*\?/);
   assert.match(view, /<span class="contact-socials__pending">/);
   assert.doesNotMatch(view, /href=["']#?["']/);

@@ -1,4 +1,4 @@
-# Поля синхронизированы с src/content.config.ts. Не хранить секреты.
+# Поля синхронизированы с src/content.config.ts. Макет Balance фиксирован.
 backend:
   name: github
   repo: Mikita-Hubanau/vikoma-group
@@ -39,7 +39,7 @@ collections:
         label: Слоган
         i18n: duplicate
         widget: string
-        hint: "Единый слоган на всех языках: Italy meets Eurasia"
+        hint: 'Единый слоган на всех языках: Italy meets Eurasia'
     - name: email
       label: Email
       i18n: duplicate
@@ -360,10 +360,34 @@ collections:
           label: Якорь на странице услуг
           i18n: duplicate
           widget: string
+        - name: items
+          label: Что мы делаем
+          widget: list
+          i18n: true
+          field:
+            name: value
+            label: Текст
+            widget: text
+            i18n: true
+        - name: partnerId
+          label: Партнёр
+          widget: select
+          i18n: duplicate
+          options:
+          - naip
+          - retail
+        - name: partnerLabel
+          label: Подпись партнёра
+          widget: string
+          i18n: true
         summary: '{{fields.title}}'
-        min: 4
-        max: 4
+        min: 2
+        max: 2
         allow_add: false
+      - name: itemsLabel
+        label: Подпись списка
+        widget: string
+        i18n: true
     - name: about
       label: О нас — кратко
       i18n: true
@@ -440,45 +464,6 @@ collections:
         label: Кнопка после завершения регистрации
         i18n: true
         widget: string
-    - name: stats
-      label: Почему мы
-      i18n: true
-      widget: object
-      fields:
-      - name: eyebrow
-        label: Надзаголовок
-        i18n: true
-        widget: string
-      - name: items
-        label: Пункты
-        i18n: true
-        widget: list
-        fields:
-        - name: value
-          label: Значение
-          i18n: true
-          widget: string
-        - name: suffix
-          label: Подпись после значения
-          i18n: true
-          widget: string
-          required: false
-          default: ''
-        - name: label
-          label: Подпись
-          i18n: true
-          widget: string
-        - name: kind
-          label: Вид значения
-          i18n: duplicate
-          widget: select
-          options:
-          - number
-          - text
-        summary: '{{fields.label}}'
-        min: 4
-        max: 4
-        allow_add: false
     - name: partners
       label: Партнёры — общие для главной и О нас
       i18n: true
@@ -509,6 +494,59 @@ collections:
         label: Подпись
         i18n: true
         widget: string
+    - name: why
+      label: Почему VIKUB
+      widget: object
+      i18n: true
+      fields:
+      - name: title
+        label: Заголовок
+        widget: string
+        i18n: true
+      - name: items
+        label: Карточки
+        widget: list
+        i18n: true
+        min: 4
+        max: 4
+        fields:
+        - name: icon
+          label: Иконка
+          widget: select
+          i18n: true
+          options:
+          - globe
+          - network
+          - building
+          - chart
+          - store
+          - scales
+          - check
+        - name: title
+          label: Заголовок
+          widget: string
+          i18n: true
+        - name: text
+          label: Текст
+          widget: text
+          i18n: true
+    - name: belarus
+      label: Для белорусских компаний
+      widget: object
+      i18n: true
+      fields:
+      - name: title
+        label: Заголовок
+        widget: string
+        i18n: true
+      - name: text
+        label: Текст
+        widget: text
+        i18n: true
+      - name: label
+        label: Кнопка
+        widget: string
+        i18n: true
   - name: about
     label: О нас
     file: src/content/pages/{{locale}}/about.json
@@ -573,8 +611,8 @@ collections:
           default: ''
           hint: Загрузите реальный файл. Пустое поле не создаёт вымышленное изображение.
         summary: '{{fields.name}}'
-        min: 2
-        max: 2
+        min: 3
+        max: 3
         allow_add: false
     - name: experts
       label: Наша сеть экспертов
@@ -596,6 +634,10 @@ collections:
         required: false
         default: []
         hint: В текущем ТЗ указан только общий текст, без перечисления экспертов.
+      - name: eyebrow
+        label: Надзаголовок
+        widget: string
+        i18n: true
     - name: status
       label: Официальный статус
       i18n: true
@@ -685,6 +727,10 @@ collections:
         default: ''
         hint: Загрузите реальный файл. Пустое поле не создаёт вымышленное изображение.
       collapsed: true
+    - name: subtitle
+      label: Подзаголовок под шапкой
+      widget: text
+      i18n: true
   - name: services
     label: Услуги
     file: src/content/pages/{{locale}}/services.json
@@ -746,9 +792,31 @@ collections:
           i18n: true
           widget: text
         summary: '{{fields.title}}'
-        min: 4
-        max: 4
+        min: 5
+        max: 5
         allow_add: false
+    - name: expertSupport
+      label: Экспертная поддержка
+      widget: object
+      i18n: true
+      fields:
+      - name: eyebrow
+        label: Надзаголовок
+        widget: string
+        i18n: true
+      - name: title
+        label: Заголовок
+        widget: string
+        i18n: true
+      - name: paragraphs
+        label: Абзацы
+        widget: list
+        i18n: true
+        field:
+          name: value
+          label: Текст
+          widget: text
+          i18n: true
   - name: events
     label: Мероприятия
     file: src/content/pages/{{locale}}/events.json
@@ -953,6 +1021,87 @@ collections:
         default: ''
         hint: Загрузите реальный файл. Пустое поле не создаёт вымышленное изображение.
       collapsed: true
+    - name: freeLabel
+      label: Участие бесплатно
+      widget: string
+      i18n: true
+    - name: benefits
+      label: Что вы получите
+      widget: object
+      i18n: true
+      fields:
+      - name: title
+        label: Заголовок
+        widget: string
+        i18n: true
+      - name: items
+        label: Карточки
+        widget: list
+        i18n: true
+        min: 4
+        max: 4
+        fields:
+        - name: icon
+          label: Иконка
+          widget: select
+          i18n: true
+          options:
+          - globe
+          - network
+          - building
+          - chart
+          - store
+          - scales
+          - check
+        - name: title
+          label: Заголовок
+          widget: string
+          i18n: true
+        - name: text
+          label: Текст
+          widget: text
+          i18n: true
+    - name: audience
+      label: Для кого мероприятие
+      widget: object
+      i18n: true
+      fields:
+      - name: title
+        label: Заголовок
+        widget: string
+        i18n: true
+      - name: paragraphs
+        label: Существующий согласованный текст (пусто — блок скрыт)
+        widget: list
+        i18n: true
+        field:
+          name: value
+          label: Текст
+          widget: text
+          i18n: true
+    - name: programGroups
+      label: Группы программы
+      widget: list
+      i18n: true
+      min: 3
+      max: 3
+      fields:
+      - name: title
+        label: Заголовок
+        widget: string
+        i18n: true
+      - name: indices
+        label: Номера пунктов (с нуля)
+        widget: list
+        i18n: duplicate
+        field:
+          name: value
+          label: Индекс
+          widget: number
+          i18n: true
+          value_type: int
+          min: 0
+          max: 7
   - name: contacts
     label: Контакты
     file: src/content/pages/{{locale}}/contacts.json
@@ -966,6 +1115,9 @@ collections:
       label: Подзаголовок
       i18n: true
       widget: text
+      required: false
+      default: ''
+      hint: На странице контактов справа от H1 текст не выводится.
     - name: form
       label: Форма обратной связи
       i18n: true
@@ -1039,6 +1191,51 @@ collections:
         label: Текст при отсутствии настройки
         i18n: true
         widget: text
+      - name: followUp
+        label: Дополнительный абзац (не используется)
+        widget: text
+        i18n: true
+        required: false
+        default: ''
+      - name: company
+        label: Компания
+        widget: string
+        i18n: true
+        required: true
+        default: Компания
+      - name: service
+        label: Чем мы можем помочь
+        widget: string
+        i18n: true
+        required: true
+        default: Чем мы можем помочь?
+      - name: servicePlaceholder
+        label: Подсказка списка
+        widget: string
+        i18n: true
+        required: true
+        default: Выберите вариант
+      - name: directEmail
+        label: Прямая почта
+        widget: string
+        i18n: true
+        required: true
+        default: 'Также можно написать нам на email:'
+      - name: services
+        label: Варианты обращения
+        widget: list
+        i18n: true
+        field:
+          name: value
+          label: Текст
+          widget: text
+          i18n: true
+      - name: responseNote
+        label: Срок ответа под формой
+        widget: text
+        i18n: true
+        required: true
+        default: Обычно мы отвечаем в течение 24 часов.
       collapsed: true
     - name: privacy
       label: Информация об обработке данных
@@ -1085,6 +1282,34 @@ collections:
         default: ''
         hint: Загрузите реальный файл. Пустое поле не создаёт вымышленное изображение.
       collapsed: true
+    - name: contactsLabel
+      label: Название контактов
+      widget: string
+      i18n: true
+    - name: italy
+      label: Италия
+      widget: string
+      i18n: true
+    - name: belarus
+      label: Беларусь
+      widget: string
+      i18n: true
+    - name: email
+      label: Email
+      widget: string
+      i18n: true
+    - name: socialTitle
+      label: Заголовок соцсетей
+      widget: string
+      i18n: true
+    - name: socialPending
+      label: Подпись пустых соцссылок
+      widget: string
+      i18n: true
+    - name: pendingLabel
+      label: ARIA-подпись неподключённой ссылки
+      widget: string
+      i18n: true
 - name: services
   label: Услуги — содержание
   folder: src/content/services
@@ -1132,6 +1357,19 @@ collections:
     label: Дополнительный текст
     widget: markdown
     i18n: true
+    required: false
+  - name: archived
+    label: Архив — не показывать на сайте
+    widget: boolean
+    i18n: duplicate
+    default: false
+  - name: partnerId
+    label: Партнёр (для активных услуг)
+    widget: select
+    i18n: duplicate
+    options:
+    - naip
+    - retail
     required: false
 - name: system
   label: Общие подключения и служебное
@@ -1304,25 +1542,14 @@ collections:
         label: Фраза
         widget: text
   - name: design
-    label: Раскладка — 5 вариантов Signature
+    label: Единственный макет — Balance
     file: src/content/system/design.json
     fields:
     - name: defaultDesign
-      label: Раскладка по умолчанию
-      widget: select
-      options:
-      - label: 01 · Signature — прежний дизайн 04
-        value: signature
-      - label: 02 · Balance — две колонки
-        value: balance
-      - label: 03 · Editorial — редакционная
-        value: editorial
-      - label: 04 · Atlas — карта слева
-        value: atlas
-      - label: 05 · Panorama — панорамная
-        value: panorama
-      default: signature
+      label: Макет
+      widget: hidden
+      default: balance
     - name: showSwitcher
-      label: Показывать переключатель раскладок
-      widget: boolean
-      default: true
+      label: Переключатель отключён
+      widget: hidden
+      default: false

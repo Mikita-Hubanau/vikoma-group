@@ -1,3 +1,4 @@
+import { validateContactControls } from './form-validation.mjs';
 /** Progressive enhancement for a real HTTPS form backend (e.g. Formspree).
  * No SMTP secrets, localStorage of personal data, simulated success or silent retries.
  * The normal POST action still works without JavaScript once configured.
@@ -7,6 +8,9 @@ for (const form of document.querySelectorAll('[data-contact-form], [data-registr
   const status = form.querySelector('[data-form-status]');
   const fieldset = form.querySelector('fieldset');
   if (!(form instanceof HTMLFormElement) || !button || !status || !fieldset) continue;
+  // Clear stale custom errors as the visitor edits, without moving focus.
+  form.addEventListener('input', () => validateContactControls(form));
+  form.addEventListener('change', () => validateContactControls(form));
   let submitting = false;
   let completed = false;
   const registration = form.hasAttribute('data-registration-form');
@@ -18,8 +22,12 @@ for (const form of document.querySelectorAll('[data-contact-form], [data-registr
     event.preventDefault();
     if (submitting || completed || form.dataset.configured !== 'true') return;
     if (registration && Date.now() > Date.parse(form.dataset.deadline || '')) { message('closed'); return; }
+    validateContactControls(form);
     if (!form.reportValidity()) return;
     const payload = new FormData(form);
+    for (const [key, value] of payload.entries()) {
+      if (typeof value === 'string' && key !== '_gotcha') payload.set(key, value.trim());
+    }
     if (String(payload.get('_gotcha') || '').trim()) { message('error'); return; }
     let endpoint;
     try {
@@ -54,6 +62,9 @@ for (const form of document.querySelectorAll('[data-contact-form], [data-registr
         message('uncertain'); return;
       }
       form.reset();
+      for (const control of form.elements) {
+        if (typeof control.setCustomValidity === 'function') control.setCustomValidity('');
+      }
       if (registration) { completed = true; fieldset.hidden = true; }
       message('success', 'success');
     } catch {

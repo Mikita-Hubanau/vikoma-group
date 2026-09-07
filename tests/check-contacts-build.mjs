@@ -68,7 +68,7 @@ for await (const file of htmlFiles(resolve(process.argv[2] || 'dist'))) {
   assert.deepEqual(options.slice(1).map((option) => option.text), copy.form.services);
   assert.deepEqual(options.slice(1).map((option) => option.value), copy.form.services);
   assert.ok(text(html).includes(copy.form.lead), `Missing first project paragraph: ${file}`);
-  assert.ok(text(html).includes(copy.form.followUp), `Missing second project paragraph: ${file}`);
+  assert.ok(text(html).includes(copy.form.responseNote), `Missing response-time note: ${file}`);
   const button = [...form.matchAll(/<button\b([^>]*)>([\s\S]*?)<\/button>/gi)]
     .find((match) => Object.hasOwn(attrs(match[1]), 'data-submit-button'));
   assert.ok(button);

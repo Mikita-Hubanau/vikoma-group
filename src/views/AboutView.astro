@@ -2,11 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ContactBlock from '../components/ContactBlock.astro';
-import PrinciplesGrid from '../components/blocks/PrinciplesGrid.astro';
 import Photo from '../components/blocks/Photo.astro';
 import PartnerGrid from '../components/PartnerGrid.astro';
 import SectionHead from '../components/SectionHead.astro';
-import EditButton from '../components/edit/EditButton.astro';
 import type { Locale } from '../i18n/config';
 import { getPage } from '../lib/content';
 import { findImage } from '../lib/images';
@@ -15,39 +13,25 @@ const { locale } = Astro.props;
 const { data: page } = await getPage('aboutPage',locale);
 ---
 <BaseLayout {...page.seo} locale={locale} page="about">
- <PageHeader title={page.title} lead={page.lead} edit={{collection:'pages',entry:'about',label:'О нас'}} />
+ <PageHeader title={page.title} lead={page.lead} />
+ <section class="section section--tight about-intro"><div class="container"><p class="about-subtitle">{page.subtitle}</p></div></section>
  <section class="section section--tight"><div class="container mission"><h2>{page.mission.title}</h2><p>{page.mission.text}</p></div></section>
- <section class="section section--paper2"><div class="container"><h2 class="block-heading">{page.team.title}</h2><ul class="team">{page.team.people.map((person) => <li class="person"><div class="person__identity">{person.photo && findImage(person.photo) ? <div class="person__photo"><Photo src={person.photo} alt={person.name} widths={[160,320]} sizes="160px" /></div> : <div class="person__initials" aria-hidden="true">{person.initials}</div>}<div><h3>{person.name}</h3><p class="person__role">{person.role}</p></div></div><p class="person__about">{person.about}</p></li>)}</ul></div></section>
- <section class="section expert-network"><div class="container expert-network__inner"><div><p class="eyebrow">VIKUB</p><h2>{page.experts.title}</h2></div><div><p class="expert-network__text">{page.experts.text}</p>{page.experts.people.length > 0 && <ul class="expert-network__people">{page.experts.people.map((name) => <li>{name}</li>)}</ul>}</div></div></section>
- <section class="section section--dark grain official-status"><div class="container status"><div><p class="eyebrow">{page.status.title}</p><h2>{page.status.text}</h2></div><div><p class="status__label">{page.status.listTitle}</p><ul class="dash-list">{page.status.items.map((item) => <li>{item}</li>)}</ul>{page.status.retail && <p class="status__retail">{page.status.retail}</p>}</div></div></section>
- <section class="section"><div class="container"><PrinciplesGrid title={page.approach.title} items={page.approach.items} /></div></section>
- <section class="section section--paper2 edit-anchor"><EditButton collection="settings" entry="contacts" label="Партнёры" /><div class="container"><SectionHead {...page.partners} /><PartnerGrid locale={locale} /></div></section>
+ <section class="section section--paper2"><div class="container"><h2 class="block-heading">{page.team.title}</h2><ul class="team">{page.team.people.map((person) => <li class="person"><div class="person__identity">{person.photo && findImage(person.photo) ? <div class="person__photo"><Photo src={person.photo} alt={person.name} widths={[200,400]} sizes="200px" /></div> : <div class="person__initials" aria-hidden="true">{person.initials}</div>}<div><h3>{person.name}</h3><p class="person__role">{person.role}</p></div></div><p class="person__about">{person.about}</p></li>)}</ul></div></section>
+ <section class="section expert-network"><div class="container expert-network__inner"><div><p class="eyebrow">{page.experts.eyebrow}</p><h2>{page.experts.title}</h2></div><p class="expert-network__text">{page.experts.text}</p></div></section>
+ <section class="section section--paper2"><div class="container"><SectionHead {...page.partners} /><PartnerGrid locale={locale} /></div></section>
  <ContactBlock locale={locale} />
 </BaseLayout>
 <style>
- .expert-network__inner { display:grid; gap:2rem; }
+ .about-subtitle { font-family:var(--font-serif); font-size:var(--text-xl); max-width:58rem; color:var(--ink); }
+ .mission,.expert-network__inner { display:grid; gap:2rem; }
+ .mission p { font-size:var(--text-md); max-width:50rem; }
+ .block-heading { margin-bottom:2.5rem; }
+ .team { list-style:none; display:grid; gap:1.5rem; padding:0; margin:0; }
+ .person { min-width:0; }
+ .person__identity { display:flex; gap:1.5rem; margin-bottom:1.5rem; }
+ .person__identity h3 { font-size:var(--text-lg); overflow-wrap:anywhere; }
+ .person__role { font-size:var(--text-sm); margin-top:.75rem; color:var(--accent); }
+ .person__about { font-size:var(--text-sm); }
  .expert-network__text { max-width:48rem; }
- .expert-network__people { list-style:none; padding:1.25rem 0 0; margin-top:1.5rem; border-top:1px solid var(--line); font-size:var(--text-sm); color:var(--ink); }
- @media(min-width:52rem) { .expert-network__inner { grid-template-columns:1fr 1.6fr; gap:5rem; } }
- .mission { display:grid; gap:1.5rem; }
- .mission p { font-family:var(--font-serif); font-size:var(--text-lg); max-width:50rem; color:var(--ink); }
- .block-heading { margin-bottom:2rem; }
- .team { display:grid; gap:3rem; list-style:none; padding:0; }
- .person { min-width:0; border-top:1px solid var(--line-strong); padding-top:2rem; }
- .person__identity { display:flex; align-items:center; flex-wrap:wrap; gap:1.5rem; margin-bottom:1.75rem; }
- .person__initials { font-family:var(--font-serif); font-size:2.7rem; line-height:1; letter-spacing:-.04em; color:var(--accent); padding:.7rem; border:1px solid var(--line-strong); width:94px; height:94px; display:flex; align-items:center; justify-content:center; }
- .person__photo { width:120px; height:120px; flex-shrink:0; overflow:hidden; }
- .person__photo :global(img) { width:120px; height:120px; object-fit:cover; }
- .person__role { font-size:var(--text-xs); color:var(--accent); margin-top:.6rem; letter-spacing:.035em; }
- .person__about { font-size:var(--text-sm); line-height:1.85; }
- .status { display:grid; gap:2.5rem; }
- .status h2 { font-size:var(--text-xl); line-height:1.4; }
- .status__label { margin-bottom:1rem; }
- .status :global(.dash-list>li) { color:var(--on-dark-muted); }
- .status__retail { border-top:1px solid #ffffff30; padding-top:1.5rem; margin-top:1.75rem; font-size:var(--text-sm); color:var(--on-dark-muted); }
- @media(min-width:52rem) {
-  .mission { grid-template-columns:1fr 2fr; gap:4rem; }
-  .team { grid-template-columns:repeat(2,minmax(0,1fr)); gap:4rem; }
-  .status { grid-template-columns:1fr 1.3fr; gap:5rem; }
- }
+ @media(min-width:52rem) { .mission,.expert-network__inner { grid-template-columns:1fr 1.6fr; gap:5rem; } }
 </style>

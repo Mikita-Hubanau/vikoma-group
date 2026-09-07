@@ -1,150 +1,42 @@
 ---
 import { render } from 'astro:content';
-
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ContactBlock from '../components/ContactBlock.astro';
-import type { Locale } from '../i18n/config';
-import { useUI } from '../i18n/ui';
-import { getList, getPage, byOrder } from '../lib/content';
+import PartnerLink from '../components/PartnerLink.astro';
 import HowWeWork from '../components/HowWeWork.astro';
 import Icon from '../components/Icon.astro';
-import EditButton from '../components/edit/EditButton.astro';
-
-interface Props {
-  locale: Locale;
-}
-
+import type { Locale } from '../i18n/config';
+import { getList, getPage, byOrder } from '../lib/content';
+interface Props { locale: Locale; }
 const { locale } = Astro.props;
-const t = useUI(locale);
 const { data: page } = await getPage('servicesPage', locale);
-
-// Каждая услуга — отдельный markdown-файл: описание в тексте файла,
-// список «что входит» — в его настройках сверху.
-const services = byOrder(await getList('services', locale));
-const items = await Promise.all(
-  services.map(async (entry) => ({
-    data: entry.data,
-    slug: entry.id.split('/').pop()!,
-    Content: (await render(entry)).Content,
-  })),
-);
+// Historical service files stay in the repository for reference, but are not published.
+const services = byOrder((await getList('services', locale)).filter((entry) => !entry.data.archived));
+const items = await Promise.all(services.map(async (entry) => ({ data: entry.data, Content: (await render(entry)).Content })));
 ---
-
-<BaseLayout
-  title={page.seo.title}
-  description={page.seo.description}
-  ogImage={page.seo.ogImage}
-  locale={locale}
-  page="services"
->
-  <PageHeader
-    title={page.title}
-    lead={page.lead}
-    edit={{ collection: 'pages', entry: 'services', label: 'Услуги — шапка страницы' }}
-  />
-
-  <section class="section">
-    <div class="container">
-      <ol class="services">
-        {
-          items.map(({ data, slug, Content }, i) => (
-            <li class="service reveal edit-anchor" id={data.anchor}>
-              <EditButton collection="services" entry={slug} label={data.title} />
-              <div class="service__aside">
-                <span class="service__num">{String(i + 1).padStart(2, '0')}</span>
-                <Icon name={data.icon} size={30} />
-                <h2 class="service__title">{data.title}</h2>
-              </div>
-
-              <div class="service__body">
-                {data.partner && <p class="service__partner"><span>{t.partnerLabel}</span> {data.partner}</p>}
-                <div class="prose">
-                  <Content />
-                </div>
-
-                <p class="service__label">{t.whatsIncluded}</p>
-                <ul class="dash-list">
-                  {data.items.map((item) => (
-                    <li>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            </li>
-          ))
-        }
-      </ol>
-    </div>
-  </section>
-
-  <HowWeWork {...page.howWeWork} />
-  <ContactBlock locale={locale} />
+<BaseLayout {...page.seo} locale={locale} page="services">
+ <PageHeader title={page.title} lead={page.lead} />
+ <section class="section"><div class="container"><ol class="services">
+  {items.map(({data,Content},i) => <li class="service" id={data.anchor}>
+   <div class="service__aside"><span class="service__num" aria-hidden="true">{String(i+1).padStart(2,'0')}</span><Icon name={data.icon} size={30} /><h2 class="service__title">{data.title}</h2></div>
+   <div class="service__body"><div class="prose"><Content /></div>{data.partnerId && <p class="service__partner"><PartnerLink locale={locale} id={data.partnerId} label={data.partner} /></p>}</div>
+  </li>)}
+ </ol></div></section>
+ <section class="section section--paper2 expert-support"><div class="container expert-support__inner"><Icon name="network" size={38} /><div><p class="eyebrow">{page.expertSupport.eyebrow}</p><h2>{page.expertSupport.title}</h2><div class="expert-support__copy">{page.expertSupport.paragraphs.map((paragraph) => <p>{paragraph}</p>)}</div></div></div></section>
+ <HowWeWork {...page.howWeWork} />
+ <ContactBlock locale={locale} />
 </BaseLayout>
-
 <style>
-  .services {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .service {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-5);
-    padding-block: var(--space-7);
-    border-top: 1px solid var(--line);
-  }
-
-  .service__aside, .service__body { min-width: 0; }
-
-  .service:last-child {
-    border-bottom: 1px solid var(--line);
-  }
-
-  .service__num {
-    display: block;
-    font-family: var(--font-serif);
-    font-size: var(--text-lg);
-    line-height: 1;
-    color: var(--accent);
-    letter-spacing: 0.06em;
-    margin-bottom: var(--space-3);
-  }
-
-  .service__partner { margin-bottom:1.5rem; color:var(--accent); font-size:var(--text-sm); }
-  .service__partner span { display:block; text-transform:uppercase; font-size:var(--text-xs); letter-spacing:.1em; margin-bottom:.4rem; }
-  .service__aside :global(svg) { margin-bottom:1rem; color:var(--accent); }
-  .service__title {
-    font-size: var(--text-xl);
-  }
-
-  .service__label {
-    margin-top: var(--space-6);
-    margin-bottom: var(--space-4);
-    font-size: var(--text-xs);
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  @media (min-width: 52rem) {
-    .service {
-      grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
-      gap: var(--space-8);
-      padding-block: var(--space-8);
-    }
-
-    .service__num {
-      font-size: var(--text-xl);
-    }
-
-    /* заголовок держится в поле зрения, пока читаешь состав услуги */
-    .service__aside {
-      position: sticky;
-      top: calc(var(--space-8) + 3rem);
-      align-self: start;
-    }
-  }
+ .services { list-style:none; padding:0; margin:0; }
+ .service { display:grid; grid-template-columns:minmax(0,1fr); gap:2rem; border:1px solid var(--line); padding:2rem; }
+ .service__aside,.service__body { min-width:0; }
+ .service__aside > :global(svg) { color:var(--accent); margin-bottom:1.5rem; }
+ .service__num { display:block; font-family:var(--font-serif); color:var(--accent); margin-bottom:1.5rem; }
+ .service__title { font-size:var(--text-xl); }
+ .service__partner { border-top:1px solid var(--line); padding-top:1.5rem; margin-top:2rem; }
+ .expert-support__inner { display:grid; grid-template-columns:auto minmax(0,1fr); gap:2rem; max-width:64rem; }
+ .expert-support__inner > :global(svg) { color:var(--accent); }
+ .expert-support h2 { font-size:var(--text-xl); max-width:35ch; }
+ .expert-support__copy { display:grid; gap:1.25rem; margin-top:2rem; }
 </style>

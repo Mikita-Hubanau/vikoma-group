@@ -3,28 +3,40 @@
     "title": "Services — VIKUB",
     "description": "VIKUB helps Italian companies enter Belarus and the Eurasian Economic Union: market research, investment, retail, legal support and payment solutions."
   },
-  "title": "What we do for your business",
-  "lead": "We do not sell products. We build working connections between companies and markets.",
+  "title": "What we do",
+  "lead": "We help Italian businesses understand markets, find partners and assess risks — before making a decision.",
   "howWeWork": {
     "eyebrow": "How we work",
-    "title": "From the first conversation to ongoing support",
+    "title": "How we work",
     "steps": [
       {
         "title": "Introduction",
-        "text": "We discuss your product and goals. Free of charge."
+        "text": "We discuss your goal, product and expectations."
       },
       {
         "title": "Analysis",
-        "text": "We assess the prospects and propose a strategy."
+        "text": "We examine the request, assess all regulatory requirements and rule out unrealistic scenarios."
       },
       {
-        "title": "Delivery",
-        "text": "We find partners, negotiate and formalise the deal."
+        "title": "Finding opportunities",
+        "text": "We find projects and partners that match your strategy."
       },
       {
-        "title": "Ongoing support",
-        "text": "We stay in touch and help after the first shipment."
+        "title": "Contacts",
+        "text": "We arrange meetings and prepare you for negotiations."
+      },
+      {
+        "title": "Implementation",
+        "text": "We bring in specialists and support the transaction through to completion."
       }
+    ]
+  },
+  "expertSupport": {
+    "eyebrow": "Expert support",
+    "title": "Lawyers, tax advisers and logistics specialists — for your project",
+    "paragraphs": [
+      "We do not give generic advice. We assemble a specialist team for each task: Italian and Belarusian lawyers, tax advisers, accountants, and certification and logistics experts.",
+      "All are vetted, and we have worked with many of them for years. You receive more than a consultation: you get a project team ready to work."
     ]
   }
 }

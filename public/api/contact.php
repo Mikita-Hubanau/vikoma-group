@@ -48,7 +48,9 @@ const FIELDS = [
     'contact_enquiry' => [
         'name'    => ['required' => true,  'max' => 120],
         'email'   => ['required' => true,  'max' => 254],
-        'phone'   => ['required' => false, 'max' => 40],
+        'phone'   => ['required' => true,  'max' => 40],
+        'company' => ['required' => true,  'max' => 200],
+        'service' => ['required' => true,  'max' => 160],
         'message' => ['required' => true,  'max' => 5000],
     ],
     'seminar_registration' => [
@@ -62,7 +64,42 @@ const FIELDS = [
 
 const LABELS = [
     'name' => 'Имя', 'email' => 'Email', 'phone' => 'Телефон', 'message' => 'Сообщение',
+    'service' => 'Чем мы можем помочь?',
     'first_name' => 'Имя', 'last_name' => 'Фамилия', 'company' => 'Компания',
+];
+
+/** Allowed contact topics match the localized site dropdowns. */
+const CONTACT_TOPICS = [
+    'it' => [
+        'Ingresso nel mercato bielorusso',
+        'Ingresso nel mercato russo / UEE',
+        'Ricerca di partner commerciali',
+        'Investimenti in Bielorussia / UEE',
+        'Ricerca di un fornitore / produttore in Italia',
+        'Ricerca di prodotti / attrezzature in Italia',
+        'Valutazione delle prospettive del mio progetto',
+        'Altro',
+    ],
+    'en' => [
+        'Entering the Belarusian market',
+        'Entering the Russian / EAEU market',
+        'Finding trading partners',
+        'Investments in Belarus / EAEU',
+        'Finding a supplier / manufacturer in Italy',
+        'Finding products / equipment in Italy',
+        'Assessing the prospects of my project',
+        'Other',
+    ],
+    'ru' => [
+        'Выход на рынок Беларуси',
+        'Выход на рынок России / ЕАЭС',
+        'Поиск торговых партнёров',
+        'Инвестиции в Беларуси / ЕАЭС',
+        'Поиск поставщика / производителя в Италии',
+        'Поиск товара / оборудования в Италии',
+        'Оценка перспектив моего проекта',
+        'Другое',
+    ],
 ];
 
 /** Строки страницы-ответа для режима без JavaScript (8.2). */
@@ -88,6 +125,20 @@ set_exception_handler(static function (Throwable $e) use ($wantsJson): void {
     respond(500, false, 'internal error', $wantsJson, 'ru');
 });
 
+// CORS is needed when the static frontend is served by GitHub Pages.
+$origin = (string)($_SERVER['HTTP_ORIGIN'] ?? '');
+$allowedOrigins = [SITE_ORIGIN, 'https://mikita-hubanau.github.io'];
+if ($origin !== '' && in_array($origin, $allowedOrigins, true)) {
+    header('Access-Control-Allow-Origin: ' . $origin);
+    header('Vary: Origin');
+    if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
+        header('Access-Control-Allow-Methods: POST, OPTIONS');
+        header('Access-Control-Allow-Headers: Accept, Content-Type');
+        http_response_code(204);
+        exit;
+    }
+}
+
 // ------------------------------------------------------------------ приём
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {                       // 2.x
@@ -97,6 +148,11 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {                       // 2.
 $declaredLength = (int)($_SERVER['CONTENT_LENGTH'] ?? 0);
 if ($declaredLength > MAX_BODY_BYTES) {                                    // 4.6
     respond(413, false, 'payload too large', $wantsJson, 'ru');
+}
+
+// Reject array-shaped inputs rather than converting them to the string 'Array'.
+foreach ($_POST as $key => $value) {
+    if (!is_string($value)) respond(422, false, 'invalid field type', $wantsJson, 'ru');
 }
 
 $formType = trim((string)($_POST['form_type'] ?? ''));
@@ -153,6 +209,16 @@ foreach (FIELDS[$formType] as $field => $rule) {
 
 if (!filter_var($values['email'], FILTER_VALIDATE_EMAIL)) {                // 4.3
     respond(422, false, 'invalid email', $wantsJson, $language);
+}
+
+if ($formType === 'contact_enquiry') {
+    $digits = preg_replace('/\D/', '', $values['phone']);
+    if (!preg_match('/^\+?[0-9\s().-]+$/D', $values['phone']) || strlen($digits) < 7 || strlen($digits) > 15) {
+        respond(422, false, 'invalid phone', $wantsJson, $language);
+    }
+    if (!in_array($values['service'], CONTACT_TOPICS[$language], true)) {
+        respond(422, false, 'invalid service', $wantsJson, $language);
+    }
 }
 
 if (trim((string)($_POST['consent'] ?? '')) !== 'yes') {                   // 4.4

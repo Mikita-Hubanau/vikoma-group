@@ -1,0 +1,21 @@
+---
+import Icon from './Icon.astro';
+interface Props { title: string; items: { icon: string; title: string; text: string }[]; }
+const { title, items } = Astro.props;
+---
+<div class="feature-section">
+  <h2>{title}</h2>
+  <ul class="feature-grid">
+    {items.map((item) => <li class="feature"><Icon name={item.icon} size={30} /><h3>{item.title}</h3><p>{item.text}</p></li>)}
+  </ul>
+</div>
+<style>
+ .feature-section > h2 { margin-bottom:2.5rem; }
+ .feature-grid { display:grid; grid-template-columns:minmax(0,1fr); gap:2rem; list-style:none; padding:0; margin:0; }
+ .feature { min-width:0; border-top:1px solid var(--line-strong); padding-top:1.5rem; }
+ .feature :global(svg) { color:var(--accent); margin-bottom:1.25rem; }
+ .feature h3 { font-size:var(--text-lg); margin-bottom:.85rem; }
+ .feature p { font-size:var(--text-sm); }
+ @media(min-width:40rem) { .feature-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+ @media(min-width:64rem) { .feature-grid { grid-template-columns:repeat(4,minmax(0,1fr)); } }
+</style>
