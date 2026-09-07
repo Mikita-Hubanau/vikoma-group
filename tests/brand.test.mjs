@@ -63,12 +63,16 @@ test('header and footer have accessible logos and the new slogan',()=>{
  assert.doesNotMatch(f,/site-footer__bottom[^\n]*<SocialLinks/);
  assert.match(f,/© 2026/);
 });
-test('contacts render only city/country, not stored full address or personal address',()=>{
+test('contacts render country-level details, not office cities, notes or addresses',()=>{
  const view=text('src/views/ContactsView.astro');
- assert.match(view,/office\.city/);assert.match(view,/office\.note/);
- assert.doesNotMatch(view,/office\.address|office\.person|<address/);
+ // The updated brief replaces office listings with Italy, Belarus and email.
+ // Keep the legacy settings for other consumers; this page must not render them.
+ assert.match(view,/tel:\$\{CONTACT_DETAILS\.italy\.tel\}/);
+ assert.match(view,/tel:\$\{CONTACT_DETAILS\.belarus\.tel\}/);
+ assert.match(view,/mailto:\$\{CONTACT_DETAILS\.email\}/);
+ assert.doesNotMatch(view,/settings\.offices|office\.(?:city|note|title|address|person)\b|<address\b/);
  const form=text('src/components/ContactForm.astro');
- for(const field of ['name','email','phone','message']) assert.match(form,new RegExp(`name="${field}"`));
+ for(const field of ['name','email','phone','company','service','message','consent']) assert.match(form,new RegExp(`name="${field}"`));
  assert.match(form,/configured/);assert.match(form,/disabled=\{!configured\}/);
 });
 test('favicon, device icon and sharing image have base-path safe references',()=>{
