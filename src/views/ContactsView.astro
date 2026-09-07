@@ -2,38 +2,106 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ContactForm from '../components/ContactForm.astro';
-import SocialLinks from '../components/SocialLinks.astro';
 import EditButton from '../components/edit/EditButton.astro';
 import type { Locale } from '../i18n/config';
 import { useUI } from '../i18n/ui';
 import { getPage, getSettings } from '../lib/content';
+import { CONTACT_DETAILS, getContactsCopy, getContactSocials } from '../data/contacts-page.mjs';
+
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
 const t = useUI(locale);
-const { data: page } = await getPage('contactsPage',locale);
+const copy = getContactsCopy(locale);
+const socials = getContactSocials();
+const { data: page } = await getPage('contactsPage', locale);
 const settings = await getSettings(locale);
 ---
 <BaseLayout {...page.seo} locale={locale} page="contacts">
- <PageHeader title={page.title} lead={page.lead} edit={{collection:'pages',entry:'contacts',label:'Контакты'}} />
- <section class="section section--tight edit-anchor"><EditButton collection="settings" entry="contacts" label="Офисы и контакты" /><div class="container"><div class="offices">{settings.offices.map((office) => <article class="office"><p class="eyebrow">{office.title}</p><h2>{office.city} <span class="office__country">({office.note})</span></h2><dl class="office__links"><div><dt>{t.phone}</dt><dd>{office.phone && office.tel ? <a class="link" href={`tel:${office.tel}`}>{office.phone}</a> : <span>{t.unavailable}</span>}</dd></div><div><dt>{t.email}</dt><dd>{office.email ? <a class="link" href={`mailto:${office.email}`}>{office.email}</a> : <span>{t.unavailable}</span>}</dd></div></dl></article>)}</div></div></section>
- <section class="section section--paper2"><div class="container form-section"><ContactForm locale={locale} labels={page.form} /></div></section>
- <section class="section section--tight"><div class="container"><h2 class="social-title">{t.socialNetworks}</h2><SocialLinks locale={locale} /></div></section>
- <section class="section section--tight privacy" id="privacy"><div class="container"><h2>{page.privacy.title}</h2><p>{page.privacy.text}</p>{page.privacy.policyUrl && <p><a class="link" href={page.privacy.policyUrl} target="_blank" rel="noopener noreferrer">{page.privacy.policyLabel}</a></p>}</div></section>
- {settings.legal.length > 0 && <section class="section section--tight"><div class="container"><h2>{t.legalDetails}</h2><dl class="legal">{settings.legal.map((row) => <div><dt>{row.label}</dt><dd>{row.value}</dd></div>)}</dl></div></section>}
+  <PageHeader title={copy.title} lead="" edit={{collection: 'pages', entry: 'contacts', label: 'SEO и конфиденциальность'}} />
+
+  <section class="section section--tight" aria-label={copy.contactsLabel} data-contacts-page>
+    <div class="container">
+      <div class="contact-details">
+        <article class="contact-detail">
+          <h2>{copy.italy}</h2>
+          <a class="link contact-detail__value" href={`tel:${CONTACT_DETAILS.italy.tel}`}>
+            {CONTACT_DETAILS.italy.phone}
+          </a>
+        </article>
+        <article class="contact-detail">
+          <h2>{copy.belarus}</h2>
+          <a class="link contact-detail__value" href={`tel:${CONTACT_DETAILS.belarus.tel}`}>
+            {CONTACT_DETAILS.belarus.phone}
+          </a>
+        </article>
+        <article class="contact-detail">
+          <h2>{copy.email}</h2>
+          <a class="link contact-detail__value" href={`mailto:${CONTACT_DETAILS.email}`}>
+            {CONTACT_DETAILS.email}
+          </a>
+        </article>
+      </div>
+
+      <div class="contact-socials" aria-labelledby="contact-socials-title">
+        <h2 class="social-title" id="contact-socials-title">{copy.socialTitle}</h2>
+        <ul class="contact-socials__list">
+          {socials.map((social) => (
+            <li>
+              {social.href ? (
+                <a class="link" href={social.href} target="_blank" rel="noopener noreferrer">
+                  {social.label}
+                </a>
+              ) : (
+                <span class="contact-socials__pending">
+                  {social.label}<span class="visually-hidden"> — {copy.pendingLabel}</span>
+                </span>
+              )}
+            </li>
+          ))}
+        </ul>
+        {socials.some((social) => !social.href) && <p class="contact-socials__note">{copy.socialPending}</p>}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper2">
+    <div class="container form-section"><ContactForm locale={locale} labels={page.form} /></div>
+  </section>
+
+  <section class="section section--tight privacy edit-anchor" id="privacy">
+    <EditButton collection="pages" entry="contacts" label="Политика конфиденциальности" />
+    <div class="container">
+      <h2>{page.privacy.title}</h2>
+      <p>{page.privacy.text}</p>
+      {page.privacy.policyUrl && <p><a class="link" href={page.privacy.policyUrl} target="_blank" rel="noopener noreferrer">{page.privacy.policyLabel}</a></p>}
+    </div>
+  </section>
+
+  {settings.legal.length > 0 && (
+    <section class="section section--tight">
+      <div class="container">
+        <h2>{t.legalDetails}</h2>
+        <dl class="legal">{settings.legal.map((row) => <div><dt>{row.label}</dt><dd>{row.value}</dd></div>)}</dl>
+      </div>
+    </section>
+  )}
 </BaseLayout>
+
 <style>
- .offices { display:grid; gap:2.5rem; }
- .office { border-top:1px solid var(--line); padding-top:1.5rem; }
- .office__country { font-family:var(--font-sans); font-size:var(--text-sm); color:var(--muted); font-weight:400; letter-spacing:0; white-space:normal; }
- .office__links { display:grid; gap:1rem; margin-top:1.5rem; }
- .office__links dt { font-size:var(--text-xs); color:var(--muted); margin-bottom:.2rem; }
- .office__links dd { font-size:var(--text-sm); overflow-wrap:anywhere; }
- .form-section { max-width:56rem; }
- .social-title { margin-bottom:1rem; font-size:var(--text-xl); }
- .privacy { border-top:1px solid var(--line); }
- .privacy h2 { font-size:var(--text-lg); }
- .privacy p { max-width:58rem; font-size:var(--text-sm); margin-top:1rem; }
- .legal { margin-top:1.5rem; display:grid; gap:1rem; }
- .legal dt { font-size:var(--text-xs); color:var(--muted); }
- @media(min-width:48rem) { .offices { grid-template-columns:repeat(2,minmax(0,1fr)); gap:4rem; } }
+  .contact-details { display:grid; gap:2rem; }
+  .contact-detail { min-width:0; border-top:1px solid var(--line); padding-top:1.5rem; }
+  .contact-detail h2 { margin:0 0 1rem; font-size:var(--text-xl); }
+  .contact-detail__value { display:inline-block; max-width:100%; font-size:var(--text-sm); overflow-wrap:anywhere; }
+  .contact-socials { margin-top:2.5rem; padding-top:1.5rem; border-top:1px solid var(--line); }
+  .social-title { margin-bottom:1rem; font-size:var(--text-lg); }
+  .contact-socials__list { display:flex; flex-wrap:wrap; gap:1rem 2rem; padding:0; margin:0; list-style:none; }
+  .contact-socials__pending { color:var(--muted); }
+  .contact-socials__note { color:var(--muted); font-size:var(--text-xs); margin-top:.75rem; }
+  .form-section { max-width:56rem; }
+  .privacy { border-top:1px solid var(--line); }
+  .privacy h2 { font-size:var(--text-lg); }
+  .privacy p { max-width:58rem; font-size:var(--text-sm); margin-top:1rem; }
+  .legal { margin-top:1.5rem; display:grid; gap:1rem; }
+  .legal dt { font-size:var(--text-xs); color:var(--muted); }
+  @media(min-width:48rem) { .contact-details { grid-template-columns:repeat(3,minmax(0,1fr)); gap:2rem; } }
 </style>
