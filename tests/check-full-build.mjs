@@ -1,44 +1,153 @@
-/** Checks compiled Astro HTML, not source fixtures. Invoked by npm postbuild. */
+/**
+ * Check compiled Astro HTML after the build. No additional dependencies.
+ *
+ * Select the 15 public routes by output path, NOT by data-page alone:
+ * BaseLayout also labels the noindex 404 and block-catalogue pages as "home".
+ * Scanning every HTML file used to compare their headings with the home H1.
+ *
+ * Astro's directory output puts these files directly in dist, even when
+ * BASE_PATH is /vikoma-group/. The base prefixes URLs, not the output tree.
+ */
 import assert from 'node:assert/strict';
-import { readdir, readFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
-const root=resolve(process.argv[2]||'dist');
-const load=async path=>JSON.parse(await readFile(new URL('../'+path,import.meta.url),'utf8'));
-const decode=s=>s.replace(/&#(x[0-9a-f]+|\d+);/gi,(_,n)=>String.fromCodePoint(n[0].toLowerCase()==='x'?parseInt(n.slice(1),16):+n)).replace(/&(amp|lt|gt|quot|apos|nbsp);/g,(_,n)=>({amp:'&',lt:'<',gt:'>',quot:'"',apos:"'",nbsp:' '})[n]);
-const txt=s=>decode(s.replace(/<[^>]*>/g,' ')).replace(/\s+/g,' ').trim();
-const attr=(s,n)=>decode(s.match(new RegExp(`\\b${n}=(?:"([^"]*)"|'([^']*)')`))?.slice(1).find(x=>x!==undefined)||'');
-const countClass=(s,name)=>[...s.matchAll(/<[a-z][^>]*\bclass=(?:"([^"]*)"|'([^']*)')[^>]*>/gi)].filter(m=>(m[1]??m[2]).split(/\s+/).includes(name)).length;
-async function* files(dir){for(const entry of await readdir(dir,{withFileTypes:true})){const p=join(dir,entry.name);if(entry.isDirectory())yield* files(p);else if(p.endsWith('.html'))yield p;}}
-const found=new Set();
-for await (const file of files(root)) {
- const html=await readFile(file,'utf8');const main=html.match(/<main\b([^>]*)>([\s\S]*?)<\/main>/i);if(!main)continue;
- const kind=attr(main[1],'data-page');if(!['home','services','about','events','contacts'].includes(kind))continue;
- const locale=attr(html.match(/<html\b([^>]*)>/i)?.[1]||'','lang');
- assert.ok(['ru','it','en'].includes(locale),file);
- const page=await load(`src/content/pages/${locale}/${kind}.json`),body=main[2],text=txt(body);
- assert.equal(attr(html.match(/<html\b([^>]*)>/i)[1],'data-design'),'balance',file);
- assert.doesNotMatch(html,/data-design-switcher|data-design-choice|src=["'][^"']*design-switcher/);
- for(const a of html.matchAll(/<a\b([^>]*)>/gi))assert.ok(!attr(a[1],'href').includes('/admin/'),file);
- assert.equal((body.match(/<h1\b/g)||[]).length,1,file);
- const heading=txt(body.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)[1]);
- assert.equal(heading,kind==='home'?page.hero.titleLines.join(' '):page.title,file);
- assert.equal(countClass(body,'page-header__lead'),['home','contacts'].includes(kind)?0:1,file);
- if(!['home','contacts'].includes(kind))assert.ok(text.includes(page.lead),file);
- assert.equal(countClass(body,'contact-block'),kind==='home'?2:kind==='contacts'?0:1,file);
- if(kind==='home'){
-  assert.equal(countClass(body,'service-card'),2);assert.equal(countClass(body,'feature'),4);
-  assert.equal(countClass(body,'home-belarus'),1);for(const p of page.about.paragraphs)assert.ok(text.includes(p));
-  assert.equal(countClass(body,'partner-detail'),2);assert.ok(text.includes(page.hero.lead));
- }
- if(kind==='services'){assert.equal(countClass(body,'service'),2);assert.equal(countClass(body,'step'),5);assert.ok(text.includes(page.expertSupport.title));}
- if(kind==='about'){assert.equal(countClass(body,'person'),3);assert.equal(countClass(body,'partner-detail'),2);for(const p of page.team.people){assert.ok(text.includes(p.name));assert.ok(text.includes(p.about));}}
- if(kind==='events'){
-  assert.equal(countClass(body,'feature'),4);assert.equal(countClass(body,'program-group'),3);assert.equal(countClass(body,'event-free'),2);
-  for(const topic of page.program)assert.ok(text.includes(topic),topic);
-  assert.ok(text.includes(page.durationValue));assert.ok(text.includes('10:00'));assert.equal(countClass(body,'page-header--compact'),1);
- }
- if(kind==='contacts'){assert.equal(countClass(body,'contact-detail'),3);assert.ok(text.includes(page.form.responseNote));assert.ok(text.includes(page.form.title));}
- found.add(`${locale}/${kind}`);console.log(`PASS ${locale}/${kind}: compiled HTML`);
+import { pathToFileURL } from 'node:url';
+
+const routePaths = {
+  it: { home: '', about: 'azienda', services: 'servizi', events: 'eventi', contacts: 'contatti' },
+  en: { home: 'en', about: 'en/about', services: 'en/services', events: 'en/events', contacts: 'en/contacts' },
+  ru: { home: 'ru', about: 'ru/o-kompanii', services: 'ru/uslugi', events: 'ru/meropriyatiya', contacts: 'ru/kontakty' },
+};
+
+export const PUBLIC_PAGES = Object.freeze(
+  Object.entries(routePaths).flatMap(([locale, pages]) =>
+    Object.entries(pages).map(([kind, directory]) => Object.freeze({
+      locale,
+      kind,
+      output: directory ? `${directory}/index.html` : 'index.html',
+    })),
+  ),
+);
+
+const entities = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
+const decode = (value) => value
+  .replace(/&#(x[0-9a-f]+|\d+);/gi, (_, code) => String.fromCodePoint(
+    code[0].toLowerCase() === 'x' ? parseInt(code.slice(1), 16) : Number(code),
+  ))
+  .replace(/&(amp|lt|gt|quot|apos|nbsp);/g, (_, name) => entities[name]);
+const normalize = (value) => value.replace(/\s+/g, ' ').trim();
+const textOf = (html) => normalize(decode(html.replace(/<[^>]*>/g, ' ')));
+
+function attrs(source) {
+  const result = Object.create(null);
+  for (const match of source.matchAll(/([^\s=/>]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g)) {
+    result[match[1].toLowerCase()] = decode(match[2] ?? match[3] ?? match[4] ?? '');
+  }
+  return result;
 }
-assert.equal(found.size,15,'Expected all 15 translated public pages');
-console.log('Full-site HTML checks passed: 15 pages, Balance only.');
+
+function countClass(html, name) {
+  return [...html.matchAll(/<[a-z][a-z0-9:-]*\b([^>]*)>/gi)]
+    .filter((match) => (attrs(match[1]).class || '').split(/\s+/).includes(name)).length;
+}
+
+/**
+ * Validate all expected pages. Missing/mislabelled files are errors, never skips.
+ * Exported so regression tests can exercise this exact checker on HTML fixtures.
+ * @param {string} directory Compiled output directory.
+ * @param {(message: string) => void} log Progress logger.
+ * @returns {Promise<number>} Number of public pages successfully checked.
+ */
+export async function checkFullBuild(directory = 'dist', log = console.log) {
+  const root = resolve(directory);
+  for (const { locale, kind, output } of PUBLIC_PAGES) {
+    const file = join(root, output);
+    const context = `${file} (${locale}/${kind})`;
+    let html;
+    try {
+      html = await readFile(file, 'utf8');
+    } catch (error) {
+      throw new Error(`${context}: cannot read required public page`, { cause: error });
+    }
+
+    const htmlTag = html.match(/<html\b([^>]*)>/i);
+    assert.ok(htmlTag, `${context}: missing <html>`);
+    const documentAttrs = attrs(htmlTag[1]);
+    assert.equal(documentAttrs.lang, locale, `${context}: incorrect language`);
+    assert.equal(documentAttrs['data-design'], 'balance', `${context}: expected Balance layout`);
+    assert.doesNotMatch(html, /data-design-switcher|data-design-choice|src=["'][^"']*design-switcher/, `${context}: obsolete layout switcher`);
+    for (const match of html.matchAll(/<a\b([^>]*)>/gi)) {
+      assert.ok(!(attrs(match[1]).href || '').includes('/admin/'), `${context}: public admin link`);
+    }
+    for (const match of html.matchAll(/<meta\b([^>]*)>/gi)) {
+      const meta = attrs(match[1]);
+      if ((meta.name || '').toLowerCase() === 'robots') {
+        assert.doesNotMatch(meta.content || '', /\bnoindex\b/i, `${context}: public page unexpectedly marked noindex`);
+      }
+    }
+
+    const mains = [...html.matchAll(/<main\b([^>]*)>([\s\S]*?)<\/main>/gi)];
+    assert.equal(mains.length, 1, `${context}: expected exactly one <main>`);
+    assert.equal(attrs(mains[0][1])['data-page'], kind, `${context}: incorrect data-page`);
+    const body = mains[0][2];
+    const text = textOf(body);
+    const page = JSON.parse(await readFile(
+      new URL(`../src/content/pages/${locale}/${kind}.json`, import.meta.url), 'utf8',
+    ));
+    const headings = [...body.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/gi)];
+    assert.equal(headings.length, 1, `${context}: expected exactly one H1`);
+    const expectedHeading = kind === 'home' ? page.hero.titleLines.join(' ') : page.title;
+    assert.equal(textOf(headings[0][1]), normalize(expectedHeading), `${context}: incorrect H1`);
+
+    const expectClass = (name, count) => assert.equal(countClass(body, name), count, `${context}: .${name} count`);
+    const expectText = (value, label = value) => assert.ok(text.includes(normalize(value)), `${context}: missing text: ${label}`);
+    const hasLead = !['home', 'contacts'].includes(kind);
+    expectClass('page-header__lead', hasLead ? 1 : 0);
+    if (hasLead) expectText(page.lead, 'page header lead');
+    expectClass('contact-block', kind === 'home' ? 2 : kind === 'contacts' ? 0 : 1);
+
+    if (kind === 'home') {
+      expectClass('service-card', 2);
+      expectClass('feature', 4);
+      expectClass('home-belarus', 1);
+      for (const paragraph of page.about.paragraphs) expectText(paragraph);
+      expectClass('partner-detail', 2);
+      expectText(page.hero.lead);
+    }
+    if (kind === 'services') {
+      expectClass('service', 2);
+      expectClass('step', 5);
+      expectText(page.expertSupport.title);
+    }
+    if (kind === 'about') {
+      expectClass('person', 3);
+      expectClass('partner-detail', 2);
+      for (const person of page.team.people) {
+        expectText(person.name);
+        expectText(person.about);
+      }
+    }
+    if (kind === 'events') {
+      expectClass('feature', 4);
+      expectClass('program-group', 3);
+      expectClass('event-free', 2);
+      for (const topic of page.program) expectText(topic);
+      expectText(page.durationValue);
+      expectText('10:00');
+      expectClass('page-header--compact', 1);
+    }
+    if (kind === 'contacts') {
+      expectClass('contact-detail', 3);
+      expectText(page.form.responseNote);
+      expectText(page.form.title);
+    }
+    log(`PASS ${locale}/${kind}: ${output}`);
+  }
+  log(`Full-site HTML checks passed: ${PUBLIC_PAGES.length} pages, Balance only.`);
+  return PUBLIC_PAGES.length;
+}
+
+// Importing this module in node:test must not start a build-output scan.
+if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {
+  await checkFullBuild(process.argv[2] || 'dist');
+}
