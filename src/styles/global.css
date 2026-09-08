@@ -76,9 +76,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
-  /* clip, а не hidden: hidden превращает страницу в отдельную
-     область прокрутки и ломает анимации, привязанные к прокрутке */
-  overflow-x: clip;
+  /* Overflow is fixed at component level, not hidden on the whole page. */
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -100,8 +98,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  /* защита от горизонтальной прокрутки из-за декоративных элементов */
-  overflow-x: clip;
+
 }
 
 img,
