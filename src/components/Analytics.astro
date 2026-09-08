@@ -2,7 +2,7 @@
 import type { Locale } from '../i18n/config';
 import { analyticsText } from '../i18n/analytics';
 import { getIntegrations } from '../lib/integrations';
-import { asset, href } from '../lib/url';
+import { asset } from '../lib/url';
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
 const { googleAnalyticsId } = getIntegrations();
@@ -11,7 +11,7 @@ const t = analyticsText[locale];
 {googleAnalyticsId && <aside class="analytics-banner" data-analytics-banner data-measurement-id={googleAnalyticsId} data-base-path={import.meta.env.BASE_URL} hidden aria-labelledby="analytics-title">
  <h2 id="analytics-title">{t.title}</h2><p>{t.text}</p>
  <div class="analytics-banner__actions"><button type="button" class="btn btn--ghost" data-analytics-reject>{t.reject}</button><button type="button" class="btn btn--ghost" data-analytics-accept>{t.accept}</button></div>
- <a class="link" href={`${href('contacts',locale)}#privacy`}>{t.privacy}</a>
+ <a class="link" href="#privacy" data-privacy-open aria-haspopup="dialog" aria-controls="privacy">{t.privacy}</a>
 </aside>}
 {googleAnalyticsId && <script is:inline type="module" src={asset('/scripts/analytics.js')}></script>}
 <style>

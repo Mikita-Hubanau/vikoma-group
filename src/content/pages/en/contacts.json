@@ -9,8 +9,8 @@
     "phone": "Phone",
     "message": "Message",
     "requiredNote": "All fields are required. Consent to data processing is also required.",
-    "consent": "I agree to the processing of my personal data.",
-    "privacyLink": "How your data is used",
+    "consent": "I have read the privacy information and consent to processing the data in this form to assess and answer my enquiry.",
+    "privacyLink": "Personal data processing",
     "submit": "Send enquiry",
     "sending": "Sending…",
     "success": "Your message has been accepted. We will reply within 24 hours.",
@@ -37,10 +37,81 @@
     "responseNote": "We usually reply within 24 hours."
   },
   "privacy": {
-    "title": "How data is used",
-    "text": "Contact form data is used to respond to your enquiry. Seminar registration data is used to organise participation and send the joining link. Do not include confidential information in the forms. Before launch, the organiser must publish a full privacy notice identifying the data controller, retention periods and contact details for requests.",
+    "title": "Personal data processing",
+    "text": "Information about data provided to VIKUB through the enquiry and seminar registration forms. This text has been prepared with reference to Article 13 of Regulation (EU) 2016/679 (GDPR) and the Italian Personal Data Protection Code (Legislative Decree 196/2003, as amended).",
     "policyLabel": "Privacy policy",
-    "policyUrl": ""
+    "policyUrl": "",
+    "reviewNote": "Draft, not a final privacy notice. Before using this as a complete GDPR notice, the controller’s identity, lawful bases, retention, recipients and international transfer arrangements must be confirmed.",
+    "status": "draft",
+    "sections": [
+      {
+        "title": "1. Controller and contact",
+        "paragraphs": [
+          "The VIKUB project’s contact for personal data questions is info@vikub.com. The Italian contact number is +39 328 2303160.",
+          "To complete: the controller’s full legal name or full name as an individual, address and, where applicable, representative and data protection officer (DPO) contact details. The name VIKUB alone does not establish the controller’s legal identity."
+        ]
+      },
+      {
+        "title": "2. Data collected",
+        "paragraphs": [
+          "Enquiries: name, email, phone, company, selected topic and message. Seminar registrations: first name, last name, company, email and optional phone. Forms also transmit page language, form type and the consent checkbox value; registrations include the event identifier and date.",
+          "The form handler on vikub.com generates email notifications and saves submissions in a server log. Emails and logs also include submission time, IP address and browser information. The hosting provider may keep separate technical logs.",
+          "Do not include passwords, payment details, documents, health information or other sensitive information that is not necessary for your request."
+        ]
+      },
+      {
+        "title": "3. Purposes and lawful bases",
+        "paragraphs": [
+          "Enquiry data is used to assess and answer your request. Registration data is used to organise participation in the selected seminar, send the joining link and event-related administrative messages. Submitting a form does not subscribe you to advertising newsletters.",
+          "This draft proposes consent under Article 6(1)(a) GDPR for handling enquiries and registrations, given through a separate, unticked checkbox. Consent covers only the purpose of the form used. It may be withdrawn at info@vikub.com without affecting the lawfulness of processing before withdrawal. Without necessary contact details, a request or participation cannot be arranged through the form.",
+          "The controller must confirm the appropriate basis before using this draft: necessary pre-contractual steps requested by the individual may fall under Article 6(1)(b); processing business representatives’ details and abuse prevention may be considered under Article 6(1)(f), after assessing necessity and balancing interests. These alternatives do not automatically replace consent. The basis for technical log processing also requires confirmation."
+        ]
+      },
+      {
+        "title": "4. Required and optional information",
+        "paragraphs": [
+          "The enquiry form currently requires all displayed fields and the consent checkbox. Registration requires first name, last name, company, email and the checkbox; phone is optional. The site will not submit the form if required fields are missing.",
+          "An interface requirement is not a legal obligation to provide the information. The controller must check whether phone and company are genuinely necessary for each purpose and make them optional where they are not."
+        ]
+      },
+      {
+        "title": "5. Recipients",
+        "paragraphs": [
+          "The code sends notifications to info@vikub.com and supports additional recipients configured separately on the server. Hosting and email services are involved.",
+          "To confirm: who can access the mailbox and logs, which additional recipients are configured, which hosting, email and seminar platform providers are involved and their respective roles. Receiving a submission does not authorise sharing contact details with every partner or speaker."
+        ]
+      },
+      {
+        "title": "6. Transfers outside the European Economic Area",
+        "paragraphs": [
+          "The project uses GitHub Pages for the website, a separate form handler on vikub.com and Google Analytics after a separate choice. This does not establish the countries of storage or the locations of everyone with access.",
+          "To complete: actual destination countries and recipients, the applicable adequacy decision or other GDPR safeguards, and how to obtain information about them. Access from Belarus and other non-EEA countries needs separate review. This draft does not claim that standard contractual clauses or other safeguards have already been adopted."
+        ]
+      },
+      {
+        "title": "7. Retention",
+        "paragraphs": [
+          "To approve: specific periods or sufficiently clear criteria for enquiries, registrations, correspondence, technical logs and backups, together with deletion procedures.",
+          "The supplied PHP code rotates the submission log by size but does not automatically delete old submissions by age. This draft therefore makes no arbitrary promise to delete data after a stated number of days and does not equate archiving with deletion. Retention must reflect actual practice and the storage limitation principle."
+        ]
+      },
+      {
+        "title": "8. Your rights",
+        "paragraphs": [
+          "Where the GDPR conditions apply, you may request access, rectification, erasure, restriction and portability, and object to processing based on legitimate interests. Portability applies, in particular, to automated processing based on consent or a contract.",
+          "Send requests or withdraw consent at info@vikub.com. A response is normally due within one month; any extension permitted by the GDPR requires notice explaining the reasons.",
+          "You may complain to the competent supervisory authority, including Italy’s Garante per la protezione dei dati personali: www.garanteprivacy.it. Contacting VIKUB first is not a prerequisite for a complaint."
+        ]
+      },
+      {
+        "title": "9. Automation and analytics",
+        "paragraphs": [
+          "The supplied form code includes validation, spam protection and rate limiting. It contains no automated project assessment or cooperation decision with legal or similarly significant effects. Other processes outside the website require the controller’s review.",
+          "Google Analytics is activated by a separate choice in the analytics banner, not the form checkbox. Refusal does not prevent form submission. You can change the choice through “Analytics settings” in the footer. The code remembers that choice for 180 days; this is not the retention period for submissions and does not establish Google’s data retention settings.",
+          "Analytics disclosures still require provider, identifier and cookie details, actual retention and international transfer arrangements. This window does not replace reviewing the Google Analytics account and provider contracts."
+        ]
+      }
+    ]
   },
   "seo": {
     "title": "Contact — VIKUB",

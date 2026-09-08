@@ -42,7 +42,7 @@
     "email": "Email",
     "phone": "Phone (optional)",
     "requiredNote": "* Required fields. A phone number is optional.",
-    "consent": "I agree to the processing of my data for registration and communications about the seminar.",
+    "consent": "I have read the privacy information and consent to processing the data in this form to organise my seminar participation and send event-related administrative messages.",
     "privacyLink": "Personal data processing",
     "sending": "Sending…",
     "success": "Thank you for registering. The joining link will be sent 3–4 days before the seminar.",

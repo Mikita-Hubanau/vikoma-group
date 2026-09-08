@@ -87,7 +87,8 @@ for (const locale of locales) {
  for (const partner of settings.partners) {
   if (partner.logo) assert(existsSync(partner.logo.replace(/^\/media\//,'src/assets/media/')),`${locale}: логотип не найден: ${partner.logo}`);
  }
- if(locale==='ru' && !json(`src/content/pages/${locale}/contacts.json`).privacy.policyUrl) missing.push('privacy.policyUrl');
+ const privacy=json(`src/content/pages/${locale}/contacts.json`).privacy;
+ if(privacy.status!=='published' || !privacy.sections?.length) missing.push(`${locale}: privacy — требуется юридическое завершение текста`);
  for (const person of json(`src/content/pages/${locale}/about.json`).team.people) {
   if (person.photo) assert(existsSync(person.photo.replace(/^\/media\//,'src/assets/media/')),`${locale}: фото не найдено: ${person.photo}`);
  }

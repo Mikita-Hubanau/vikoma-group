@@ -48,7 +48,12 @@ async function fixturePage({ locale, kind }) {
     body += paragraphs([page.durationValue, '10:00']);
   }
   if (kind === 'contacts') body += blocks('contact-detail', 3) + paragraphs([page.form.responseNote, page.form.title]);
-  return `<!doctype html><html lang="${locale}" data-design="balance"><head><title>Checker test fixture</title></head><body><main data-page="${kind}">${body}</main></body></html>`;
+  const notice = JSON.parse(await readFile(new URL(`../src/content/pages/${locale}/contacts.json`, import.meta.url), 'utf8')).privacy;
+  const privacy = `<dialog id="privacy"><h2>${escape(notice.title)}</h2><p>${escape(notice.text)}</p>`
+    + `<p data-privacy-draft>${escape(notice.reviewNote)}</p>`
+    + paragraphs(notice.sections.flatMap(section => [section.title, ...section.paragraphs])) + '</dialog>'
+    + '<a href="#privacy" data-privacy-open aria-controls="privacy">Privacy</a><script type="module" src="/scripts/privacy-dialog.js"></script>';
+  return `<!doctype html><html lang="${locale}" data-design="balance"><head><title>Checker test fixture</title></head><body><main data-page="${kind}">${body}</main>${privacy}</body></html>`;
 }
 
 async function createFixture(t, base = '/') {
@@ -125,6 +130,12 @@ test('a 404 served at the actual home output is still a build error', async (t) 
 });
 
 const regressions = [
+  ['missing privacy dialog', 'eventi/index.html', html => html.replace(/<dialog[\s\S]*?<\/dialog>/, ''), /expected one privacy dialog/],
+  ['initially open privacy dialog', 'contatti/index.html', html => html.replace('<dialog id="privacy">', '<dialog id="privacy" open>'), /must start closed/],
+  ['cross-page privacy link', 'ru/meropriyatiya/index.html', html => html.replace('href="#privacy"', 'href="/ru/kontakty/#privacy"'), /privacy link must be local/],
+  ['missing privacy script', 'index.html', html => html.replace('/scripts/privacy-dialog.js', '/scripts/other.js'), /privacy script missing/],
+  ['hidden privacy draft warning', 'en/events/index.html', html => html.replace('data-privacy-draft', 'data-other'), /privacy draft warning missing/],
+
   ['wrong H1', 'index.html', (html) => html.replace(/<h1>[^<]*<\/h1>/, '<h1>Wrong title</h1>'), /incorrect H1/],
   ['missing H1', 'index.html', (html) => html.replace(/<h1>[^<]*<\/h1>/, ''), /exactly one H1/],
   ['duplicate H1', 'index.html', (html) => html.replace('</main>', '<h1>Extra</h1></main>'), /exactly one H1/],
@@ -210,3 +221,11 @@ for (const output of ['eventi/index.html', 'ru/meropriyatiya/index.html']) {
     await assert.rejects(checkFullBuild(root, quiet), /out of order/);
   });
 }
+
+test('privacy checker preserves punctuation next to safe inline email links', async (t) => {
+  const root = await createFixture(t);
+  for (const {output} of PUBLIC_PAGES) {
+    await mutate(root, output, html => html.replaceAll('info@vikub.com', '<a href="mailto:info@vikub.com">info@vikub.com</a>'));
+  }
+  assert.equal(await checkFullBuild(root, quiet), 15);
+});

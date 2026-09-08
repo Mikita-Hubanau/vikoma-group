@@ -176,6 +176,36 @@ export async function checkFullBuild(directory = 'dist', log = console.log) {
       expectText(page.form.responseNote);
       expectText(page.form.title);
     }
+    // Shared privacy UI lives outside main, and must never send visitors to
+    // another page. Check the compiled output, not just component source text.
+    const dialogs = [...html.matchAll(/<dialog\b([^>]*)>([\s\S]*?)<\/dialog>/gi)]
+      .filter((match) => attrs(match[1]).id === 'privacy');
+    assert.equal(dialogs.length, 1, `${context}: expected one privacy dialog`);
+    assert.ok(!Object.hasOwn(attrs(dialogs[0][1]), 'open'), `${context}: privacy dialog must start closed`);
+    assert.doesNotMatch(body, /id=["']privacy["']/, `${context}: privacy text returned to page body`);
+    const notice = JSON.parse(await readFile(new URL(`../src/content/pages/${locale}/contacts.json`, import.meta.url), 'utf8')).privacy;
+    // Preserve punctuation adjacent to inline contact links. The generic
+    // textOf() inserts spaces around every tag and would invent 'email .'.
+    const noticeText = normalize(decode(dialogs[0][2]
+      .replace(/<\/(?:p|h[1-6]|div|section|header|footer)>/gi, ' ')
+      .replace(/<[^>]*>/g, '')));
+    for (const required of [notice.title, notice.text, ...notice.sections.flatMap(section => [section.title, ...section.paragraphs])]) {
+      assert.ok(noticeText.includes(normalize(required)), `${context}: missing privacy notice text`);
+    }
+    if (notice.status !== 'published') assert.match(dialogs[0][2], /data-privacy-draft/, `${context}: privacy draft warning missing`);
+    let privacyLinks = 0;
+    for (const match of html.matchAll(/<a\b([^>]*)>/gi)) {
+      const link = attrs(match[1]);
+      if (Object.hasOwn(link, 'data-privacy-open') || (link.href || '').endsWith('#privacy')) {
+        privacyLinks++;
+        assert.equal(link.href, '#privacy', `${context}: privacy link must be local`);
+        assert.ok(Object.hasOwn(link, 'data-privacy-open'), `${context}: privacy link trigger missing`);
+        assert.equal(link['aria-controls'], 'privacy', `${context}: privacy link controls missing`);
+      }
+    }
+    assert.ok(privacyLinks > 0, `${context}: privacy trigger missing`);
+    const privacyScript = [...html.matchAll(/<script\b([^>]*)>/gi)].some(match => /\/scripts\/privacy-dialog\.js(?:[?#]|$)/.test(attrs(match[1]).src || ''));
+    assert.ok(privacyScript, `${context}: privacy script missing`);
     log(`PASS ${locale}/${kind}: ${output}`);
   }
   log(`Full-site HTML checks passed: ${PUBLIC_PAGES.length} pages, Balance only.`);

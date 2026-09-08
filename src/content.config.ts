@@ -99,7 +99,12 @@ const contactsPage = defineCollection({
       submit: z.string(), sending: z.string(), success: z.string(), error: z.string(), uncertain: z.string(),
       rateLimited: z.string(), validationError: z.string(), unavailable: z.string()
     }).strict(),
-    privacy: z.object({ title: z.string(), text: z.string(), policyLabel: z.string(), policyUrl: httpsLink }).strict(),
+    privacy: z.object({
+      title: z.string(), text: z.string(), policyLabel: z.string(), policyUrl: httpsLink,
+      status: z.enum(['draft', 'published']).default('draft'),
+      reviewNote: z.string().default(''),
+      sections: z.array(z.object({ title: z.string(), paragraphs: z.array(z.string()) }).strict()).default([]),
+    }).strict(),
   }).strict(),
 });
 // Legacy industry data is retained as a reusable archive, not a menu section.

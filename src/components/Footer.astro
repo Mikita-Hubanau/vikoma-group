@@ -25,7 +25,7 @@ const { googleAnalyticsId } = getIntegrations();
    </div><div class="site-footer__socials"><SocialLinks locale={locale} /></div></div>
   </div>
   <div class="site-footer__bottom"><p>© 2026 {settings.company.name}. {t.copyright}.</p></div>
-  <div class="site-footer__privacy"><a href={`${href('contacts', locale)}#privacy`}>{t.privacy}</a>{googleAnalyticsId && analyticsEnabled && <button type="button" data-analytics-settings>{t.privacySettings}</button>}</div>
+  <div class="site-footer__privacy"><a href="#privacy" data-privacy-open aria-haspopup="dialog" aria-controls="privacy">{t.privacy}</a>{googleAnalyticsId && analyticsEnabled && <button type="button" data-analytics-settings>{t.privacySettings}</button>}</div>
  </div>
 </footer>
 <style>

@@ -1317,8 +1317,36 @@ collections:
         label: Текст
         i18n: true
         widget: text
+      - name: status
+        label: Юридический статус текста
+        widget: select
+        i18n: duplicate
+        default: draft
+        options:
+        - {label: 'Рабочая редакция — нужны реальные сведения', value: draft}
+        - {label: 'Проверено оператором и готово к публикации', value: published}
+        hint: 'Не выбирайте published до подтверждения оператора, оснований, хранения, получателей и передач. Сам флаг не делает текст соответствующим GDPR.'
+      - name: reviewNote
+        label: Предупреждение о рабочей редакции
+        widget: text
+        i18n: true
+        required: false
+        default: ''
+      - name: sections
+        label: Разделы уведомления
+        widget: list
+        i18n: true
+        required: false
+        summary: '{{fields.title}}'
+        fields:
+        - {name: title, label: Заголовок раздела, widget: string, i18n: true}
+        - name: paragraphs
+          label: Абзацы
+          widget: list
+          i18n: true
+          field: {name: text, label: Абзац, widget: text, i18n: true}
       - name: policyLabel
-        label: Подпись ссылки на политику
+        label: Подпись ссылки на дополнительную политику
         i18n: true
         widget: string
       - name: policyUrl

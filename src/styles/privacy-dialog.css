@@ -1,0 +1,57 @@
+/* Shared privacy window. Hidden in normal page flow, independent of form state. */
+#privacy.privacy-dialog {
+  box-sizing:border-box;
+  position:fixed;
+  inset:0;
+  width:min(48rem, calc(100% - 2rem));
+  max-width:none;
+  height:auto;
+  max-height:calc(100vh - 2rem);
+  max-height:calc(100dvh - 2rem);
+  margin:auto;
+  padding:0;
+  overflow:hidden;
+  color:var(--body, #333);
+  background:var(--paper, #fff);
+  border:1px solid var(--line-strong, #ccc);
+  border-radius:.75rem;
+  box-shadow:0 1.5rem 5rem #0003;
+  font-family:var(--font-sans, sans-serif);
+  font-size:1rem;
+  text-align:left;
+}
+/* Also makes old #privacy links readable when JavaScript is disabled/blocked.
+   JS upgrades this to a native top-layer modal with focus containment. */
+#privacy.privacy-dialog:not([open]) { display:none; }
+#privacy.privacy-dialog:target:not([open]) { display:block; z-index:2000; box-shadow:0 0 0 100vmax #10202799; }
+#privacy.privacy-dialog::backdrop { background:rgb(16 26 30 / .64); }
+#privacy .privacy-dialog__panel { display:flex; flex-direction:column; max-height:calc(100vh - 2rem); max-height:calc(100dvh - 2rem); min-width:0; }
+#privacy .privacy-dialog__header { display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-shrink:0; padding:.65rem 1rem .65rem 1.75rem; border-bottom:1px solid var(--line, #ddd); background:var(--paper, #fff); }
+#privacy .privacy-dialog__eyebrow { margin:0; color:var(--muted, #555); font:600 .75rem/1.5 var(--font-sans, sans-serif); letter-spacing:.08em; text-transform:uppercase; }
+#privacy .privacy-dialog__close { display:inline-flex; flex-shrink:0; align-items:center; justify-content:center; width:2.75rem; height:2.75rem; border:1px solid transparent; border-radius:.35rem; color:var(--ink, #222); text-decoration:none; }
+#privacy .privacy-dialog__close:hover { background:var(--paper-2, #f3f3f3); border-color:var(--line, #ddd); }
+#privacy .privacy-dialog__body { min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-gutter:stable; padding:1.75rem 2rem 2rem; }
+#privacy .privacy-dialog__title { margin:0 0 1.25rem; max-width:100%; font-family:var(--font-serif, serif); font-size:clamp(1.5rem, 1.25rem + .7vw, 2rem); line-height:1.25; font-weight:500; letter-spacing:-.015em; overflow-wrap:anywhere; }
+#privacy .privacy-dialog__intro,#privacy .privacy-dialog__section p,#privacy .privacy-dialog__contacts p { font:400 1rem/1.7 var(--font-sans, sans-serif); max-width:none; margin:0; overflow-wrap:anywhere; }
+#privacy .privacy-dialog__section { margin-top:1.75rem; }
+#privacy .privacy-dialog__section h3 { margin:0 0 .7rem; font:600 1.075rem/1.5 var(--font-sans, sans-serif); letter-spacing:0; color:var(--ink, #222); overflow-wrap:anywhere; }
+#privacy .privacy-dialog__section p + p,#privacy .privacy-dialog__contacts p + p { margin-top:.75rem; }
+#privacy .privacy-dialog__review { margin:0 0 1.5rem; padding:1rem 1.15rem; border-left:3px solid var(--accent, #806038); background:var(--paper-2, #f5f2ec); font:400 .9375rem/1.65 var(--font-sans, sans-serif); overflow-wrap:anywhere; }
+#privacy .privacy-dialog__review strong { display:block; color:var(--ink, #222); font-weight:600; }
+#privacy .privacy-dialog__review p { margin:.45rem 0 0; font:inherit; }
+#privacy .privacy-dialog__contacts { margin-top:1.75rem; padding-top:1.25rem; border-top:1px solid var(--line, #ddd); }
+#privacy .privacy-dialog__done { display:inline-flex; align-items:center; justify-content:center; min-height:3rem; margin-top:1.5rem; padding:.6rem 1.5rem; border:1px solid var(--line-strong, #999); border-radius:.25rem; text-decoration:none; font:500 1rem/1.5 var(--font-sans, sans-serif); color:var(--ink, #222); background:var(--paper-2, #f3f3f3); }
+#privacy a:focus-visible,#privacy [tabindex="-1"]:focus-visible { outline:2px solid var(--accent, #73542e); outline-offset:3px; border-radius:2px; }
+#privacy .link { text-decoration:underline; text-underline-offset:.18em; }
+@media (max-width:30rem) {
+  #privacy.privacy-dialog { width:calc(100% - 1rem); max-height:calc(100vh - 1rem); max-height:calc(100dvh - 1rem); border-radius:.5rem; }
+  #privacy .privacy-dialog__panel { max-height:calc(100vh - 1rem); max-height:calc(100dvh - 1rem); }
+  #privacy .privacy-dialog__header { padding:.4rem .6rem .4rem 1rem; }
+  #privacy .privacy-dialog__body { padding:1.25rem 1.1rem 1.5rem; }
+  #privacy .privacy-dialog__title { font-size:1.5rem; }
+  #privacy .privacy-dialog__done { width:100%; }
+}
+@media (forced-colors:active) {
+  #privacy.privacy-dialog { border:2px solid CanvasText; }
+  #privacy .privacy-dialog__review,#privacy .privacy-dialog__close,#privacy .privacy-dialog__done { border:1px solid CanvasText; }
+}

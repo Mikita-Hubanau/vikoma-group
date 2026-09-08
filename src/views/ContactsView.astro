@@ -2,7 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ContactForm from '../components/ContactForm.astro';
-import EditButton from '../components/edit/EditButton.astro';
 import type { Locale } from '../i18n/config';
 import { useUI } from '../i18n/ui';
 import { getPage, getSettings } from '../lib/content';
@@ -68,15 +67,6 @@ const settings = await getSettings(locale);
     <div class="container form-section"><ContactForm locale={locale} labels={page.form} /></div>
   </section>
 
-  <section class="section section--tight privacy edit-anchor" id="privacy">
-    <EditButton collection="pages" entry="contacts" label="Политика конфиденциальности" />
-    <div class="container">
-      <h2>{page.privacy.title}</h2>
-      <p>{page.privacy.text}</p>
-      {page.privacy.policyUrl && <p><a class="link" href={page.privacy.policyUrl} target="_blank" rel="noopener noreferrer">{page.privacy.policyLabel}</a></p>}
-    </div>
-  </section>
-
   {settings.legal.length > 0 && (
     <section class="section section--tight">
       <div class="container">
@@ -98,9 +88,6 @@ const settings = await getSettings(locale);
   .contact-socials__pending { color:var(--muted); }
   .contact-socials__note { color:var(--muted); font-size:var(--text-xs); margin-top:.75rem; }
   .form-section { max-width:56rem; }
-  .privacy { border-top:1px solid var(--line); }
-  .privacy h2 { font-size:var(--text-lg); }
-  .privacy p { max-width:58rem; font-size:var(--text-sm); margin-top:1rem; }
   .legal { margin-top:1.5rem; display:grid; gap:1rem; }
   .legal dt { font-size:var(--text-xs); color:var(--muted); }
   @media(min-width:48rem) { .contact-details { grid-template-columns:repeat(3,minmax(0,1fr)); gap:2rem; } }

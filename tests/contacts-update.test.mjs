@@ -144,11 +144,14 @@ test('contacts: original endpoint, form transport script, markers and no-endpoin
   }
 });
 
-test('contacts: form status announcements, policy anchor and legal content remain available', () => {
+test('contacts: form status announcements, local privacy dialog and legal details remain available', () => {
   assert.match(form, /role="status" aria-live="polite" aria-atomic="true"/);
   assert.match(form, /href="#privacy"/);
-  assert.match(view, /id="privacy"/);
-  assert.match(view, /page\.privacy\.policyUrl/);
+  const privacy = read('../src/components/PrivacyDialog.astro');
+  assert.match(privacy, /<dialog id="privacy"/);
+  assert.match(privacy, /notice\.policyUrl/);
+  assert.doesNotMatch(view, /id="privacy"/);
+  assert.match(form, /data-privacy-open/);
   assert.match(view, /settings\.legal\.map/);
 });
 

@@ -68,7 +68,7 @@ const configured = Boolean(contactFormEndpoint);
         <input id="contact-consent" name="consent" type="checkbox" value="yes" required />
         <label for="contact-consent">{t.consent} <span aria-hidden="true">*</span></label>
       </div>
-      <p class="form-privacy"><a class="link" href="#privacy">{t.privacyLink}</a></p>
+      <p class="form-privacy"><a class="link" href="#privacy" data-privacy-open aria-haspopup="dialog" aria-controls="privacy">{t.privacyLink}</a></p>
       <button class="btn btn--primary" type="submit" data-submit-button disabled={!configured}>{t.submit}</button>
     </fieldset>
     <p class="form-status" data-form-status role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>

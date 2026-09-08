@@ -1,0 +1,49 @@
+---
+import type { Locale } from '../i18n/config';
+import { getPage } from '../lib/content';
+import { asset } from '../lib/url';
+import { privacyTextParts, privacyUI } from '../lib/privacy-notice.mjs';
+import '../styles/privacy-dialog.css';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+// One CMS-backed notice per language, reused on every page, including events.
+const { data: contacts } = await getPage('contactsPage', locale);
+const notice = contacts.privacy;
+const t = privacyUI[locale];
+---
+<dialog id="privacy" class="privacy-dialog" data-privacy-dialog aria-labelledby="privacy-title">
+  <div class="privacy-dialog__panel">
+    <header class="privacy-dialog__header">
+      <p class="privacy-dialog__eyebrow">{t.label}</p>
+      <a class="privacy-dialog__close" href="#main" data-privacy-close aria-label={t.close}>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+      </a>
+    </header>
+    <div class="privacy-dialog__body" data-privacy-scroll>
+      <h2 id="privacy-title" class="privacy-dialog__title" tabindex="-1" autofocus>{notice.title}</h2>
+      {notice.status !== 'published' && (
+        <div class="privacy-dialog__review" data-privacy-draft>
+          <strong>{t.draft}</strong>
+          {notice.reviewNote && <p>{notice.reviewNote}</p>}
+        </div>
+      )}
+      <p class="privacy-dialog__intro">{notice.text}</p>
+      {notice.sections.map((section, index) => (
+        <section class="privacy-dialog__section" aria-labelledby={`privacy-section-${index}`}>
+          <h3 id={`privacy-section-${index}`}>{section.title}</h3>
+          {section.paragraphs.map((paragraph) => (
+            <p>{privacyTextParts(paragraph).map((part) => part.href ? <a class="link" href={part.href}>{part.text}</a> : part.text)}</p>
+          ))}
+        </section>
+      ))}
+      <div class="privacy-dialog__contacts">
+        <p>{t.contact}: <a class="link" href="mailto:info@vikub.com">info@vikub.com</a></p>
+        <p><a class="link" href="https://www.garanteprivacy.it/">{t.authority}</a></p>
+        {notice.policyUrl && <p><a class="link" href={notice.policyUrl} target="_blank" rel="noopener noreferrer">{notice.policyLabel}</a></p>}
+      </div>
+      <a class="privacy-dialog__done" href="#main" data-privacy-close>{t.close}</a>
+    </div>
+  </div>
+</dialog>
+<script is:inline type="module" src={asset('/scripts/privacy-dialog.js')}></script>
