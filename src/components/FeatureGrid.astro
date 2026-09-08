@@ -1,16 +1,19 @@
 ---
 import Icon from './Icon.astro';
-interface Props { title: string; items: { icon: string; title: string; text: string }[]; }
-const { title, items } = Astro.props;
+interface Props { title: string; subtitle?: string; items: { icon: string; title: string; text: string }[]; }
+const { title, subtitle = '', items } = Astro.props;
 ---
-<div class="feature-section">
+<div class:list={["feature-section", { "feature-section--with-subtitle": Boolean(subtitle) } ]}>
   <h2>{title}</h2>
+  {subtitle && <p class="feature-section__subtitle">{subtitle}</p>}
   <ul class="feature-grid">
     {items.map((item) => <li class="feature"><Icon name={item.icon} size={30} /><h3>{item.title}</h3><p>{item.text}</p></li>)}
   </ul>
 </div>
 <style>
  .feature-section > h2 { margin-bottom:2.5rem; }
+ .feature-section--with-subtitle > h2 { margin-bottom:1rem; }
+ .feature-section__subtitle { max-width:52rem; margin-bottom:2.5rem; font-size:var(--text-md); }
  .feature-grid { display:grid; grid-template-columns:minmax(0,1fr); gap:2rem; list-style:none; padding:0; margin:0; }
  .feature { min-width:0; border-top:1px solid var(--line-strong); padding-top:1.5rem; }
  .feature :global(svg) { color:var(--accent); margin-bottom:1.25rem; }

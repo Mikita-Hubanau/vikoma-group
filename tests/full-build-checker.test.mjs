@@ -33,8 +33,19 @@ async function fixturePage({ locale, kind }) {
     body += paragraphs(page.team.people.flatMap((person) => [person.name, person.about]));
   }
   if (kind === 'events') {
-    body += blocks('feature', 4) + blocks('program-group', 3) + blocks('event-free', 2) + blocks('page-header--compact', 1);
-    body += paragraphs([...page.program, page.durationValue, '10:00']);
+    body += blocks('feature', 4) + blocks('event-free', 2) + blocks('page-header--compact', 1);
+    body += paragraphs([page.benefits.title, ...page.benefits.items.flatMap(item => [item.title, item.text]), page.programTitle, page.programNote]);
+    if (page.agenda) {
+      body += `<p class="feature-section__subtitle">${escape(page.benefits.subtitle)}</p>`;
+      body += `<p class="program-format">${escape(page.agenda.format)}</p>`;
+      body += '<ol class="program-list">' + page.agenda.items.map(item =>
+        '<li class="program-item">' + paragraphs([item.title, ...(item.speaker ? [item.speaker] : []), ...item.paragraphs]) + '</li>').join('') + '</ol>';
+      body += '<section class="program-optional">' + paragraphs([page.agenda.optionalTitle]);
+      body += '<ul>' + page.agenda.optionalItems.map(item => `<li class="program-optional-item">${escape(item)}</li>`).join('') + '</ul></section>';
+    } else {
+      body += blocks('program-group', 3) + paragraphs(page.program);
+    }
+    body += paragraphs([page.durationValue, '10:00']);
   }
   if (kind === 'contacts') body += blocks('contact-detail', 3) + paragraphs([page.form.responseNote, page.form.title]);
   return `<!doctype html><html lang="${locale}" data-design="balance"><head><title>Checker test fixture</title></head><body><main data-page="${kind}">${body}</main></body></html>`;
@@ -130,7 +141,13 @@ const regressions = [
   ['missing home card', 'index.html', (html) => html.replace('<div class="service-card"></div>', ''), /service-card count/],
   ['missing services step', 'servizi/index.html', (html) => html.replace('<div class="step"></div>', ''), /step count/],
   ['missing team member', 'azienda/index.html', (html) => html.replace('<div class="person"></div>', ''), /person count/],
-  ['missing event group', 'eventi/index.html', (html) => html.replace('<div class="program-group"></div>', ''), /program-group count/],
+  ['missing unchanged English event group', 'en/events/index.html', (html) => html.replace('<div class="program-group"></div>', ''), /program-group count/],
+  ['missing main agenda item', 'eventi/index.html', (html) => html.replace('<li class="program-item">', '<li>'), /program-item count/],
+  ['missing optional item', 'ru/meropriyatiya/index.html', (html) => html.replace('<li class="program-optional-item">', '<li>'), /program-optional-item count/],
+  ['missing benefits subtitle', 'eventi/index.html', (html) => html.replace(/<p class="feature-section__subtitle">[^<]*<\/p>/, ''), /missing text|feature-section__subtitle count/],
+  ['missing programme format', 'ru/meropriyatiya/index.html', (html) => html.replace(/<p class="program-format">[^<]*<\/p>/, ''), /program-format count|missing text/],
+  ['missing optional-time warning', 'ru/meropriyatiya/index.html', (html) => html.replace('Опционально (по возможности, не входит в основное время):', 'Опционально'), /missing text/],
+  ['missing legal paragraph', 'eventi/index.html', (html) => html.replace(/<p>Avvocati bielorussi:.*?<\/p>/, ''), /missing text/],
   ['missing contact detail', 'contatti/index.html', (html) => html.replace('<div class="contact-detail"></div>', ''), /contact-detail count/],
 ];
 for (const [name, output, change, error] of regressions) {
@@ -182,3 +199,14 @@ test('CLI default dist path fails when the actual homepage is a 404', async (t) 
   assert.equal(result.status, 1);
   assert.match(result.stderr, /incorrect H1/);
 });
+
+for (const output of ['eventi/index.html', 'ru/meropriyatiya/index.html']) {
+  test(`checker rejects reordered seminar agenda at ${output}`, async (t) => {
+    const root = await createFixture(t);
+    await mutate(root, output, (html) => html.replace(
+      /(<li class="program-item">[\s\S]*?<\/li>)(<li class="program-item">[\s\S]*?<\/li>)/,
+      '$2$1',
+    ));
+    await assert.rejects(checkFullBuild(root, quiet), /out of order/);
+  });
+}

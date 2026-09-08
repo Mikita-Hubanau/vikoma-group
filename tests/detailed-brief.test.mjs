@@ -15,11 +15,19 @@ for (const locale of ['ru','it','en']) {
   assert.equal(services.howWeWork.steps.length,5);
   assert.equal(about.team.people.length,3);
   assert.equal(events.benefits.items.length,4);
-  assert.equal(events.programGroups.length,3);
+  if (locale==='en') {
+   assert.equal(events.programGroups.length,3);
+   assert.deepEqual(events.programGroups.flatMap(g=>g.indices),[1,2,3,4,5,6]);
+   assert.equal(events.program.length,8);
+   assert.equal(events.agenda,undefined);
+  } else {
+   assert.equal(events.agenda.items.length,7);
+   assert.equal(events.agenda.optionalItems.length,2);
+   assert.equal(events.program,undefined);
+   assert.equal(events.programGroups,undefined);
+  }
   assert.equal(services.lead,about.lead);assert.equal(services.lead,events.lead);
   assert.equal(page('contacts').lead,'');
-  assert.deepEqual(events.programGroups.flatMap(g=>g.indices),[1,2,3,4,5,6]);
-  assert.equal(events.program.length,8);
  });
  test(`${locale}: real contact details, correct partner links and Victoria name`,()=>{
   const settings=json(`src/content/settings/${locale}.json`);

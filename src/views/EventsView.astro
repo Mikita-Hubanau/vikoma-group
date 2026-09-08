@@ -16,6 +16,7 @@ const { registrationUrl, registrationFormEndpoint, contactFormEndpoint } = getIn
 const endpoint = registrationFormEndpoint || contactFormEndpoint;
 const state = eventState();
 const r = page.registration;
+const agenda = page.agenda;
 ---
 <BaseLayout {...page.seo} locale={locale} page="events">
  <PageHeader title={page.title} lead={page.lead} compact />
@@ -36,9 +37,32 @@ const r = page.registration;
  <section class="section section--paper2 event-benefits"><div class="container"><FeatureGrid {...page.benefits} /></div></section>
  <section class="section"><div class="container event-content">
   <div class="event-program"><h2>{page.programTitle}</h2>
-   <p class="program-bookend">{page.program[0]}</p>
-   <div class="program-groups">{page.programGroups.map((group,i) => <section class="program-group"><h3><span aria-hidden="true">{String(i+1).padStart(2,'0')}</span>{group.title}</h3><ul class="dash-list">{group.indices.map((index) => <li>{page.program[index]}</li>)}</ul></section>)}</div>
-   <p class="program-bookend">{page.program[page.program.length-1]}</p>
+   {agenda ? (
+    <>
+     <p class="program-format">{agenda.format}</p>
+     <ol class="program-list">
+      {agenda.items.map((item) => (
+       <li class="program-item">
+        <h3>{item.title}</h3>
+        {item.speaker && <p class="program-speaker">{item.speaker}</p>}
+        {item.paragraphs.map((paragraph) => <p class="program-description">{paragraph}</p>)}
+       </li>
+      ))}
+     </ol>
+     <section class="program-optional" aria-labelledby="program-optional-title">
+      <h3 id="program-optional-title">{agenda.optionalTitle}</h3>
+      <ul class="dash-list">
+       {agenda.optionalItems.map((item) => <li class="program-optional-item">{item}</li>)}
+      </ul>
+     </section>
+    </>
+   ) : (
+    <>
+     <p class="program-bookend">{page.program[0]}</p>
+     <div class="program-groups">{page.programGroups.map((group,i) => <section class="program-group"><h3><span aria-hidden="true">{String(i+1).padStart(2,'0')}</span>{group.title}</h3><ul class="dash-list">{group.indices.map((index) => <li>{page.program[index]}</li>)}</ul></section>)}</div>
+     <p class="program-bookend">{page.program[page.program.length-1]}</p>
+    </>
+   )}
    <p class="program-note"><em>{page.programNote}</em></p>
   </div>
   <aside class="registration" id="registration" data-event-status data-deadline={seminar.registrationDeadline} data-end={seminarEnd}>
@@ -64,6 +88,17 @@ const r = page.registration;
  .event-facts small { display:block; margin-top:.5rem; color:var(--body); font-family:var(--font-sans); font-size:var(--text-xs); line-height:1.6; }
  .event-audience p { margin-top:1.25rem; max-width:50rem; }
  .event-content { display:grid; gap:3rem; align-items:start; }
+ .event-program { min-width:0; }
+ .program-format { margin-top:1.25rem; font-size:var(--text-sm); }
+ .program-list { margin:2rem 0 0; padding-inline-start:2rem; list-style:decimal; }
+ .program-item { padding:1.5rem 0 1.75rem .35rem; border-top:1px solid var(--line); overflow-wrap:anywhere; }
+ .program-item::marker { color:var(--accent); font-size:var(--text-lg); font-weight:500; }
+ .program-item h3 { font-size:var(--text-lg); line-height:1.35; }
+ .program-speaker { margin-top:.85rem; font-size:var(--text-sm); font-weight:600; color:var(--ink); }
+ .program-description { margin-top:.75rem; font-size:var(--text-sm); }
+ .program-optional { margin-top:1rem; padding:1.5rem; border-left:2px solid var(--accent-light); background:var(--paper-2); }
+ .program-optional h3 { font-family:var(--font-sans); font-size:var(--text-sm); font-weight:600; line-height:1.6; margin-bottom:1rem; }
+ .program-optional li { font-size:var(--text-sm); overflow-wrap:anywhere; }
  .program-bookend { margin-block:1.5rem; font-size:var(--text-sm); }
  .program-groups { border-top:1px solid var(--line-strong); }
  .program-group { border-bottom:1px solid var(--line); padding-block:2rem; }

@@ -1,6 +1,7 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { validateIntegrations, validateSeminar } from '../src/lib/config-validation.mjs';
 import { locales } from '../locales.config.mjs';
+import { eventContentIssues, eventSharedFields } from '../src/lib/events-content.mjs';
 
 const json = (path) => JSON.parse(readFileSync(path, 'utf8'));
 const problems = [];
@@ -44,7 +45,9 @@ for (const locale of locales) {
   assert(existsSync(`src/pages/${routes[locale][i]}.astro`),`Нет маршрута: ${routes[locale][i]}`);
   if (!existsSync(file)) continue;
   const data=json(file), reference=json(`src/content/pages/ru/${name}.json`);
-  assert(keys(data)===keys(reference),`Структура перевода расходится: ${file}`);
+  const sharedData=name==='events'?eventSharedFields(data):data;
+  const sharedReference=name==='events'?eventSharedFields(reference):reference;
+  assert(keys(sharedData)===keys(sharedReference),`Структура перевода расходится: ${file}`);
   assert(Boolean(data.seo?.title && data.seo?.description),`Пустой SEO-блок: ${file}`);
   assert(!/Vikoma|vikoma\.by|Vikub Group|Young Platform|UniCredit|BPER|Sondrio|Planix|11:00|000-00-00|60 реализованных/i.test(JSON.stringify(data)),`Старая заглушка в ${file}`);
   if (name==='home') {
@@ -56,10 +59,8 @@ for (const locale of locales) {
   }
   if (name==='about') assert(data.team.people.length===3,`${locale}: в ТЗ 3 участника команды`);
   if (name==='events') {
-   assert(data.program.length===8 && data.registration.unavailable,`${locale}: программа или статус регистрации пусты`);
-   const covered=[0,...data.programGroups.flatMap(g=>g.indices),data.program.length-1];
-   assert(covered.length===8 && [...new Set(covered)].sort((a,b)=>a-b).join(',')==='0,1,2,3,4,5,6,7',`${locale}: программа должна сохранять каждый исходный пункт ровно один раз`);
-   assert(data.benefits.items.length===4 && data.programGroups.length===3,`${locale}: нужны 4 результата и 3 темы`);
+   assert(Boolean(data.registration.unavailable),`${locale}: статус регистрации пуст`);
+   for (const issue of eventContentIssues(data)) problems.push(`${locale}: ${issue}`);
   }
   if (name==='services') assert(data.howWeWork.steps.length===5,`${locale}: нужны 5 шагов`);
  }

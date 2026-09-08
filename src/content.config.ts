@@ -1,5 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { eventContentIssues } from './lib/events-content.mjs';
 
 // Content remains editable through /admin/. Unknown fields are rejected so
 // CMS / schema mismatches cannot silently discard a user's changes.
@@ -70,11 +71,21 @@ const eventsPage = defineCollection({
   schema: z.object({ seo, title: z.string(), lead: z.string(), eyebrow: z.string(),
     detailsTitle: z.string(), dateLabel: z.string(), timeLabel: z.string(), timeNote: z.string(),
     formatLabel: z.string(), formatValue: z.string(), languageLabel: z.string(), languageValue: z.string(), languageNote: z.string(), costLabel: z.string(), costValue: z.string(),
-    freeLabel: z.string(), audience: z.object({ title: z.string(), paragraphs: z.array(z.string()) }).strict(), benefits: featureGrid,
-    programGroups: z.array(z.object({ title: z.string(), indices: z.array(z.number().int().min(0).max(7)).min(1) }).strict()).length(3),
-    programTitle: z.string(), programNote: z.string(), program: z.array(z.string()).min(1), durationLabel: z.string(), durationValue: z.string(),
+    freeLabel: z.string(), audience: z.object({ title: z.string(), paragraphs: z.array(z.string()) }).strict(),
+    benefits: featureGrid.extend({ subtitle: z.string().default('') }),
+    // The legacy fields remain only for the unchanged English translation.
+    programGroups: z.array(z.object({ title: z.string(), indices: z.array(z.number().int().min(0).max(7)).min(1) }).strict()).default([]),
+    programTitle: z.string(), programNote: z.string(), program: z.array(z.string()).default([]),
+    agenda: z.object({
+      format: z.string().min(1),
+      items: z.array(z.object({ title: z.string().min(1), speaker: z.string(), paragraphs: z.array(z.string().min(1)).min(1) }).strict()).length(7),
+      optionalTitle: z.string().min(1), optionalItems: z.array(z.string().min(1)).length(2),
+    }).strict().nullish(),
+    durationLabel: z.string(), durationValue: z.string(),
     registration: z.object({ title: z.string(), text: z.string(), button: z.string(), externalNote: z.string(), externalButton: z.string(), unavailable: z.string(), closed: z.string(), ended: z.string(), firstName: z.string(), lastName: z.string(), company: z.string(), email: z.string(), phone: z.string(), requiredNote: z.string(), consent: z.string(), privacyLink: z.string(), sending: z.string(), success: z.string(), error: z.string(), uncertain: z.string(), rateLimited: z.string(), validationError: z.string() }).strict(),
-  }).strict(),
+  }).strict().superRefine((page, context) => {
+    for (const message of eventContentIssues(page)) context.addIssue({ code: 'custom', message });
+  }),
 });
 const contactsPage = defineCollection({
   loader: glob({ pattern: 'pages/*/contacts.json', base: BASE, generateId: idFromFolder }),

@@ -83,17 +83,20 @@ test('favicon, device icon and sharing image have base-path safe references',()=
  }
  assert.match(base,/slogan:settings\.company\.tagline/);
 });
-test('the final Russian programme is exactly the eight requested topics',()=>{
+test('the revised Russian programme has seven approved topics and two optional talks',()=>{
  const e=json('src/content/pages/ru/events.json');
- assert.deepEqual(e.program,[
- 'Вступительное слово — Марио Убальди и Виктория Губанова, VIKUB',
- 'Инвестиционный климат и преференции Беларуси — представители НАИП',
- 'Конкретные запросы белорусского бизнеса по пяти секторам — представители НАИП',
- 'Презентации белорусских компаний с реальными потребностями в поставках, технологиях и партнёрстве',
- 'Юридический блок — санкционные риски (итальянский юрист)',
- 'Налоговый блок — налогообложение, международные соглашения (белорусский налоговый специалист)',
- 'Логистика и сертификация — практические вопросы выхода на рынок',
- 'Вопросы и ответы']);
+ assert.deepEqual(e.agenda.items.map(item=>item.title),[
+  'Вступительное слово',
+  'Возможности для итальянского бизнеса в Беларуси',
+  'Презентации белорусских компаний',
+  'Юридический блок: санкционные риски и правовые аспекты работы',
+  'Налоги и финансы: практика платежей',
+  'Логистика и сертификация',
+  'Вопросы и ответы']);
+ assert.equal(e.agenda.items[0].speaker,'Марио Убальди и Виктория Губанова, VIKUB');
+ assert.deepEqual(e.agenda.optionalItems,[
+  'Приветственное слово Посольства Италии в Беларуси.',
+  'Success Story: опыт итальянской компании в Беларуси.']);
  const seminar=json('src/content/system/seminar.json');
  assert.match(seminar.startAt,/2026-10-01T10:00:00\+02:00/);
 });

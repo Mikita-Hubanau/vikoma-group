@@ -890,9 +890,12 @@ collections:
       required: false
       default: ''
     - name: program
-      label: Программа
+      label: Прежняя программа (только английская версия)
+      hint: 'Для русского и итальянского используйте «Новая программа» ниже. Здесь оставьте пусто.'
       i18n: true
       widget: list
+      required: false
+      default: []
       field:
         name: value
         label: Текст
@@ -1034,6 +1037,12 @@ collections:
         label: Заголовок
         widget: string
         i18n: true
+      - name: subtitle
+        label: Подзаголовок
+        widget: text
+        i18n: true
+        required: false
+        default: ''
       - name: items
         label: Карточки
         widget: list
@@ -1052,6 +1061,7 @@ collections:
           - chart
           - store
           - scales
+          - card
           - check
         - name: title
           label: Заголовок
@@ -1080,10 +1090,13 @@ collections:
           widget: text
           i18n: true
     - name: programGroups
-      label: Группы программы
+      label: Прежние группы программы (только английская версия)
+      hint: 'Русская и итальянская программы используют семь основных пунктов без групп.'
       widget: list
       i18n: true
-      min: 3
+      required: false
+      default: []
+      min: 0
       max: 3
       fields:
       - name: title
@@ -1102,6 +1115,60 @@ collections:
           value_type: int
           min: 0
           max: 7
+    - name: agenda
+      label: Новая программа — 7 основных и 2 опциональных пункта
+      hint: 'Заполнено для RU и IT. В английской версии оставьте незаполненным: там пока сохранена прежняя программа.'
+      widget: object
+      i18n: true
+      required: false
+      fields:
+      - name: format
+        label: Формат и фокус семинара
+        widget: text
+        i18n: true
+      - name: items
+        label: Основная программа
+        widget: list
+        i18n: true
+        min: 7
+        max: 7
+        summary: '{{fields.title}}'
+        fields:
+        - name: title
+          label: Название пункта (без номера)
+          widget: string
+          i18n: true
+        - name: speaker
+          label: Спикеры
+          widget: text
+          i18n: true
+          required: false
+          default: ''
+        - name: paragraphs
+          label: Описание — по абзацам
+          widget: list
+          i18n: true
+          min: 1
+          field:
+            name: value
+            label: Абзац
+            widget: text
+            i18n: true
+      - name: optionalTitle
+        label: Пометка об опциональных выступлениях и основном времени
+        widget: text
+        i18n: true
+      - name: optionalItems
+        label: Опциональные выступления
+        widget: list
+        i18n: true
+        min: 2
+        max: 2
+        field:
+          name: value
+          label: Выступление
+          widget: text
+          i18n: true
   - name: contacts
     label: Контакты
     file: src/content/pages/{{locale}}/contacts.json

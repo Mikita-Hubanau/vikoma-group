@@ -14,17 +14,7 @@
   "costLabel": "Partecipazione",
   "costValue": "Gratuita",
   "programTitle": "Programma del seminario",
-  "programNote": "Il programma potrà subire modifiche.",
-  "program": [
-    "Saluti introduttivi — Mario Ubaldi e Viktoria Gubanova, VIKUB",
-    "Clima degli investimenti e agevolazioni in Bielorussia — rappresentanti della NAIP",
-    "Esigenze concrete delle imprese bielorusse in cinque settori — rappresentanti della NAIP",
-    "Presentazioni di imprese bielorusse con esigenze reali di forniture, tecnologie e partnership",
-    "Sessione legale — rischi sanzionatori (avvocato italiano)",
-    "Sessione fiscale — tassazione e accordi internazionali (specialista fiscale bielorusso)",
-    "Logistica e certificazione — aspetti pratici dell’ingresso nel mercato",
-    "Domande e risposte"
-  ],
+  "programNote": "Gli organizzatori si riservano il diritto di apportare modifiche al programma.",
   "durationLabel": "Durata",
   "durationValue": "60–90 minuti",
   "registration": {
@@ -57,27 +47,28 @@
   },
   "freeLabel": "Partecipazione gratuita",
   "benefits": {
-    "title": "Cosa otterrete",
+    "title": "Cosa otterrete dal seminario?",
+    "subtitle": "In 60–90 minuti — solo contenuti concreti e strumenti operativi.",
     "items": [
       {
         "icon": "store",
-        "title": "Le richieste attuali delle imprese bielorusse",
-        "text": "Scoprirete cosa cercano oggi catene commerciali e grossisti."
+        "title": "Dati aggiornati sul mercato.",
+        "text": "Scoprirete quali nicchie e richieste del business bielorusso sono più promettenti per le aziende italiane nel 2026 (informazioni fornite da NAIP)."
       },
       {
         "icon": "scales",
-        "title": "Valutazione degli aspetti legali",
-        "text": "Capirete quali requisiti normativi sono importanti per il vostro progetto."
+        "title": "Protezione legale e comprensione dei rischi.",
+        "text": "Analisi delle restrizioni sanzionatorie con un avvocato italiano e soluzioni legali concrete dai colleghi bielorussi: contratti, questioni societarie, tutela delle transazioni."
       },
       {
-        "icon": "network",
-        "title": "Risposte alle vostre domande",
-        "text": "Potrete rivolgerle ai nostri esperti in diretta."
+        "icon": "card",
+        "title": "Strumenti finanziari e logistici.",
+        "text": "Approcci pratici all'organizzazione dei pagamenti, pianificazione fiscale e una panoramica delle possibili opzioni per la logistica e la certificazione dei prodotti."
       },
       {
         "icon": "chart",
-        "title": "Un piano chiaro per il primo passo",
-        "text": "Riceverete una raccomandazione pratica per iniziare."
+        "title": "Chiara comprensione dei primi passi e roadmap.",
+        "text": "Possibilità di porre domande ai relatori, ottenere chiarimenti sui temi chiave e capire concretamente come avviare o sviluppare il business in Bielorussia."
       }
     ]
   },
@@ -85,27 +76,64 @@
     "title": "A chi è rivolto",
     "paragraphs": []
   },
-  "programGroups": [
-    {
-      "title": "Clima degli investimenti",
-      "indices": [
-        1,
-        2,
-        3
-      ]
-    },
-    {
-      "title": "Aspetti legali e fiscali",
-      "indices": [
-        4,
-        5
-      ]
-    },
-    {
-      "title": "Logistica, certificazione e pagamenti",
-      "indices": [
-        6
-      ]
-    }
-  ]
+  "agenda": {
+    "format": "Formato: 60–90 minuti. Focus: strumenti pratici per operare in Bielorussia e gestione dei rischi nel 2026.",
+    "items": [
+      {
+        "title": "Saluti introduttivi",
+        "speaker": "Mario Ubaldi e Victoria Gubanova, VIKUB",
+        "paragraphs": [
+          "Benvenuto, obiettivi dell'incontro e presentazione dei relatori."
+        ]
+      },
+      {
+        "title": "Opportunità per le imprese italiane in Bielorussia",
+        "speaker": "Rappresentanti dell'Agenzia Nazionale per gli Investimenti e la Privatizzazione (NAIP)",
+        "paragraphs": [
+          "Clima d'investimento, regimi preferenziali e richieste attuali delle aziende bielorusse in cinque settori."
+        ]
+      },
+      {
+        "title": "Presentazioni delle aziende bielorusse",
+        "speaker": "",
+        "paragraphs": [
+          "Fabbisogni concreti in termini di forniture, tecnologie e partnership. Dialogo diretto."
+        ]
+      },
+      {
+        "title": "Blocco legale: rischi sanzionatori e aspetti giuridici dell'attività",
+        "speaker": "Avvocato italiano (partner invitato) e avvocati bielorussi",
+        "paragraphs": [
+          "Avvocato italiano: restrizioni sanzionatorie vigenti nel 2026, rischi per le imprese italiane e raccomandazioni pratiche per mitigarli.",
+          "Avvocati bielorussi: diritto contrattuale, questioni societarie, tutela delle transazioni e altri aspetti legali del fare impresa in Bielorussia."
+        ]
+      },
+      {
+        "title": "Fisco e finanza: prassi di pagamento",
+        "speaker": "Consulente fiscale e rappresentante di banca",
+        "paragraphs": [
+          "Tassazione, accordi internazionali e strumenti operativi per i pagamenti transfrontalieri."
+        ]
+      },
+      {
+        "title": "Logistica e certificazione",
+        "speaker": "Azienda di logistica ed esperto di certificazione",
+        "paragraphs": [
+          "Rotte, procedure doganali e requisiti EAEU."
+        ]
+      },
+      {
+        "title": "Domande e risposte",
+        "speaker": "",
+        "paragraphs": [
+          "Microfono aperto e conclusioni."
+        ]
+      }
+    ],
+    "optionalTitle": "Opzionale (se possibile, non incluso nel tempo principale):",
+    "optionalItems": [
+      "Saluto dell'Ambasciata d'Italia in Bielorussia.",
+      "Success story: esperienza di un'azienda italiana in Bielorussia."
+    ]
+  }
 }

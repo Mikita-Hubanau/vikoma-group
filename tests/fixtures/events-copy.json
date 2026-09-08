@@ -1,0 +1,182 @@
+{
+  "ru": {
+    "benefits": {
+      "title": "Что вы получите от семинара?",
+      "subtitle": "За 60–90 минут — только конкретика и рабочие инструменты.",
+      "items": [
+        {
+          "icon": "store",
+          "title": "Актуальные данные о рынке.",
+          "text": "Узнаете, какие ниши и запросы белорусского бизнеса наиболее перспективны для итальянских компаний в 2026 году (информация от НАИП)."
+        },
+        {
+          "icon": "scales",
+          "title": "Юридическую защиту и понимание рисков.",
+          "text": "Разбор санкционных ограничений от итальянского юриста и практические правовые решения от белорусских коллег — договоры, корпоративные вопросы, защита сделок."
+        },
+        {
+          "icon": "card",
+          "title": "Финансовые и логистические инструменты.",
+          "text": "Практические подходы к организации расчётов, налоговое планирование, а также обзор возможных вариантов доставки и сертификации продукции."
+        },
+        {
+          "icon": "chart",
+          "title": "Понимание первых шагов и дорожная карта.",
+          "text": "Возможность задать вопросы спикерам, получить разъяснения по ключевым темам и чётко понять, с чего начать или как развивать бизнес в Беларуси."
+        }
+      ]
+    },
+    "programTitle": "Программа семинара",
+    "programNote": "Организаторы оставляют за собой право вносить изменения в программу.",
+    "agenda": {
+      "format": "Формат: 60–90 минут. Фокус — практические инструменты для работы в Беларуси и управление рисками в 2026 году.",
+      "items": [
+        {
+          "title": "Вступительное слово",
+          "speaker": "Марио Убальди и Виктория Губанова, VIKUB",
+          "paragraphs": [
+            "Приветствие, цели встречи и представление спикеров."
+          ]
+        },
+        {
+          "title": "Возможности для итальянского бизнеса в Беларуси",
+          "speaker": "Представители НАИП",
+          "paragraphs": [
+            "Инвестиционный климат, преференциальные режимы и актуальные запросы белорусских предприятий по пяти секторам."
+          ]
+        },
+        {
+          "title": "Презентации белорусских компаний",
+          "speaker": "",
+          "paragraphs": [
+            "Конкретные потребности в поставках, технологиях и партнёрстве. Прямой диалог."
+          ]
+        },
+        {
+          "title": "Юридический блок: санкционные риски и правовые аспекты работы",
+          "speaker": "Итальянский юрист (приглашённый партнёр) и белорусские юристы",
+          "paragraphs": [
+            "Итальянский юрист: актуальные санкционные ограничения 2026 года, риски для итальянских компаний и практические рекомендации по их минимизации.",
+            "Белорусские юристы: договорное право, корпоративные вопросы, защита сделок и другие правовые аспекты ведения бизнеса в Беларуси."
+          ]
+        },
+        {
+          "title": "Налоги и финансы: практика платежей",
+          "speaker": "Налоговый консультант и представитель банка",
+          "paragraphs": [
+            "Налогообложение, международные соглашения, рабочие инструменты трансграничных расчётов."
+          ]
+        },
+        {
+          "title": "Логистика и сертификация",
+          "speaker": "Логистическая компания и эксперт по сертификации",
+          "paragraphs": [
+            "Маршруты, таможенное оформление и требования ЕАЭС."
+          ]
+        },
+        {
+          "title": "Вопросы и ответы",
+          "speaker": "",
+          "paragraphs": [
+            "Открытый микрофон, подведение итогов."
+          ]
+        }
+      ],
+      "optionalTitle": "Опционально (по возможности, не входит в основное время):",
+      "optionalItems": [
+        "Приветственное слово Посольства Италии в Беларуси.",
+        "Success Story: опыт итальянской компании в Беларуси."
+      ]
+    }
+  },
+  "it": {
+    "benefits": {
+      "title": "Cosa otterrete dal seminario?",
+      "subtitle": "In 60–90 minuti — solo contenuti concreti e strumenti operativi.",
+      "items": [
+        {
+          "icon": "store",
+          "title": "Dati aggiornati sul mercato.",
+          "text": "Scoprirete quali nicchie e richieste del business bielorusso sono più promettenti per le aziende italiane nel 2026 (informazioni fornite da NAIP)."
+        },
+        {
+          "icon": "scales",
+          "title": "Protezione legale e comprensione dei rischi.",
+          "text": "Analisi delle restrizioni sanzionatorie con un avvocato italiano e soluzioni legali concrete dai colleghi bielorussi: contratti, questioni societarie, tutela delle transazioni."
+        },
+        {
+          "icon": "card",
+          "title": "Strumenti finanziari e logistici.",
+          "text": "Approcci pratici all'organizzazione dei pagamenti, pianificazione fiscale e una panoramica delle possibili opzioni per la logistica e la certificazione dei prodotti."
+        },
+        {
+          "icon": "chart",
+          "title": "Chiara comprensione dei primi passi e roadmap.",
+          "text": "Possibilità di porre domande ai relatori, ottenere chiarimenti sui temi chiave e capire concretamente come avviare o sviluppare il business in Bielorussia."
+        }
+      ]
+    },
+    "programTitle": "Programma del seminario",
+    "programNote": "Gli organizzatori si riservano il diritto di apportare modifiche al programma.",
+    "agenda": {
+      "format": "Formato: 60–90 minuti. Focus: strumenti pratici per operare in Bielorussia e gestione dei rischi nel 2026.",
+      "items": [
+        {
+          "title": "Saluti introduttivi",
+          "speaker": "Mario Ubaldi e Victoria Gubanova, VIKUB",
+          "paragraphs": [
+            "Benvenuto, obiettivi dell'incontro e presentazione dei relatori."
+          ]
+        },
+        {
+          "title": "Opportunità per le imprese italiane in Bielorussia",
+          "speaker": "Rappresentanti dell'Agenzia Nazionale per gli Investimenti e la Privatizzazione (NAIP)",
+          "paragraphs": [
+            "Clima d'investimento, regimi preferenziali e richieste attuali delle aziende bielorusse in cinque settori."
+          ]
+        },
+        {
+          "title": "Presentazioni delle aziende bielorusse",
+          "speaker": "",
+          "paragraphs": [
+            "Fabbisogni concreti in termini di forniture, tecnologie e partnership. Dialogo diretto."
+          ]
+        },
+        {
+          "title": "Blocco legale: rischi sanzionatori e aspetti giuridici dell'attività",
+          "speaker": "Avvocato italiano (partner invitato) e avvocati bielorussi",
+          "paragraphs": [
+            "Avvocato italiano: restrizioni sanzionatorie vigenti nel 2026, rischi per le imprese italiane e raccomandazioni pratiche per mitigarli.",
+            "Avvocati bielorussi: diritto contrattuale, questioni societarie, tutela delle transazioni e altri aspetti legali del fare impresa in Bielorussia."
+          ]
+        },
+        {
+          "title": "Fisco e finanza: prassi di pagamento",
+          "speaker": "Consulente fiscale e rappresentante di banca",
+          "paragraphs": [
+            "Tassazione, accordi internazionali e strumenti operativi per i pagamenti transfrontalieri."
+          ]
+        },
+        {
+          "title": "Logistica e certificazione",
+          "speaker": "Azienda di logistica ed esperto di certificazione",
+          "paragraphs": [
+            "Rotte, procedure doganali e requisiti EAEU."
+          ]
+        },
+        {
+          "title": "Domande e risposte",
+          "speaker": "",
+          "paragraphs": [
+            "Microfono aperto e conclusioni."
+          ]
+        }
+      ],
+      "optionalTitle": "Opzionale (se possibile, non incluso nel tempo principale):",
+      "optionalItems": [
+        "Saluto dell'Ambasciata d'Italia in Bielorussia.",
+        "Success story: esperienza di un'azienda italiana in Bielorussia."
+      ]
+    }
+  }
+}

@@ -32,8 +32,11 @@ for(const locale of ['it','en','ru']){
   const a=json(`src/content/pages/${locale}/about.json`);assert.equal(a.team.people.length,3);assert.match(a.team.people[0].about,/30/);assert.deepEqual(a.experts.people,[]);assert.ok(a.experts.text);assert.equal(a.status.items.length,4);
   assert.deepEqual(json(`src/content/settings/${locale}.json`).partners.map(p=>p.id),['naip','retail']);
  });
- test(`${locale}: eight preserved agenda items, grouped topics and success copy`,()=>{
-  const e=json(`src/content/pages/${locale}/events.json`);assert.equal(e.program.length,8);assert.ok(e.programNote);assert.equal(e.programGroups.length,3);assert.ok(e.formatValue);assert.ok(e.registration.success.includes('3–4'));assert.ok(e.seo.description.includes('10:00'));
+ test(`${locale}: approved agenda, separate optional items and success copy`,()=>{
+  const e=json(`src/content/pages/${locale}/events.json`);
+  if(locale==='en') { assert.equal(e.program.length,8);assert.equal(e.programGroups.length,3); }
+  else { assert.equal(e.agenda.items.length,7);assert.equal(e.agenda.optionalItems.length,2);assert.ok(e.agenda.optionalTitle); }
+  assert.ok(e.programNote);assert.ok(e.formatValue);assert.ok(e.registration.success.includes('3–4'));assert.ok(e.seo.description.includes('10:00'));
  });
  test(`${locale}: stale brand, payment names and old team claims are absent`,()=>{
   const contents=['home','about','services','events','contacts'].map(name=>text(`src/content/pages/${locale}/${name}.json`)).join('\n')+text(`src/content/settings/${locale}.json`)+text(`src/content/services/${locale}/04-payments.md`);

@@ -45,11 +45,12 @@ class BalancePreviewChecks(unittest.TestCase):
    self.assertEqual(self.page.locator('.person').count(),3)
    for box in self.page.locator('.person__initials').evaluate_all('nodes=>nodes.map(e=>({w:e.getBoundingClientRect().width,h:e.getBoundingClientRect().height,r:getComputedStyle(e).borderRadius}))'):
     self.assertEqual(box,{'w':200,'h':200,'r':'50%'})
- def test_events_have_three_groups_four_benefits_two_free_badges(self):
+ def test_events_have_approved_agendas_four_benefits_two_free_badges(self):
   for route,source in DOCS.items():
    self.show(source)
    if self.page.locator('main').get_attribute('data-page')!='events':continue
-   for selector,count in [('.program-group',3),('.feature',4),('.event-free',2),('.page-header--compact',1)]:self.assertEqual(self.page.locator(selector).count(),count)
+   updated=self.page.locator('html').get_attribute('lang') in ['ru','it']
+   for selector,count in [('.program-group',0 if updated else 3),('.program-item',7 if updated else 0),('.program-optional-item',2 if updated else 0),('.feature',4),('.event-free',2),('.page-header--compact',1)]:self.assertEqual(self.page.locator(selector).count(),count)
    self.assertEqual(self.page.locator('a.event-free').count(),0)
  def test_contacts_required_fields_and_native_phone_pattern(self):
   for route,source in DOCS.items():

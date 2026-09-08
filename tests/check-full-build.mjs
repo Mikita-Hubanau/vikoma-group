@@ -129,9 +129,44 @@ export async function checkFullBuild(directory = 'dist', log = console.log) {
     }
     if (kind === 'events') {
       expectClass('feature', 4);
-      expectClass('program-group', 3);
+      expectText(page.benefits.title);
+      for (const item of page.benefits.items) {
+        expectText(item.title);
+        expectText(item.text);
+      }
+      expectText(page.programTitle);
+      expectText(page.programNote);
+      if (page.agenda) {
+        expectText(page.benefits.subtitle);
+        expectClass('feature-section__subtitle', 1);
+        expectClass('program-format', 1);
+        expectText(page.agenda.format);
+        expectClass('program-group', 0);
+        expectClass('program-bookend', 0);
+        expectClass('program-list', 1);
+        expectClass('program-item', 7);
+        expectClass('program-optional', 1);
+        expectClass('program-optional-item', 2);
+        let previous = -1;
+        for (const item of page.agenda.items) {
+          expectText(item.title);
+          const position = text.indexOf(normalize(item.title), previous + 1);
+          assert.ok(position > previous, `${context}: programme items out of order`);
+          previous = position;
+          if (item.speaker) expectText(item.speaker);
+          for (const paragraph of item.paragraphs) expectText(paragraph);
+        }
+        expectText(page.agenda.optionalTitle);
+        for (const item of page.agenda.optionalItems) expectText(item);
+      } else {
+        expectClass('program-group', 3);
+        expectClass('program-list', 0);
+        expectClass('program-item', 0);
+        expectClass('program-optional', 0);
+        expectClass('program-optional-item', 0);
+        for (const topic of page.program) expectText(topic);
+      }
       expectClass('event-free', 2);
-      for (const topic of page.program) expectText(topic);
       expectText(page.durationValue);
       expectText('10:00');
       expectClass('page-header--compact', 1);
