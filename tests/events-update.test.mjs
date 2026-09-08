@@ -19,22 +19,22 @@ for (const locale of ['ru', 'it']) {
     assert.deepEqual(eventContentIssues(page), []);
   });
   test(`${locale}: two legal perspectives remain separate paragraphs`, () => {
-    const item = event(locale).agenda.items[3];
+    const item = event(locale).agenda.items[2];
     assert.equal(item.paragraphs.length, 2);
     assert.ok(item.speaker);
-    assert.equal(item.paragraphs[0], approved[locale].agenda.items[3].paragraphs[0]);
-    assert.equal(item.paragraphs[1], approved[locale].agenda.items[3].paragraphs[1]);
+    assert.equal(item.paragraphs[0], approved[locale].agenda.items[2].paragraphs[0]);
+    assert.equal(item.paragraphs[1], approved[locale].agenda.items[2].paragraphs[1]);
   });
   const mutations = [
     ['missing benefit', p => p.benefits.items.pop()],
     ['empty benefit title', p => { p.benefits.items[1].title = '   '; }],
     ['missing benefits subtitle', p => { delete p.benefits.subtitle; }],
     ['empty format note', p => { p.agenda.format = ''; }],
-    ['six main items', p => p.agenda.items.pop()],
-    ['eight main items', p => p.agenda.items.push(structuredClone(p.agenda.items[0]))],
+    ['five main items', p => p.agenda.items.pop()],
+    ['seven main items', p => p.agenda.items.push(structuredClone(p.agenda.items[0]))],
     ['empty programme title', p => { p.agenda.items[0].title = ' '; }],
-    ['no programme description', p => { p.agenda.items[3].paragraphs = []; }],
-    ['blank programme paragraph', p => { p.agenda.items[3].paragraphs[1] = '\n '; }],
+    ['no programme description', p => { p.agenda.items[2].paragraphs = []; }],
+    ['blank programme paragraph', p => { p.agenda.items[2].paragraphs[1] = '\n '; }],
     ['missing optional label', p => { delete p.agenda.optionalTitle; }],
     ['only one optional item', p => p.agenda.optionalItems.pop()],
     ['three optional items', p => p.agenda.optionalItems.push('Extra')],
@@ -52,11 +52,11 @@ for (const locale of ['ru', 'it']) {
   }
 }
 
-test('English event content keeps the approved legacy format', () => {
+test('English event content keeps its grouped format without company presentations', () => {
   const page = event('en');
   assert.equal(page.agenda, undefined);
   assert.equal(page.benefits.subtitle, undefined);
-  assert.equal(page.program.length, 8);
+  assert.equal(page.program.length, 7);
   assert.equal(page.programGroups.length, 3);
   assert.deepEqual(eventContentIssues(page), []);
   page.programGroups[0].indices.push(1);
@@ -96,4 +96,17 @@ test('new copy remains CMS-managed and is part of schema and prebuild validation
   for (const field of ['agenda','format','speaker','paragraphs','optionalTitle','optionalItems','subtitle']) {
     assert.match(cms, new RegExp(`- name: ${field}\\n`), field);
   }
+});
+
+test('the removed presentation topic is absent from every translated programme', () => {
+  for (const [locale, title] of [
+    ['ru', 'Презентации белорусских компаний'],
+    ['it', 'Presentazioni delle aziende bielorusse'],
+    ['en', 'Presentations by Belarusian companies'],
+  ]) {
+    assert.ok(!JSON.stringify(event(locale)).includes(title), locale);
+  }
+  // The different English NAIP topic is not the deleted presentation session.
+  assert.ok(event('en').program.includes('Specific requests from Belarusian businesses across five sectors — NAIP representatives'));
+  assert.deepEqual(event('en').programGroups.flatMap(g => g.indices), [1,2,3,4,5]);
 });

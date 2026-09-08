@@ -128,6 +128,12 @@ export async function checkFullBuild(directory = 'dist', log = console.log) {
       }
     }
     if (kind === 'events') {
+      const removedTopic = {
+        ru: 'Презентации белорусских компаний',
+        it: 'Presentazioni delle aziende bielorusse',
+        en: 'Presentations by Belarusian companies with real needs for supplies, technologies and partnerships',
+      }[locale];
+      assert.ok(!text.includes(removedTopic), `${context}: removed company presentations returned`);
       expectClass('feature', 4);
       expectText(page.benefits.title);
       for (const item of page.benefits.items) {
@@ -144,7 +150,7 @@ export async function checkFullBuild(directory = 'dist', log = console.log) {
         expectClass('program-group', 0);
         expectClass('program-bookend', 0);
         expectClass('program-list', 1);
-        expectClass('program-item', 7);
+        expectClass('program-item', 6);
         expectClass('program-optional', 1);
         expectClass('program-optional-item', 2);
         let previous = -1;
@@ -193,6 +199,7 @@ export async function checkFullBuild(directory = 'dist', log = console.log) {
       assert.ok(noticeText.includes(normalize(required)), `${context}: missing privacy notice text`);
     }
     if (notice.status !== 'published') assert.match(dialogs[0][2], /data-privacy-draft/, `${context}: privacy draft warning missing`);
+    else assert.doesNotMatch(dialogs[0][2], /data-privacy-draft/, `${context}: unexpected privacy draft warning`);
     let privacyLinks = 0;
     for (const match of html.matchAll(/<a\b([^>]*)>/gi)) {
       const link = attrs(match[1]);

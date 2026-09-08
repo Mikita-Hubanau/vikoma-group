@@ -25,12 +25,12 @@ for (const file of ['ContactForm','RegistrationForm','Footer','Analytics']) {
   });
 }
 for (const locale of ['ru','it','en']) {
-  test(`privacy: ${locale} notice is structured, explicitly draft and consent is specific`, () => {
+  test(`privacy: ${locale} notice contains the supplied controller details and purpose-specific consent`, () => {
     const {privacy,form} = json(`src/content/pages/${locale}/contacts.json`);
     const event = json(`src/content/pages/${locale}/events.json`);
-    assert.equal(privacy.status, 'draft');
-    assert.ok(privacy.reviewNote.length > 80);
-    assert.equal(privacy.sections.length, 9);
+    assert.equal(privacy.status, 'published');
+    assert.equal(privacy.reviewNote, '');
+    assert.equal(privacy.sections.length, 10);
     assert.ok(privacy.sections.every(s=>s.title.trim() && s.paragraphs.length>0 && s.paragraphs.every(p=>p.trim())));
     assert.equal(form.privacyLink, privacy.title);
     assert.equal(event.registration.privacyLink, privacy.title);
@@ -38,10 +38,15 @@ for (const locale of ['ru','it','en']) {
     assert.match(JSON.stringify(privacy), /6\(1\)\(a\)/);
     assert.match(JSON.stringify(privacy), /info@vikub\.com/);
     assert.match(JSON.stringify(privacy), /Garante/);
+    assert.match(JSON.stringify(privacy), /Mario Ubaldi/);
+    assert.match(JSON.stringify(privacy), /Fano/);
+    assert.match(JSON.stringify(privacy), /6 (?:месяц|mesi|months)/);
+    assert.match(JSON.stringify(privacy), /Google Meet/);
+    assert.doesNotMatch(JSON.stringify(privacy), /Требует заполнения|Требует подтверждения|To complete:|To confirm:/);
     assert.ok(privacyUI[locale].close);
   });
 }
-test('privacy: draft review note is visible and launch readiness checks it', () => {
+test('privacy: switching an unfinished notice back to draft still displays its review note', () => {
   assert.match(component, /notice\.status !== 'published'/);
   assert.match(component, /data-privacy-draft/);
   assert.match(component, /notice\.reviewNote/);
@@ -86,4 +91,20 @@ test('privacy: normal flow is hidden and CSS supports no-JS reading and small sc
   assert.match(css, /overflow-y:auto/);
   assert.match(css, /overscroll-behavior:contain/);
   assert.match(css, /focus-visible/);
+});
+
+test('privacy: Google reference URLs remain complete and allowlisted', () => {
+  const text = 'policies.google.com/privacy/frameworks; policies.google.com/privacy.';
+  const parts = privacyTextParts(text);
+  assert.equal(parts.map(p => p.text).join(''), text);
+  assert.deepEqual(parts.filter(p => p.href).map(p => p.href), [
+    'https://policies.google.com/privacy/frameworks',
+    'https://policies.google.com/privacy',
+  ]);
+  for (const locale of ['ru','it','en']) {
+    const notice = json(`src/content/pages/${locale}/contacts.json`).privacy;
+    for (const paragraph of notice.sections.flatMap(s => s.paragraphs)) {
+      assert.equal(privacyTextParts(paragraph).map(p => p.text).join(''), paragraph);
+    }
+  }
 });

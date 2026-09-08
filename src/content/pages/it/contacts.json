@@ -38,77 +38,86 @@
   },
   "privacy": {
     "title": "Informativa sul trattamento dei dati personali",
-    "text": "Informazioni sui dati comunicati a VIKUB attraverso il modulo di contatto e il modulo di iscrizione al seminario. Il testo è predisposto tenendo conto dell’articolo 13 del Regolamento (UE) 2016/679 (GDPR) e del Codice in materia di protezione dei dati personali (D.lgs. 196/2003 e successive modifiche).",
+    "text": "Informativa sui dati forniti tramite i moduli di contatto e di iscrizione al seminario VIKUB, ai sensi dell’articolo 13 del Regolamento (UE) 2016/679 (GDPR) e del Codice in materia di protezione dei dati personali (D.lgs. 196/2003 e successive modifiche). Versione dell’8 settembre 2026.",
     "policyLabel": "Informativa sulla privacy",
     "policyUrl": "",
-    "reviewNote": "Bozza, non informativa definitiva. Prima di utilizzarla come informativa completa ai sensi del GDPR occorre confermare identità del titolare, basi giuridiche, tempi di conservazione, destinatari e condizioni dei trasferimenti internazionali.",
-    "status": "draft",
+    "reviewNote": "",
+    "status": "published",
     "sections": [
       {
-        "title": "1. Titolare e contatti",
+        "title": "1. Titolare del trattamento",
         "paragraphs": [
-          "Contatto del progetto VIKUB per questioni relative ai dati personali: info@vikub.com. Recapito telefonico italiano: +39 328 2303160.",
-          "Da completare: denominazione legale o nome e cognome del titolare, indirizzo e, se applicabili, contatti del rappresentante e del responsabile della protezione dei dati (RPD/DPO). Il solo nome VIKUB non identifica con certezza il soggetto giuridico titolare."
+          "Il titolare del trattamento è Mario Ubaldi, imprenditore individuale che opera con il marchio VIKUB. Località: Fano, Italia.",
+          "Per informazioni sul trattamento e per esercitare i propri diritti: info@vikub.com; telefono +39 328 2303160."
         ]
       },
       {
-        "title": "2. Dati raccolti",
+        "title": "2. Dati trattati",
         "paragraphs": [
-          "Richiesta di contatto: nome, email, telefono, azienda, argomento e messaggio. Iscrizione: nome, cognome, azienda, email e telefono facoltativo. I moduli trasmettono anche lingua, tipo di richiesta e selezione della casella di consenso; l’iscrizione include identificativo e data dell’evento.",
-          "Il gestore dei moduli su vikub.com genera notifiche email e registra le richieste in un registro sul server. Email e registro includono anche data e ora, indirizzo IP e informazioni sul browser. Il fornitore di hosting può mantenere propri registri tecnici.",
-          "Non inserire password, dati di pagamento, documenti, informazioni sanitarie o altri dati sensibili non necessari alla richiesta."
+          "Modulo di contatto: nome, email, telefono, azienda, argomento selezionato e messaggio. Modulo di iscrizione: nome, cognome, azienda, email e numero di telefono, se fornito.",
+          "Sono inoltre trattati lingua del modulo, tipo di richiesta, indicazione del consenso, data e ora dell’invio, indirizzo IP e informazioni sul browser; per l’iscrizione, identificativo e data dell’evento. Le richieste sono registrate in un log sul server e trasmesse a VIKUB tramite email.",
+          "Non inserire password, dati di pagamento, informazioni sanitarie o altri dati sensibili non necessari alla richiesta."
         ]
       },
       {
         "title": "3. Finalità e basi giuridiche",
         "paragraphs": [
-          "I dati di contatto servono a esaminare la richiesta e rispondere. I dati di iscrizione servono a organizzare la partecipazione al seminario scelto, inviare il collegamento e le comunicazioni organizzative relative all’evento. L’invio del modulo non costituisce iscrizione a una newsletter pubblicitaria.",
-          "Questa bozza prevede, per la richiesta e l’iscrizione, il consenso ai sensi dell’articolo 6(1)(a) GDPR, espresso mediante una casella separata e non preselezionata. Il consenso riguarda soltanto la finalità del modulo utilizzato. Può essere revocato scrivendo a info@vikub.com, senza pregiudicare la liceità del trattamento precedente alla revoca. Senza i recapiti necessari non è possibile gestire la richiesta o la partecipazione tramite il modulo.",
-          "Il titolare deve confermare la base appropriata prima di utilizzare questa bozza: alle misure precontrattuali necessarie richieste dalla persona fisica può applicarsi l’articolo 6(1)(b); per i referenti aziendali e la prevenzione degli abusi può essere valutato l’articolo 6(1)(f), previa verifica di necessità e bilanciamento degli interessi. Queste alternative non sostituiscono automaticamente il consenso. Va confermata anche la base giuridica dei registri tecnici."
+          "I dati del modulo di contatto sono utilizzati per esaminare la richiesta, ricontattare l’interessato e fornire una risposta. I dati di iscrizione sono utilizzati per organizzare la partecipazione al seminario scelto, inviare il link di accesso e le comunicazioni organizzative relative all’evento.",
+          "Per queste finalità la base giuridica è il consenso ai sensi dell’articolo 6(1)(a) GDPR, espresso mediante una casella separata e non preselezionata nel relativo modulo. Il consenso riguarda esclusivamente la finalità indicata. L’invio del modulo non comporta l’iscrizione a newsletter pubblicitarie né il consenso alla comunicazione dei contatti ai partner per loro attività promozionali.",
+          "I dati tecnici sono utilizzati per il funzionamento dei moduli, la prevenzione dello spam e la protezione del sito sulla base dell’interesse legittimo del titolare, articolo 6(1)(f) GDPR, a mantenere la sicurezza e l’affidabilità del servizio, nel rispetto dei diritti dell’interessato. I trattamenti necessari per adempiere obblighi di legge si fondano sull’articolo 6(1)(c) GDPR."
         ]
       },
       {
-        "title": "4. Dati obbligatori e facoltativi",
+        "title": "4. Conferimento dei dati e revoca del consenso",
         "paragraphs": [
-          "Il modulo di contatto richiede attualmente tutti i campi visibili e la selezione della casella di consenso. Per l’iscrizione sono obbligatori nome, cognome, azienda, email e la casella di consenso; il telefono è facoltativo. Il sito non invia il modulo se mancano i campi obbligatori.",
-          "Un campo obbligatorio nell’interfaccia non implica un obbligo di legge di fornire il dato. Il titolare deve verificare se telefono e azienda siano realmente necessari per ciascuna finalità; altrimenti devono essere resi facoltativi."
+          "Il conferimento dei dati è volontario e non esiste un obbligo di legge di compilare questi moduli. Nel modulo di contatto tutti i campi visualizzati sono obbligatori. Per l’iscrizione sono obbligatori nome, cognome, azienda ed email; il telefono è facoltativo. Senza compilare i campi obbligatori e selezionare la casella di consenso, il sito non invia il modulo.",
+          "Il consenso può essere revocato in qualsiasi momento scrivendo a info@vikub.com, senza pregiudicare la liceità dei trattamenti precedenti. Dopo la revoca cessano i trattamenti fondati sul consenso; senza i dati necessari potrebbe non essere possibile proseguire la risposta o organizzare la partecipazione. I dati soggetti a un autonomo obbligo legale di conservazione sono trattati solo nei relativi limiti."
         ]
       },
       {
-        "title": "5. Destinatari",
+        "title": "5. Conservazione, accesso e destinatari",
         "paragraphs": [
-          "Il codice invia una notifica a info@vikub.com e consente di configurare ulteriori destinatari direttamente sul server. Il modulo si avvale di servizi di hosting e posta elettronica.",
-          "Da confermare: chi accede alla casella e ai registri, quali destinatari aggiuntivi sono configurati, quali fornitori di hosting, email e piattaforma del seminario intervengono e con quali ruoli. La ricezione di una richiesta non autorizza la comunicazione dei contatti a tutti i partner o relatori."
+          "Le richieste sono ricevute da VIKUB e conservate sui server interni utilizzati da VIKUB. L’accesso è riservato a Mario Ubaldi e alle persone autorizzate di VIKUB, nei limiti delle rispettive mansioni e nel rispetto della riservatezza.",
+          "Nell’ambito dei servizi tecnici del sito e della posta elettronica, i dati possono essere trattati dai relativi fornitori; quando operano per conto del titolare, il trattamento deve essere disciplinato ai sensi dell’articolo 28 GDPR. I dati possono essere comunicati alle autorità competenti in presenza di una base giuridica. Le richieste non sono pubblicate e il loro ricevimento non autorizza a comunicare i contatti indistintamente a partner o relatori."
         ]
       },
       {
-        "title": "6. Trasferimenti fuori dallo Spazio economico europeo",
+        "title": "6. Periodo di conservazione",
         "paragraphs": [
-          "Il progetto usa GitHub Pages per il sito, un gestore separato dei moduli su vikub.com e, dopo un consenso distinto, Google Analytics. Queste informazioni non confermano i Paesi di conservazione o le sedi di tutti i soggetti che accedono ai dati.",
-          "Da completare: Paesi e destinatari effettivi dei trasferimenti, decisione di adeguatezza applicabile o altre garanzie previste dal GDPR e modalità per ottenerne informazioni. Va verificato separatamente l’accesso dalla Bielorussia o da altri Paesi fuori dal SEE. Questa bozza non afferma l’esistenza di clausole contrattuali standard o di altre garanzie già adottate."
+          "Richieste, iscrizioni e relativa corrispondenza sono conservate per non oltre 6 mesi dalla ricezione della rispettiva richiesta o iscrizione. I dati sono eliminati prima se la finalità è stata raggiunta e l’ulteriore conservazione non è necessaria, oppure a seguito di una fondata richiesta di cancellazione o di revoca del consenso, in assenza di un’altra base giuridica.",
+          "I log tecnici controllati da VIKUB sono conservati per il tempo necessario alla sicurezza, comunque non oltre 6 mesi dalla registrazione. Alla scadenza, i dati e le relative copie gestite da VIKUB devono essere cancellati o anonimizzati in modo irreversibile.",
+          "La conservazione ulteriore riguarda solo le informazioni specificamente necessarie per obblighi di legge o per accertare, esercitare o difendere un diritto, per la durata dell’obbligo o della controversia. Se dalla richiesta deriva un contratto, i documenti contrattuali e contabili necessari sono trattati separatamente secondo i requisiti applicabili. Il periodo VIKUB non determina i tempi dei trattamenti autonomi delle piattaforme esterne."
         ]
       },
       {
-        "title": "7. Conservazione",
+        "title": "7. Seminario su Google Meet",
         "paragraphs": [
-          "Da approvare: periodi concreti o criteri sufficientemente determinati per richieste, iscrizioni, corrispondenza, registri tecnici e copie di backup, nonché le modalità di cancellazione.",
-          "Il codice PHP fornito archivia il registro in base alla dimensione, ma non elimina automaticamente le vecchie richieste in base alla loro età. Questa bozza non promette quindi una cancellazione dopo un numero arbitrario di giorni e non equipara archiviazione e cancellazione. I tempi devono riflettere la pratica effettiva e il principio di limitazione della conservazione."
+          "Il seminario si svolge tramite Google Meet. VIKUB non carica su Google Meet il database delle richieste né il contenuto dei messaggi ricevuti tramite i moduli del sito; ai partecipanti viene inviato un link di accesso.",
+          "Collegandosi alla riunione, Google tratta i dati necessari al funzionamento della piattaforma: nome del partecipante, informazioni dell’account se utilizzato, indirizzo IP, dati del dispositivo e della connessione, nonché audio, video, chat e materiali condivisi quando si utilizzano tali funzioni. Il nome e i contenuti condivisi nella riunione possono essere visibili agli altri partecipanti.",
+          "Il trattamento della piattaforma dipende dal tipo di account e dalle condizioni del servizio. Informazioni Google: policies.google.com/privacy. Il consenso nel modulo di iscrizione non costituisce un consenso separato alla registrazione della riunione o alla pubblicazione di immagine e voce; se l’organizzatore prevede tali trattamenti, ne informa preventivamente gli interessati e individua una base giuridica appropriata."
         ]
       },
       {
-        "title": "8. Diritti",
+        "title": "8. Trattamenti internazionali",
         "paragraphs": [
-          "Nei casi previsti dal GDPR è possibile chiedere accesso, rettifica, cancellazione, limitazione e portabilità dei dati, nonché opporsi al trattamento fondato sul legittimo interesse. La portabilità riguarda, in particolare, i trattamenti automatizzati basati sul consenso o sul contratto.",
-          "Richieste e revoca del consenso possono essere inviate a info@vikub.com. Di regola la risposta va fornita entro un mese; le proroghe previste dal GDPR richiedono una comunicazione con le relative motivazioni.",
-          "È possibile presentare reclamo all’autorità di controllo competente, incluso il Garante per la protezione dei dati personali italiano: www.garanteprivacy.it. Non è obbligatorio contattare prima VIKUB per presentare reclamo."
+          "L’utilizzo di Google Meet e di altri servizi internet esterni può comportare trattamenti al di fuori dello Spazio economico europeo. Le informazioni Google sui trattamenti internazionali e sui meccanismi utilizzati sono disponibili su policies.google.com/privacy/frameworks.",
+          "I trasferimenti di cui è responsabile VIKUB sono consentiti solo nel rispetto del capo V GDPR: sulla base di una decisione di adeguatezza applicabile oppure delle altre garanzie necessarie, comprese le clausole contrattuali standard quando pertinenti. Informazioni sui destinatari, sui paesi di trattamento e sulle garanzie specificamente riguardanti i propri dati possono essere richieste a info@vikub.com."
         ]
       },
       {
-        "title": "9. Automazione e analisi",
+        "title": "9. Diritti dell’interessato",
         "paragraphs": [
-          "Il codice dei moduli include validazione, protezione antispam e limitazione della frequenza degli invii. Non contiene una valutazione automatizzata del progetto o una decisione sulla collaborazione con effetti giuridici o analogamente significativi. Eventuali altri processi esterni al sito devono essere verificati dal titolare.",
-          "Google Analytics viene attivato con una scelta separata nel banner di analisi, non con la casella del modulo. Il rifiuto non impedisce l’invio della richiesta. La scelta si modifica tramite «Impostazioni di analisi» nel piè di pagina. Il codice memorizza la scelta per 180 giorni: questo non è il periodo di conservazione delle richieste e non conferma le impostazioni di conservazione di Google.",
-          "Per l’analisi vanno completate le informazioni su fornitore, identificativi e cookie, conservazione effettiva e trasferimenti internazionali. Questa finestra non sostituisce la verifica dell’account Google Analytics e dei contratti con i fornitori."
+          "Alle condizioni previste dal GDPR, è possibile chiedere accesso, rettifica, cancellazione, limitazione e portabilità dei dati, nonché opporsi ai trattamenti fondati sull’interesse legittimo. La portabilità riguarda i trattamenti automatizzati basati sul consenso o su un contratto. È inoltre possibile revocare il consenso.",
+          "Le richieste vanno inviate a info@vikub.com. Il riscontro è fornito senza ingiustificato ritardo, di regola entro un mese. Se occorre una proroga fino a due ulteriori mesi nei casi previsti dal GDPR, entro il primo mese vengono comunicati la proroga e i motivi.",
+          "È possibile presentare reclamo all’autorità di controllo competente, anche al Garante per la protezione dei dati personali in Italia: www.garanteprivacy.it. Non è necessario rivolgersi prima a VIKUB per presentare reclamo."
+        ]
+      },
+      {
+        "title": "10. Servizi tecnici e analisi del sito",
+        "paragraphs": [
+          "Le pagine statiche sono ospitate su GitHub Pages, mentre i moduli inviano le richieste al gestore su vikub.com. Durante la visita, i fornitori dell’infrastruttura possono trattare dati tecnici di connessione; ciò non equivale a trasferire loro il database delle richieste.",
+          "Google Analytics viene attivato soltanto dopo un consenso separato nel banner di analisi. Il consenso nei moduli non comprende il consenso all’analisi. Il rifiuto non impedisce l’invio dei moduli; la scelta può essere modificata tramite «Impostazioni di analisi» nel footer. La scelta è ricordata nel browser per 180 giorni: non è il periodo di conservazione delle richieste o dei dati Google.",
+          "Le richieste non sono oggetto di decisioni basate esclusivamente sul trattamento automatizzato che producano effetti giuridici o analogamente significativi; la validazione dei campi e i controlli antispam non costituiscono di per sé tali decisioni."
         ]
       }
     ]

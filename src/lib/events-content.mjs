@@ -1,5 +1,5 @@
 /** Validate both approved event content formats without inventing translations.
- * RU/IT use the revised seven-item agenda; unchanged EN keeps its grouped list.
+ * RU/IT use a six-item agenda; EN keeps its grouped list without company presentations.
  * Shared by the Astro schema and the pre-build content check.
  */
 const hasText = (value) => typeof value === 'string' && value.trim().length > 0;
@@ -19,7 +19,7 @@ export function eventContentIssues(page) {
       'Новая программа не должна дублироваться старым списком и группами.');
     require(hasText(page.benefits?.subtitle), 'Нужен подзаголовок результатов семинара.');
     require(hasText(agenda.format), 'Нужен подзаголовок о формате программы.');
-    require(array(agenda.items).length === 7, 'В основной программе должно быть семь пунктов.');
+    require(array(agenda.items).length === 6, 'В основной программе должно быть шесть пунктов.');
     for (const [index, item] of array(agenda.items).entries()) {
       require(hasText(item.title), `Пункт ${index + 1}: нужен заголовок.`);
       require(typeof item.speaker === 'string', `Пункт ${index + 1}: укажите спикера или пустую строку.`);
@@ -31,10 +31,10 @@ export function eventContentIssues(page) {
       'Нужны ровно два непустых опциональных пункта.');
   } else {
     const program = array(page.program), groups = array(page.programGroups);
-    require(program.length === 8 && program.every(hasText), 'В прежней английской программе должно остаться восемь пунктов.');
+    require(program.length === 7 && program.every(hasText), 'В английской программе должно быть семь пунктов без презентаций компаний.');
     require(groups.length === 3, 'В прежней английской программе должно остаться три группы.');
     const covered = [0, ...groups.flatMap(group => array(group.indices)), program.length - 1];
-    require(covered.length === 8 && new Set(covered).size === 8 && [...covered].sort((a,b) => a-b).join(',') === '0,1,2,3,4,5,6,7',
+    require(covered.length === 7 && new Set(covered).size === 7 && [...covered].sort((a,b) => a-b).join(',') === '0,1,2,3,4,5,6',
       'Прежняя программа должна выводить каждый пункт ровно один раз.');
   }
   return issues;

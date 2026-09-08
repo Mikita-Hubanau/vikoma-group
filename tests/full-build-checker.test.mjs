@@ -50,7 +50,7 @@ async function fixturePage({ locale, kind }) {
   if (kind === 'contacts') body += blocks('contact-detail', 3) + paragraphs([page.form.responseNote, page.form.title]);
   const notice = JSON.parse(await readFile(new URL(`../src/content/pages/${locale}/contacts.json`, import.meta.url), 'utf8')).privacy;
   const privacy = `<dialog id="privacy"><h2>${escape(notice.title)}</h2><p>${escape(notice.text)}</p>`
-    + `<p data-privacy-draft>${escape(notice.reviewNote)}</p>`
+    + (notice.status !== 'published' ? `<p data-privacy-draft>${escape(notice.reviewNote)}</p>` : '')
     + paragraphs(notice.sections.flatMap(section => [section.title, ...section.paragraphs])) + '</dialog>'
     + '<a href="#privacy" data-privacy-open aria-controls="privacy">Privacy</a><script type="module" src="/scripts/privacy-dialog.js"></script>';
   return `<!doctype html><html lang="${locale}" data-design="balance"><head><title>Checker test fixture</title></head><body><main data-page="${kind}">${body}</main>${privacy}</body></html>`;
@@ -130,11 +130,12 @@ test('a 404 served at the actual home output is still a build error', async (t) 
 });
 
 const regressions = [
+  ['removed company presentations', 'ru/meropriyatiya/index.html', html => html.replace('</main>', '<p>Презентации белорусских компаний</p></main>'), /removed company presentations returned/],
   ['missing privacy dialog', 'eventi/index.html', html => html.replace(/<dialog[\s\S]*?<\/dialog>/, ''), /expected one privacy dialog/],
   ['initially open privacy dialog', 'contatti/index.html', html => html.replace('<dialog id="privacy">', '<dialog id="privacy" open>'), /must start closed/],
   ['cross-page privacy link', 'ru/meropriyatiya/index.html', html => html.replace('href="#privacy"', 'href="/ru/kontakty/#privacy"'), /privacy link must be local/],
   ['missing privacy script', 'index.html', html => html.replace('/scripts/privacy-dialog.js', '/scripts/other.js'), /privacy script missing/],
-  ['hidden privacy draft warning', 'en/events/index.html', html => html.replace('data-privacy-draft', 'data-other'), /privacy draft warning missing/],
+  ['unexpected privacy draft warning', 'en/events/index.html', html => html.replace('<dialog id="privacy">', '<dialog id="privacy"><p data-privacy-draft>Old draft warning</p>'), /unexpected privacy draft warning/],
 
   ['wrong H1', 'index.html', (html) => html.replace(/<h1>[^<]*<\/h1>/, '<h1>Wrong title</h1>'), /incorrect H1/],
   ['missing H1', 'index.html', (html) => html.replace(/<h1>[^<]*<\/h1>/, ''), /exactly one H1/],
@@ -152,7 +153,7 @@ const regressions = [
   ['missing home card', 'index.html', (html) => html.replace('<div class="service-card"></div>', ''), /service-card count/],
   ['missing services step', 'servizi/index.html', (html) => html.replace('<div class="step"></div>', ''), /step count/],
   ['missing team member', 'azienda/index.html', (html) => html.replace('<div class="person"></div>', ''), /person count/],
-  ['missing unchanged English event group', 'en/events/index.html', (html) => html.replace('<div class="program-group"></div>', ''), /program-group count/],
+  ['missing English event group', 'en/events/index.html', (html) => html.replace('<div class="program-group"></div>', ''), /program-group count/],
   ['missing main agenda item', 'eventi/index.html', (html) => html.replace('<li class="program-item">', '<li>'), /program-item count/],
   ['missing optional item', 'ru/meropriyatiya/index.html', (html) => html.replace('<li class="program-optional-item">', '<li>'), /program-optional-item count/],
   ['missing benefits subtitle', 'eventi/index.html', (html) => html.replace(/<p class="feature-section__subtitle">[^<]*<\/p>/, ''), /missing text|feature-section__subtitle count/],

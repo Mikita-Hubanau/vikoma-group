@@ -19,7 +19,6 @@
     "Opening remarks — Mario Ubaldi and Viktoria Gubanova, VIKUB",
     "Investment climate and incentives in Belarus — NAIP representatives",
     "Specific requests from Belarusian businesses across five sectors — NAIP representatives",
-    "Presentations by Belarusian companies with real needs for supplies, technologies and partnerships",
     "Legal session — sanctions risks (Italian lawyer)",
     "Tax session — taxation and international agreements (Belarusian tax specialist)",
     "Logistics and certification — practical aspects of market entry",
@@ -90,21 +89,20 @@
       "title": "Investment climate",
       "indices": [
         1,
-        2,
-        3
+        2
       ]
     },
     {
       "title": "Legal and tax matters",
       "indices": [
-        4,
-        5
+        3,
+        4
       ]
     },
     {
       "title": "Logistics, certification and payments",
       "indices": [
-        6
+        5
       ]
     }
   ]

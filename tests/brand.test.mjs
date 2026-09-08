@@ -83,12 +83,11 @@ test('favicon, device icon and sharing image have base-path safe references',()=
  }
  assert.match(base,/slogan:settings\.company\.tagline/);
 });
-test('the revised Russian programme has seven approved topics and two optional talks',()=>{
+test('the revised Russian programme has six approved topics and two optional talks',()=>{
  const e=json('src/content/pages/ru/events.json');
  assert.deepEqual(e.agenda.items.map(item=>item.title),[
   'Вступительное слово',
   'Возможности для итальянского бизнеса в Беларуси',
-  'Презентации белорусских компаний',
   'Юридический блок: санкционные риски и правовые аспекты работы',
   'Налоги и финансы: практика платежей',
   'Логистика и сертификация',

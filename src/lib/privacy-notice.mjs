@@ -12,7 +12,9 @@ export function privacyTextParts(text) {
     'info@vikub.com':'mailto:info@vikub.com',
     '+39 328 2303160':'tel:+393282303160',
     'www.garanteprivacy.it':'https://www.garanteprivacy.it/',
+    'policies.google.com/privacy':'https://policies.google.com/privacy',
+    'policies.google.com/privacy/frameworks':'https://policies.google.com/privacy/frameworks',
   };
-  return text.split(/(info@vikub\.com|\+39 328 2303160|www\.garanteprivacy\.it)/g)
+  return text.split(/(info@vikub\.com|\+39 328 2303160|www\.garanteprivacy\.it|policies\.google\.com\/privacy(?:\/frameworks)?)/g)
     .filter(Boolean).map((value) => ({ text:value, href:targets[value] || '' }));
 }

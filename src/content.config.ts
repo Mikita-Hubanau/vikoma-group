@@ -73,12 +73,12 @@ const eventsPage = defineCollection({
     formatLabel: z.string(), formatValue: z.string(), languageLabel: z.string(), languageValue: z.string(), languageNote: z.string(), costLabel: z.string(), costValue: z.string(),
     freeLabel: z.string(), audience: z.object({ title: z.string(), paragraphs: z.array(z.string()) }).strict(),
     benefits: featureGrid.extend({ subtitle: z.string().default('') }),
-    // The legacy fields remain only for the unchanged English translation.
-    programGroups: z.array(z.object({ title: z.string(), indices: z.array(z.number().int().min(0).max(7)).min(1) }).strict()).default([]),
+    // The English translation retains its grouped format, without the removed company presentations.
+    programGroups: z.array(z.object({ title: z.string(), indices: z.array(z.number().int().min(0).max(6)).min(1) }).strict()).default([]),
     programTitle: z.string(), programNote: z.string(), program: z.array(z.string()).default([]),
     agenda: z.object({
       format: z.string().min(1),
-      items: z.array(z.object({ title: z.string().min(1), speaker: z.string(), paragraphs: z.array(z.string().min(1)).min(1) }).strict()).length(7),
+      items: z.array(z.object({ title: z.string().min(1), speaker: z.string(), paragraphs: z.array(z.string().min(1)).min(1) }).strict()).length(6),
       optionalTitle: z.string().min(1), optionalItems: z.array(z.string().min(1)).length(2),
     }).strict().nullish(),
     durationLabel: z.string(), durationValue: z.string(),

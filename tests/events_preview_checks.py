@@ -53,10 +53,10 @@ class EventsPreviewChecks(unittest.TestCase):
             self.assertEqual(self.page.locator('.program-optional li').all_text_contents(), a['optionalItems'])
             self.assertEqual(self.page.locator('.program-note').inner_text(), copy['programNote'])
 
-    def test_native_numbering_seven_items_optional_outside_main_time(self):
+    def test_native_numbering_six_items_optional_outside_main_time(self):
         for locale in ROUTES:
             self.show(locale)
-            self.assertEqual(self.page.locator('ol.program-list > li').count(), 7)
+            self.assertEqual(self.page.locator('ol.program-list > li').count(), 6)
             self.assertEqual(self.page.locator('ol.program-list').evaluate('e => getComputedStyle(e).listStyleType'), 'decimal')
             self.assertEqual(self.page.locator('ol.program-list .program-optional-item').count(), 0)
             self.assertEqual(self.page.locator('.program-optional-item').count(), 2)
@@ -80,7 +80,7 @@ class EventsPreviewChecks(unittest.TestCase):
             self.show(locale)
             self.page.add_style_tag(content='html { font-size: 200% !important; }')
             self.assertTrue(self.page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'), locale)
-            self.assertEqual(self.page.locator('.program-item').count(), 7)
+            self.assertEqual(self.page.locator('.program-item').count(), 6)
 
     def test_registration_still_present_without_changed_required_fields(self):
         for locale in ROUTES:

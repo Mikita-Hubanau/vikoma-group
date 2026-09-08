@@ -34,8 +34,8 @@ for(const locale of ['it','en','ru']){
  });
  test(`${locale}: approved agenda, separate optional items and success copy`,()=>{
   const e=json(`src/content/pages/${locale}/events.json`);
-  if(locale==='en') { assert.equal(e.program.length,8);assert.equal(e.programGroups.length,3); }
-  else { assert.equal(e.agenda.items.length,7);assert.equal(e.agenda.optionalItems.length,2);assert.ok(e.agenda.optionalTitle); }
+  if(locale==='en') { assert.equal(e.program.length,7);assert.equal(e.programGroups.length,3); }
+  else { assert.equal(e.agenda.items.length,6);assert.equal(e.agenda.optionalItems.length,2);assert.ok(e.agenda.optionalTitle); }
   assert.ok(e.programNote);assert.ok(e.formatValue);assert.ok(e.registration.success.includes('3–4'));assert.ok(e.seo.description.includes('10:00'));
  });
  test(`${locale}: stale brand, payment names and old team claims are absent`,()=>{
