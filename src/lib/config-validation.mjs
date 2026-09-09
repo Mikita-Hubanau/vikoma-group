@@ -20,13 +20,18 @@ export function validateIntegrations(input) {
     throw new Error('Google Analytics: нужен Measurement ID формата G-…, а не номер ресурса.');
   }
   validateHttps(result.contactFormEndpoint, 'Адрес обработчика формы');
-  validateHttps(result.registrationUrl, 'Google Forms');
+  validateHttps(result.registrationUrl, 'Внешняя регистрация');
   validateHttps(result.registrationFormEndpoint, 'Обработчик регистрации');
   if (result.registrationUrl) {
     const url = new URL(result.registrationUrl);
-    if (!(url.hostname === 'forms.gle' && url.pathname.length > 1) &&
-        !(url.hostname === 'docs.google.com' && url.pathname.startsWith('/forms/'))) {
-      throw new Error('Регистрация: требуется ссылка Google Forms (forms.gle или docs.google.com/forms/).');
+    // Разрешены только сервисы регистрации, которыми пользуется VIKUB:
+    // Zoom (страница регистрации встречи или вебинара) и Google Forms.
+    const googleForms = (url.hostname === 'forms.gle' && url.pathname.length > 1) ||
+      (url.hostname === 'docs.google.com' && url.pathname.startsWith('/forms/'));
+    const zoom = (url.hostname === 'zoom.us' || url.hostname.endsWith('.zoom.us')) &&
+      /^\/(?:meeting|webinar)\/register\/[^/]/.test(url.pathname);
+    if (!googleForms && !zoom) {
+      throw new Error('Регистрация: требуется ссылка Zoom (zoom.us/meeting/register/…) или Google Forms.');
     }
   }
   return result;
