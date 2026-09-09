@@ -38,7 +38,7 @@
   },
   "privacy": {
     "title": "Personal data processing",
-    "text": "Notice about data supplied through the VIKUB enquiry and seminar registration forms, under Article 13 of Regulation (EU) 2016/679 (GDPR) and the Italian Personal Data Protection Code (Legislative Decree 196/2003, as amended). Version dated 8 September 2026.",
+    "text": "Notice about data supplied through the VIKUB enquiry form on this website and through seminar registration on Zoom, under Article 13 of Regulation (EU) 2016/679 (GDPR) and the Italian Personal Data Protection Code (Legislative Decree 196/2003, as amended). Version dated 9 September 2026.",
     "policyLabel": "Privacy policy",
     "policyUrl": "",
     "reviewNote": "",
@@ -54,60 +54,64 @@
       {
         "title": "2. Data processed",
         "paragraphs": [
-          "Enquiry form: name, email, phone, company, selected topic and message. Registration form: first name, last name, company, email and phone, if provided.",
-          "The forms also process language, request type, consent indication, submission date and time, IP address and browser information; registrations include the event identifier and date. Submissions are recorded in a server log and sent to VIKUB by email.",
-          "Do not include passwords, payment details, health information or other sensitive data unnecessary for your request."
+          "Enquiry form on this website: name, email, phone, company, selected topic and message. It also processes the form language, request type, consent indication, submission date and time, IP address and browser information. Submissions are recorded in a server log and sent to VIKUB by email.",
+          "Seminar registration does not take place on this website but on the Zoom registration page, which asks for first name, last name, email address, company name and sector of interest. Zoom collects this data on VIKUB’s behalf and makes it available to the host; when you join the meeting, Zoom also processes the technical information described in section 7.",
+          "Do not include passwords, payment details, health information or other sensitive data unnecessary for your request, either in the message or in the registration fields."
         ]
       },
       {
         "title": "3. Purposes and lawful bases",
         "paragraphs": [
-          "Enquiry data is used to assess your request, contact you and prepare a response. Registration data is used to organise participation in the selected seminar, send the joining link and event-related administrative messages.",
-          "For these purposes, the lawful basis is your consent under Article 6(1)(a) GDPR, given through a separate, unticked checkbox in the relevant form. Consent covers only the stated purpose. Submitting a form does not subscribe you to advertising newsletters or authorise sharing your contact details with partners for their advertising.",
+          "Enquiry data is used to assess your request, contact you and prepare a response. Registration data is used to organise participation in the seminar, send the joining link and event-related administrative messages.",
+          "For these purposes, the lawful basis is your consent under Article 6(1)(a) GDPR: in the enquiry form it is given through a separate, unticked checkbox, and for registration it is given by voluntarily submitting the Zoom form. Consent covers only the stated purpose. Submitting a form does not subscribe you to advertising newsletters or authorise sharing your contact details with partners for their advertising.",
+          "The seminar is recorded. The recording is used to send materials to participants who could not join or who ask for it, and for the organiser’s internal archive. The lawful basis is VIKUB’s legitimate interest under Article 6(1)(f) GDPR in making the seminar content available to the invited audience; your rights are safeguarded by the fact that appearing in the recording remains voluntary (see section 7).",
           "Technical data is used to operate the forms, prevent spam and protect the website on the basis of the controller’s legitimate interest under Article 6(1)(f) GDPR in maintaining a secure, reliable service, taking your rights into account. Processing necessary to meet legal obligations is based on Article 6(1)(c) GDPR."
         ]
       },
       {
         "title": "4. Providing data and withdrawing consent",
         "paragraphs": [
-          "Providing data is voluntary; there is no legal obligation to complete these forms. All displayed enquiry fields are required. Registration requires first name, last name, company and email; phone is optional. The site will not submit a form without the required fields and the consent checkbox.",
-          "You can withdraw consent at any time by writing to info@vikub.com, without affecting the lawfulness of earlier processing. Processing based on consent then stops; without necessary data, a further response or participation arrangements may not be possible. Data subject to a separate legal retention obligation is processed only within that obligation’s limits."
+          "Providing data is voluntary; there is no legal obligation to complete these forms. All displayed fields in the website enquiry form are required, and the site will not submit it without the consent checkbox. The Zoom registration form requires the fields marked on its page: first name, last name, email address, company name and sector of interest.",
+          "You can withdraw consent at any time by writing to info@vikub.com, without affecting the lawfulness of earlier processing. Processing based on consent then stops; without necessary data, a further response or participation arrangements may not be possible. Separately, you may object to processing based on legitimate interests, including use of the seminar recording. Data subject to a separate legal retention obligation is processed only within that obligation’s limits."
         ]
       },
       {
         "title": "5. Storage, access and recipients",
         "paragraphs": [
-          "VIKUB receives the submissions and stores them on internal servers used by VIKUB. Access is restricted to Mario Ubaldi and authorised VIKUB personnel, within their responsibilities and subject to confidentiality.",
-          "Website and email service providers may process data in delivering technical services; where they act on the controller’s behalf, their processing must be governed by Article 28 GDPR. Data may be disclosed to competent authorities where a lawful basis exists. Submissions are not published, and receiving a submission does not authorise sharing contact details indiscriminately with partners or speakers."
+          "VIKUB receives enquiry-form submissions and stores them on servers used by VIKUB. The registrant list and the seminar recording are held in the host’s Zoom account. Access is restricted to Mario Ubaldi and authorised VIKUB personnel, within their responsibilities and subject to confidentiality.",
+          "Zoom Communications, Inc. processes registrations, meeting content and the recording on VIKUB’s behalf as a processor; that processing is governed by Article 28 GDPR terms in Zoom’s data processing addendum. VIKUB does not upload its submission database or messages received through the website enquiry form to Zoom.",
+          "Website and email service providers may process data in delivering technical services; where they act on the controller’s behalf, their processing must be governed by Article 28 GDPR. Data may be disclosed to competent authorities where a lawful basis exists. Submissions and registrant lists are not published, and receiving them does not authorise sharing contact details indiscriminately with partners or speakers."
         ]
       },
       {
         "title": "6. Retention period",
         "paragraphs": [
           "Enquiries, registrations and related correspondence are kept for no more than 6 months from receipt of the corresponding enquiry or registration. Data is deleted earlier where the purpose has been achieved and further retention is unnecessary, or following a justified erasure request or withdrawal of consent if no other lawful basis applies.",
-          "Technical logs controlled by VIKUB are kept only as long as security requires, and no longer than 6 months from recording. At expiry, the data and copies managed by VIKUB must be deleted or irreversibly anonymised.",
+          "The seminar recording is kept for no more than 12 months from the event date, after which it is deleted along with the copies VIKUB manages. Technical logs controlled by VIKUB are kept only as long as security requires, and no longer than 6 months from recording. At expiry, the data and copies managed by VIKUB must be deleted or irreversibly anonymised.",
           "Longer retention is limited to specific information needed to comply with law or establish, exercise or defend legal claims, for the duration of the relevant obligation or dispute. If an enquiry leads to a contract, necessary contractual and accounting records are handled separately under applicable requirements. VIKUB’s period does not determine retention for external platforms’ independent processing."
         ]
       },
       {
-        "title": "7. Seminar on Google Meet",
+        "title": "7. Seminar on Zoom",
         "paragraphs": [
-          "The seminar takes place on Google Meet. VIKUB does not upload its submission database or messages received through the website forms to Google Meet; participants are sent a joining link.",
-          "When you join, Google processes data needed to operate the platform: participant name, account information if an account is used, IP address, device and connection information, and audio, video, chat and shared materials when you use those features. Your name and material shared in the meeting may be visible to other participants.",
-          "Platform processing depends on the account type and service terms. Google’s information is available at policies.google.com/privacy. Consent in the registration form is not separate consent to recording the meeting or publishing your image or voice; if such processing is planned, the organiser provides advance information and identifies an appropriate lawful basis."
+          "The seminar takes place on Zoom. Registration and delivery of the joining link happen on Zoom’s side: the link is sent to the email address given at registration.",
+          "When you join, Zoom processes data needed to operate the platform: participant name, account information if an account is used, IP address, device and connection information, and audio, video, chat and shared materials when you use those features. Your name and material shared in the meeting may be visible to other participants.",
+          "The seminar is recorded. The start of recording is announced at the beginning of the meeting and Zoom displays its recording indicator. Appearing in the recording is voluntary: to stay out of it, keep your camera and microphone off, do not write in the chat and do not share your screen — you can send questions in advance to info@vikub.com. Registration is not separate consent to publishing your image or voice; if the organiser decides to publish the recording beyond the circle of participants, advance information will be given and an appropriate lawful basis identified.",
+          "Platform processing depends on the account type and service terms. Zoom’s privacy statement: www.zoom.com/en/trust/privacy/privacy-statement/."
         ]
       },
       {
         "title": "8. International processing",
         "paragraphs": [
-          "Using Google Meet and other external internet services may involve processing outside the European Economic Area. Google’s information on international processing and relevant mechanisms is available at policies.google.com/privacy/frameworks.",
+          "Zoom Communications, Inc. is based in the United States, so using Zoom and other external internet services may involve processing outside the European Economic Area.",
+          "Since 10 July 2023 Zoom has participated in the EU–U.S. Data Privacy Framework and uses standard contractual clauses for transfers to other third countries; details are available at www.zoom.com/en/trust/gdpr/. Zoom names Workvivo Limited (Ireland) and, for the United Kingdom, ZVC UK Ltd. as its GDPR representatives; the contact address is privacy@zoom.us.",
           "Transfers for which VIKUB is responsible are permitted only in accordance with Chapter V GDPR, on the basis of an applicable adequacy decision or other necessary safeguards, including standard contractual clauses where appropriate. Information about the particular recipients, processing countries and safeguards relevant to your data can be requested at info@vikub.com."
         ]
       },
       {
         "title": "9. Your rights",
         "paragraphs": [
-          "Subject to GDPR conditions, you may request access, rectification, erasure, restriction and portability, and object to processing based on legitimate interests. Portability applies to automated processing based on consent or a contract. You may also withdraw consent.",
+          "Subject to GDPR conditions, you may request access, rectification, erasure, restriction and portability, and object to processing based on legitimate interests, including the seminar recording. Portability applies to automated processing based on consent or a contract. You may also withdraw consent.",
           "Send requests to info@vikub.com. Responses are provided without undue delay, normally within one month. If an extension of up to two further months is needed under the GDPR, you will be told about it and the reasons within the first month.",
           "You may complain to the competent supervisory authority, including Italy’s Garante per la protezione dei dati personali: www.garanteprivacy.it. Contacting VIKUB first is not a prerequisite for lodging a complaint."
         ]
@@ -115,9 +119,9 @@
       {
         "title": "10. Website technical services and analytics",
         "paragraphs": [
-          "Static pages are hosted on GitHub Pages, while forms submit to the handler on vikub.com. Infrastructure providers may process technical connection data during your visit; this does not amount to sharing the submission database with them.",
-          "Google Analytics is activated only after separate consent in the analytics banner. Form consent does not include analytics consent. Refusing analytics does not prevent form submission; your choice can be changed through “Analytics settings” in the footer. The browser remembers the choice for 180 days, which is not the retention period for submissions or Google data.",
-          "Submissions are not subject to decisions based solely on automated processing that produce legal or similarly significant effects; field validation and spam checks do not themselves constitute such decisions."
+          "The website is hosted with the provider Fornex on servers in the Netherlands (European Union), while the enquiry form submits to the handler on vikub.com. Infrastructure providers may process technical connection data during your visit; this does not amount to sharing the submission database with them.",
+          "Google Analytics is activated only after separate consent in the analytics banner. Consent given in the enquiry form or at registration does not include analytics consent. Refusing analytics does not prevent form submission; your choice can be changed through “Analytics settings” in the footer. The browser remembers the choice for 180 days, which is not the retention period for submissions or Google data.",
+          "Submissions and registrations are not subject to decisions based solely on automated processing that produce legal or similarly significant effects; field validation and spam checks do not themselves constitute such decisions."
         ]
       }
     ]
