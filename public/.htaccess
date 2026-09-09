@@ -9,6 +9,13 @@
   RewriteCond %{HTTPS} !=on
   RewriteCond %{HTTP:X-Forwarded-Proto} !https
   RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # Короткая ссылка для приглашений: vikub.com/zoom ведёт на регистрацию
+  # семинара в Zoom. Тот же адрес доступен и одной буквой — vikub.com/z,
+  # для случаев, где ссылку диктуют или набирают руками.
+  # Редирект временный (302) — адрес семинара меняется,
+  # и браузеры не должны запоминать его навсегда.
+  RewriteRule ^(zoom|z)/?$ https://us06web.zoom.us/meeting/register/a_kUzWCXT3-X-Ko5CUPpUg [R=302,L,NE]
 </IfModule>
 
 # Заголовки безопасности. Директива Options здесь не используется намеренно:
