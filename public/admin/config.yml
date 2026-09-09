@@ -1489,11 +1489,11 @@ collections:
       default: ''
       hint: Например, https://formspree.io/f/ВАШ_ID. Это публичный URL формы, не пароль и не API-ключ. Пусто = отправка отключена.
     - name: registrationUrl
-      label: Ссылка Google Forms
+      label: Ссылка внешней регистрации (Zoom или Google Forms)
       widget: string
       required: false
       default: ''
-      hint: Необязательная резервная ссылка Google Forms. Встроенная форма использует registrationFormEndpoint.
+      hint: Если заполнено, кнопки регистрации ведут на эту страницу (например, регистрация встречи в Zoom). Пусто = работает встроенная форма сайта через registrationFormEndpoint.
     - name: registrationFormEndpoint
       label: HTTPS-обработчик регистрации на семинар
       widget: string
