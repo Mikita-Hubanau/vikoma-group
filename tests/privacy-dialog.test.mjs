@@ -41,7 +41,9 @@ for (const locale of ['ru','it','en']) {
     assert.match(JSON.stringify(privacy), /Mario Ubaldi/);
     assert.match(JSON.stringify(privacy), /Fano/);
     assert.match(JSON.stringify(privacy), /6 (?:месяц|mesi|months)/);
-    assert.match(JSON.stringify(privacy), /Google Meet/);
+    assert.match(JSON.stringify(privacy), /Zoom/);
+    // Семинар переехал с Google Meet на Zoom: прежняя площадка не должна вернуться в текст.
+    assert.doesNotMatch(JSON.stringify(privacy), /Google Meet/);
     assert.doesNotMatch(JSON.stringify(privacy), /Требует заполнения|Требует подтверждения|To complete:|To confirm:/);
     assert.ok(privacyUI[locale].close);
   });
