@@ -38,7 +38,7 @@
   },
   "privacy": {
     "title": "Informativa sul trattamento dei dati personali",
-    "text": "Informativa sui dati forniti tramite i moduli di contatto e di iscrizione al seminario VIKUB, ai sensi dell’articolo 13 del Regolamento (UE) 2016/679 (GDPR) e del Codice in materia di protezione dei dati personali (D.lgs. 196/2003 e successive modifiche). Versione dell’8 settembre 2026.",
+    "text": "Informativa sui dati forniti tramite il modulo di contatto del sito VIKUB e tramite l’iscrizione al seminario su Zoom, ai sensi dell’articolo 13 del Regolamento (UE) 2016/679 (GDPR) e del Codice in materia di protezione dei dati personali (D.lgs. 196/2003 e successive modifiche). Versione del 9 settembre 2026.",
     "policyLabel": "Informativa sulla privacy",
     "policyUrl": "",
     "reviewNote": "",
@@ -54,60 +54,64 @@
       {
         "title": "2. Dati trattati",
         "paragraphs": [
-          "Modulo di contatto: nome, email, telefono, azienda, argomento selezionato e messaggio. Modulo di iscrizione: nome, cognome, azienda, email e numero di telefono, se fornito.",
-          "Sono inoltre trattati lingua del modulo, tipo di richiesta, indicazione del consenso, data e ora dell’invio, indirizzo IP e informazioni sul browser; per l’iscrizione, identificativo e data dell’evento. Le richieste sono registrate in un log sul server e trasmesse a VIKUB tramite email.",
-          "Non inserire password, dati di pagamento, informazioni sanitarie o altri dati sensibili non necessari alla richiesta."
+          "Modulo di contatto del sito: nome, email, telefono, azienda, argomento selezionato e messaggio. Sono inoltre trattati lingua del modulo, tipo di richiesta, indicazione del consenso, data e ora dell’invio, indirizzo IP e informazioni sul browser. Le richieste sono registrate in un log sul server e trasmesse a VIKUB tramite email.",
+          "L’iscrizione al seminario non avviene sul sito, ma sulla pagina di registrazione di Zoom, che richiede nome, cognome, indirizzo email, nome dell’azienda e settore di interesse. Questi dati sono raccolti da Zoom per conto di VIKUB e resi disponibili all’organizzatore; collegandosi alla riunione, Zoom tratta anche le informazioni tecniche descritte nella sezione 7.",
+          "Non inserire nel messaggio né nei campi di iscrizione password, dati di pagamento, informazioni sanitarie o altri dati sensibili non necessari alla richiesta."
         ]
       },
       {
         "title": "3. Finalità e basi giuridiche",
         "paragraphs": [
-          "I dati del modulo di contatto sono utilizzati per esaminare la richiesta, ricontattare l’interessato e fornire una risposta. I dati di iscrizione sono utilizzati per organizzare la partecipazione al seminario scelto, inviare il link di accesso e le comunicazioni organizzative relative all’evento.",
-          "Per queste finalità la base giuridica è il consenso ai sensi dell’articolo 6(1)(a) GDPR, espresso mediante una casella separata e non preselezionata nel relativo modulo. Il consenso riguarda esclusivamente la finalità indicata. L’invio del modulo non comporta l’iscrizione a newsletter pubblicitarie né il consenso alla comunicazione dei contatti ai partner per loro attività promozionali.",
+          "I dati del modulo di contatto sono utilizzati per esaminare la richiesta, ricontattare l’interessato e fornire una risposta. I dati di iscrizione sono utilizzati per organizzare la partecipazione al seminario, inviare il link di accesso e le comunicazioni organizzative relative all’evento.",
+          "Per queste finalità la base giuridica è il consenso ai sensi dell’articolo 6(1)(a) GDPR: nel modulo di contatto è espresso con una casella separata e non preselezionata, mentre per l’iscrizione è espresso con l’invio volontario del modulo Zoom. Il consenso riguarda esclusivamente la finalità indicata. L’invio del modulo non comporta l’iscrizione a newsletter pubblicitarie né il consenso alla comunicazione dei contatti ai partner per loro attività promozionali.",
+          "Il seminario viene registrato. La registrazione è utilizzata per inviare i materiali ai partecipanti che non hanno potuto collegarsi o che ne fanno richiesta e per l’archivio interno dell’organizzatore. La base giuridica è l’interesse legittimo di VIKUB ai sensi dell’articolo 6(1)(f) GDPR a rendere disponibile il contenuto del seminario al pubblico invitato; i diritti dell’interessato sono tutelati dal carattere volontario della presenza nella registrazione (si veda la sezione 7).",
           "I dati tecnici sono utilizzati per il funzionamento dei moduli, la prevenzione dello spam e la protezione del sito sulla base dell’interesse legittimo del titolare, articolo 6(1)(f) GDPR, a mantenere la sicurezza e l’affidabilità del servizio, nel rispetto dei diritti dell’interessato. I trattamenti necessari per adempiere obblighi di legge si fondano sull’articolo 6(1)(c) GDPR."
         ]
       },
       {
         "title": "4. Conferimento dei dati e revoca del consenso",
         "paragraphs": [
-          "Il conferimento dei dati è volontario e non esiste un obbligo di legge di compilare questi moduli. Nel modulo di contatto tutti i campi visualizzati sono obbligatori. Per l’iscrizione sono obbligatori nome, cognome, azienda ed email; il telefono è facoltativo. Senza compilare i campi obbligatori e selezionare la casella di consenso, il sito non invia il modulo.",
-          "Il consenso può essere revocato in qualsiasi momento scrivendo a info@vikub.com, senza pregiudicare la liceità dei trattamenti precedenti. Dopo la revoca cessano i trattamenti fondati sul consenso; senza i dati necessari potrebbe non essere possibile proseguire la risposta o organizzare la partecipazione. I dati soggetti a un autonomo obbligo legale di conservazione sono trattati solo nei relativi limiti."
+          "Il conferimento dei dati è volontario e non esiste un obbligo di legge di compilare questi moduli. Nel modulo di contatto del sito tutti i campi visualizzati sono obbligatori e senza la casella di consenso il sito non invia il modulo. Nel modulo di iscrizione Zoom sono obbligatori i campi contrassegnati sulla relativa pagina: nome, cognome, indirizzo email, nome dell’azienda e settore di interesse.",
+          "Il consenso può essere revocato in qualsiasi momento scrivendo a info@vikub.com, senza pregiudicare la liceità dei trattamenti precedenti. Dopo la revoca cessano i trattamenti fondati sul consenso; senza i dati necessari potrebbe non essere possibile proseguire la risposta o organizzare la partecipazione. È inoltre possibile opporsi ai trattamenti fondati sull’interesse legittimo, compreso l’utilizzo della registrazione del seminario. I dati soggetti a un autonomo obbligo legale di conservazione sono trattati solo nei relativi limiti."
         ]
       },
       {
         "title": "5. Conservazione, accesso e destinatari",
         "paragraphs": [
-          "Le richieste sono ricevute da VIKUB e conservate sui server interni utilizzati da VIKUB. L’accesso è riservato a Mario Ubaldi e alle persone autorizzate di VIKUB, nei limiti delle rispettive mansioni e nel rispetto della riservatezza.",
-          "Nell’ambito dei servizi tecnici del sito e della posta elettronica, i dati possono essere trattati dai relativi fornitori; quando operano per conto del titolare, il trattamento deve essere disciplinato ai sensi dell’articolo 28 GDPR. I dati possono essere comunicati alle autorità competenti in presenza di una base giuridica. Le richieste non sono pubblicate e il loro ricevimento non autorizza a comunicare i contatti indistintamente a partner o relatori."
+          "Le richieste inviate tramite il modulo di contatto sono ricevute da VIKUB e conservate sui server utilizzati da VIKUB. L’elenco degli iscritti e la registrazione del seminario si trovano nell’account Zoom dell’organizzatore. L’accesso è riservato a Mario Ubaldi e alle persone autorizzate di VIKUB, nei limiti delle rispettive mansioni e nel rispetto della riservatezza.",
+          "Zoom Communications, Inc. tratta le iscrizioni, i contenuti della riunione e la registrazione per conto di VIKUB in qualità di responsabile del trattamento; tale trattamento è disciplinato dalle condizioni previste dall’articolo 28 GDPR nell’accordo sul trattamento dei dati di Zoom. VIKUB non carica su Zoom il database delle richieste né il contenuto dei messaggi ricevuti tramite il modulo di contatto del sito.",
+          "Nell’ambito dei servizi tecnici del sito e della posta elettronica, i dati possono essere trattati dai relativi fornitori; quando operano per conto del titolare, il trattamento deve essere disciplinato ai sensi dell’articolo 28 GDPR. I dati possono essere comunicati alle autorità competenti in presenza di una base giuridica. Le richieste e gli elenchi degli iscritti non sono pubblicati e il loro ricevimento non autorizza a comunicare i contatti indistintamente a partner o relatori."
         ]
       },
       {
         "title": "6. Periodo di conservazione",
         "paragraphs": [
           "Richieste, iscrizioni e relativa corrispondenza sono conservate per non oltre 6 mesi dalla ricezione della rispettiva richiesta o iscrizione. I dati sono eliminati prima se la finalità è stata raggiunta e l’ulteriore conservazione non è necessaria, oppure a seguito di una fondata richiesta di cancellazione o di revoca del consenso, in assenza di un’altra base giuridica.",
-          "I log tecnici controllati da VIKUB sono conservati per il tempo necessario alla sicurezza, comunque non oltre 6 mesi dalla registrazione. Alla scadenza, i dati e le relative copie gestite da VIKUB devono essere cancellati o anonimizzati in modo irreversibile.",
+          "La registrazione del seminario è conservata per non oltre 12 mesi dalla data dell’evento, dopodiché è cancellata insieme alle copie gestite da VIKUB. I log tecnici controllati da VIKUB sono conservati per il tempo necessario alla sicurezza, comunque non oltre 6 mesi dalla registrazione. Alla scadenza, i dati e le relative copie gestite da VIKUB devono essere cancellati o anonimizzati in modo irreversibile.",
           "La conservazione ulteriore riguarda solo le informazioni specificamente necessarie per obblighi di legge o per accertare, esercitare o difendere un diritto, per la durata dell’obbligo o della controversia. Se dalla richiesta deriva un contratto, i documenti contrattuali e contabili necessari sono trattati separatamente secondo i requisiti applicabili. Il periodo VIKUB non determina i tempi dei trattamenti autonomi delle piattaforme esterne."
         ]
       },
       {
-        "title": "7. Seminario su Google Meet",
+        "title": "7. Seminario su Zoom",
         "paragraphs": [
-          "Il seminario si svolge tramite Google Meet. VIKUB non carica su Google Meet il database delle richieste né il contenuto dei messaggi ricevuti tramite i moduli del sito; ai partecipanti viene inviato un link di accesso.",
-          "Collegandosi alla riunione, Google tratta i dati necessari al funzionamento della piattaforma: nome del partecipante, informazioni dell’account se utilizzato, indirizzo IP, dati del dispositivo e della connessione, nonché audio, video, chat e materiali condivisi quando si utilizzano tali funzioni. Il nome e i contenuti condivisi nella riunione possono essere visibili agli altri partecipanti.",
-          "Il trattamento della piattaforma dipende dal tipo di account e dalle condizioni del servizio. Informazioni Google: policies.google.com/privacy. Il consenso nel modulo di iscrizione non costituisce un consenso separato alla registrazione della riunione o alla pubblicazione di immagine e voce; se l’organizzatore prevede tali trattamenti, ne informa preventivamente gli interessati e individua una base giuridica appropriata."
+          "Il seminario si svolge su Zoom. L’iscrizione e l’invio del link di accesso avvengono sul lato Zoom: il link viene inviato all’indirizzo email indicato in fase di iscrizione.",
+          "Collegandosi alla riunione, Zoom tratta i dati necessari al funzionamento della piattaforma: nome del partecipante, informazioni dell’account se utilizzato, indirizzo IP, dati del dispositivo e della connessione, nonché audio, video, chat e materiali condivisi quando si utilizzano tali funzioni. Il nome e i contenuti condivisi nella riunione possono essere visibili agli altri partecipanti.",
+          "Il seminario viene registrato. L’avvio della registrazione è comunicato all’inizio della riunione e Zoom mostra l’apposito indicatore. La presenza nella registrazione è volontaria: per non comparire è sufficiente non attivare videocamera e microfono, non scrivere in chat e non condividere lo schermo; le domande possono essere inviate in anticipo a info@vikub.com. L’iscrizione non costituisce un consenso separato alla pubblicazione della propria immagine e della propria voce; se l’organizzatore deciderà di pubblicare la registrazione al di fuori della cerchia dei partecipanti, ne informerà preventivamente e individuerà una base giuridica appropriata.",
+          "Il trattamento della piattaforma dipende dal tipo di account e dalle condizioni del servizio. Informativa sulla privacy di Zoom: www.zoom.com/en/trust/privacy/privacy-statement/."
         ]
       },
       {
         "title": "8. Trattamenti internazionali",
         "paragraphs": [
-          "L’utilizzo di Google Meet e di altri servizi internet esterni può comportare trattamenti al di fuori dello Spazio economico europeo. Le informazioni Google sui trattamenti internazionali e sui meccanismi utilizzati sono disponibili su policies.google.com/privacy/frameworks.",
+          "Zoom Communications, Inc. ha sede negli Stati Uniti, pertanto l’utilizzo di Zoom e di altri servizi internet esterni può comportare trattamenti al di fuori dello Spazio economico europeo.",
+          "Dal 10 luglio 2023 Zoom aderisce all’EU–U.S. Data Privacy Framework e utilizza le clausole contrattuali standard per i trasferimenti verso altri paesi terzi; le informazioni sono disponibili su www.zoom.com/en/trust/gdpr/. Come rappresentanti ai fini del GDPR Zoom indica Workvivo Limited (Irlanda) e, per il Regno Unito, ZVC UK Ltd.; l’indirizzo per le richieste è privacy@zoom.us.",
           "I trasferimenti di cui è responsabile VIKUB sono consentiti solo nel rispetto del capo V GDPR: sulla base di una decisione di adeguatezza applicabile oppure delle altre garanzie necessarie, comprese le clausole contrattuali standard quando pertinenti. Informazioni sui destinatari, sui paesi di trattamento e sulle garanzie specificamente riguardanti i propri dati possono essere richieste a info@vikub.com."
         ]
       },
       {
         "title": "9. Diritti dell’interessato",
         "paragraphs": [
-          "Alle condizioni previste dal GDPR, è possibile chiedere accesso, rettifica, cancellazione, limitazione e portabilità dei dati, nonché opporsi ai trattamenti fondati sull’interesse legittimo. La portabilità riguarda i trattamenti automatizzati basati sul consenso o su un contratto. È inoltre possibile revocare il consenso.",
+          "Alle condizioni previste dal GDPR, è possibile chiedere accesso, rettifica, cancellazione, limitazione e portabilità dei dati, nonché opporsi ai trattamenti fondati sull’interesse legittimo, compresa la registrazione del seminario. La portabilità riguarda i trattamenti automatizzati basati sul consenso o su un contratto. È inoltre possibile revocare il consenso.",
           "Le richieste vanno inviate a info@vikub.com. Il riscontro è fornito senza ingiustificato ritardo, di regola entro un mese. Se occorre una proroga fino a due ulteriori mesi nei casi previsti dal GDPR, entro il primo mese vengono comunicati la proroga e i motivi.",
           "È possibile presentare reclamo all’autorità di controllo competente, anche al Garante per la protezione dei dati personali in Italia: www.garanteprivacy.it. Non è necessario rivolgersi prima a VIKUB per presentare reclamo."
         ]
@@ -115,9 +119,9 @@
       {
         "title": "10. Servizi tecnici e analisi del sito",
         "paragraphs": [
-          "Le pagine statiche sono ospitate su GitHub Pages, mentre i moduli inviano le richieste al gestore su vikub.com. Durante la visita, i fornitori dell’infrastruttura possono trattare dati tecnici di connessione; ciò non equivale a trasferire loro il database delle richieste.",
-          "Google Analytics viene attivato soltanto dopo un consenso separato nel banner di analisi. Il consenso nei moduli non comprende il consenso all’analisi. Il rifiuto non impedisce l’invio dei moduli; la scelta può essere modificata tramite «Impostazioni di analisi» nel footer. La scelta è ricordata nel browser per 180 giorni: non è il periodo di conservazione delle richieste o dei dati Google.",
-          "Le richieste non sono oggetto di decisioni basate esclusivamente sul trattamento automatizzato che producano effetti giuridici o analogamente significativi; la validazione dei campi e i controlli antispam non costituiscono di per sé tali decisioni."
+          "Il sito è ospitato presso il provider Fornex, con server nei Paesi Bassi (Unione europea), mentre il modulo di contatto invia le richieste al gestore su vikub.com. Durante la visita, i fornitori dell’infrastruttura possono trattare dati tecnici di connessione; ciò non equivale a trasferire loro il database delle richieste.",
+          "Google Analytics viene attivato soltanto dopo un consenso separato nel banner di analisi. Il consenso nel modulo di contatto o in fase di iscrizione non comprende il consenso all’analisi. Il rifiuto non impedisce l’invio dei moduli; la scelta può essere modificata tramite «Impostazioni di analisi» nel footer. La scelta è ricordata nel browser per 180 giorni: non è il periodo di conservazione delle richieste o dei dati Google.",
+          "Le richieste e le iscrizioni non sono oggetto di decisioni basate esclusivamente sul trattamento automatizzato che producano effetti giuridici o analogamente significativi; la validazione dei campi e i controlli antispam non costituiscono di per sé tali decisioni."
         ]
       }
     ]
