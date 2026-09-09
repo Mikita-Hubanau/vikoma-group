@@ -21,7 +21,7 @@ const agenda = page.agenda;
 <BaseLayout {...page.seo} locale={locale} page="events">
  <PageHeader title={page.title} lead={page.lead} compact />
  <div class="container event-register-cta" data-event-status data-deadline={seminar.registrationDeadline} data-end={seminarEnd}>
-  <a class="btn btn--primary" href="#registration" data-registration-link data-event-open hidden={state !== 'open'}>{r.button}<Icon name="arrow" size={18} /></a>
+  <a class="btn btn--primary" href={registrationUrl || '#registration'} target={registrationUrl ? '_blank' : undefined} rel={registrationUrl ? 'noopener noreferrer' : undefined} data-registration-link data-event-open hidden={state !== 'open'}>{r.button}<Icon name="arrow" size={18} /></a>
   <span class="event-free">{page.freeLabel}</span>
  </div>
  <section class="section section--tight"><div class="container"><h2 class="visually-hidden">{page.detailsTitle}</h2><dl class="event-facts">
@@ -69,8 +69,18 @@ const agenda = page.agenda;
    <Icon name="calendar" size={36} /><h2>{r.title}</h2><p>{withDate(r.text,eventDate(locale,seminar.registrationDeadline))}</p>
    <div data-event-open hidden={state !== 'open'}>
     <p class="event-free event-free--form">{page.freeLabel}</p>
-    <RegistrationForm locale={locale} labels={r} endpoint={endpoint} />
-    {registrationUrl && <div class="registration__fallback"><a class="arrow-link" data-registration-link href={registrationUrl} target="_blank" rel="noopener noreferrer">{r.externalButton}<Icon name="arrow" size={18} /></a><p class="registration__note">{r.externalNote}</p></div>}
+    {/* Регистрацию ведёт Zoom, если ссылка задана в настройках интеграций.
+        Встроенная форма остаётся запасным путём: она включится сама, если
+        ссылку однажды очистят. */}
+    {registrationUrl ? (
+     <div class="registration__external">
+      <a class="btn btn--primary" data-registration-link href={registrationUrl} target="_blank" rel="noopener noreferrer">{r.externalButton}<Icon name="arrow" size={18} /></a>
+      <p class="registration__note">{r.externalNote}</p>
+      <p class="registration__note"><a class="link" href="#privacy" data-privacy-open aria-haspopup="dialog" aria-controls="privacy">{r.privacyLink}</a></p>
+     </div>
+    ) : (
+     <RegistrationForm locale={locale} labels={r} endpoint={endpoint} />
+    )}
    </div>
    <p class="notice" data-event-closed hidden={state !== 'closed'}>{r.closed}</p><p class="notice" data-event-ended hidden={state !== 'ended'}>{r.ended}</p>
   </aside>
@@ -110,7 +120,8 @@ const agenda = page.agenda;
  .registration > :global(svg) { color:var(--accent); margin-bottom:1.5rem; }
  .registration h2 { font-size:var(--text-xl); }
  .registration > p { margin-top:1.25rem; }
- .registration__fallback { margin-top:1.75rem; padding-top:1.25rem; border-top:1px solid var(--line); }
+ .registration__external { margin-top:1.75rem; }
+ .registration__external .btn { width:100%; justify-content:center; }
  .registration__note { margin-top:1rem; font-size:var(--text-xs); }
  .notice { font-size:var(--text-sm); background:var(--paper-2); padding:1rem; margin-top:1.5rem; border-left:2px solid var(--accent); }
  @media(min-width:52rem) { .event-content { grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:4rem; } }
