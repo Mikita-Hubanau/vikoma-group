@@ -15,7 +15,7 @@ export default defineConfig({
       const base = BASE_PATH.replace(/\/$/, '');
       const pathname = new URL(page).pathname;
       const path = (base && pathname.startsWith(base + '/') ? pathname.slice(base.length) : pathname) || '/';
-      if (/^\/(blocks|admin|it)(\/|$)/.test(path) || /\/(otrasli|settori|industries)(\/|$)/.test(path) || /\/404(\.html|\/)/.test(path)) return false;
+      if (/^\/(blocks|admin|it|webinar-)/.test(path) || /\/(otrasli|settori|industries)(\/|$)/.test(path) || /\/404(\.html|\/)/.test(path)) return false;
       return !/^\/(o-kompanii|uslugi|meropriyatiya|kontakty)\/$/.test(path);
     },
   })],
