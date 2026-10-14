@@ -1,0 +1,354 @@
+---
+// ЗАПИСЬ СЕМИНАРА 1 ОКТЯБРЯ 2026 ГОДА.
+//
+// Страница живёт по прямой ссылке: в меню её нет, в карте сайта нет,
+// от поисковиков закрыта. Адрес с датой — чтобы следующая запись легла
+// рядом, а не поверх этой.
+//
+// ГДЕ ЛЕЖАТ САМИ ВИДЕО
+// Не в проекте. Два файла загружаются на хостинг вручную, в папку
+//     public_html/vikub.com/media/webinar-2026-10/
+// под именами it.mp4 и ru.mp4. Они весят около двух гигабайт, поэтому
+// в репозитории их нет и сборка их не трогает. Если когда-нибудь будете
+// заливать сайт «начисто» (удалить всё и распаковать заново) — эту папку
+// надо сохранить и вернуть на место, иначе запись пропадёт.
+//
+// Необязательный кадр-обложка: poster.jpg в той же папке. Пока его нет,
+// браузер покажет первый кадр самой записи.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPage } from '../lib/content';
+import { eventDate } from '../lib/seminar';
+import { asset } from '../lib/url';
+
+const BASE = '/media/webinar-2026-10/';
+const sources = { it: asset(`${BASE}it.mp4`), ru: asset(`${BASE}ru.mp4`) };
+const poster = asset(`${BASE}poster.jpg`);
+
+// Заголовок берём из тех же текстов, что и страница «Мероприятия»:
+// поправят название семинара в редакторе — поправится и здесь.
+const { data: itPage } = await getPage('eventsPage', 'it');
+const { data: ruPage } = await getPage('eventsPage', 'ru');
+
+const copy = {
+  it: {
+    title: itPage.title,
+    meta: `Registrazione del seminario · ${eventDate('it')}`,
+    switchLabel: 'Lingua della registrazione',
+    hint: 'Il file è grande: con la rete mobile conviene passare al Wi-Fi.',
+    back: 'Vai al sito',
+    privacy: 'Trattamento dei dati personali',
+  },
+  ru: {
+    title: ruPage.title,
+    meta: `Запись семинара · ${eventDate('ru')}`,
+    switchLabel: 'Язык записи',
+    hint: 'Файл большой — на мобильном интернете лучше включить Wi-Fi.',
+    back: 'На сайт',
+    privacy: 'Обработка персональных данных',
+  },
+} as const;
+
+const seo = {
+  title: 'VIKUB — registrazione del seminario / запись семинара',
+  description: 'Registrazione del seminario VIKUB del 1 ottobre 2026 in italiano e in russo.',
+};
+---
+
+<BaseLayout title={seo.title} description={seo.description} locale="it" noindex={true} bare={true}>
+  <div class="wv">
+    <header class="wv__top">
+      <a class="wv__brand" href={asset('/')} aria-label="VIKUB">
+        <img src={asset('/brand/vikub-on-dark.svg')} alt="VIKUB" width="112" height="25" />
+      </a>
+      <a class="wv__back" href={asset('/')} data-t="back">{copy.it.back}</a>
+    </header>
+
+    <main class="wv__main">
+      <h1 class="wv__title" data-t="title">{copy.it.title}</h1>
+      <p class="wv__meta" data-t="meta">{copy.it.meta}</p>
+
+      <div class="wv__langs" role="group" aria-label={copy.it.switchLabel} data-switch>
+        <span class="wv__thumb" aria-hidden="true"></span>
+        <button type="button" class="wv__lang" data-lang="it" aria-pressed="true">Italiano</button>
+        <button type="button" class="wv__lang" data-lang="ru" aria-pressed="false">Русский</button>
+      </div>
+
+      <div class="wv__screen">
+        <video
+          class="wv__video"
+          data-video
+          src={sources.it}
+          poster={poster}
+          controls
+          playsinline
+          preload="metadata"
+          controlslist="nodownload"
+        ></video>
+      </div>
+
+      <p class="wv__hint" data-t="hint">{copy.it.hint}</p>
+
+      <noscript>
+        <p class="wv__hint">
+          <a href={sources.ru}>Русская версия записи</a>
+        </p>
+      </noscript>
+    </main>
+
+    <footer class="wv__foot">
+      <a href="mailto:info@vikub.com">info@vikub.com</a>
+      <a href="#privacy" data-privacy-open aria-haspopup="dialog" aria-controls="privacy" data-t="privacy"
+        >{copy.it.privacy}</a
+      >
+    </footer>
+  </div>
+
+<script is:inline define:vars={{ sources, copy }}>
+  (() => {
+    const root = document.querySelector('.wv');
+    if (!root) return;
+    const video = root.querySelector('[data-video]');
+    const buttons = [...root.querySelectorAll('[data-lang]')];
+    const STORE = 'vikub-webinar-2026-10';
+    let lang = 'it';
+
+    // Что человек успел посмотреть — помним только в его браузере,
+    // чтобы при возврате продолжить с того же места. На сервер не уходит.
+    const load = () => {
+      try {
+        return JSON.parse(localStorage.getItem(STORE) || '{}') || {};
+      } catch {
+        return {};
+      }
+    };
+    const save = (patch) => {
+      try {
+        localStorage.setItem(STORE, JSON.stringify({ ...load(), ...patch }));
+      } catch {
+        /* приватный режим — просто не запоминаем */
+      }
+    };
+
+    const paint = () => {
+      const t = copy[lang];
+      root.querySelectorAll('[data-t]').forEach((el) => {
+        const key = el.dataset.t;
+        if (t[key]) el.textContent = t[key];
+      });
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+      const group = root.querySelector('[data-switch]');
+      if (group) group.setAttribute('aria-label', t.switchLabel);
+      root.dataset.lang = lang;
+      document.documentElement.lang = lang;
+    };
+
+    // Переключение языка не сбрасывает просмотр: обе записи — один и тот же
+    // семинар, поэтому место воспроизведения переносится один в один.
+    const switchTo = (next) => {
+      if (next === lang || !sources[next]) return;
+      const at = video.currentTime;
+      const wasPlaying = !video.paused && !video.ended;
+      lang = next;
+      paint();
+      video.pause();
+      video.src = sources[next];
+      video.load();
+      video.addEventListener(
+        'loadedmetadata',
+        () => {
+          if (at > 0 && at < video.duration) video.currentTime = at;
+          if (wasPlaying) video.play().catch(() => {});
+        },
+        { once: true },
+      );
+      save({ lang: next });
+    };
+
+    buttons.forEach((b) => b.addEventListener('click', () => switchTo(b.dataset.lang)));
+
+    // Первый выбор: что человек смотрел раньше, иначе — язык его браузера.
+    const saved = load();
+    const guess = (navigator.languages || [navigator.language || ''])
+      .map((c) => String(c).slice(0, 2).toLowerCase())
+      .find((c) => c === 'ru' || c === 'it');
+    const start = sources[saved.lang] ? saved.lang : guess === 'ru' ? 'ru' : 'it';
+    if (start !== 'it') {
+      lang = start;
+      paint();
+      video.src = sources[start];
+      video.load();
+    }
+
+    const resume = Number(saved.time) || 0;
+    if (resume > 30) {
+      video.addEventListener(
+        'loadedmetadata',
+        () => {
+          if (resume < video.duration - 10) video.currentTime = resume;
+        },
+        { once: true },
+      );
+    }
+
+    let last = 0;
+    video.addEventListener('timeupdate', () => {
+      const now = Date.now();
+      if (now - last < 5000) return;
+      last = now;
+      save({ time: video.currentTime, lang });
+    });
+    addEventListener('pagehide', () => save({ time: video.currentTime, lang }));
+  })();
+</script>
+</BaseLayout>
+
+<style>
+  .wv {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.25rem clamp(1rem, 4vw, 2.5rem) 2rem;
+    background: var(--ink);
+    color: #f5f5f5;
+  }
+
+  .wv__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .wv__brand img {
+    display: block;
+    height: 25px;
+    width: auto;
+  }
+  .wv__back,
+  .wv__foot a {
+    color: #b9b4ab;
+    font-size: var(--text-sm);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .wv__back:hover,
+  .wv__foot a:hover {
+    color: #f5f5f5;
+    border-bottom-color: #b78c42;
+  }
+
+  .wv__main {
+    flex: 1;
+    width: 100%;
+    max-width: 68rem;
+    margin-inline: auto;
+  }
+
+  .wv__title {
+    font-size: clamp(1.4rem, 1.1rem + 1.6vw, 2.1rem);
+    line-height: 1.25;
+    color: #f5f5f5;
+    margin: 0;
+  }
+  .wv__meta {
+    margin-top: 0.6rem;
+    font-size: var(--text-sm);
+    color: #b9b4ab;
+  }
+
+  /* Переключатель языка: две кнопки и подложка, которая к ним едет. */
+  .wv__langs {
+    position: relative;
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin: 1.5rem 0 1rem;
+    padding: 4px;
+    border: 1px solid #2c3540;
+    border-radius: 999px;
+    background: #161f29;
+  }
+  .wv__thumb {
+    position: absolute;
+    inset: 4px 50% 4px 4px;
+    border-radius: 999px;
+    background: #b78c42;
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .wv[data-lang='ru'] .wv__thumb {
+    transform: translateX(100%);
+  }
+  .wv__lang {
+    position: relative;
+    z-index: 1;
+    appearance: none;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    font: inherit;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: #b9b4ab;
+    padding: 0.6rem 1.5rem;
+    border-radius: 999px;
+    min-height: 44px;
+    transition: color 0.2s;
+  }
+  .wv__lang[aria-pressed='true'] {
+    color: #101820;
+  }
+  .wv__lang:focus-visible {
+    outline: 2px solid #f5f5f5;
+    outline-offset: 2px;
+  }
+
+  .wv__screen {
+    background: #000;
+    border: 1px solid #2c3540;
+    overflow: hidden;
+  }
+  .wv__video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+
+  .wv__hint {
+    margin-top: 1rem;
+    font-size: var(--text-xs);
+    color: #8d949d;
+  }
+  .wv__hint a {
+    color: #b9b4ab;
+  }
+
+  .wv__foot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.75rem;
+    justify-content: center;
+    padding-top: 1rem;
+    border-top: 1px solid #202a35;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wv__thumb {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 36rem) {
+    .wv {
+      padding-inline: 0.85rem;
+    }
+    .wv__langs {
+      display: grid;
+      width: 100%;
+    }
+    .wv__lang {
+      padding-inline: 0.5rem;
+    }
+  }
+</style>
