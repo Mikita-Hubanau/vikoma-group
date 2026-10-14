@@ -31,6 +31,12 @@ interface Props {
   page?: RouteKey;
   /** true — закрыть страницу от поисковиков (служебные страницы) */
   noindex?: boolean;
+  /**
+   * true — страница без общей шапки и подвала.
+   * Для отдельных страниц по прямой ссылке: меню там не нужно,
+   * а свой заголовок страница рисует сама.
+   */
+  bare?: boolean;
 }
 
 const {
@@ -40,6 +46,7 @@ const {
   locale = defaultLocale,
   page = 'home',
   noindex = false,
+  bare = false,
 } = Astro.props;
 
 const settings = await getSettings(locale);
@@ -121,11 +128,11 @@ const organization = JSON.stringify({
 
   <body>
     <a class="skip-link" href="#main">{t.skipToContent}</a>
-    <Header locale={locale} page={page} />
+    {!bare && <Header locale={locale} page={page} />}
     <main id="main" tabindex="-1" data-page={page}>
       <slot />
     </main>
-    <Footer locale={locale} analyticsEnabled={!noindex} />
+    {!bare && <Footer locale={locale} analyticsEnabled={!noindex} />}
     <PrivacyDialog locale={locale} />
     {!noindex && <Analytics locale={locale} />}
     {(page === 'home' || page === 'events') && !noindex && <script is:inline type="module" src={asset('/scripts/event-state.js')}></script>}
