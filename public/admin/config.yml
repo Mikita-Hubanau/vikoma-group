@@ -835,6 +835,17 @@ collections:
       label: Надзаголовок
       i18n: true
       widget: string
+    - name: recording
+      label: Запись семинара
+      i18n: true
+      widget: object
+      required: false
+      fields:
+      - name: caption
+        label: Подпись под заголовком
+        i18n: true
+        widget: string
+        hint: 'Подпись к видеозаписи на странице. Сам файл записи лежит на сервере, через редактор он не меняется.'
     - name: detailsTitle
       label: Заголовок информации о семинаре
       i18n: true
