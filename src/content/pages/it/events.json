@@ -2,6 +2,9 @@
   "title": "Bielorussia: una finestra strategica sull’Eurasia per le imprese italiane",
   "lead": "Aiutiamo le imprese italiane a comprendere i mercati, trovare partner e valutare i rischi — prima di prendere una decisione.",
   "eyebrow": "Eventi",
+  "recording": {
+    "caption": "Estratti della registrazione del webinar del 1° ottobre 2026"
+  },
   "detailsTitle": "Informazioni sul seminario",
   "dateLabel": "Data",
   "timeLabel": "Orario",
@@ -25,7 +28,7 @@
     "externalButton": "Iscrizione su Zoom",
     "unavailable": "Le iscrizioni non sono ancora attive. Il modulo sarà disponibile dopo l’attivazione da parte degli organizzatori.",
     "closed": "Le iscrizioni a questo seminario sono chiuse.",
-    "ended": "Il seminario si è concluso.",
+    "ended": "Il seminario si è concluso. La registrazione è disponibile qui sopra.",
     "firstName": "Nome",
     "lastName": "Cognome",
     "company": "Azienda",

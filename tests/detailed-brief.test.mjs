@@ -68,7 +68,9 @@ test('whitespace-only text and invalid phone strings are rejected',()=>{
 });
 test('event CTA is paired with two non-link free-entry labels',()=>{
  const source=read('src/views/EventsView.astro');
- assert.match(source,/<span class="event-free">/);
+ // Метка «участие бесплатно» — подпись, а не ссылка. Атрибуты у неё есть
+ // (показывается только пока регистрация открыта), поэтому проверяем начало тега.
+ assert.match(source,/<span class="event-free"[ >]/);
  assert.match(source,/<p class="event-free event-free--form">/);
  assert.match(source,/<PageHeader[^>]+compact/);
  assert.match(source,/audience.paragraphs.length > 0/);

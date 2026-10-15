@@ -2,6 +2,9 @@
   "title": "Belarus: a strategic gateway to Eurasia for Italian businesses",
   "lead": "We help Italian businesses understand markets, find partners and assess risks — before making a decision.",
   "eyebrow": "Events",
+  "recording": {
+    "caption": "Excerpts from the webinar recording of 1 October 2026"
+  },
   "detailsTitle": "Seminar information",
   "dateLabel": "Date",
   "timeLabel": "Time",
@@ -34,7 +37,7 @@
     "externalButton": "Register on Zoom",
     "unavailable": "Registration is not connected yet. The form will become available once the organisers enable it.",
     "closed": "Registration for this seminar is closed.",
-    "ended": "The seminar has ended.",
+    "ended": "The seminar has ended. The recording is available above.",
     "firstName": "First name",
     "lastName": "Last name",
     "company": "Company",

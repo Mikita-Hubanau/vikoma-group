@@ -9,6 +9,18 @@ import type { Locale } from '../i18n/config';
 import { getPage } from '../lib/content';
 import { getIntegrations } from '../lib/integrations';
 import { seminar, seminarEnd, eventDate, eventTime, withDate, eventState } from '../lib/seminar';
+import { asset } from '../lib/url';
+
+// ЗАПИСЬ СЕМИНАРА
+// Файл лежит только на хостинге, в public_html/vikub.com/media/webinar-2026-10/.
+// Он весит сотни мегабайт, поэтому в репозитории его нет и сборка его не трогает;
+// деплой эту папку тоже обходит стороной. Подпись к видео редактируется в CMS,
+// а блок появляется на странице сам, как только подпись заполнена.
+// Это публичный вариант — фрагменты. Полная запись живёт на закрытой странице
+// src/pages/webinar-2026-10.astro, доступной только по прямой ссылке.
+const RECORDING = '/media/webinar-2026-10/VIKUB_webinar_10_2026_public.mp4';
+const RECORDING_POSTER = '/media/webinar-2026-10/poster.jpg';
+
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
 const { data: page } = await getPage('eventsPage',locale);
@@ -22,8 +34,26 @@ const agenda = page.agenda;
  <PageHeader title={page.title} lead={page.lead} compact />
  <div class="container event-register-cta" data-event-status data-deadline={seminar.registrationDeadline} data-end={seminarEnd}>
   <a class="btn btn--primary" href={registrationUrl || '#registration'} target={registrationUrl ? '_blank' : undefined} rel={registrationUrl ? 'noopener noreferrer' : undefined} data-registration-link data-event-open hidden={state !== 'open'}>{r.button}<Icon name="arrow" size={18} /></a>
-  <span class="event-free">{page.freeLabel}</span>
+  <span class="event-free" data-event-open hidden={state !== 'open'}>{page.freeLabel}</span>
  </div>
+ {page.recording && (
+  <section class="section section--tight event-recording">
+   <div class="container">
+    <p class="event-recording__caption">{page.recording.caption}</p>
+    <div class="event-recording__screen">
+     <video
+      class="event-recording__video"
+      src={asset(RECORDING)}
+      poster={asset(RECORDING_POSTER)}
+      controls
+      playsinline
+      preload="metadata"
+      controlslist="nodownload"
+     ></video>
+    </div>
+   </div>
+  </section>
+ )}
  <section class="section section--tight"><div class="container"><h2 class="visually-hidden">{page.detailsTitle}</h2><dl class="event-facts">
   <div><dt>{page.dateLabel}</dt><dd><time datetime={seminar.startAt}>{eventDate(locale)}</time></dd></div>
   <div><dt>{page.timeLabel}</dt><dd>{eventTime(locale)}<small>{page.timeNote}</small></dd></div>
@@ -66,7 +96,11 @@ const agenda = page.agenda;
    <p class="program-note"><em>{page.programNote}</em></p>
   </div>
   <aside class="registration" id="registration" data-event-status data-deadline={seminar.registrationDeadline} data-end={seminarEnd}>
-   <Icon name="calendar" size={36} /><h2>{r.title}</h2><p>{withDate(r.text,eventDate(locale,seminar.registrationDeadline))}</p>
+   <Icon name="calendar" size={36} />
+   {/* Заголовок «Регистрация на семинар» и срок подачи нужны, только пока
+       регистрация открыта. После семинара остаётся короткая строка ниже. */}
+   <h2 data-event-open hidden={state !== 'open'}>{r.title}</h2>
+   <p data-event-open hidden={state !== 'open'}>{withDate(r.text,eventDate(locale,seminar.registrationDeadline))}</p>
    <div data-event-open hidden={state !== 'open'}>
     <p class="event-free event-free--form">{page.freeLabel}</p>
     {/* Регистрацию ведёт Zoom, если ссылка задана в настройках интеграций.
@@ -91,6 +125,10 @@ const agenda = page.agenda;
  .event-register-cta { display:flex; flex-wrap:wrap; align-items:center; gap:1rem 1.5rem; padding-top:1.75rem; }
  .event-free { display:inline-flex; align-items:center; padding:.6rem 1rem; font-size:var(--text-sm); font-weight:500; color:var(--accent); background:var(--accent-soft); border:1px solid var(--accent-light); }
  .event-free--form { margin-top:1.5rem; }
+ /* Запись семинара: подпись и сам проигрыватель */
+ .event-recording__caption { margin:0 0 1rem; font-size:var(--text-sm); color:var(--muted); }
+ .event-recording__screen { background:#000; border:1px solid var(--line); overflow:hidden; }
+ .event-recording__video { display:block; width:100%; height:auto; aspect-ratio:16/9; background:#000; }
  .event-facts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:2rem; margin:0; }
  .event-facts>div { min-width:0; border-top:1px solid var(--line); padding-top:1.25rem; }
  .event-facts dt { font-size:var(--text-xs); letter-spacing:.07em; text-transform:uppercase; color:var(--muted); margin-bottom:.75rem; }
