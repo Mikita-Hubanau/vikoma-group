@@ -69,6 +69,8 @@ const services = defineCollection({
 const eventsPage = defineCollection({
   loader: glob({ pattern: 'pages/*/events.json', base: BASE, generateId: idFromFolder }),
   schema: z.object({ seo, title: z.string(), lead: z.string(), eyebrow: z.string(),
+    // Подпись к записи семинара. Пока блока нет — страница просто без видео.
+    recording: z.object({ caption: z.string().min(1) }).strict().nullish(),
     detailsTitle: z.string(), dateLabel: z.string(), timeLabel: z.string(), timeNote: z.string(),
     formatLabel: z.string(), formatValue: z.string(), languageLabel: z.string(), languageValue: z.string(), languageNote: z.string(), costLabel: z.string(), costValue: z.string(),
     freeLabel: z.string(), audience: z.object({ title: z.string(), paragraphs: z.array(z.string()) }).strict(),
