@@ -84,13 +84,13 @@
   "seminar": {
     "eyebrow": "Online · Gratuito",
     "title": "Vi invitiamo al seminario online del {date}",
-    "archiveTitle": "Seminario online del {date}",
+    "archiveTitle": "Registrazione del seminario del {date}",
     "text": "Un seminario online gratuito per i produttori italiani: esigenze concrete delle imprese bielorusse, clima degli investimenti, rischi sanzionatori e fiscalità, logistica e certificazione.",
     "cta": {
       "label": "Dettagli e iscrizione",
       "page": "events"
     },
-    "archiveCta": "Dettagli del seminario"
+    "archiveCta": "Guarda la registrazione"
   },
   "partners": {
     "title": "I nostri partner",
