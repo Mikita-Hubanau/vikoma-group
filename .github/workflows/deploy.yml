@@ -1,0 +1,69 @@
+# Автоматическая публикация сайта на хостинг (Fornex).
+#
+# Срабатывает при каждом изменении в ветке main: собирает сайт
+# и заливает его на сервер по FTP. Заливаются только те файлы,
+# которые реально изменились, — обычно это пара секунд.
+# Ничего нажимать не нужно, правки оказываются на сайте сами.
+#
+# Запустить вручную можно на вкладке Actions в репозитории.
+#
+# Данные для входа лежат в настройках репозитория,
+# Settings → Secrets and variables → Actions:
+#   FTP_SERVER    — адрес сервера хостинга
+#   FTP_USERNAME  — логин
+#   FTP_PASSWORD  — пароль
+#
+# ЧЕГО ДЕПЛОЙ НЕ ТРОГАЕТ
+# Папку media/webinar-2026-10/ — там лежат записи семинаров,
+# они весят гигабайты и в репозитории их нет. Сюда же можно
+# дописать другие папки, которые живут только на сервере.
+
+name: Публикация на vikub.com
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Если правки идут подряд, публикуем по очереди и ничего не теряем
+concurrency:
+  group: deploy-vikub
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Сборка и публикация
+    runs-on: ubuntu-latest
+    steps:
+      - name: Забрать код
+        uses: actions/checkout@v4
+
+      - name: Поставить Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Установить зависимости
+        run: npm ci
+
+      - name: Собрать сайт
+        # Адрес сайта и ключи аналитики берутся из файлов проекта,
+        # подставлять ничего не нужно.
+        run: npm run build
+
+      - name: Залить на сервер
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: 21
+          local-dir: ./dist/
+          server-dir: public_html/vikub.com/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/media/webinar-2026-10/**
